@@ -112,6 +112,7 @@ public class Camera {
     private float Gamma;
     private int[] GammaCurve;
     private int Blacklevel;
+    private boolean AutoExposure = false;
     private GammaPreset GammaPreset;
     private float ExposureTimeEV[] = {
         4,
@@ -291,6 +292,19 @@ public class Camera {
 
     public MirrorImage GetImageFlipMode() {
         return this.ImageFlip;
+    }
+
+    public void SetAutoExposure(boolean OnOff) {
+        this.AutoExposure = OnOff;
+        if (this.AutoExposure) {
+            SetParameter(CameraParameter.AUTOEXP, 1);
+        } else {
+            SetParameter(CameraParameter.AUTOEXP, 0);
+        }
+    }
+
+    public boolean GetAutoExposure() {
+        return this.AutoExposure;
     }
 
     public void SetImageFlipMode(MirrorImage newmode) {
@@ -932,6 +946,9 @@ public class Camera {
             line += "ImageWidth=" + Integer.toString(this.GetImageWidth()) + "\n";
             line += "ImageHeight=" + Integer.toString(this.GetImageHeight()) + "\n";
             line += "Preset=";
+            if (this.GetPreset() == Preset.FULL) {
+                line += "FULL";
+            }
             if (this.GetPreset() == Preset.AMAX) {
                 line += "AMAX";
             }
@@ -947,7 +964,6 @@ public class Camera {
             line += "\n";
             line += "FPS=" + Float.toString(this.GetFPS()) + "\n";
             line += "JPEGQuality=" + Integer.toString(this.GetJPEGQuality()) + "\n";
-            line += "\n";
             line += "ColorMode=";
             if (this.GetColorMode() == ColorMode.RGB) {
                 line += "RGB";
@@ -956,6 +972,7 @@ public class Camera {
             }
             line += "\n";
             line += "Exposure=" + ExposureTimeEV[this.GetExposureIndex()] + "\n";
+            line += "AutoExposure=" + Boolean.toString(this.GetAutoExposure()) + "\n";
             line += "RecordFormat=" + this.GetRecordFormat() + "\n";
             line += "Gain=" + Float.toString(Gain[this.GetGainIndex()]) + "\n";
             line += "WB=";
@@ -1021,6 +1038,38 @@ public class Camera {
         } finally {
             output.close();
         }
+    }
+
+    public String ReadConfigFileIP(String FileName) throws FileNotFoundException {
+        File ConfigFile = new File(FileName);
+        String RetValue = null;
+
+        Scanner scanner1 = new Scanner(ConfigFile);
+        try {
+            //first use a Scanner to get each line
+            while (scanner1.hasNextLine()) {
+                //use a second Scanner to parse the content of each line
+                Scanner scanner2 = new Scanner(scanner1.nextLine());
+                scanner2.useDelimiter("=");
+                if (scanner2.hasNext()) {
+                    String name = scanner2.next();
+                    if (!scanner2.hasNext()) {
+                        break;
+                    }
+                    String value = scanner2.next();
+                    if (name.trim().equals("IP")) {
+                        RetValue = value.trim();
+                    } else {
+                        //Empty or invalid line. Unable to process
+                    }
+                    scanner2.close();
+                }
+            }
+        } finally {
+            //ensure the underlying stream is always closed
+            scanner1.close();
+        }
+        return RetValue;
     }
 
     public void ReadConfigFile(String FileName) throws FileNotFoundException {

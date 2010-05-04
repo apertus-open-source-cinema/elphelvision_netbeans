@@ -31,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
+// List of available commands: http://www1.mplayerhq.hu/DOCS/tech/slave.txt
 public class Mplayer {
 
     /** The process corresponding to MPlayer. */
@@ -168,6 +169,10 @@ public class Mplayer {
 
     protected void setProperty(String name, float value) {
         execute("set_property " + name + " " + value);
+    }
+
+    protected void ExecuteCommand(String command) {
+        execute(command, null);
     }
 
     /** Sends a command to MPlayer..

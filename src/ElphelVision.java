@@ -63,7 +63,9 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 System.exit(0);
-            };
+            }
+
+            ;
         });
 
         ElphelVision EV = new ElphelVision();
@@ -176,7 +178,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         Settings1CardLayout = new SettingsLayout(this);
         //Settings1CardLayout.init();
         Settings2CardLayout = new Settings2Layout(this);
-       // Settings2CardLayout.init();
+        // Settings2CardLayout.init();
         ResolutionSettingsCardLayout = new ResolutionSettings(this);
         //ResolutionSettingsCardLayout.init();
         FPSSettingsCardLayout = new FPSSettings(this);
@@ -206,12 +208,10 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         }
 
         Player = new Mplayer();
+    }
 
-        // turn off autoexposure by default
-        // TODO cant do that before even connecting to camera
-        //Camera.SetParameter(CameraParameter.AUTOEXP, 0);
-
-        //LoadConfigFile("autosave.cfg");
+    public void PostConnect() {
+        LoadConfigFile("autosave.cfg");
     }
 
     private void LoadConfigFile(String Filename) {
@@ -313,7 +313,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             int animateframes = (int) (delta_t / 1000 * Camera.GetFPS());
 
             CameraInfo += "Recording (frame#): " + animateframes;
-            */
+             */
 
         } else {
             CameraInfo += "STOPPED";

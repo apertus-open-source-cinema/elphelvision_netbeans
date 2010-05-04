@@ -19,10 +19,14 @@
 -----------------------------------------------------------------------------**/
 
 import java.awt.CardLayout;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ConnectLayout extends javax.swing.JPanel {
+
     ElphelVision Parent;
-    
+
     public ConnectLayout(ElphelVision parent) {
         Parent = parent;
 
@@ -35,6 +39,12 @@ public class ConnectLayout extends javax.swing.JPanel {
             });
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+
+        try {
+            CameraIP.setText(Parent.Camera.ReadConfigFileIP("autosave.cfg"));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ConnectLayout.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -163,6 +173,7 @@ public class ConnectLayout extends javax.swing.JPanel {
                 while (!Parent.Camera.InitCameraServices()) {
                     Thread.sleep(400);
                 }
+                Parent.PostConnect();
                 CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
                 cl.show(Parent.CardManager, "MainCard");
                 Parent.StartMplayerVideoStream();

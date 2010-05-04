@@ -480,7 +480,9 @@ public class MainLayout extends JPanel {
     }//GEN-LAST:event_CaptureStillActionPerformed
 
     private void zoombuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoombuttonActionPerformed
-       Parent.Player.setProperty("-zoom", 1);
+       //Parent.Player.setProperty("fullscreen", 1);
+        //Parent.Player.setProperty("fullscreen", "yes");
+        //Parent.Player.getProperty("fullscreen"); // TODO
     }//GEN-LAST:event_zoombuttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
