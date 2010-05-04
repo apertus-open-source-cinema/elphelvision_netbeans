@@ -132,20 +132,20 @@ public class MainLayout extends JPanel {
 
         bg = new javax.swing.JPanel();
         SliderPanel = new javax.swing.JPanel();
-        incvalue = new elphelvision.EButton();
+        incvalue = new EButton();
         ParameterName = new javax.swing.JLabel();
-        decvalue = new elphelvision.EButton();
+        decvalue = new EButton();
         overlay = new java.awt.Canvas();
         ParameterPanel = new javax.swing.JPanel();
-        ExposureButton = new elphelvision.EButton();
-        GainButton = new elphelvision.EButton();
-        SaveConfig = new elphelvision.EButton();
-        LoadConfig = new elphelvision.EButton();
-        SettingsButton = new elphelvision.EButton();
-        histogram = new elphelvision.Histogram();
-        CaptureStill = new elphelvision.EButton();
-        RecordButton = new elphelvision.EButton();
-        zoombutton = new elphelvision.EButton();
+        ExposureButton = new EButton();
+        GainButton = new EButton();
+        SaveConfig = new EButton();
+        LoadConfig = new EButton();
+        SettingsButton = new EButton();
+        histogram = new Histogram();
+        CaptureStill = new EButton();
+        RecordButton = new EButton();
+        zoombutton = new EButton();
         InfoPanel = new javax.swing.JPanel();
         InfoArea = new javax.swing.JLabel();
         NoticeArea = new javax.swing.JLabel();
@@ -169,9 +169,9 @@ public class MainLayout extends JPanel {
         ParameterName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ParameterName.setText("...");
 
+        decvalue.setText("-");
         decvalue.setMaximumSize(new java.awt.Dimension(23, 27));
         decvalue.setMinimumSize(new java.awt.Dimension(23, 27));
-        decvalue.setText("-");
         decvalue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 decvalueActionPerformed(evt);
@@ -200,12 +200,12 @@ public class MainLayout extends JPanel {
 
         ParameterPanel.setBackground(new java.awt.Color(0, 0, 0));
 
+        ExposureButton.setText("Shutter");
         ExposureButton.setAlignmentY(0.0F);
-        ExposureButton.setHorizontalAlignment(2);
-        ExposureButton.setHorizontalTextPosition(2);
+        ExposureButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ExposureButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         ExposureButton.setIconTextGap(0);
         ExposureButton.setMargin(new java.awt.Insets(0, 5, 0, 0));
-        ExposureButton.setText("Shutter");
         ExposureButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ExposureButtonActionPerformed(evt);
@@ -213,8 +213,8 @@ public class MainLayout extends JPanel {
         });
 
         GainButton.setAlignmentY(0.0F);
-        GainButton.setHorizontalAlignment(2);
-        GainButton.setHorizontalTextPosition(2);
+        GainButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        GainButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         GainButton.setIconTextGap(20);
         GainButton.setMargin(new java.awt.Insets(0, 5, 0, 0));
         GainButton.setText("Gain");
@@ -238,11 +238,11 @@ public class MainLayout extends JPanel {
             }
         });
 
-        SettingsButton.setAlignmentY(0.0F);
         SettingsButton.setBackground(new java.awt.Color(255, 255, 255));
-        SettingsButton.setHorizontalTextPosition(0);
-        SettingsButton.setIconTextGap(0);
         SettingsButton.setText("Settings");
+        SettingsButton.setAlignmentY(0.0F);
+        SettingsButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        SettingsButton.setIconTextGap(0);
         SettingsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SettingsButtonActionPerformed(evt);
@@ -263,9 +263,9 @@ public class MainLayout extends JPanel {
             .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        CaptureStill.setClickFeedback(true);
         CaptureStill.setForeground(new java.awt.Color(255, 0, 0));
         CaptureStill.setText("Still");
+        CaptureStill.setClickFeedback(true);
         CaptureStill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CaptureStillActionPerformed(evt);
@@ -478,24 +478,24 @@ public class MainLayout extends JPanel {
     }//GEN-LAST:event_zoombuttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private elphelvision.EButton CaptureStill;
-    private elphelvision.EButton ExposureButton;
-    private elphelvision.EButton GainButton;
+    private EButton CaptureStill;
+    private EButton ExposureButton;
+    private EButton GainButton;
     private javax.swing.JLabel InfoArea;
     private javax.swing.JPanel InfoPanel;
-    private elphelvision.EButton LoadConfig;
+    private EButton LoadConfig;
     private javax.swing.JLabel NoticeArea;
     private javax.swing.JLabel ParameterName;
     private javax.swing.JPanel ParameterPanel;
-    private elphelvision.EButton RecordButton;
-    private elphelvision.EButton SaveConfig;
-    private elphelvision.EButton SettingsButton;
+    private EButton RecordButton;
+    private EButton SaveConfig;
+    private EButton SettingsButton;
     private javax.swing.JPanel SliderPanel;
     private javax.swing.JPanel bg;
-    private elphelvision.EButton decvalue;
-    private elphelvision.Histogram histogram;
-    private elphelvision.EButton incvalue;
+    private EButton decvalue;
+    private Histogram histogram;
+    private EButton incvalue;
     private java.awt.Canvas overlay;
-    private elphelvision.EButton zoombutton;
+    private EButton zoombutton;
     // End of variables declaration//GEN-END:variables
 }

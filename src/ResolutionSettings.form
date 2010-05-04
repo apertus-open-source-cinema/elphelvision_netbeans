@@ -44,9 +44,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="DimensionsPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-                          <Component id="Binning" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="332" max="-2" attributes="0"/>
                           <Component id="RotationPanel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="MirrorPanel" min="-2" max="-2" attributes="0"/>
@@ -66,19 +64,14 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="Binning" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="DimensionsPanel" min="-2" max="-2" attributes="0"/>
-                              <Component id="MirrorPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="RotationPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="385" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
-                              <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="DimensionsPanel" min="-2" max="-2" attributes="0"/>
+                      <Component id="MirrorPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="RotationPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="385" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
+                      <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -86,165 +79,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="Binning">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="1">
-                                  <Component id="jLabel8" min="-2" pref="100" max="-2" attributes="3"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" max="32767" attributes="3"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="Binning1x1" alignment="0" max="32767" attributes="1"/>
-                                      <Component id="Binning2x2" alignment="0" min="-2" max="-2" attributes="1"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="BinningModeButtonAdditive" min="0" pref="0" max="32767" attributes="1"/>
-                                      <Component id="BinningModeButtonAverage" alignment="1" pref="94" max="32767" attributes="1"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <Component id="Binning3x3" alignment="0" min="-2" max="-2" attributes="1"/>
-                      </Group>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel8" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="Binning1x1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="BinningModeButtonAverage" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="Binning2x2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="BinningModeButtonAdditive" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="Binning3x3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel8">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="DejaVu Sans" size="12" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Binning"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel4">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="DejaVu Sans" size="12" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Binning Mode"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
-              </Properties>
-            </Component>
-            <Component class="elphelvision.EButton" name="BinningModeButtonAverage">
-              <Properties>
-                <Property name="alignmentY" type="float" value="0.0"/>
-                <Property name="horizontalTextPosition" type="int" value="2"/>
-                <Property name="iconTextGap" type="int" value="20"/>
-                <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                  <Insets value="[0, 5, 0, 0]"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Average"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BinningModeButtonAverageActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="elphelvision.EButton" name="Binning1x1">
-              <Properties>
-                <Property name="alignmentY" type="float" value="0.0"/>
-                <Property name="horizontalTextPosition" type="int" value="2"/>
-                <Property name="iconTextGap" type="int" value="20"/>
-                <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                  <Insets value="[0, 5, 0, 0]"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="1x1"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Binning1x1ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="elphelvision.EButton" name="Binning2x2">
-              <Properties>
-                <Property name="alignmentY" type="float" value="0.0"/>
-                <Property name="horizontalTextPosition" type="int" value="2"/>
-                <Property name="iconTextGap" type="int" value="20"/>
-                <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                  <Insets value="[0, 5, 0, 0]"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="2x2"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Binning2x2ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="elphelvision.EButton" name="BinningModeButtonAdditive">
-              <Properties>
-                <Property name="alignmentY" type="float" value="0.0"/>
-                <Property name="horizontalTextPosition" type="int" value="2"/>
-                <Property name="iconTextGap" type="int" value="20"/>
-                <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                  <Insets value="[0, 5, 0, 0]"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Additive"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BinningModeButtonAdditiveActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="elphelvision.EButton" name="Binning3x3">
-              <Properties>
-                <Property name="alignmentY" type="float" value="0.0"/>
-                <Property name="horizontalTextPosition" type="int" value="2"/>
-                <Property name="iconTextGap" type="int" value="20"/>
-                <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                  <Insets value="[0, 5, 0, 0]"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="3x3"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Binning3x3ActionPerformed"/>
-              </Events>
-            </Component>
-          </SubComponents>
-        </Container>
         <Container class="javax.swing.JPanel" name="NavigationPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -272,7 +106,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="SettingsMenu1Button">
+            <Component class="EButton" name="SettingsMenu1Button">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Settings Tab 1"/>
               </Properties>
@@ -280,10 +114,10 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu1ButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="ResolutionMenuButton">
+            <Component class="EButton" name="ResolutionMenuButton">
               <Properties>
-                <Property name="checked" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Resolution Menu"/>
+                <Property name="checked" type="boolean" value="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResolutionMenuButtonActionPerformed"/>
@@ -343,29 +177,29 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="elphelvision.EButton" name="FlipHorizontal">
+            <Component class="EButton" name="FlipHorizontal">
               <Properties>
+                <Property name="text" type="java.lang.String" value="horizontal"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="2"/>
                 <Property name="iconTextGap" type="int" value="20"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 5, 0, 0]"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="horizontal"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FlipHorizontalActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="FlipVertical">
+            <Component class="EButton" name="FlipVertical">
               <Properties>
+                <Property name="text" type="java.lang.String" value="vertical"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="2"/>
                 <Property name="iconTextGap" type="int" value="20"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 5, 0, 0]"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="vertical"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FlipVerticalActionPerformed"/>
@@ -414,29 +248,29 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
             </Component>
-            <Component class="elphelvision.EButton" name="OrientationLandscape">
+            <Component class="EButton" name="OrientationLandscape">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Landscape"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="2"/>
                 <Property name="iconTextGap" type="int" value="20"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 5, 0, 0]"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Landscape"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OrientationLandscapeActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="OrientationPortrait">
+            <Component class="EButton" name="OrientationPortrait">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Portrait"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="2"/>
                 <Property name="iconTextGap" type="int" value="20"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 5, 0, 0]"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Portrait"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OrientationPortraitActionPerformed"/>
@@ -471,7 +305,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="SettingsCancelButton">
+            <Component class="EButton" name="SettingsCancelButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancel"/>
               </Properties>
@@ -479,7 +313,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsCancelButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="SettingsOKButton">
+            <Component class="EButton" name="SettingsOKButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="OK"/>
               </Properties>
@@ -684,23 +518,23 @@
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
             </Component>
-            <Component class="elphelvision.EButton" name="HeightType">
+            <Component class="EButton" name="HeightType">
               <Properties>
+                <Property name="text" type="java.lang.String" value="type"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="DejaVu Sans" size="10" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="type"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HeightTypeActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="WidthType">
+            <Component class="EButton" name="WidthType">
               <Properties>
+                <Property name="text" type="java.lang.String" value="type"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="DejaVu Sans" size="10" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="type"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="WidthTypeActionPerformed"/>

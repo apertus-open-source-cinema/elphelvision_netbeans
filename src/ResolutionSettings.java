@@ -42,36 +42,10 @@ public class ResolutionSettings extends javax.swing.JPanel {
     }
 
     public void Load() {
-        switch (Parent.Camera.GetBinning()) {
-            case 1:
-                Binning1x1.setChecked(true);
-                Binning2x2.setChecked(false);
-                Binning3x3.setChecked(false);
-                break;
-            case 2:
-                Binning1x1.setChecked(false);
-                Binning2x2.setChecked(true);
-                Binning3x3.setChecked(false);
-                break;
-            case 3:
-                Binning1x1.setChecked(false);
-                Binning2x2.setChecked(false);
-                Binning3x3.setChecked(true);
-                break;
-        }
+       
         WidthField.setText(Integer.toString(Parent.Camera.GetImageWidth()));
         HeightField.setText(Integer.toString(Parent.Camera.GetImageHeight()));
 
-        switch (Parent.Camera.GetBinningMode()) {
-            case AVERAGE:
-                BinningModeButtonAverage.setChecked(true);
-                BinningModeButtonAdditive.setChecked(false);
-                break;
-            case ADDITIVE:
-                BinningModeButtonAverage.setChecked(false);
-                BinningModeButtonAdditive.setChecked(true);
-                break;
-        }
         if (Parent.Camera.GetImageOrientation() == ImageOrientation.LANDSCAPE) {
             OrientationPortrait.setChecked(false);
             OrientationLandscape.setChecked(true);
@@ -111,28 +85,20 @@ public class ResolutionSettings extends javax.swing.JPanel {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
-        Binning = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        BinningModeButtonAverage = new elphelvision.EButton();
-        Binning1x1 = new elphelvision.EButton();
-        Binning2x2 = new elphelvision.EButton();
-        BinningModeButtonAdditive = new elphelvision.EButton();
-        Binning3x3 = new elphelvision.EButton();
         NavigationPanel = new javax.swing.JPanel();
-        SettingsMenu1Button = new elphelvision.EButton();
-        ResolutionMenuButton = new elphelvision.EButton();
+        SettingsMenu1Button = new EButton();
+        ResolutionMenuButton = new EButton();
         MirrorPanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        FlipHorizontal = new elphelvision.EButton();
-        FlipVertical = new elphelvision.EButton();
+        FlipHorizontal = new EButton();
+        FlipVertical = new EButton();
         RotationPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        OrientationLandscape = new elphelvision.EButton();
-        OrientationPortrait = new elphelvision.EButton();
+        OrientationLandscape = new EButton();
+        OrientationPortrait = new EButton();
         ConfirmationPanel = new javax.swing.JPanel();
-        SettingsCancelButton = new elphelvision.EButton();
-        SettingsOKButton = new elphelvision.EButton();
+        SettingsCancelButton = new EButton();
+        SettingsOKButton = new EButton();
         DimensionsPanel = new javax.swing.JPanel();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel9 = new javax.swing.JLabel();
@@ -141,121 +107,11 @@ public class ResolutionSettings extends javax.swing.JPanel {
         CalculatedHeight = new javax.swing.JLabel();
         HeightField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        HeightType = new elphelvision.EButton();
-        WidthType = new elphelvision.EButton();
+        HeightType = new EButton();
+        WidthType = new EButton();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
-
-        Binning.setBackground(new java.awt.Color(0, 0, 0));
-
-        jLabel8.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Binning");
-        jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        jLabel4.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Binning Mode");
-        jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        BinningModeButtonAverage.setText("Average");
-        BinningModeButtonAverage.setAlignmentY(0.0F);
-        BinningModeButtonAverage.setHorizontalTextPosition(2);
-        BinningModeButtonAverage.setIconTextGap(20);
-        BinningModeButtonAverage.setMargin(new java.awt.Insets(0, 5, 0, 0));
-        BinningModeButtonAverage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BinningModeButtonAverageActionPerformed(evt);
-            }
-        });
-
-        Binning1x1.setText("1x1");
-        Binning1x1.setAlignmentY(0.0F);
-        Binning1x1.setHorizontalTextPosition(2);
-        Binning1x1.setIconTextGap(20);
-        Binning1x1.setMargin(new java.awt.Insets(0, 5, 0, 0));
-        Binning1x1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Binning1x1ActionPerformed(evt);
-            }
-        });
-
-        Binning2x2.setText("2x2");
-        Binning2x2.setAlignmentY(0.0F);
-        Binning2x2.setHorizontalTextPosition(2);
-        Binning2x2.setIconTextGap(20);
-        Binning2x2.setMargin(new java.awt.Insets(0, 5, 0, 0));
-        Binning2x2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Binning2x2ActionPerformed(evt);
-            }
-        });
-
-        BinningModeButtonAdditive.setText("Additive");
-        BinningModeButtonAdditive.setAlignmentY(0.0F);
-        BinningModeButtonAdditive.setHorizontalTextPosition(2);
-        BinningModeButtonAdditive.setIconTextGap(20);
-        BinningModeButtonAdditive.setMargin(new java.awt.Insets(0, 5, 0, 0));
-        BinningModeButtonAdditive.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BinningModeButtonAdditiveActionPerformed(evt);
-            }
-        });
-
-        Binning3x3.setText("3x3");
-        Binning3x3.setAlignmentY(0.0F);
-        Binning3x3.setHorizontalTextPosition(2);
-        Binning3x3.setIconTextGap(20);
-        Binning3x3.setMargin(new java.awt.Insets(0, 5, 0, 0));
-        Binning3x3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Binning3x3ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout BinningLayout = new javax.swing.GroupLayout(Binning);
-        Binning.setLayout(BinningLayout);
-        BinningLayout.setHorizontalGroup(
-            BinningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BinningLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(BinningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(BinningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(BinningLayout.createSequentialGroup()
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(BinningLayout.createSequentialGroup()
-                            .addGroup(BinningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(Binning1x1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Binning2x2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(12, 12, 12)
-                            .addGroup(BinningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(BinningModeButtonAdditive, 0, 0, Short.MAX_VALUE)
-                                .addComponent(BinningModeButtonAverage, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))))
-                    .addComponent(Binning3x3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-        BinningLayout.setVerticalGroup(
-            BinningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BinningLayout.createSequentialGroup()
-                .addGroup(BinningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(BinningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Binning1x1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BinningModeButtonAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(BinningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Binning2x2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BinningModeButtonAdditive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Binning3x3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         NavigationPanel.setBackground(java.awt.Color.black);
 
@@ -266,8 +122,8 @@ public class ResolutionSettings extends javax.swing.JPanel {
             }
         });
 
-        ResolutionMenuButton.setText("Resolution Menu");
         ResolutionMenuButton.setChecked(true);
+        ResolutionMenuButton.setText("Resolution Menu");
         ResolutionMenuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ResolutionMenuButtonActionPerformed(evt);
@@ -301,22 +157,22 @@ public class ResolutionSettings extends javax.swing.JPanel {
         jLabel10.setMinimumSize(new java.awt.Dimension(84, 14));
         jLabel10.setPreferredSize(new java.awt.Dimension(84, 14));
 
-        FlipHorizontal.setText("horizontal");
         FlipHorizontal.setAlignmentY(0.0F);
-        FlipHorizontal.setHorizontalTextPosition(2);
+        FlipHorizontal.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         FlipHorizontal.setIconTextGap(20);
         FlipHorizontal.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        FlipHorizontal.setText("horizontal");
         FlipHorizontal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FlipHorizontalActionPerformed(evt);
             }
         });
 
-        FlipVertical.setText("vertical");
         FlipVertical.setAlignmentY(0.0F);
-        FlipVertical.setHorizontalTextPosition(2);
+        FlipVertical.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         FlipVertical.setIconTextGap(20);
         FlipVertical.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        FlipVertical.setText("vertical");
         FlipVertical.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FlipVerticalActionPerformed(evt);
@@ -350,22 +206,22 @@ public class ResolutionSettings extends javax.swing.JPanel {
         jLabel5.setText("Orientation");
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        OrientationLandscape.setText("Landscape");
         OrientationLandscape.setAlignmentY(0.0F);
-        OrientationLandscape.setHorizontalTextPosition(2);
+        OrientationLandscape.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         OrientationLandscape.setIconTextGap(20);
         OrientationLandscape.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        OrientationLandscape.setText("Landscape");
         OrientationLandscape.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OrientationLandscapeActionPerformed(evt);
             }
         });
 
-        OrientationPortrait.setText("Portrait");
         OrientationPortrait.setAlignmentY(0.0F);
-        OrientationPortrait.setHorizontalTextPosition(2);
+        OrientationPortrait.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         OrientationPortrait.setIconTextGap(20);
         OrientationPortrait.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        OrientationPortrait.setText("Portrait");
         OrientationPortrait.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OrientationPortraitActionPerformed(evt);
@@ -560,9 +416,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(DimensionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(102, 102, 102)
-                        .addComponent(Binning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(332, 332, 332)
                         .addComponent(RotationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(MirrorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -577,16 +431,13 @@ public class ResolutionSettings extends javax.swing.JPanel {
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Binning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(DimensionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MirrorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(RotationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(385, 385, 385)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(DimensionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MirrorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RotationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(385, 385, 385)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -603,34 +454,10 @@ public class ResolutionSettings extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SettingsOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsOKButtonActionPerformed
-        if (BinningModeButtonAverage.getChecked()) {
-            Parent.Camera.SetBinningMode(BinningMode.AVERAGE);
-        }
-        if (BinningModeButtonAdditive.getChecked()) {
-            Parent.Camera.SetBinningMode(BinningMode.ADDITIVE);
-        }
-
-        if (Binning1x1.getChecked()) {
-            Parent.Camera.SetBinning(1);
-        }
-        if (Binning2x2.getChecked()) {
-            Parent.Camera.SetBinning(2);
-        }
-        if (Binning3x3.getChecked()) {
-            Parent.Camera.SetBinning(3);
-        }
-
         Parent.Camera.SetParameter(CameraParameter.SENSORWIDTH, Integer.parseInt(CalculatedWidth.getText()));
         Parent.Camera.SetParameter(CameraParameter.SENSORHEIGHT, Integer.parseInt(CalculatedHeight.getText()));
 
         Parent.Camera.SetPreset(CameraPreset.CUSTOM);
-
-        if (BinningModeButtonAverage.getChecked()) {
-            Parent.Camera.SetBinningMode(BinningMode.AVERAGE);
-        }
-        if (BinningModeButtonAdditive.getChecked()) {
-            Parent.Camera.SetBinningMode(BinningMode.ADDITIVE);
-        }
 
         if (OrientationPortrait.getChecked()) {
             Parent.Camera.SetImageOrientation(ImageOrientation.PORTRAIT);
@@ -669,58 +496,14 @@ public class ResolutionSettings extends javax.swing.JPanel {
         Parent.StartMplayerVideoStream();
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
-    private void BinningModeButtonAverageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BinningModeButtonAverageActionPerformed
-        BinningModeButtonAverage.setChecked(true);
-        BinningModeButtonAdditive.setChecked(false);
-    }//GEN-LAST:event_BinningModeButtonAverageActionPerformed
-
-    private void BinningModeButtonAdditiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BinningModeButtonAdditiveActionPerformed
-        BinningModeButtonAverage.setChecked(false);
-        BinningModeButtonAdditive.setChecked(true);
-}//GEN-LAST:event_BinningModeButtonAdditiveActionPerformed
-
-    private void Binning2x2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Binning2x2ActionPerformed
-        Binning1x1.setChecked(false);
-        Binning2x2.setChecked(true);
-        Binning3x3.setChecked(false);
-        UpdateWidthLabel();
-        UpdateHeightLabel();
-    }//GEN-LAST:event_Binning2x2ActionPerformed
-
-    private void Binning1x1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Binning1x1ActionPerformed
-        Binning1x1.setChecked(true);
-        Binning2x2.setChecked(false);
-        Binning3x3.setChecked(false);
-        UpdateWidthLabel();
-        UpdateHeightLabel();
-    }//GEN-LAST:event_Binning1x1ActionPerformed
-
-    private void Binning3x3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Binning3x3ActionPerformed
-        Binning1x1.setChecked(false);
-        Binning2x2.setChecked(false);
-        Binning3x3.setChecked(true);
-        UpdateWidthLabel();
-        UpdateHeightLabel();
-    }//GEN-LAST:event_Binning3x3ActionPerformed
-
     private void UpdateWidthLabel() {
-        int binning = 0;
-        if (Binning1x1.getChecked()) {
-            binning = 1;
-        }
-        if (Binning2x2.getChecked()) {
-            binning = 2;
-        }
-        if (Binning3x3.getChecked()) {
-            binning = 3;
-        }
         if (!WidthField.getText().isEmpty()) {
             int WidthValue = 0;
             if (OrientationPortrait.getChecked()) {
-                WidthValue = Integer.parseInt(HeightField.getText()) * binning;
+                WidthValue = Integer.parseInt(HeightField.getText());
             }
             if (OrientationLandscape.getChecked()) {
-                WidthValue = Integer.parseInt(WidthField.getText()) * binning;
+                WidthValue = Integer.parseInt(WidthField.getText());
             }
             if (WidthValue % 16 != 0) {
                 WidthValue = Math.round(WidthValue / 16) * 16;
@@ -730,23 +513,13 @@ public class ResolutionSettings extends javax.swing.JPanel {
     }
 
     private void UpdateHeightLabel() {
-        int binning = 0;
-        if (Binning1x1.getChecked()) {
-            binning = 1;
-        }
-        if (Binning2x2.getChecked()) {
-            binning = 2;
-        }
-        if (Binning3x3.getChecked()) {
-            binning = 3;
-        }
         if (!HeightField.getText().isEmpty()) {
             int HeightValue = 0;
             if (OrientationPortrait.getChecked()) {
-                HeightValue = Integer.parseInt(WidthField.getText()) * binning;
+                HeightValue = Integer.parseInt(WidthField.getText());
             }
             if (OrientationLandscape.getChecked()) {
-                HeightValue = Integer.parseInt(HeightField.getText()) * binning;
+                HeightValue = Integer.parseInt(HeightField.getText());
             }
             if (HeightValue % 16 != 0) {
                 HeightValue = Math.round(HeightValue / 16) * 16;
@@ -815,37 +588,29 @@ public class ResolutionSettings extends javax.swing.JPanel {
         cl.show(Parent.GetCardManager(), "Numberpanel");
     }//GEN-LAST:event_WidthTypeActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Binning;
-    private elphelvision.EButton Binning1x1;
-    private elphelvision.EButton Binning2x2;
-    private elphelvision.EButton Binning3x3;
-    private elphelvision.EButton BinningModeButtonAdditive;
-    private elphelvision.EButton BinningModeButtonAverage;
     private javax.swing.JLabel CalculatedHeight;
     private javax.swing.JLabel CalculatedWidth;
     private javax.swing.JPanel ConfirmationPanel;
     private javax.swing.JPanel DimensionsPanel;
-    private elphelvision.EButton FlipHorizontal;
-    private elphelvision.EButton FlipVertical;
+    private EButton FlipHorizontal;
+    private EButton FlipVertical;
     private javax.swing.JTextField HeightField;
-    private elphelvision.EButton HeightType;
+    private EButton HeightType;
     private javax.swing.JPanel MirrorPanel;
     private javax.swing.JPanel NavigationPanel;
-    private elphelvision.EButton OrientationLandscape;
-    private elphelvision.EButton OrientationPortrait;
-    private elphelvision.EButton ResolutionMenuButton;
+    private EButton OrientationLandscape;
+    private EButton OrientationPortrait;
+    private EButton ResolutionMenuButton;
     private javax.swing.JPanel RotationPanel;
-    private elphelvision.EButton SettingsCancelButton;
-    private elphelvision.EButton SettingsMenu1Button;
-    private elphelvision.EButton SettingsOKButton;
+    private EButton SettingsCancelButton;
+    private EButton SettingsMenu1Button;
+    private EButton SettingsOKButton;
     private javax.swing.JTextField WidthField;
-    private elphelvision.EButton WidthType;
+    private EButton WidthType;
     private javax.swing.JPanel bg;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables

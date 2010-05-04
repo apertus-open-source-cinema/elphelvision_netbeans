@@ -17,6 +17,7 @@
  *!
 -----------------------------------------------------------------------------**/
 
+
 import java.awt.CardLayout;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -137,28 +138,28 @@ public class Settings2Layout extends javax.swing.JPanel {
 
         bg = new javax.swing.JPanel();
         NavigationPanel = new javax.swing.JPanel();
-        SettingsMenu1Button = new elphelvision.EButton();
-        SettingsMenu2Button = new elphelvision.EButton();
+        SettingsMenu1Button = new EButton();
+        SettingsMenu2Button = new EButton();
         ConfirmationPanel = new javax.swing.JPanel();
-        SettingsOKButton = new elphelvision.EButton();
-        SettingsCancelButton = new elphelvision.EButton();
+        SettingsOKButton = new EButton();
+        SettingsCancelButton = new EButton();
         overlay = new java.awt.Canvas();
         Gamma = new javax.swing.JPanel();
-        gamma_inc = new elphelvision.EButton();
-        gamma = new elphelvision.EButton();
-        gamma_dec = new elphelvision.EButton();
+        gamma_inc = new EButton();
+        gamma = new EButton();
+        gamma_dec = new EButton();
         GammaPresets = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        gammapreset_linear = new elphelvision.EButton();
-        gammapreset_cine1 = new elphelvision.EButton();
-        gammapreset_cine2 = new elphelvision.EButton();
-        gammapreset_cines = new elphelvision.EButton();
-        gammacurve = new elphelvision.GammaCurve();
-        test = new elphelvision.EButton();
+        gammapreset_linear = new EButton();
+        gammapreset_cine1 = new EButton();
+        gammapreset_cine2 = new EButton();
+        gammapreset_cines = new EButton();
+        gammacurve = new GammaCurve();
+        test = new EButton();
         Blacklevel = new javax.swing.JPanel();
-        black_inc = new elphelvision.EButton();
-        black_level = new elphelvision.EButton();
-        black_dec = new elphelvision.EButton();
+        black_inc = new EButton();
+        black_level = new EButton();
+        black_dec = new EButton();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -571,24 +572,24 @@ public class Settings2Layout extends javax.swing.JPanel {
     private javax.swing.JPanel Gamma;
     private javax.swing.JPanel GammaPresets;
     private javax.swing.JPanel NavigationPanel;
-    private elphelvision.EButton SettingsCancelButton;
-    private elphelvision.EButton SettingsMenu1Button;
-    private elphelvision.EButton SettingsMenu2Button;
-    private elphelvision.EButton SettingsOKButton;
+    private EButton SettingsCancelButton;
+    private EButton SettingsMenu1Button;
+    private EButton SettingsMenu2Button;
+    private EButton SettingsOKButton;
     private javax.swing.JPanel bg;
-    private elphelvision.EButton black_dec;
-    private elphelvision.EButton black_inc;
-    private elphelvision.EButton black_level;
-    private elphelvision.EButton gamma;
-    private elphelvision.EButton gamma_dec;
-    private elphelvision.EButton gamma_inc;
-    private elphelvision.GammaCurve gammacurve;
-    private elphelvision.EButton gammapreset_cine1;
-    private elphelvision.EButton gammapreset_cine2;
-    private elphelvision.EButton gammapreset_cines;
-    private elphelvision.EButton gammapreset_linear;
+    private EButton black_dec;
+    private EButton black_inc;
+    private EButton black_level;
+    private EButton gamma;
+    private EButton gamma_dec;
+    private EButton gamma_inc;
+    private GammaCurve gammacurve;
+    private EButton gammapreset_cine1;
+    private EButton gammapreset_cine2;
+    private EButton gammapreset_cines;
+    private EButton gammapreset_linear;
     private javax.swing.JLabel jLabel1;
     private java.awt.Canvas overlay;
-    private elphelvision.EButton test;
+    private EButton test;
     // End of variables declaration//GEN-END:variables
 }

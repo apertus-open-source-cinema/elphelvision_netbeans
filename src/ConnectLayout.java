@@ -50,7 +50,7 @@ public class ConnectLayout extends javax.swing.JPanel {
         bg = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
         ConnectPanel = new javax.swing.JPanel();
-        ConnectButton = new elphelvision.EButton();
+        ConnectButton = new EButton();
         CameraIP = new javax.swing.JTextField();
         InfoArea1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -177,7 +177,7 @@ public class ConnectLayout extends javax.swing.JPanel {
     }//GEN-LAST:event_ConnectButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CameraIP;
-    private elphelvision.EButton ConnectButton;
+    private EButton ConnectButton;
     private javax.swing.JPanel ConnectPanel;
     private javax.swing.JTextArea ConnectionStatus;
     private javax.swing.JLabel InfoArea1;

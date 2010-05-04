@@ -122,7 +122,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="ConnectButton">
+            <Component class="EButton" name="ConnectButton">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Connect"/>

@@ -129,7 +129,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="SettingsMenu1Button">
+            <Component class="EButton" name="SettingsMenu1Button">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Settings Tab 1"/>
               </Properties>
@@ -137,7 +137,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu1ButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="SettingsMenu2Button">
+            <Component class="EButton" name="SettingsMenu2Button">
               <Properties>
                 <Property name="checked" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Settings Tab 2"/>
@@ -175,7 +175,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="SettingsOKButton">
+            <Component class="EButton" name="SettingsOKButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="OK"/>
               </Properties>
@@ -183,7 +183,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsOKButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="SettingsCancelButton">
+            <Component class="EButton" name="SettingsCancelButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancel"/>
               </Properties>
@@ -228,7 +228,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="gamma_inc">
+            <Component class="EButton" name="gamma_inc">
               <Properties>
                 <Property name="text" type="java.lang.String" value="+"/>
               </Properties>
@@ -236,7 +236,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gamma_incActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="gamma">
+            <Component class="EButton" name="gamma">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="horizontalTextPosition" type="int" value="2"/>
@@ -250,7 +250,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gammaActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="gamma_dec">
+            <Component class="EButton" name="gamma_dec">
               <Properties>
                 <Property name="text" type="java.lang.String" value="-"/>
               </Properties>
@@ -303,7 +303,7 @@
                 <Property name="text" type="java.lang.String" value="Presets"/>
               </Properties>
             </Component>
-            <Component class="elphelvision.EButton" name="gammapreset_linear">
+            <Component class="EButton" name="gammapreset_linear">
               <Properties>
                 <Property name="text" type="java.lang.String" value="linear"/>
               </Properties>
@@ -311,7 +311,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gammapreset_linearActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="gammapreset_cine1">
+            <Component class="EButton" name="gammapreset_cine1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="cine 1"/>
               </Properties>
@@ -319,7 +319,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gammapreset_cine1ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="gammapreset_cine2">
+            <Component class="EButton" name="gammapreset_cine2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="cine S"/>
               </Properties>
@@ -327,7 +327,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gammapreset_cine2ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="gammapreset_cines">
+            <Component class="EButton" name="gammapreset_cines">
               <Properties>
                 <Property name="text" type="java.lang.String" value="cine 2"/>
               </Properties>
@@ -337,7 +337,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="elphelvision.GammaCurve" name="gammacurve">
+        <Container class="GammaCurve" name="gammacurve">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
@@ -360,7 +360,7 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="elphelvision.EButton" name="test">
+        <Component class="EButton" name="test">
           <Properties>
             <Property name="text" type="java.lang.String" value="test"/>
           </Properties>
@@ -396,7 +396,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="black_inc">
+            <Component class="EButton" name="black_inc">
               <Properties>
                 <Property name="text" type="java.lang.String" value="+"/>
               </Properties>
@@ -404,7 +404,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="black_incActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="black_level">
+            <Component class="EButton" name="black_level">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="horizontalTextPosition" type="int" value="2"/>
@@ -418,7 +418,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="black_levelActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="black_dec">
+            <Component class="EButton" name="black_dec">
               <Properties>
                 <Property name="text" type="java.lang.String" value="-"/>
               </Properties>

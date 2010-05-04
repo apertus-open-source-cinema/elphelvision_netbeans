@@ -183,7 +183,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="Number1">
+            <Component class="EButton" name="Number1">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -198,7 +198,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number1ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number2">
+            <Component class="EButton" name="Number2">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -213,7 +213,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number2ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number3">
+            <Component class="EButton" name="Number3">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -228,7 +228,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number3ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number4">
+            <Component class="EButton" name="Number4">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -243,7 +243,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number4ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number5">
+            <Component class="EButton" name="Number5">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -258,7 +258,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number5ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number6">
+            <Component class="EButton" name="Number6">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -273,7 +273,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number6ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number7">
+            <Component class="EButton" name="Number7">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -288,7 +288,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number7ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number8">
+            <Component class="EButton" name="Number8">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -303,7 +303,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number8ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number9">
+            <Component class="EButton" name="Number9">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -318,7 +318,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number9ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="NumberClear">
+            <Component class="EButton" name="NumberClear">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -333,7 +333,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NumberClearActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number0">
+            <Component class="EButton" name="Number0">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -348,7 +348,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number0ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number12">
+            <Component class="EButton" name="Number12">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -363,7 +363,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number12ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number13">
+            <Component class="EButton" name="Number13">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -378,7 +378,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number13ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="NumberPlusOne">
+            <Component class="EButton" name="NumberPlusOne">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -393,7 +393,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NumberPlusOneActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number15">
+            <Component class="EButton" name="Number15">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -408,7 +408,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number15ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number16">
+            <Component class="EButton" name="Number16">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -423,7 +423,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number16ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number17">
+            <Component class="EButton" name="Number17">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -438,7 +438,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Number17ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="NumberMinusOne">
+            <Component class="EButton" name="NumberMinusOne">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -453,7 +453,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NumberMinusOneActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Number19">
+            <Component class="EButton" name="Number19">
               <Properties>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -497,7 +497,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="SettingsCancelButton">
+            <Component class="EButton" name="SettingsCancelButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancel"/>
               </Properties>
@@ -505,7 +505,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsCancelButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="SettingsOKButton">
+            <Component class="EButton" name="SettingsOKButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="OK"/>
               </Properties>

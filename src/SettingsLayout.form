@@ -145,7 +145,7 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
             </Component>
-            <Component class="elphelvision.EButton" name="Amax">
+            <Component class="EButton" name="Amax">
               <Properties>
                 <Property name="text" type="java.lang.String" value="AMAX"/>
               </Properties>
@@ -153,7 +153,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AmaxActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Cimax">
+            <Component class="EButton" name="Cimax">
               <Properties>
                 <Property name="text" type="java.lang.String" value="CIMAX"/>
               </Properties>
@@ -161,7 +161,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CimaxActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="FullHD">
+            <Component class="EButton" name="FullHD">
               <Properties>
                 <Property name="text" type="java.lang.String" value="1080p"/>
               </Properties>
@@ -169,7 +169,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FullHDActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="SmallHD">
+            <Component class="EButton" name="SmallHD">
               <Properties>
                 <Property name="text" type="java.lang.String" value="720p"/>
               </Properties>
@@ -177,7 +177,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SmallHDActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="Custom">
+            <Component class="EButton" name="Custom">
               <Properties>
                 <Property name="text" type="java.lang.String" value="custom"/>
               </Properties>
@@ -234,7 +234,7 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
             </Component>
-            <Component class="elphelvision.EButton" name="color_rbg">
+            <Component class="EButton" name="color_rbg">
               <Properties>
                 <Property name="text" type="java.lang.String" value="RBG"/>
               </Properties>
@@ -242,7 +242,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="color_rbgActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="color_jp4">
+            <Component class="EButton" name="color_jp4">
               <Properties>
                 <Property name="text" type="java.lang.String" value="JP46 RAW"/>
               </Properties>
@@ -309,7 +309,7 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
             </Component>
-            <Component class="elphelvision.EButton" name="fps24">
+            <Component class="EButton" name="fps24">
               <Properties>
                 <Property name="text" type="java.lang.String" value="24"/>
               </Properties>
@@ -317,7 +317,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fps24ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="fps25">
+            <Component class="EButton" name="fps25">
               <Properties>
                 <Property name="text" type="java.lang.String" value="25"/>
               </Properties>
@@ -325,7 +325,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fps25ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="fps30">
+            <Component class="EButton" name="fps30">
               <Properties>
                 <Property name="text" type="java.lang.String" value="30"/>
               </Properties>
@@ -333,7 +333,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fps30ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="fps50">
+            <Component class="EButton" name="fps50">
               <Properties>
                 <Property name="text" type="java.lang.String" value="50"/>
               </Properties>
@@ -341,7 +341,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fps50ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="fps60">
+            <Component class="EButton" name="fps60">
               <Properties>
                 <Property name="text" type="java.lang.String" value="60"/>
               </Properties>
@@ -349,7 +349,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fps60ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="fpscustom">
+            <Component class="EButton" name="fpscustom">
               <Properties>
                 <Property name="text" type="java.lang.String" value="custom"/>
               </Properties>
@@ -406,7 +406,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="JPEG_Plus">
+            <Component class="EButton" name="JPEG_Plus">
               <Properties>
                 <Property name="text" type="java.lang.String" value="+"/>
               </Properties>
@@ -414,7 +414,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JPEG_PlusActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="JPEGQualityButton">
+            <Component class="EButton" name="JPEGQualityButton">
               <Properties>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
@@ -429,7 +429,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JPEGQualityButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="JPEG_Minus">
+            <Component class="EButton" name="JPEG_Minus">
               <Properties>
                 <Property name="text" type="java.lang.String" value="-"/>
               </Properties>
@@ -466,7 +466,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="SettingsMenu1Button">
+            <Component class="EButton" name="SettingsMenu1Button">
               <Properties>
                 <Property name="checked" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Settings Tab 1"/>
@@ -475,7 +475,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu1ButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="SettingsMenu2Button">
+            <Component class="EButton" name="SettingsMenu2Button">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Settings Tab 2"/>
               </Properties>
@@ -512,7 +512,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="SettingsOKButton1">
+            <Component class="EButton" name="SettingsOKButton1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="OK"/>
               </Properties>
@@ -520,7 +520,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsOKButton1ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="SettingsCancelButton">
+            <Component class="EButton" name="SettingsCancelButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancel"/>
               </Properties>
@@ -584,7 +584,7 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
             </Component>
-            <Component class="elphelvision.EButton" name="WBTungsten">
+            <Component class="EButton" name="WBTungsten">
               <Properties>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -598,7 +598,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="WBTungstenActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="WBDaylight">
+            <Component class="EButton" name="WBDaylight">
               <Properties>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -612,7 +612,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="WBDaylightActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="WBFlourescent">
+            <Component class="EButton" name="WBFlourescent">
               <Properties>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -629,7 +629,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="WBFlourescentActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="WBAuto">
+            <Component class="EButton" name="WBAuto">
               <Properties>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -643,7 +643,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="WBAutoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="WBCloudy">
+            <Component class="EButton" name="WBCloudy">
               <Properties>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -657,7 +657,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="WBCloudyActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="WBCustom">
+            <Component class="EButton" name="WBCustom">
               <Properties>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -701,7 +701,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="FormatQuicktime">
+            <Component class="EButton" name="FormatQuicktime">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Quicktime"/>
               </Properties>
@@ -722,7 +722,7 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
             </Component>
-            <Component class="elphelvision.EButton" name="FormatJPEGs">
+            <Component class="EButton" name="FormatJPEGs">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Image Seq."/>
               </Properties>

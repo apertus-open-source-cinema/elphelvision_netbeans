@@ -99,7 +99,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="SettingsMenu1Button">
+            <Component class="EButton" name="SettingsMenu1Button">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Settings Tab 1"/>
               </Properties>
@@ -107,7 +107,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu1ButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="ResolutionMenuButton">
+            <Component class="EButton" name="ResolutionMenuButton">
               <Properties>
                 <Property name="checked" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="FPS Menu"/>
@@ -145,7 +145,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="elphelvision.EButton" name="SettingsCancelButton">
+            <Component class="EButton" name="SettingsCancelButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancel"/>
               </Properties>
@@ -153,7 +153,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsCancelButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="elphelvision.EButton" name="SettingsOKButton">
+            <Component class="EButton" name="SettingsOKButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="OK"/>
               </Properties>
@@ -241,7 +241,7 @@
                 <Property name="text" type="java.lang.String" value="jLabel1"/>
               </Properties>
             </Component>
-            <Component class="elphelvision.EButton" name="FPSType">
+            <Component class="EButton" name="FPSType">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="DejaVu Sans" size="10" style="0"/>
@@ -423,7 +423,7 @@
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
                 </Component>
-                <Component class="elphelvision.EButton" name="SkipFrameType">
+                <Component class="EButton" name="SkipFrameType">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="DejaVu Sans" size="10" style="0"/>
@@ -434,7 +434,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SkipFrameTypeActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="elphelvision.EButton" name="SkipSecondsType">
+                <Component class="EButton" name="SkipSecondsType">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="DejaVu Sans" size="10" style="0"/>
