@@ -50,7 +50,7 @@ public class MainLayout extends JPanel {
         ExposureButton.setValue(Parent.Camera.GetExposure());
         GainButton.setValue(Parent.Camera.GetGain());
 
-        //histogram.SetParent(Parent);
+        histogram.SetParent(Parent);
     }
 
     public void setInfoArea(String input) {
@@ -212,12 +212,12 @@ public class MainLayout extends JPanel {
             }
         });
 
+        GainButton.setText("Gain");
         GainButton.setAlignmentY(0.0F);
         GainButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         GainButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         GainButton.setIconTextGap(20);
         GainButton.setMargin(new java.awt.Insets(0, 5, 0, 0));
-        GainButton.setText("Gain");
         GainButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GainButtonActionPerformed(evt);
@@ -265,7 +265,13 @@ public class MainLayout extends JPanel {
 
         CaptureStill.setForeground(new java.awt.Color(255, 0, 0));
         CaptureStill.setText("Still");
+        CaptureStill.setAlignmentY(0.0F);
         CaptureStill.setClickFeedback(true);
+        CaptureStill.setDoubleBuffered(true);
+        CaptureStill.setFont(CaptureStill.getFont());
+        CaptureStill.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        CaptureStill.setIconTextGap(0);
+        CaptureStill.setPreferredSize(new java.awt.Dimension(10, 50));
         CaptureStill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CaptureStillActionPerformed(evt);
@@ -339,8 +345,8 @@ public class MainLayout extends JPanel {
         InfoPanel.setLayout(InfoPanelLayout);
         InfoPanelLayout.setHorizontalGroup(
             InfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(InfoArea, javax.swing.GroupLayout.DEFAULT_SIZE, 927, Short.MAX_VALUE)
-            .addComponent(NoticeArea, javax.swing.GroupLayout.DEFAULT_SIZE, 927, Short.MAX_VALUE)
+            .addComponent(InfoArea, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
+            .addComponent(NoticeArea, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
         );
         InfoPanelLayout.setVerticalGroup(
             InfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,9 +365,9 @@ public class MainLayout extends JPanel {
                 .addComponent(SliderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ParameterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(overlay, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
-                    .addComponent(InfoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(InfoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ParameterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
+                    .addComponent(overlay, javax.swing.GroupLayout.PREFERRED_SIZE, 922, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
         );
         bgLayout.setVerticalGroup(

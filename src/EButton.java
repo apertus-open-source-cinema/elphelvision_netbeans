@@ -18,7 +18,6 @@
  *!  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *!
 -----------------------------------------------------------------------------**/
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -27,6 +26,7 @@ import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
@@ -56,12 +56,14 @@ public class EButton extends JButton implements java.io.Serializable {
         this.setFocusPainted(false);
         this.ButtonColor = new Color(255, 255, 255);
         this.setForeground(ButtonColor);
+        this.setMargin(new Insets(0, 0, 0, 0));
     }
 
     public void setClickFeedback(boolean setting) {
         this.ClickFeedback = setting;
         if (setting) {
             addActionListener(new java.awt.event.ActionListener() {
+
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     ClickactionPerformed(evt);
                 }

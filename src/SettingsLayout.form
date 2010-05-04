@@ -62,7 +62,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="448" max="32767" attributes="0"/>
+                          <EmptySpace pref="447" max="32767" attributes="0"/>
                           <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
@@ -105,12 +105,28 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="Custom" alignment="0" max="32767" attributes="1"/>
-                  <Component id="jLabel1" alignment="0" pref="100" max="32767" attributes="1"/>
-                  <Component id="SmallHD" alignment="0" max="32767" attributes="0"/>
-                  <Component id="FullHD" alignment="0" max="32767" attributes="1"/>
-                  <Component id="Cimax" alignment="0" max="32767" attributes="1"/>
-                  <Component id="Amax" alignment="1" min="-2" max="-2" attributes="1"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="Custom" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="SmallHD" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="FullHD" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="Cimax" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="Amax" alignment="0" max="32767" attributes="1"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jLabel1" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="Full" alignment="0" max="32767" attributes="1"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="1" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -118,10 +134,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="Full" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="Amax" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="Cimax" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="FullHD" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="SmallHD" min="-2" max="-2" attributes="0"/>
@@ -183,6 +201,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CustomActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="EButton" name="Full">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Full"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FullActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -416,6 +442,7 @@
             </Component>
             <Component class="EButton" name="JPEGQualityButton">
               <Properties>
+                <Property name="text" type="java.lang.String" value="JPEG %"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="horizontalTextPosition" type="int" value="2"/>
@@ -423,7 +450,6 @@
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 5, 0, 0]"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="JPEG %"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JPEGQualityButtonActionPerformed"/>
@@ -468,8 +494,8 @@
           <SubComponents>
             <Component class="EButton" name="SettingsMenu1Button">
               <Properties>
-                <Property name="checked" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Settings Tab 1"/>
+                <Property name="checked" type="boolean" value="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu1ButtonActionPerformed"/>
@@ -586,13 +612,13 @@
             </Component>
             <Component class="EButton" name="WBTungsten">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Tungsten"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="iconTextGap" type="int" value="20"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 5, 0, 0]"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Tungsten"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="WBTungstenActionPerformed"/>
@@ -600,13 +626,13 @@
             </Component>
             <Component class="EButton" name="WBDaylight">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Daylight"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="iconTextGap" type="int" value="20"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 5, 0, 0]"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Daylight"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="WBDaylightActionPerformed"/>
@@ -614,16 +640,16 @@
             </Component>
             <Component class="EButton" name="WBFlourescent">
               <Properties>
-                <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Fluorescent"/>
+                <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="iconTextGap" type="int" value="20"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 5, 0, 0]"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Fluorescent"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="WBFlourescentActionPerformed"/>
@@ -631,13 +657,13 @@
             </Component>
             <Component class="EButton" name="WBAuto">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Auto"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="iconTextGap" type="int" value="20"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 5, 0, 0]"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Auto"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="WBAutoActionPerformed"/>
@@ -645,13 +671,13 @@
             </Component>
             <Component class="EButton" name="WBCloudy">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Cloudy"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="iconTextGap" type="int" value="20"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 5, 0, 0]"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cloudy"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="WBCloudyActionPerformed"/>
@@ -659,13 +685,13 @@
             </Component>
             <Component class="EButton" name="WBCustom">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Custom"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="iconTextGap" type="int" value="20"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 5, 0, 0]"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Custom"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="WBCustomActionPerformed"/>

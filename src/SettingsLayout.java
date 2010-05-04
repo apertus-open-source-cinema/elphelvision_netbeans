@@ -176,6 +176,7 @@ public class SettingsLayout extends javax.swing.JPanel {
         FullHD = new EButton();
         SmallHD = new EButton();
         Custom = new EButton();
+        Full = new EButton();
         ColorModePanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         color_rbg = new EButton();
@@ -216,7 +217,7 @@ public class SettingsLayout extends javax.swing.JPanel {
 
         ResolutionPanel.setBackground(java.awt.Color.black);
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Resolution");
@@ -257,26 +258,45 @@ public class SettingsLayout extends javax.swing.JPanel {
             }
         });
 
+        Full.setText("Full");
+        Full.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FullActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ResolutionPanelLayout = new javax.swing.GroupLayout(ResolutionPanel);
         ResolutionPanel.setLayout(ResolutionPanelLayout);
         ResolutionPanelLayout.setHorizontalGroup(
             ResolutionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Custom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-            .addComponent(SmallHD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(FullHD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Cimax, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Amax, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(ResolutionPanelLayout.createSequentialGroup()
+                .addGroup(ResolutionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ResolutionPanelLayout.createSequentialGroup()
+                        .addGroup(ResolutionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(Custom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(SmallHD, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(FullHD, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Cimax, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Amax, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(ResolutionPanelLayout.createSequentialGroup()
+                        .addGroup(ResolutionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Full, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addContainerGap(1, Short.MAX_VALUE))
         );
         ResolutionPanelLayout.setVerticalGroup(
             ResolutionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ResolutionPanelLayout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Full, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Amax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Cimax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(FullHD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SmallHD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -419,12 +439,12 @@ public class SettingsLayout extends javax.swing.JPanel {
             }
         });
 
-        JPEGQualityButton.setText("JPEG %");
         JPEGQualityButton.setAlignmentY(0.0F);
-        JPEGQualityButton.setHorizontalAlignment(2);
-        JPEGQualityButton.setHorizontalTextPosition(2);
+        JPEGQualityButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        JPEGQualityButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         JPEGQualityButton.setIconTextGap(20);
         JPEGQualityButton.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        JPEGQualityButton.setText("JPEG %");
         JPEGQualityButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JPEGQualityButtonActionPerformed(evt);
@@ -463,8 +483,8 @@ public class SettingsLayout extends javax.swing.JPanel {
 
         NavigationPanel.setBackground(java.awt.Color.black);
 
-        SettingsMenu1Button.setText("Settings Tab 1");
         SettingsMenu1Button.setChecked(true);
+        SettingsMenu1Button.setText("Settings Tab 1");
         SettingsMenu1Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SettingsMenu1ButtonActionPerformed(evt);
@@ -534,67 +554,67 @@ public class SettingsLayout extends javax.swing.JPanel {
         jLabel4.setText("White Balance");
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        WBTungsten.setText("Tungsten");
         WBTungsten.setAlignmentY(0.0F);
-        WBTungsten.setHorizontalTextPosition(0);
+        WBTungsten.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         WBTungsten.setIconTextGap(20);
         WBTungsten.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        WBTungsten.setText("Tungsten");
         WBTungsten.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WBTungstenActionPerformed(evt);
             }
         });
 
-        WBDaylight.setText("Daylight");
         WBDaylight.setAlignmentY(0.0F);
-        WBDaylight.setHorizontalTextPosition(0);
+        WBDaylight.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         WBDaylight.setIconTextGap(20);
         WBDaylight.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        WBDaylight.setText("Daylight");
         WBDaylight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WBDaylightActionPerformed(evt);
             }
         });
 
-        WBFlourescent.setBorder(null);
-        WBFlourescent.setText("Fluorescent");
         WBFlourescent.setAlignmentY(0.0F);
-        WBFlourescent.setHorizontalTextPosition(0);
+        WBFlourescent.setBorder(null);
+        WBFlourescent.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         WBFlourescent.setIconTextGap(20);
         WBFlourescent.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        WBFlourescent.setText("Fluorescent");
         WBFlourescent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WBFlourescentActionPerformed(evt);
             }
         });
 
-        WBAuto.setText("Auto");
         WBAuto.setAlignmentY(0.0F);
-        WBAuto.setHorizontalTextPosition(0);
+        WBAuto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         WBAuto.setIconTextGap(20);
         WBAuto.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        WBAuto.setText("Auto");
         WBAuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WBAutoActionPerformed(evt);
             }
         });
 
-        WBCloudy.setText("Cloudy");
         WBCloudy.setAlignmentY(0.0F);
-        WBCloudy.setHorizontalTextPosition(0);
+        WBCloudy.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         WBCloudy.setIconTextGap(20);
         WBCloudy.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        WBCloudy.setText("Cloudy");
         WBCloudy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WBCloudyActionPerformed(evt);
             }
         });
 
-        WBCustom.setText("Custom");
         WBCustom.setAlignmentY(0.0F);
-        WBCustom.setHorizontalTextPosition(0);
+        WBCustom.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         WBCustom.setIconTextGap(20);
         WBCustom.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        WBCustom.setText("Custom");
         WBCustom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WBCustomActionPerformed(evt);
@@ -696,7 +716,7 @@ public class SettingsLayout extends javax.swing.JPanel {
                         .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 448, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 447, Short.MAX_VALUE)
                         .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25))))
         );
@@ -744,8 +764,11 @@ public class SettingsLayout extends javax.swing.JPanel {
         Amax.setChecked(false);
         SmallHD.setChecked(false);
         Custom.setChecked(false);
-
+        Full.setChecked(false);
+        
+        /*
         color_rbg.setEnabled(true);
+        */
     }//GEN-LAST:event_FullHDActionPerformed
 
     private void color_jp4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_color_jp4ActionPerformed
@@ -759,10 +782,13 @@ public class SettingsLayout extends javax.swing.JPanel {
         FullHD.setChecked(false);
         SmallHD.setChecked(false);
         Custom.setChecked(false);
+        Full.setChecked(false);
 
+        /*
         color_rbg.setEnabled(false);
         color_rbg.setChecked(false);
         color_jp4.setChecked(true);
+        */
     }//GEN-LAST:event_CimaxActionPerformed
 
     private void AmaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AmaxActionPerformed
@@ -771,10 +797,13 @@ public class SettingsLayout extends javax.swing.JPanel {
         FullHD.setChecked(false);
         SmallHD.setChecked(false);
         Custom.setChecked(false);
+        Full.setChecked(false);
 
+        /*
         color_rbg.setEnabled(false);
         color_rbg.setChecked(false);
         color_jp4.setChecked(true);
+        */
     }//GEN-LAST:event_AmaxActionPerformed
 
     private void SmallHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SmallHDActionPerformed
@@ -783,8 +812,11 @@ public class SettingsLayout extends javax.swing.JPanel {
         Cimax.setChecked(false);
         FullHD.setChecked(false);
         Custom.setChecked(false);
+        Full.setChecked(false);
 
+        /*
         color_rbg.setEnabled(true);
+        */
     }//GEN-LAST:event_SmallHDActionPerformed
 
     private void color_rbgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_color_rbgActionPerformed
@@ -1014,6 +1046,16 @@ public class SettingsLayout extends javax.swing.JPanel {
         FormatQuicktime.setChecked(true);
         FormatJPEGs.setChecked(false);
     }//GEN-LAST:event_FormatQuicktimeActionPerformed
+
+    private void FullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FullActionPerformed
+        FullHD.setChecked(false);
+        Cimax.setChecked(false);
+        Amax.setChecked(false);
+        SmallHD.setChecked(false);
+        Custom.setChecked(false);
+        Full.setChecked(true);
+    }//GEN-LAST:event_FullActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton Amax;
     private EButton Cimax;
@@ -1023,6 +1065,7 @@ public class SettingsLayout extends javax.swing.JPanel {
     private javax.swing.JPanel FPSPanel;
     private EButton FormatJPEGs;
     private EButton FormatQuicktime;
+    private EButton Full;
     private EButton FullHD;
     private EButton JPEGQualityButton;
     private javax.swing.JPanel JPEGQualityPanel;

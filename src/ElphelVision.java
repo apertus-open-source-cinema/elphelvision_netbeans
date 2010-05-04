@@ -278,14 +278,14 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         }
 
         CameraInfo += "(" + Camera.GetImageWidth() + "x" + Camera.GetImageHeight() + ")";
-        CameraInfo += "     ";
+        CameraInfo += "    ";
         CameraInfo += Camera.GetFPS() + "fps";
-        CameraInfo += "     ";
+        CameraInfo += "    ";
         CameraInfo += "JPEG: " + Camera.GetImageJPEGQuality() + "%";
-        CameraInfo += "     ";
+        CameraInfo += "    ";
 
         CameraInfo += "WB: " + Camera.GetWhiteBalance().toString();
-        CameraInfo += "     ";
+        CameraInfo += "    ";
 
         if (Camera.GetRecordFormat() == RecordFormat.MOV) {
             CameraInfo += "Quicktime";
@@ -299,17 +299,21 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             CameraInfo += "JPEG Sequence";
         }
 
-        CameraInfo += "     ";
+        CameraInfo += "    ";
         CameraInfo += "HDD: " + Camera.GetFreeHDDSpace() + "% free";
-        CameraInfo += "     ";
+        CameraInfo += "    ";
         if (Camera.GetCamogmState() == CamogmState.RECORDING) {
-            //CameraInfo += "Recording (frame#): " + Camera.GetRecordedFramesCount();
+            CameraInfo += "Recording (frame#): " + Camera.GetRecordedFramesCount();
+            CameraInfo += "    ";
+            CameraInfo += "Datarate: " + Camera.GetDatarate() + " MBit/s";
 
+            /*
             Calendar now = Calendar.getInstance();
             double delta_t = now.getTimeInMillis() - Camera.GetRecordstartTime();
             int animateframes = (int) (delta_t / 1000 * Camera.GetFPS());
 
             CameraInfo += "Recording (frame#): " + animateframes;
+            */
 
         } else {
             CameraInfo += "STOPPED";

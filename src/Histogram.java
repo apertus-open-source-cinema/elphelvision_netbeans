@@ -59,18 +59,18 @@ public class Histogram extends JPanel implements Runnable, java.io.Serializable 
     }
 
     public void run() {
-        /*
+
         while (Thread.currentThread() == animator) {
 
-        repaint();
+            repaint();
 
-        try {
-        Thread.sleep(1 / fps * 1000);
-        } catch (InterruptedException e) {
-        break;
+            try {
+                Thread.sleep(1 / fps * 1000);
+            } catch (InterruptedException e) {
+                break;
+            }
         }
-        }
-         */
+
     }
 
     @Override

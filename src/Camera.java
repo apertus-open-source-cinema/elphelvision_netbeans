@@ -48,11 +48,6 @@ enum HDDState {
     UNMOUNTED, MOUNTED, FULL
 }
 
-enum BinningMode {
-
-    AVERAGE, ADDITIVE
-}
-
 enum ImageOrientation {
 
     LANDSCAPE, PORTRAIT
@@ -65,7 +60,7 @@ enum RecordFormat {
 
 enum CameraParameter {
 
-    EXPOSURE, GAIN, GAMMA, PRESET, AUTOEXP, JPEGQUAL, COLORMODE, FPS, SENSORWIDTH, SENSORHEIGHT, BINNING, BINNINGMODE, WHITEBALANCE, RECORDFORMAT
+    EXPOSURE, GAIN, GAMMA, PRESET, AUTOEXP, JPEGQUAL, COLORMODE, FPS, SENSORWIDTH, SENSORHEIGHT, WHITEBALANCE, RECORDFORMAT
 }
 
 enum CameraPreset {
@@ -106,13 +101,12 @@ public class Camera {
     private float HDDSpaceFree;
     private HDDState HDDState;
     private int RecordedFrames = 0;
+    private float Datarate = 0;
     private CamogmState CAMOGMState = CamogmState.NOTRUNNING;
     private int JPEGQuality;
     private int ImageWidth;
     private int ImageHeight;
-    private int ImageBinning;
     private ImageOrientation ImageOrientation;
-    private BinningMode ImageBinningMode = BinningMode.AVERAGE;
     private CameraPreset Preset = CameraPreset.FULLHD;
     private int[][] Histogram;// = {{0, 1, 2, 3}, {1, 10, 100, 255}};
     private float Gamma;
@@ -155,7 +149,27 @@ public class Camera {
         0.002f,
         0.0015625f,
         0.00125f,
-        0.001f};
+        0.001f,
+        0.0008f,
+        0.000625f,
+        0.0005f,
+        0.0004f,
+        0.0003125f,
+        0.00025f,
+        0.0002f,
+        0.00015625f,
+        0.000125f,
+        0.0001f,
+        0.00008f,
+        0.0000625f,
+        0.00005f,
+        0.00004f,
+        0.00003125f,
+        0.000025f,
+        0.00002f,
+        0.000015625f,
+        0.0000125f,
+        0.00001f};
     private String GainNames[] = {
         "+12dB",
         "+9dB",
@@ -213,7 +227,27 @@ public class Camera {
         "1/500",
         "1/640",
         "1/800",
-        "1/1000"};
+        "1/1000",
+        "1/1250",
+        "1/1600",
+        "1/2000",
+        "1/2500",
+        "1/3200",
+        "1/4000",
+        "1/5000",
+        "1/6400",
+        "1/8000",
+        "1/10000",
+        "1/12500",
+        "1/16000",
+        "1/20000",
+        "1/25000",
+        "1/32000",
+        "1/40000",
+        "1/50000",
+        "1/64000",
+        "1/80000",
+        "1/100000"};
     private int ExposureIndex;
     private int JPEGQual;
     private long RecordstartTime = 0;
@@ -224,7 +258,6 @@ public class Camera {
     Camera() {
         this.ImageHeight = 0;
         this.ImageWidth = 0;
-        this.ImageBinning = 0;
         this.FPS = 0;
         this.JPEGQuality = 0;
         this.IP = "192.168.0.9";
@@ -278,25 +311,11 @@ public class Camera {
     }
 
     public int GetImageWidth() {
-        if (this.ImageBinning == 0) {
-            this.ImageBinning = 1;
-        }
-        return this.ImageWidth / this.ImageBinning;
+        return this.ImageWidth;
     }
 
     public int GetImageHeight() {
-        if (this.ImageBinning == 0) {
-            this.ImageBinning = 1;
-        }
-        return this.ImageHeight / this.ImageBinning;
-    }
-
-    public int GetBinning() {
-        return this.ImageBinning;
-    }
-
-    public BinningMode GetBinningMode() {
-        return this.ImageBinningMode;
+        return this.ImageHeight;
     }
 
     public float GetGamma() {
@@ -347,6 +366,10 @@ public class Camera {
 
     public int GetRecordedFramesCount() {
         return this.RecordedFrames;
+    }
+
+    public float GetDatarate() {
+        return this.Datarate;
     }
 
     public String GetExposure() {
@@ -567,25 +590,30 @@ public class Camera {
         } catch (IOException e) {
             System.out.println("IO Error:" + e.getMessage());
         }
-        String[] x = Pattern.compile(";").split(result);
-        int a = 0;
 
-        // RED
-        for (int j = 0; j < 256; j++) {
-            Histogram[0][j] = (int) (Integer.parseInt(x[a++]));
-            //System.out.println(j + " \"" + x[j] + "\"");
+        try {
+            String[] x = Pattern.compile(";").split(result);
+            int a = 0;
+
+            // RED
+            for (int j = 0; j < 256; j++) {
+                Histogram[0][j] = (int) (Integer.parseInt(x[a++]));
+                //System.out.println(j + " \"" + x[j] + "\"");
+                }
+            // GREEN
+            for (int j = 0; j < 256; j++) {
+                Histogram[1][j] = (int) (Integer.parseInt(x[a++]));
+                //System.out.println(j + " \"" + x[j] + "\"");
+                }
+            // BLUE
+            for (int j = 0; j < 256; j++) {
+                Histogram[2][j] = (int) (Integer.parseInt(x[a++]));
+                //System.out.println(j + " \"" + x[j] + "\"");
+                }
+            int b = 1;
+        } catch (Exception e) {
+            System.out.println("IO Error:" + e.getMessage());
         }
-        // GREEN
-        for (int j = 0; j < 256; j++) {
-            Histogram[1][j] = (int) (Integer.parseInt(x[a++]));
-            //System.out.println(j + " \"" + x[j] + "\"");
-        }
-        // BLUE
-        for (int j = 0; j < 256; j++) {
-            Histogram[2][j] = (int) (Integer.parseInt(x[a++]));
-            //System.out.println(j + " \"" + x[j] + "\"");
-        }
-        int b = 1;
     }
 
     public void ReadGammaCurve() {
@@ -773,22 +801,6 @@ public class Camera {
         return this.Preset;
     }
 
-    public void SetBinning(int binning) {
-        this.ImageBinning = binning;
-        this.SendParameter(CameraParameter.BINNING, binning);
-    }
-
-    public void SetBinningMode(BinningMode binningmode) {
-        this.ImageBinningMode = binningmode;
-
-        if (binningmode == BinningMode.ADDITIVE) {
-            SendParametertoCamera("BINNINGMODE=96");
-        }
-        if (binningmode == BinningMode.AVERAGE) {
-            SendParametertoCamera("BINNINGMODE=64");
-        }
-    }
-
     public void SetPreset(CameraPreset preset) {
         this.Preset = preset;
 
@@ -849,11 +861,11 @@ public class Camera {
                     param_url += "&framedelay=3";
                     break;
                 case SMALLHD:
-                    woi_left = 16;
-                    woi_top = 252;
-                    width = 2560;
-                    height = 1440;
-                    binning = 2;
+                    woi_left = 656;
+                    woi_top = 612;
+                    width = 1280;
+                    height = 720;
+                    binning = 1;
                     param_url = "http://" + this.IP + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
                     param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
                     param_url += "&framedelay=3";
@@ -863,7 +875,7 @@ public class Camera {
                     woi_top = 252;
                     width = 2560;
                     height = 1440;
-                    binning = 2;
+                    binning = 1;
                     param_url = "http://" + this.IP + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
                     param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
                     param_url += "&framedelay=3";
@@ -908,7 +920,6 @@ public class Camera {
             line += "IP=" + this.GetIP() + "\n";
             line += "ImageWidth=" + Integer.toString(this.GetImageWidth()) + "\n";
             line += "ImageHeight=" + Integer.toString(this.GetImageHeight()) + "\n";
-            line += "Binning=" + Integer.toString(this.GetBinning()) + "\n";
             line += "Preset=";
             if (this.GetPreset() == Preset.AMAX) {
                 line += "AMAX";
@@ -925,12 +936,6 @@ public class Camera {
             line += "\n";
             line += "FPS=" + Float.toString(this.GetFPS()) + "\n";
             line += "JPEGQuality=" + Integer.toString(this.GetJPEGQuality()) + "\n";
-            line += "BinningMode=";
-            if (this.GetBinningMode() == BinningMode.AVERAGE) {
-                line += "average";
-            } else if (this.GetBinningMode() == BinningMode.ADDITIVE) {
-                line += "additive";
-            }
             line += "\n";
             line += "ColorMode=";
             if (this.GetColorMode() == ColorMode.RGB) {
@@ -1054,17 +1059,6 @@ public class Camera {
                         if (value.trim().contentEquals("CUSTOM")) {
                             this.SetPreset(Preset.CUSTOM);
                         }
-                    }
-                    if (name.trim().equals("BinningMode")) {
-                        if (value.trim().contentEquals("AVERAGE")) {
-                            this.SetBinningMode(ImageBinningMode.AVERAGE);
-                        }
-                        if (value.trim().contentEquals("ADDITIVE")) {
-                            this.SetBinningMode(ImageBinningMode.ADDITIVE);
-                        }
-                    }
-                    if (name.trim().equals("Binning")) {
-                        this.SetBinning(Integer.parseInt(value.trim()));
                     }
                     if (name.trim().equals("ColorMode")) {
                         if (value.trim().contentEquals("RGB")) {
@@ -1206,10 +1200,6 @@ public class Camera {
                     margin = Math.round(2592 / 2 - value / 2);
                     param_url = "http://" + this.IP + "/ElphelVision/setparam.php?WOI_WIDTH=" + value + "WOI_LEFT=" + margin;
                     break;
-
-                case BINNING:
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?DCM_HOR=" + value + "&DCM_VERT=" + value + "&BIN_HOR=" + value + "&BIN_VERT=" + value;
-                    break;
             }
             try {
                 ParamURL = new URL(param_url);
@@ -1276,7 +1266,7 @@ public class Camera {
 
     public String CaptureStillImage(String UrlParameter) {
         String ReturnValue = "";
-        
+
         try {
             String param_url = "";
             URLConnection conn = null;
@@ -1311,13 +1301,12 @@ public class Camera {
             // try to extract data from XML structure
             /*
             <SaveStill>
-                <path>/var/hdd/stills/still_00034.jpg</path>
-                <size>50390</size>
-                <save_duration>0.343< </save_duration>
+            <path>/var/hdd/stills/still_00034.jpg</path>
+            <size>50390</size>
+            <save_duration>0.343< </save_duration>
             </SaveStill>
              * */
-            try
-             {
+            try {
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder db = dbf.newDocumentBuilder();
 
@@ -1334,7 +1323,7 @@ public class Camera {
                         NodeList fstNm = fstNmElmnt.getChildNodes();
                         String response = ((Node) fstNm.item(0)).getNodeValue();
 
-                        ReturnValue =  "saved " + response;
+                        ReturnValue = "saved " + response;
                     }
                 }
             } catch (Exception e) {
@@ -1611,24 +1600,11 @@ public class Camera {
                             this.RecordedFrames = Integer.parseInt(((Node) Elmnt7.item(0)).getNodeValue());
                         }
 
-                        NodeList NmElmntLstBinning = fstElmnt.getElementsByTagName("binning");
-                        Element NmElmntBinning = (Element) NmElmntLstBinning.item(0);
-                        NodeList ElmntBinning = NmElmntBinning.getChildNodes();
-                        if (((Node) ElmntBinning.item(0)) != null) {
-                            this.ImageBinning = Integer.parseInt(((Node) ElmntBinning.item(0)).getNodeValue());
-                        }
-
-                        NodeList NmElmntLstBinningMode = fstElmnt.getElementsByTagName("binning_mode");
-                        Element NmElmntBinningMode = (Element) NmElmntLstBinningMode.item(0);
-                        NodeList ElmntBinningMode = NmElmntBinningMode.getChildNodes();
-                        if (((Node) ElmntBinningMode.item(0)) != null) {
-                            String mode = ((Node) ElmntBinningMode.item(0)).getNodeValue();
-                            if (mode.startsWith("average")) {
-                                this.ImageBinningMode = BinningMode.AVERAGE;
-                            } else if (mode.startsWith("additive")) {
-                                this.ImageBinningMode = BinningMode.ADDITIVE;
-                            }
-
+                        NodeList NmElmntLstDatarate = fstElmnt.getElementsByTagName("camogm_datarate");
+                        Element NmElmntDatarate = (Element) NmElmntLstDatarate.item(0);
+                        NodeList ElmntDatarate = NmElmntDatarate.getChildNodes();
+                        if (((Node) ElmntDatarate.item(0)) != null) {
+                            this.Datarate = Float.parseFloat(((Node) ElmntDatarate.item(0)).getNodeValue());
                         }
 
                         NodeList NmElmntLstGainR = fstElmnt.getElementsByTagName("gain_r");
