@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SettingsLayout extends javax.swing.JPanel {
+
     ElphelVision Parent;
 
     public SettingsLayout(ElphelVision parent) {
@@ -765,10 +766,10 @@ public class SettingsLayout extends javax.swing.JPanel {
         SmallHD.setChecked(false);
         Custom.setChecked(false);
         Full.setChecked(false);
-        
+
         /*
         color_rbg.setEnabled(true);
-        */
+         */
     }//GEN-LAST:event_FullHDActionPerformed
 
     private void color_jp4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_color_jp4ActionPerformed
@@ -788,7 +789,7 @@ public class SettingsLayout extends javax.swing.JPanel {
         color_rbg.setEnabled(false);
         color_rbg.setChecked(false);
         color_jp4.setChecked(true);
-        */
+         */
     }//GEN-LAST:event_CimaxActionPerformed
 
     private void AmaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AmaxActionPerformed
@@ -803,7 +804,7 @@ public class SettingsLayout extends javax.swing.JPanel {
         color_rbg.setEnabled(false);
         color_rbg.setChecked(false);
         color_jp4.setChecked(true);
-        */
+         */
     }//GEN-LAST:event_AmaxActionPerformed
 
     private void SmallHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SmallHDActionPerformed
@@ -816,7 +817,7 @@ public class SettingsLayout extends javax.swing.JPanel {
 
         /*
         color_rbg.setEnabled(true);
-        */
+         */
     }//GEN-LAST:event_SmallHDActionPerformed
 
     private void color_rbgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_color_rbgActionPerformed
@@ -901,6 +902,10 @@ public class SettingsLayout extends javax.swing.JPanel {
     }//GEN-LAST:event_JPEG_MinusActionPerformed
 
     private void SettingsOKButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsOKButton1ActionPerformed
+        if (Full.getChecked()) {
+            Parent.Camera.SetPreset(CameraPreset.FULL);
+        }
+
         if (FullHD.getChecked()) {
             Parent.Camera.SetPreset(CameraPreset.FULLHD);
         }
@@ -1055,7 +1060,6 @@ public class SettingsLayout extends javax.swing.JPanel {
         Custom.setChecked(false);
         Full.setChecked(true);
     }//GEN-LAST:event_FullActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton Amax;
     private EButton Cimax;

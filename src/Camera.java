@@ -65,7 +65,7 @@ enum CameraParameter {
 
 enum CameraPreset {
 
-    AMAX, CIMAX, FULLHD, SMALLHD, CUSTOM
+    FULL, AMAX, CIMAX, FULLHD, SMALLHD, CUSTOM
 }
 
 enum ColorMode {
@@ -828,6 +828,17 @@ public class Camera {
             int binning = 0;
 
             switch (preset) {
+                case FULL:
+                    // 2592x1936
+                    woi_left = 0;
+                    woi_top = 0;
+                    width = 2592;
+                    height = 1936;
+                    binning = 1;
+                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
+                    param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
+                    param_url += "&framedelay=3";
+                    break;
                 case AMAX:
                     // 2224x1251
                     woi_left = 184;
