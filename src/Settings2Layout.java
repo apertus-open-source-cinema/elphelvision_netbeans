@@ -17,7 +17,6 @@
  *!
 -----------------------------------------------------------------------------**/
 
-
 import java.awt.CardLayout;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -54,7 +53,9 @@ public class Settings2Layout extends javax.swing.JPanel {
 
     public void StartMplayerVideoStream() {
         try {
-            Parent.Player.open("rtsp://" + Parent.Camera.GetIP() + ":554", Parent.Settings.GetMplayerParameters(), Parent.Settings.GetMplayerPath());
+            String mplayerOptions = null;
+            Parent.Player.open("rtsp://" + Parent.Camera.GetIP() + ":554", Parent.Settings.GetMplayerParameters() + " -wid " + getWinID(), Parent.Settings.GetMplayerPath());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -136,6 +137,7 @@ public class Settings2Layout extends javax.swing.JPanel {
         ConfirmationPanel = new javax.swing.JPanel();
         SettingsOKButton = new EButton();
         SettingsCancelButton = new EButton();
+        VideoFrame = new javax.swing.JPanel();
         overlay = new java.awt.Canvas();
         Gamma = new javax.swing.JPanel();
         gamma_inc = new EButton();
@@ -148,7 +150,6 @@ public class Settings2Layout extends javax.swing.JPanel {
         gammapreset_cine2 = new EButton();
         gammapreset_cines = new EButton();
         gammacurve = new GammaCurve();
-        test = new EButton();
         Blacklevel = new javax.swing.JPanel();
         black_inc = new EButton();
         black_level = new EButton();
@@ -222,7 +223,21 @@ public class Settings2Layout extends javax.swing.JPanel {
                 .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        VideoFrame.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
+
         overlay.setBackground(java.awt.Color.darkGray);
+        overlay.setForeground(new java.awt.Color(254, 254, 254));
+
+        javax.swing.GroupLayout VideoFrameLayout = new javax.swing.GroupLayout(VideoFrame);
+        VideoFrame.setLayout(VideoFrameLayout);
+        VideoFrameLayout.setHorizontalGroup(
+            VideoFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(overlay, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        VideoFrameLayout.setVerticalGroup(
+            VideoFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(overlay, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         Gamma.setBackground(java.awt.Color.black);
 
@@ -234,8 +249,8 @@ public class Settings2Layout extends javax.swing.JPanel {
         });
 
         gamma.setText("Gamma");
-        gamma.setHorizontalAlignment(2);
-        gamma.setHorizontalTextPosition(2);
+        gamma.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        gamma.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         gamma.setIconTextGap(0);
         gamma.setMargin(new java.awt.Insets(0, 5, 0, 0));
         gamma.addActionListener(new java.awt.event.ActionListener() {
@@ -341,13 +356,6 @@ public class Settings2Layout extends javax.swing.JPanel {
             .addGap(0, 262, Short.MAX_VALUE)
         );
 
-        test.setText("test");
-        test.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                testActionPerformed(evt);
-            }
-        });
-
         Blacklevel.setBackground(java.awt.Color.black);
 
         black_inc.setText("+");
@@ -358,8 +366,8 @@ public class Settings2Layout extends javax.swing.JPanel {
         });
 
         black_level.setText("Black Level");
-        black_level.setHorizontalAlignment(2);
-        black_level.setHorizontalTextPosition(2);
+        black_level.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        black_level.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         black_level.setIconTextGap(0);
         black_level.setMargin(new java.awt.Insets(0, 5, 0, 0));
         black_level.addActionListener(new java.awt.event.ActionListener() {
@@ -401,23 +409,22 @@ public class Settings2Layout extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 494, Short.MAX_VALUE)
-                        .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(bgLayout.createSequentialGroup()
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(bgLayout.createSequentialGroup()
                                 .addComponent(Gamma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
                                 .addComponent(Blacklevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(gammacurve, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(GammaPresets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(test, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addComponent(overlay, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(17, 17, 17))
+                        .addGap(18, 18, 18)
+                        .addComponent(GammaPresets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 414, Short.MAX_VALUE)
+                        .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(97, 97, 97))))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -425,20 +432,19 @@ public class Settings2Layout extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(overlay, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(GammaPresets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addComponent(test, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+                        .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
                         .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Gamma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Blacklevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(gammacurve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Gamma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Blacklevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(gammacurve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(GammaPresets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -474,7 +480,7 @@ public class Settings2Layout extends javax.swing.JPanel {
 
     private void gamma_incActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gamma_incActionPerformed
         Parent.Camera.SetGamma(Parent.Camera.GetGamma() + 0.05f);
-        gamma.setValue(String.valueOf(Utils.Round(Parent.Camera.GetGamma(),2)));
+        gamma.setValue(String.valueOf(Utils.Round(Parent.Camera.GetGamma(), 2)));
 
         Parent.Camera.ReadGammaCurve();
         RedrawGammacurve();
@@ -513,7 +519,7 @@ public class Settings2Layout extends javax.swing.JPanel {
 
     private void gamma_decActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gamma_decActionPerformed
         Parent.Camera.SetGamma(Parent.Camera.GetGamma() - 0.05f);
-        gamma.setValue(String.valueOf(Utils.Round(Parent.Camera.GetGamma(),2)));
+        gamma.setValue(String.valueOf(Utils.Round(Parent.Camera.GetGamma(), 2)));
 
         Parent.Camera.ReadGammaCurve();
         RedrawGammacurve();
@@ -527,10 +533,6 @@ public class Settings2Layout extends javax.swing.JPanel {
 
     private void SettingsMenu2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu2ButtonActionPerformed
 }//GEN-LAST:event_SettingsMenu2ButtonActionPerformed
-
-    private void testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testActionPerformed
-        gammacurve.GetGammaTable();
-    }//GEN-LAST:event_testActionPerformed
 
     private void gammapreset_cine1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gammapreset_cine1ActionPerformed
         gammapreset_linear.setChecked(false);
@@ -569,6 +571,7 @@ public class Settings2Layout extends javax.swing.JPanel {
     private EButton SettingsMenu1Button;
     private EButton SettingsMenu2Button;
     private EButton SettingsOKButton;
+    private javax.swing.JPanel VideoFrame;
     private javax.swing.JPanel bg;
     private EButton black_dec;
     private EButton black_inc;
@@ -583,6 +586,5 @@ public class Settings2Layout extends javax.swing.JPanel {
     private EButton gammapreset_linear;
     private javax.swing.JLabel jLabel1;
     private java.awt.Canvas overlay;
-    private EButton test;
     // End of variables declaration//GEN-END:variables
 }

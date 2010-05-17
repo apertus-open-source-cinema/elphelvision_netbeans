@@ -135,7 +135,6 @@ public class MainLayout extends JPanel {
         incvalue = new EButton();
         ParameterName = new javax.swing.JLabel();
         decvalue = new EButton();
-        overlay = new java.awt.Canvas();
         ParameterPanel = new javax.swing.JPanel();
         ExposureButton = new EButton();
         GainButton = new EButton();
@@ -149,6 +148,8 @@ public class MainLayout extends JPanel {
         InfoPanel = new javax.swing.JPanel();
         InfoArea = new javax.swing.JLabel();
         NoticeArea = new javax.swing.JLabel();
+        VideoFrame = new javax.swing.JPanel();
+        overlay = new java.awt.Canvas();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -195,8 +196,6 @@ public class MainLayout extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
                 .addComponent(decvalue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        overlay.setBackground(java.awt.Color.darkGray);
 
         ParameterPanel.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -345,8 +344,8 @@ public class MainLayout extends JPanel {
         InfoPanel.setLayout(InfoPanelLayout);
         InfoPanelLayout.setHorizontalGroup(
             InfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(InfoArea, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
-            .addComponent(NoticeArea, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
+            .addComponent(InfoArea, javax.swing.GroupLayout.DEFAULT_SIZE, 1032, Short.MAX_VALUE)
+            .addComponent(NoticeArea, javax.swing.GroupLayout.DEFAULT_SIZE, 1032, Short.MAX_VALUE)
         );
         InfoPanelLayout.setVerticalGroup(
             InfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,6 +353,21 @@ public class MainLayout extends JPanel {
                 .addComponent(InfoArea)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NoticeArea, javax.swing.GroupLayout.DEFAULT_SIZE, 13, Short.MAX_VALUE))
+        );
+
+        VideoFrame.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
+
+        overlay.setBackground(java.awt.Color.darkGray);
+
+        javax.swing.GroupLayout VideoFrameLayout = new javax.swing.GroupLayout(VideoFrame);
+        VideoFrame.setLayout(VideoFrameLayout);
+        VideoFrameLayout.setHorizontalGroup(
+            VideoFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(overlay, javax.swing.GroupLayout.PREFERRED_SIZE, 922, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        VideoFrameLayout.setVerticalGroup(
+            VideoFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(overlay, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
@@ -364,10 +378,11 @@ public class MainLayout extends JPanel {
                 .addContainerGap()
                 .addComponent(SliderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(InfoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ParameterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
-                    .addComponent(overlay, javax.swing.GroupLayout.PREFERRED_SIZE, 922, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(InfoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ParameterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1032, Short.MAX_VALUE))
+                    .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
         );
         bgLayout.setVerticalGroup(
@@ -378,8 +393,8 @@ public class MainLayout extends JPanel {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(SliderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addComponent(overlay, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-                        .addGap(6, 6, 6)
+                        .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addComponent(ParameterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -392,7 +407,7 @@ public class MainLayout extends JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -499,6 +514,7 @@ public class MainLayout extends JPanel {
     private EButton SaveConfig;
     private EButton SettingsButton;
     private javax.swing.JPanel SliderPanel;
+    private javax.swing.JPanel VideoFrame;
     private javax.swing.JPanel bg;
     private EButton decvalue;
     private Histogram histogram;
