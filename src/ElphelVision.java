@@ -94,14 +94,15 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             String mplayerOptions = null;
             if (Settings.GetOS() == OStype.Linux) {
                 //mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo x11:ck-method=auto -colorkey 0x404040 -wid " + MaincardLayout.getWinID();
-                mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo x11 -colorkey 0x404040 -wid " + MaincardLayout.getWinID();
+                mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo x11 -zoom -colorkey 0x404040 -wid " + MaincardLayout.getWinID();
+                Settings.SetMplayerParameters(mplayerOptions);
             }
             if (Settings.GetOS() == OStype.Windows) {
-                mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo xv:ck-method=auto -vo directx -colorkey 0x404040 -wid " + MaincardLayout.getWinID();
-
+                mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo directx -colorkey 0x404040 -wid " + MaincardLayout.getWinID();
+                Settings.SetMplayerParameters(mplayerOptions);
                 MaincardLayout.getWinID();
             }
-            Player.open("rtsp://" + Camera.GetIP() + ":554", mplayerOptions, Settings.GetMplayerPath());
+            Player.open("rtsp://" + Camera.GetIP() + ":554", Settings.GetMplayerParameters(), Settings.GetMplayerPath());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

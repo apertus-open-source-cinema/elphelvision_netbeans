@@ -356,6 +356,7 @@ public class Camera {
             newblacklevel = 0;
         }
         this.Blacklevel = newblacklevel;
+        this.SendCamVCParameters("set=0/gam:" + this.Gamma + "/pxl:" + this.Blacklevel + "/");
     }
 
     public double GetRecordstartTime() {
@@ -538,10 +539,11 @@ public class Camera {
         if (newgamma < 0) {
             newgamma = 0;
         }
-        if (newgamma > 3) {
-            newgamma = 3;
+        if (newgamma > 1) {
+            newgamma = 1;
         }
         this.Gamma = newgamma;
+        this.SendCamVCParameters("set=0/gam:" + this.Gamma + "/pxl:" + this.Blacklevel + "/");
     }
 
     public void SetRecordFormat(RecordFormat newformat) {
@@ -1272,6 +1274,45 @@ public class Camera {
 
             data =
                     new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            buf.delete(0, buf.length());
+            while ((line = data.readLine()) != null) {
+                buf.append(line + "\n");
+            }
+
+            result = buf.toString();
+            data.close();
+        } catch (IOException e) {
+            System.out.println("IO Error:" + e.getMessage());
+        }
+    }
+
+    private void SendCamVCParameters(String UrlParameter) {
+        try {
+            String param_url = "";
+            URLConnection conn = null;
+            BufferedReader data = null;
+            String line;
+
+            String result;
+
+            StringBuffer buf = new StringBuffer();
+            URL ParamURL = null;
+            int parameter = 0;
+            int margin = 0;
+
+            param_url = "http://" + this.IP + "/camvc.php?" + UrlParameter;
+
+            try {
+                ParamURL = new URL(param_url);
+            } catch (MalformedURLException e) {
+                System.out.println("Bad URL: " + param_url);
+            }
+
+            conn = ParamURL.openConnection();
+            conn.connect();
+
+            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             buf.delete(0, buf.length());
             while ((line = data.readLine()) != null) {

@@ -42,7 +42,7 @@ public class Settings2Layout extends javax.swing.JPanel {
             ex.printStackTrace();
         }
 
-        //gammacurve.SetParent(Parent);
+        gammacurve.SetParent(Parent);
         black_level.setValue(String.valueOf(Parent.Camera.GetBlacklevel()));
         gamma.setValue(String.valueOf(Parent.Camera.GetGamma()));
         gammacurve.SetControlPoints(6 + Parent.Camera.GetBlacklevel(), 256, 150, 256, 150, 0, 6 + 256, 0);
@@ -54,14 +54,7 @@ public class Settings2Layout extends javax.swing.JPanel {
 
     public void StartMplayerVideoStream() {
         try {
-            String mplayerOptions = null;
-            if (Parent.Settings.GetOS() == OStype.Linux) {
-                mplayerOptions = " -slave -idle -vo xv -colorkey 0x404040 -wid " + getWinID();
-            }
-            if (Parent.Settings.GetOS() == OStype.Windows) {
-                mplayerOptions = " -slave -idle -vo directx -colorkey 0x404040 -wid " + getWinID();
-            }
-            Parent.Player.open("rtsp://" + Parent.Camera.GetIP() + ":554", mplayerOptions, Parent.Settings.GetMplayerPath());
+            Parent.Player.open("rtsp://" + Parent.Camera.GetIP() + ":554", Parent.Settings.GetMplayerParameters(), Parent.Settings.GetMplayerPath());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -480,8 +473,8 @@ public class Settings2Layout extends javax.swing.JPanel {
     }//GEN-LAST:event_gammaActionPerformed
 
     private void gamma_incActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gamma_incActionPerformed
-        Parent.Camera.SetGamma(Parent.Camera.GetGamma() + 0.1f);
-        gamma.setValue(String.valueOf(Parent.Camera.GetGamma()));
+        Parent.Camera.SetGamma(Parent.Camera.GetGamma() + 0.05f);
+        gamma.setValue(String.valueOf(Utils.Round(Parent.Camera.GetGamma(),2)));
 
         Parent.Camera.ReadGammaCurve();
         RedrawGammacurve();
@@ -519,8 +512,8 @@ public class Settings2Layout extends javax.swing.JPanel {
     }//GEN-LAST:event_black_incActionPerformed
 
     private void gamma_decActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gamma_decActionPerformed
-        Parent.Camera.SetGamma(Parent.Camera.GetGamma() - 0.1f);
-        gamma.setValue(String.valueOf(Parent.Camera.GetGamma()));
+        Parent.Camera.SetGamma(Parent.Camera.GetGamma() - 0.05f);
+        gamma.setValue(String.valueOf(Utils.Round(Parent.Camera.GetGamma(),2)));
 
         Parent.Camera.ReadGammaCurve();
         RedrawGammacurve();

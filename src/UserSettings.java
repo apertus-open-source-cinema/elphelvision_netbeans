@@ -17,8 +17,8 @@
  *!  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *!
 -----------------------------------------------------------------------------**/
-
 enum OStype {
+
     Windows, Linux
 }
 
@@ -30,13 +30,23 @@ public class UserSettings {
 
     private String mplayerPath = null;     // The path to the MPlayer executable
     private OStype OS = null;      // Detected Operating System
+    private String mplayerParameters = null;     // The path to the MPlayer executable
 
     UserSettings() {
         mplayerPath = "mplayer";
+        mplayerParameters = "-slave- idle";
     }
 
     public void SetMplayerPath(String path) {
         this.mplayerPath = path;
+    }
+
+    public void SetMplayerParameters(String parm) {
+        this.mplayerParameters = parm;
+    }
+
+    public String GetMplayerParameters() {
+        return this.mplayerParameters;
     }
 
     public boolean CheckMplayerInstallation() {
