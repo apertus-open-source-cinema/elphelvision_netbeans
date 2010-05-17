@@ -301,7 +301,15 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         }
 
         CameraInfo += "    ";
-        CameraInfo += "HDD: " + Camera.GetFreeHDDSpace() + "% free";
+        if (Camera.GetFreeHDDSpace() == -1) {
+            CameraInfo += "HDD: not found"; // No HDD attached/detected
+            MaincardLayout.EnableRecord(false); // disable Rec Button
+        } else {
+            CameraInfo += "HDD: " + Camera.GetFreeHDDSpace() + "% free";
+            if (!MaincardLayout.GetRecordEnabled()) {
+                MaincardLayout.EnableRecord(true);
+            }
+        }
         CameraInfo += "    ";
         if (Camera.GetCamogmState() == CamogmState.RECORDING) {
             CameraInfo += "Recording (frame#): " + Camera.GetRecordedFramesCount();

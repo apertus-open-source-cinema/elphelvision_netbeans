@@ -495,11 +495,18 @@ public class MainLayout extends JPanel {
     }//GEN-LAST:event_CaptureStillActionPerformed
 
     private void zoombuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoombuttonActionPerformed
-       //Parent.Player.setProperty("fullscreen", 1);
+        //Parent.Player.setProperty("fullscreen", 1);
         //Parent.Player.setProperty("fullscreen", "yes");
         //Parent.Player.getProperty("fullscreen"); // TODO
     }//GEN-LAST:event_zoombuttonActionPerformed
 
+    public void EnableRecord(boolean val) {
+        this.RecordButton.setEnabled(val);
+    }
+
+    public boolean GetRecordEnabled() {
+        return this.RecordButton.isEnabled();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton CaptureStill;
     private EButton ExposureButton;
