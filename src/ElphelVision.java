@@ -31,7 +31,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 public class ElphelVision extends Panel implements ActionListener, Runnable {
 
@@ -204,6 +212,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         if (!HistogramAnimator.isAlive()) {
             HistogramAnimator.start();
         }
+
+        InitInfoArea();
         if (!InfoAreaAnimator.isAlive()) {
             InfoAreaAnimator.start();
         }
@@ -267,8 +277,30 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         } catch (Exception ex) {
         }
     }
+    Style StyleRed = null;
+    Style StyleNormal = null;
+
+    public void InitInfoArea() {
+        StyledDocument doc = (StyledDocument) MaincardLayout.GetInfoTextPane().getDocument();
+        StyleRed = doc.addStyle("RedNotice", null);
+        StyleConstants.setForeground(StyleRed, Color.red);
+        StyleConstants.setBold(StyleRed, true);
+        StyleNormal = doc.addStyle("NormalText", null);
+        StyleConstants.setForeground(StyleNormal, Color.white);
+        StyleConstants.setBold(StyleNormal, true);
+
+        MutableAttributeSet standard = new SimpleAttributeSet();
+        StyleConstants.setAlignment(standard, StyleConstants.ALIGN_CENTER);
+        doc.setParagraphAttributes(0, 0, standard, true);
+
+    }
 
     public void UpdateInfoArea() {
+        StyledDocument doc = (StyledDocument) MaincardLayout.GetInfoTextPane().getDocument();
+
+        // Clear content
+        MaincardLayout.GetInfoTextPane().setText("");
+
         String CameraInfo = "";
         if ((Camera.GetImageWidth() == 1920) && (Camera.GetImageHeight() == 1088)) {
             CameraInfo = "1080p ";
@@ -299,28 +331,42 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         if (Camera.GetRecordFormat() == RecordFormat.JPEG) {
             CameraInfo += "JPEG Sequence";
         }
-
+        try {
+            doc.insertString(doc.getLength(), CameraInfo, StyleNormal);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        CameraInfo = "";
         CameraInfo += "    ";
         if (Camera.GetFreeHDDSpace() == -1) {
             CameraInfo += "HDD: not found"; // No HDD attached/detected
             MaincardLayout.EnableRecord(false); // disable Rec Button
+            try {
+                doc.insertString(doc.getLength(), CameraInfo, StyleRed);
+            } catch (BadLocationException ex) {
+                Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             CameraInfo += "HDD: " + Camera.GetFreeHDDSpace() + "% free";
             if (!MaincardLayout.GetRecordEnabled()) {
                 MaincardLayout.EnableRecord(true);
             }
+            try {
+                doc.insertString(doc.getLength(), CameraInfo, StyleNormal);
+            } catch (BadLocationException ex) {
+                Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        CameraInfo = "";
         CameraInfo += "    ";
         if (Camera.GetCamogmState() == CamogmState.RECORDING) {
             CameraInfo += "Recording (frame#): " + Camera.GetRecordedFramesCount();
             CameraInfo += "    ";
             CameraInfo += "Datarate: " + Camera.GetDatarate() + " MBit/s";
-
             /*
             Calendar now = Calendar.getInstance();
             double delta_t = now.getTimeInMillis() - Camera.GetRecordstartTime();
             int animateframes = (int) (delta_t / 1000 * Camera.GetFPS());
-
             CameraInfo += "Recording (frame#): " + animateframes;
              */
 
@@ -328,7 +374,11 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             CameraInfo += "STOPPED";
         }
 
-        MaincardLayout.setInfoArea(CameraInfo);
+        try {
+            doc.insertString(doc.getLength(), CameraInfo, StyleNormal);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void actionPerformed(ActionEvent e) {

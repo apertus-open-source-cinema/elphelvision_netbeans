@@ -177,6 +177,7 @@ public class ConnectLayout extends javax.swing.JPanel {
                 CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
                 cl.show(Parent.CardManager, "MainCard");
                 Parent.StartMplayerVideoStream();
+                Parent.Camera.CheckHDD();
             } else {
                 ConnectionStatus.setText("Status: Connection failed!");
             }

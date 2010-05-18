@@ -59,10 +59,12 @@
                           <Component id="WBPanel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="RecordFormatPanel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="173" max="32767" attributes="0"/>
+                          <Component id="TerminateButton" min="-2" pref="127" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="447" max="32767" attributes="0"/>
+                          <EmptySpace pref="436" max="32767" attributes="0"/>
                           <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
@@ -73,20 +75,29 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="JPEGQualityPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="ConfirmationPanel" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="RecordFormatPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="WBPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ResolutionPanel" min="-2" max="-2" attributes="0"/>
-                              <Component id="ColorModePanel" min="-2" max="-2" attributes="0"/>
-                              <Component id="FPSPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="JPEGQualityPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="RecordFormatPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="WBPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="ResolutionPanel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ColorModePanel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="FPSPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace pref="146" max="32767" attributes="0"/>
+                                  <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="146" max="32767" attributes="0"/>
-                          <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="TerminateButton" min="-2" pref="65" max="-2" attributes="0"/>
+                          <EmptySpace pref="446" max="32767" attributes="0"/>
+                          <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -107,25 +118,19 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="Custom" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="SmallHD" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="FullHD" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="Cimax" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="Amax" alignment="0" max="32767" attributes="1"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="Custom" alignment="0" max="32767" attributes="1"/>
+                              <Component id="SmallHD" alignment="0" max="32767" attributes="1"/>
+                              <Component id="FullHD" alignment="0" max="32767" attributes="1"/>
+                              <Component id="Cimax" alignment="0" max="32767" attributes="1"/>
+                              <Component id="Amax" alignment="0" max="32767" attributes="1"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jLabel1" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="Full" alignment="0" max="32767" attributes="1"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jLabel1" alignment="0" max="32767" attributes="1"/>
+                              <Component id="Full" alignment="0" max="32767" attributes="1"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="1" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -758,6 +763,14 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="EButton" name="TerminateButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quit ElphelVision"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TerminateButtonActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

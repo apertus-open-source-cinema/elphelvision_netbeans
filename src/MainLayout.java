@@ -24,8 +24,10 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class MainLayout extends JPanel {
 
@@ -49,12 +51,11 @@ public class MainLayout extends JPanel {
         ParameterName.setText("EV");
         ExposureButton.setValue(Parent.Camera.GetExposure());
         GainButton.setValue(Parent.Camera.GetGain());
-
         histogram.SetParent(Parent);
     }
 
-    public void setInfoArea(String input) {
-        this.InfoArea.setText(input);
+    public javax.swing.JTextPane GetInfoTextPane() {
+        return this.InfoTextPane;
     }
 
     public void setNoticeArea(String input) {
@@ -146,7 +147,7 @@ public class MainLayout extends JPanel {
         RecordButton = new EButton();
         zoombutton = new EButton();
         InfoPanel = new javax.swing.JPanel();
-        InfoArea = new javax.swing.JLabel();
+        InfoTextPane = new javax.swing.JTextPane();
         NoticeArea = new javax.swing.JLabel();
         VideoFrame = new javax.swing.JPanel();
         overlay = new java.awt.Canvas();
@@ -332,9 +333,10 @@ public class MainLayout extends JPanel {
 
         InfoPanel.setBackground(new java.awt.Color(0, 0, 0));
 
-        InfoArea.setForeground(new java.awt.Color(255, 255, 255));
-        InfoArea.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        InfoArea.setText("jLabel1");
+        InfoTextPane.setBackground(new java.awt.Color(0, 0, 0));
+        InfoTextPane.setForeground(new java.awt.Color(255, 255, 255));
+        InfoTextPane.setDoubleBuffered(true);
+        InfoTextPane.setFocusable(false);
 
         NoticeArea.setForeground(new java.awt.Color(255, 255, 255));
         NoticeArea.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -344,15 +346,15 @@ public class MainLayout extends JPanel {
         InfoPanel.setLayout(InfoPanelLayout);
         InfoPanelLayout.setHorizontalGroup(
             InfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(InfoArea, javax.swing.GroupLayout.DEFAULT_SIZE, 1032, Short.MAX_VALUE)
-            .addComponent(NoticeArea, javax.swing.GroupLayout.DEFAULT_SIZE, 1032, Short.MAX_VALUE)
+            .addComponent(NoticeArea, javax.swing.GroupLayout.DEFAULT_SIZE, 924, Short.MAX_VALUE)
+            .addComponent(InfoTextPane, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         InfoPanelLayout.setVerticalGroup(
             InfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InfoPanelLayout.createSequentialGroup()
-                .addComponent(InfoArea)
+                .addComponent(InfoTextPane, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NoticeArea, javax.swing.GroupLayout.DEFAULT_SIZE, 13, Short.MAX_VALUE))
+                .addComponent(NoticeArea, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE))
         );
 
         VideoFrame.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
@@ -379,10 +381,10 @@ public class MainLayout extends JPanel {
                 .addComponent(SliderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(InfoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ParameterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1032, Short.MAX_VALUE))
-                    .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ParameterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1032, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(InfoPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(VideoFrame, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(45, 45, 45))
         );
         bgLayout.setVerticalGroup(
@@ -394,7 +396,7 @@ public class MainLayout extends JPanel {
                     .addComponent(SliderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                         .addComponent(ParameterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -511,8 +513,8 @@ public class MainLayout extends JPanel {
     private EButton CaptureStill;
     private EButton ExposureButton;
     private EButton GainButton;
-    private javax.swing.JLabel InfoArea;
     private javax.swing.JPanel InfoPanel;
+    private javax.swing.JTextPane InfoTextPane;
     private EButton LoadConfig;
     private javax.swing.JLabel NoticeArea;
     private javax.swing.JLabel ParameterName;

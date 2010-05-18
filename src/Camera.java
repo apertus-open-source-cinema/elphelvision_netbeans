@@ -32,6 +32,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import java.util.regex.Pattern;
 import java.util.Scanner;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 enum Command {
 
@@ -929,6 +931,13 @@ public class Camera {
             data.close();
         } catch (IOException e) {
             System.out.println("IO Error:" + e.getMessage());
+        }
+    }
+
+    public void CheckHDD() {
+        if (this.HDDSpaceFree == -1) {
+            String message = "No HDD detected, video recording disabled";
+            JOptionPane.showMessageDialog(new JFrame(), message, "Dialog", JOptionPane.ERROR_MESSAGE);
         }
     }
 
