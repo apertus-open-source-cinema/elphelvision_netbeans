@@ -71,7 +71,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="499" max="32767" attributes="0"/>
+                          <EmptySpace pref="351" max="32767" attributes="0"/>
                           <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -132,6 +132,8 @@
                       <Component id="SettingsMenu1Button" min="-2" pref="135" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="SettingsMenu2Button" min="-2" pref="136" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="GuidesMenuButton" min="-2" pref="136" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -140,6 +142,7 @@
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="SettingsMenu1Button" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="SettingsMenu2Button" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="GuidesMenuButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -160,6 +163,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu2ButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="EButton" name="GuidesMenuButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Guides"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GuidesMenuButtonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

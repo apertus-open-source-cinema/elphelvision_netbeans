@@ -134,6 +134,7 @@ public class Settings2Layout extends javax.swing.JPanel {
         NavigationPanel = new javax.swing.JPanel();
         SettingsMenu1Button = new EButton();
         SettingsMenu2Button = new EButton();
+        GuidesMenuButton = new EButton();
         ConfirmationPanel = new javax.swing.JPanel();
         SettingsOKButton = new EButton();
         SettingsCancelButton = new EButton();
@@ -181,6 +182,13 @@ public class Settings2Layout extends javax.swing.JPanel {
             }
         });
 
+        GuidesMenuButton.setText("Guides");
+        GuidesMenuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuidesMenuButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout NavigationPanelLayout = new javax.swing.GroupLayout(NavigationPanel);
         NavigationPanel.setLayout(NavigationPanelLayout);
         NavigationPanelLayout.setHorizontalGroup(
@@ -188,13 +196,16 @@ public class Settings2Layout extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NavigationPanelLayout.createSequentialGroup()
                 .addComponent(SettingsMenu1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(SettingsMenu2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(SettingsMenu2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(GuidesMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         NavigationPanelLayout.setVerticalGroup(
             NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(SettingsMenu1Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(SettingsMenu2Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(SettingsMenu2Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GuidesMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         ConfirmationPanel.setBackground(java.awt.Color.black);
@@ -419,7 +430,7 @@ public class Settings2Layout extends javax.swing.JPanel {
             }
         });
 
-        MovieSplitSizeLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
+        MovieSplitSizeLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 18));
         MovieSplitSizeLabel.setForeground(new java.awt.Color(255, 255, 255));
         MovieSplitSizeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MovieSplitSizeLabel.setText("Movie Split Size");
@@ -436,7 +447,7 @@ public class Settings2Layout extends javax.swing.JPanel {
         jLabel3.setText("MB");
 
         MovieSplitSizeType.setText("type");
-        MovieSplitSizeType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        MovieSplitSizeType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         MovieSplitSizeType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MovieSplitSizeTypeActionPerformed(evt);
@@ -652,11 +663,19 @@ public class Settings2Layout extends javax.swing.JPanel {
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Numberpanel");
 }//GEN-LAST:event_MovieSplitSizeTypeActionPerformed
+
+    private void GuidesMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuidesMenuButtonActionPerformed
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "GuidesCard");
+        Parent.GuidesPanel.Load();
+}//GEN-LAST:event_GuidesMenuButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Blacklevel;
     private javax.swing.JPanel ConfirmationPanel;
     private javax.swing.JPanel Gamma;
     private javax.swing.JPanel GammaPresets;
+    private EButton GuidesMenuButton;
     private javax.swing.JPanel MovieMaxSplitSizePanel;
     private javax.swing.JTextField MovieSplitSizeField;
     private javax.swing.JLabel MovieSplitSizeLabel;
