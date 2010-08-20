@@ -59,12 +59,12 @@
                           <Component id="WBPanel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="RecordFormatPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="173" max="32767" attributes="0"/>
+                          <EmptySpace pref="81" max="32767" attributes="0"/>
                           <Component id="TerminateButton" min="-2" pref="127" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="436" max="32767" attributes="0"/>
+                          <EmptySpace pref="344" max="32767" attributes="0"/>
                           <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
@@ -79,7 +79,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="JPEGQualityPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="JPEGQualityPanel" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
                               <Component id="RecordFormatPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="WBPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -275,7 +275,7 @@
             </Component>
             <Component class="EButton" name="color_jp4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="JP46 RAW"/>
+                <Property name="text" type="java.lang.String" value="JP4 RAW"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="color_jp4ActionPerformed"/>
@@ -484,6 +484,8 @@
                       <Component id="SettingsMenu1Button" min="-2" pref="135" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="SettingsMenu2Button" min="-2" pref="136" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="GuidesMenuButton" min="-2" pref="136" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -492,6 +494,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="SettingsMenu1Button" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="SettingsMenu2Button" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="GuidesMenuButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -512,6 +515,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu2ButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="EButton" name="GuidesMenuButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Guides"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GuidesMenuButtonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

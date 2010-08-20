@@ -24,12 +24,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="bg" min="-2" pref="1024" max="-2" attributes="0"/>
+          <Component id="bg" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="bg" alignment="0" pref="618" max="32767" attributes="0"/>
+          <Component id="bg" alignment="0" pref="600" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -47,18 +47,23 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="SliderPanel" min="-2" max="-2" attributes="1"/>
-                  <EmptySpace max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="ParameterPanel" alignment="0" min="-2" pref="1032" max="-2" attributes="1"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="InfoPanel" alignment="0" max="32767" attributes="1"/>
-                          <Component id="VideoFrame" alignment="0" max="32767" attributes="1"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="SliderPanel" min="-2" max="-2" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="VideoFrame" min="-2" pref="819" max="-2" attributes="1"/>
+                              <Component id="InfoPanel" alignment="0" min="-2" max="-2" attributes="1"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                          <Component id="ParameterPanel" max="32767" attributes="1"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -68,14 +73,12 @@
                   <Component id="InfoPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="SliderPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="VideoFrame" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="17" max="32767" attributes="0"/>
-                          <Component id="ParameterPanel" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="SliderPanel" min="-2" max="-2" attributes="0"/>
+                      <Component id="VideoFrame" min="-2" pref="447" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="ParameterPanel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -158,11 +161,7 @@
                       <Component id="ExposureButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="GainButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="SaveConfig" min="-2" pref="55" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="LoadConfig" min="-2" pref="55" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
                       <Component id="SettingsButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="histogram" min="-2" max="-2" attributes="0"/>
@@ -170,6 +169,7 @@
                       <Component id="CaptureStill" min="-2" pref="52" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="RecordButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="16" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -182,8 +182,6 @@
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="ExposureButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="GainButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="SaveConfig" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="LoadConfig" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="zoombutton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="SettingsButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -220,22 +218,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GainButtonActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="EButton" name="SaveConfig">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="save"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SaveConfigActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="EButton" name="LoadConfig">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="load"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LoadConfigActionPerformed"/>
               </Events>
             </Component>
             <Component class="EButton" name="SettingsButton">
@@ -315,6 +297,9 @@
             </Component>
             <Component class="EButton" name="zoombutton">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="70" green="70" red="8a" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="zoom"/>
               </Properties>
               <Events>
@@ -333,8 +318,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="NoticeArea" alignment="0" pref="924" max="32767" attributes="1"/>
-                  <Component id="InfoTextPane" alignment="0" min="-2" pref="924" max="-2" attributes="0"/>
+                  <Component id="NoticeArea" alignment="1" pref="939" max="32767" attributes="1"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="InfoTextPane" pref="927" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -342,7 +330,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="InfoTextPane" min="-2" pref="19" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="NoticeArea" pref="16" max="32767" attributes="0"/>
+                      <Component id="NoticeArea" min="-2" pref="16" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -382,25 +370,33 @@
             </Property>
           </Properties>
 
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="overlay" min="-2" pref="922" max="-2" attributes="3"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="overlay" pref="490" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+            <Property name="useNullLayout" type="boolean" value="false"/>
           </Layout>
           <SubComponents>
-            <Component class="java.awt.Canvas" name="overlay">
+            <Component class="Guides" name="guides1">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
                 </Property>
               </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="600" y="170" width="150" height="180"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="java.awt.Canvas" name="overlay">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="40" green="40" red="40" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="60" y="30" width="720" height="360"/>
+                </Constraint>
+              </Constraints>
             </Component>
           </SubComponents>
         </Container>

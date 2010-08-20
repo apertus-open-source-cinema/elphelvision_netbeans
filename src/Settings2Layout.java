@@ -49,13 +49,13 @@ public class Settings2Layout extends javax.swing.JPanel {
 
     public void Load() {
         Parent.Camera.ReadGammaCurve();
+        MovieSplitSizeField.setText(String.valueOf(Parent.Camera.GetMovieClipMaxChunkSize()));
     }
 
     public void StartMplayerVideoStream() {
         try {
             String mplayerOptions = null;
             Parent.Player.open("rtsp://" + Parent.Camera.GetIP() + ":554", Parent.Settings.GetMplayerParameters() + " -wid " + getWinID(), Parent.Settings.GetMplayerPath());
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -154,6 +154,12 @@ public class Settings2Layout extends javax.swing.JPanel {
         black_inc = new EButton();
         black_level = new EButton();
         black_dec = new EButton();
+        MovieMaxSplitSizePanel = new javax.swing.JPanel();
+        MovieSplitSizeField = new javax.swing.JTextField();
+        MovieSplitSizeLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        MovieSplitSizeType = new EButton();
+        jLabel2 = new javax.swing.JLabel();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -401,6 +407,68 @@ public class Settings2Layout extends javax.swing.JPanel {
                 .addComponent(black_dec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        MovieMaxSplitSizePanel.setBackground(new java.awt.Color(0, 0, 0));
+
+        MovieSplitSizeField.setBackground(new java.awt.Color(0, 0, 0));
+        MovieSplitSizeField.setForeground(new java.awt.Color(255, 255, 255));
+        MovieSplitSizeField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        MovieSplitSizeField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        MovieSplitSizeField.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                MovieSplitSizeFieldCaretUpdate(evt);
+            }
+        });
+
+        MovieSplitSizeLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
+        MovieSplitSizeLabel.setForeground(new java.awt.Color(255, 255, 255));
+        MovieSplitSizeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MovieSplitSizeLabel.setText("Movie Split Size");
+        MovieSplitSizeLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        MovieSplitSizeLabel.setAlignmentY(0.0F);
+        MovieSplitSizeLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        MovieSplitSizeLabel.setIconTextGap(0);
+        MovieSplitSizeLabel.setInheritsPopupMenu(false);
+        MovieSplitSizeLabel.setRequestFocusEnabled(false);
+        MovieSplitSizeLabel.setVerifyInputWhenFocusTarget(false);
+        MovieSplitSizeLabel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("MB");
+
+        MovieSplitSizeType.setText("type");
+        MovieSplitSizeType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        MovieSplitSizeType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MovieSplitSizeTypeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout MovieMaxSplitSizePanelLayout = new javax.swing.GroupLayout(MovieMaxSplitSizePanel);
+        MovieMaxSplitSizePanel.setLayout(MovieMaxSplitSizePanelLayout);
+        MovieMaxSplitSizePanelLayout.setHorizontalGroup(
+            MovieMaxSplitSizePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MovieMaxSplitSizePanelLayout.createSequentialGroup()
+                .addComponent(MovieSplitSizeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MovieSplitSizeField, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MovieSplitSizeType, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        MovieMaxSplitSizePanelLayout.setVerticalGroup(
+            MovieMaxSplitSizePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MovieMaxSplitSizePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                .addComponent(MovieSplitSizeField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3)
+                .addComponent(MovieSplitSizeType, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MovieSplitSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jLabel2.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel2.setText("Presets not working yet");
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -415,10 +483,18 @@ public class Settings2Layout extends javax.swing.JPanel {
                                 .addGap(12, 12, 12)
                                 .addComponent(Blacklevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(gammacurve, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(GammaPresets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addGroup(bgLayout.createSequentialGroup()
+                                        .addComponent(GammaPresets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGap(136, 136, 136)
+                                .addComponent(MovieMaxSplitSizePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 499, Short.MAX_VALUE)
@@ -443,7 +519,12 @@ public class Settings2Layout extends javax.swing.JPanel {
                                     .addComponent(Blacklevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(gammacurve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(GammaPresets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addComponent(GammaPresets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(23, 23, 23)
+                                .addComponent(jLabel2)
+                                .addGap(30, 30, 30)
+                                .addComponent(MovieMaxSplitSizePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -462,6 +543,7 @@ public class Settings2Layout extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SettingsOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsOKButtonActionPerformed
+        Parent.Camera.SetMovieClipMaxChunkSize(Integer.parseInt(MovieSplitSizeField.getText()));
         try { // Save to config file
             Parent.Camera.WriteConfigFile("autosave.cfg");
         } catch (IOException ex) {
@@ -560,11 +642,25 @@ public class Settings2Layout extends javax.swing.JPanel {
         gammapreset_cine2.setChecked(false);
         gammapreset_cines.setChecked(true);
     }//GEN-LAST:event_gammapreset_cinesActionPerformed
+
+    private void MovieSplitSizeFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_MovieSplitSizeFieldCaretUpdate
+
+}//GEN-LAST:event_MovieSplitSizeFieldCaretUpdate
+
+    private void MovieSplitSizeTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MovieSplitSizeTypeActionPerformed
+        Parent.NumberPanel.Load("Width", Integer.parseInt(MovieSplitSizeField.getText()), MovieSplitSizeField, "CustomResolutionCard");
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "Numberpanel");
+}//GEN-LAST:event_MovieSplitSizeTypeActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Blacklevel;
     private javax.swing.JPanel ConfirmationPanel;
     private javax.swing.JPanel Gamma;
     private javax.swing.JPanel GammaPresets;
+    private javax.swing.JPanel MovieMaxSplitSizePanel;
+    private javax.swing.JTextField MovieSplitSizeField;
+    private javax.swing.JLabel MovieSplitSizeLabel;
+    private EButton MovieSplitSizeType;
     private javax.swing.JPanel NavigationPanel;
     private EButton SettingsCancelButton;
     private EButton SettingsMenu1Button;
@@ -584,6 +680,8 @@ public class Settings2Layout extends javax.swing.JPanel {
     private EButton gammapreset_cines;
     private EButton gammapreset_linear;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private java.awt.Canvas overlay;
     // End of variables declaration//GEN-END:variables
 }

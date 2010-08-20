@@ -35,11 +35,6 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-enum Command {
-
-    CAMOGMSTART, RECORDSTART, RECORDSTOP, MOUNTHDD, SETRECDIR, SETCONTAINERFORMATQUICKTIME, SETCONTAINERFORMATJPEG
-}
-
 enum CamogmState {
 
     NOTRUNNING, STOPPED, RECORDING
@@ -72,7 +67,7 @@ enum CameraPreset {
 
 enum ColorMode {
 
-    RGB, JP46, JP4D
+    RGB, JP4
 }
 
 enum WhiteBalance {
@@ -115,6 +110,10 @@ public class Camera {
     private int[] GammaCurve;
     private int Blacklevel;
     private boolean AutoExposure = false;
+    private boolean GuideDrawCenterX = false;
+    private boolean GuideDrawOuterX = false;
+    private boolean GuideDrawThirds = false;
+    private boolean GuideDrawSafeArea = false;
     private GammaPreset GammaPreset;
     private float ExposureTimeEV[] = {
         4,
@@ -257,6 +256,7 @@ public class Camera {
     private ColorMode Colormode = ColorMode.RGB;
     private WhiteBalance ImageWhiteBalance = WhiteBalance.AUTO;
     private MirrorImage ImageFlip = MirrorImage.NONE;
+    private int MovieClipMaxChunkSize; // in Megabytes // Default 4 GB = 4 x 1024 x 1024 x 1024 bytes
 
     Camera() {
         this.ImageHeight = 0;
@@ -273,6 +273,11 @@ public class Camera {
         this.Blacklevel = 10;
         this.Gamma = 0.5f;
         this.GammaPreset = GammaPreset.LINEAR;
+        this.GuideDrawCenterX = false;
+        this.GuideDrawOuterX = false;
+        this.GuideDrawThirds = false;
+        this.GuideDrawSafeArea = false;
+        this.MovieClipMaxChunkSize = 2048; // Megabytes
     }
 
     public void SetIP(String IP) {
@@ -282,6 +287,15 @@ public class Camera {
 
     public String GetIP() {
         return this.IP;
+    }
+
+    public void SetMovieClipMaxChunkSize(int newchunksize) {
+        long newsize = (long)newchunksize * 1024 * 1024;  // Megabytes
+        this.ExecuteCommand("set_size&size=" + newsize);
+    }
+
+    public int GetMovieClipMaxChunkSize() {
+        return this.MovieClipMaxChunkSize;
     }
 
     public void SetImageOrientation(ImageOrientation orientation) {
@@ -307,6 +321,23 @@ public class Camera {
 
     public boolean GetAutoExposure() {
         return this.AutoExposure;
+    }
+
+    public void SetGuides(boolean drawCenterX, boolean drawOuterX, boolean drawThirds, boolean drawSafeArea) {
+        this.GuideDrawCenterX = drawCenterX;
+        this.GuideDrawOuterX = drawOuterX;
+        this.GuideDrawThirds = drawThirds;
+        this.GuideDrawSafeArea = drawSafeArea;
+    }
+
+    public boolean[] GetGuides() {
+        boolean[] returnval;
+        returnval = new boolean[4];
+        returnval[0] = this.GuideDrawCenterX;
+        returnval[1] = this.GuideDrawOuterX;
+        returnval[2] = this.GuideDrawThirds;
+        returnval[3] = this.GuideDrawSafeArea;
+        return returnval;
     }
 
     public void SetImageFlipMode(MirrorImage newmode) {
@@ -550,10 +581,10 @@ public class Camera {
 
     public void SetRecordFormat(RecordFormat newformat) {
         if (newformat == RecordFormat.JPEG) {
-            this.ExecuteCommand(Command.SETCONTAINERFORMATJPEG);
+            this.ExecuteCommand("SETCONTAINERFORMATJPEG");
         }
         if (newformat == RecordFormat.MOV) {
-            this.ExecuteCommand(Command.SETCONTAINERFORMATQUICKTIME);
+            this.ExecuteCommand("SETCONTAINERFORMATQUICKTIME");
         }
 
         this.RecordFormat = newformat;
@@ -770,13 +801,13 @@ public class Camera {
         }
 
         if (this.CAMOGMState == CamogmState.NOTRUNNING) {
-            this.ExecuteCommand(Command.CAMOGMSTART);
+            this.ExecuteCommand("CAMOGMSTART");
             return false;
         }
         if (this.HDDState == HDDState.UNMOUNTED) {
-            this.ExecuteCommand(Command.MOUNTHDD);
-            this.ExecuteCommand(Command.SETRECDIR);
-            this.ExecuteCommand(Command.SETCONTAINERFORMATQUICKTIME);
+            this.ExecuteCommand("MOUNTHDD");
+            this.ExecuteCommand("SETRECDIR");
+            this.ExecuteCommand("SETCONTAINERFORMATQUICKTIME");
             return true; // ElphelVision should also work with cameras without HDD
         } else {
             return true;
@@ -978,8 +1009,8 @@ public class Camera {
             line += "ColorMode=";
             if (this.GetColorMode() == ColorMode.RGB) {
                 line += "RGB";
-            } else if (this.GetColorMode() == ColorMode.JP46) {
-                line += "JP46";
+            } else if (this.GetColorMode() == ColorMode.JP4) {
+                line += "JP4";
             }
             line += "\n";
             line += "Exposure=" + ExposureTimeEV[this.GetExposureIndex()] + "\n";
@@ -1005,6 +1036,7 @@ public class Camera {
             line += "WB_Factor_G=" + Float.toString(this.WB_Factor_G) + "\n";
             line += "WB_Factor_B=" + Float.toString(this.WB_Factor_B) + "\n";
             line += "WB_Factor_GB=" + Float.toString(this.WB_Factor_GB) + "\n";
+            line += "MovieMaxChunkSize=" + Integer.toString(this.GetMovieClipMaxChunkSize()) + "\n";
             line += "ImageOrientation=";
             if (this.GetImageOrientation() == ImageOrientation.LANDSCAPE) {
                 line += "LANDSCAPE";
@@ -1135,8 +1167,8 @@ public class Camera {
                         if (value.trim().contentEquals("RGB")) {
                             this.SetColorMode(ColorMode.RGB);
                         }
-                        if ((value.trim()).contentEquals("JP46")) {
-                            this.SetColorMode(ColorMode.JP46);
+                        if ((value.trim()).contentEquals("JP4")) {
+                            this.SetColorMode(ColorMode.JP4);
                         }
                     }
                     if (name.trim().equals("Exposure")) {
@@ -1199,18 +1231,28 @@ public class Camera {
                     if (name.trim().equals("Gain")) {
                         this.SetGain(Float.parseFloat(value.trim()));
                     }
-                    if (name.trim().contains("WB_Factor_R")) {
+                    if (name.trim().equals("WB_Factor_R")) {
                         this.WB_Factor_R = (Float.parseFloat(value.trim()));
                     }
-                    if (name.trim().contains("WB_Factor_G")) {
+                    if (name.trim().equals("WB_Factor_G")) {
                         this.WB_Factor_G = (Float.parseFloat(value.trim()));
                     }
-                    if (name.trim().contains("WB_Factor_B")) {
+                    if (name.trim().equals("WB_Factor_B")) {
                         this.WB_Factor_B = (Float.parseFloat(value.trim()));
                     }
-                    if (name.trim().contains("WB_Factor_GB")) {
+                    if (name.trim().equals("WB_Factor_GB")) {
                         this.WB_Factor_GB = (Float.parseFloat(value.trim()));
                     }
+                    if (name.trim().equals("Gamma")) {
+                        this.Gamma = (Float.parseFloat(value.trim()));
+                    }
+                    if (name.trim().equals("Blacklevel")) {
+                        this.Blacklevel = (Integer.parseInt(value.trim()));
+                    }
+                    if (name.trim().equals("MovieMaxChunkSize")) {
+                        this.MovieClipMaxChunkSize = (Integer.parseInt(value.trim()));
+                    }
+
                 } else {
                     //Empty or invalid line. Unable to process
                 }
@@ -1452,11 +1494,7 @@ public class Camera {
                 colormode = 1;
                 break;
 
-            case JP46:
-                colormode = 2;
-                break;
-
-            case JP4D:
+            case JP4:
                 colormode = 3;
                 break;
 
@@ -1464,7 +1502,7 @@ public class Camera {
         return colormode;
     }
 
-    public void ExecuteCommand(Command Command) {
+    public void ExecuteCommand(String Command) {
         URLConnection conn = null;
         BufferedReader data = null;
         String line;
@@ -1475,36 +1513,24 @@ public class Camera {
         URL CommandURL = null;
         String command_name = "";
 
-        switch (Command) {
-            case CAMOGMSTART:
-                command_name = "run_camogm";
-                break;
-
-            case RECORDSTART:
-                command_name = "start";
-                Calendar now = Calendar.getInstance();
-                RecordstartTime = now.getTimeInMillis();
-                break;
-
-            case RECORDSTOP:
-                command_name = "stop";
-                break;
-
-            case MOUNTHDD:
-                command_name = "mount";
-                break;
-
-            case SETRECDIR:
-                command_name = "set_prefix&prefix=/var/hdd/";
-                break;
-
-            case SETCONTAINERFORMATQUICKTIME:
-                command_name = "setmov";
-                break;
-
-            case SETCONTAINERFORMATJPEG:
-                command_name = "setjpeg";
-                break;
+        if (Command.equals("CAMOGMSTART")) {
+            command_name = "run_camogm";
+        } else if (Command.equals("RECORDSTART")) {
+            command_name = "start";
+            Calendar now = Calendar.getInstance();
+            RecordstartTime = now.getTimeInMillis();
+        } else if (Command.equals("RECORDSTOP")) {
+            command_name = "stop";
+        } else if (Command.equals("MOUNTHDD")) {
+            command_name = "mount";
+        } else if (Command.equals("SETRECDIR")) {
+            command_name = "set_prefix&prefix=/var/hdd/";
+        } else if (Command.equals("SETCONTAINERFORMATQUICKTIME")) {
+            command_name = "setmov";
+        } else if (Command.equals("SETCONTAINERFORMATJPEG")) {
+            command_name = "setjpeg";
+        } else {
+            command_name = Command;
         }
 
         // try to connect
@@ -1531,7 +1557,6 @@ public class Camera {
         } catch (IOException e) {
             System.out.println("IO Error:" + e.getMessage());
         }
-
     }
 
     public boolean PingCamera() {
@@ -1550,7 +1575,8 @@ public class Camera {
             conn.setReadTimeout(3000);
             conn.connect();
 
-            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            data =
+                    new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             buf.delete(0, buf.length());
             while ((line = data.readLine()) != null) {
@@ -1629,7 +1655,8 @@ public class Camera {
                 Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
                 doc.getDocumentElement().normalize();
                 NodeList nodeLst = doc.getElementsByTagName("elphel_vision_data");
-                for (int s = 0; s < nodeLst.getLength(); s++) {
+                for (int s = 0; s <
+                        nodeLst.getLength(); s++) {
                     Node fstNode = nodeLst.item(s);
                     if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
                         Element fstElmnt = (Element) fstNode;
@@ -1671,6 +1698,7 @@ public class Camera {
                                 if (((Node) Elmnt11.item(0)).getNodeValue().startsWith("running")) {
                                     this.CAMOGMState = CamogmState.RECORDING;
                                 }
+
                             }
                         }
 
@@ -1739,18 +1767,23 @@ public class Camera {
                             if (this.Gain_G == 1.0f) {
                                 this.GainIndex = 4;
                             }
+
                             if (this.Gain_G == 2.0f) {
                                 this.GainIndex = 3;
                             }
+
                             if (this.Gain_G == 4.0f) {
                                 this.GainIndex = 2;
                             }
+
                             if (this.Gain_G == 8.0f) {
                                 this.GainIndex = 1;
                             }
+
                             if (this.Gain_G == 16.0f) {
                                 this.GainIndex = 0;
                             }
+
                         }
 
                         NodeList NmElmntLstGainGB = fstElmnt.getElementsByTagName("gain_gb");
@@ -1758,6 +1791,27 @@ public class Camera {
                         NodeList ElmntGainGB = NmElmntGainGB.getChildNodes();
                         if (((Node) ElmntGainGB.item(0)) != null) {
                             this.Gain_GB = Integer.parseInt(((Node) ElmntGainGB.item(0)).getNodeValue()) / 65536.0f;
+                        }
+
+                        NodeList NmElmntLstCamOGMMaxDuration = fstElmnt.getElementsByTagName("camogm_max_duration"); // seconds
+                        Element NmElmntCamOGMMaxDuration = (Element) NmElmntLstCamOGMMaxDuration.item(0);
+                        NodeList ElmntCamOGMMaxDuration = NmElmntCamOGMMaxDuration.getChildNodes();
+                        if (((Node) ElmntCamOGMMaxDuration.item(0)) != null) {
+                            // TODO
+                        }
+
+                        NodeList NmElmntLstCamOGMMaxLength = fstElmnt.getElementsByTagName("camogm_max_length"); // bytes
+                        Element NmElmntCamOGMMaxLength = (Element) NmElmntLstCamOGMMaxLength.item(0);
+                        NodeList ElmntCamOGMMaxLength = NmElmntCamOGMMaxLength.getChildNodes();
+                        if (((Node) ElmntCamOGMMaxLength.item(0)) != null) {
+                            this.MovieClipMaxChunkSize = Integer.parseInt(((Node) ElmntCamOGMMaxLength.item(0)).getNodeValue()) / 1024 / 1024;
+                        }
+
+                        NodeList NmElmntLstCamOGMMaxFrames = fstElmnt.getElementsByTagName("camogm_max_frames"); // frames
+                        Element NmElmntCamOGMMaxFrames = (Element) NmElmntLstCamOGMMaxFrames.item(0);
+                        NodeList ElmntCamOGMMaxFrames = NmElmntCamOGMMaxFrames.getChildNodes();
+                        if (((Node) ElmntCamOGMMaxFrames.item(0)) != null) {
+                            // TODO
                         }
 
                         NodeList NmElmntLst9 = fstElmnt.getElementsByTagName("exposure");
@@ -1780,21 +1834,26 @@ public class Camera {
                             if ((flipv == 1) && (fliph == 1)) {
                                 this.ImageFlip = MirrorImage.VERTICALHORIZONTAL;
                             }
+
                             if ((flipv == 1) && (fliph == 0)) {
                                 this.ImageFlip = MirrorImage.VERTICAL;
                             }
+
                             if ((flipv == 0) && (fliph == 1)) {
                                 this.ImageFlip = MirrorImage.HORIZONTAL;
                             }
+
                             if ((flipv == 0) && (fliph == 0)) {
                                 this.ImageFlip = MirrorImage.NONE;
                             }
+
                         }
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         } catch (IOException e) {
             System.out.println("IO Error:" + e.getMessage());
         }

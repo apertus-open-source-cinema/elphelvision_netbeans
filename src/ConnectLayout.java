@@ -174,6 +174,7 @@ public class ConnectLayout extends javax.swing.JPanel {
                     Thread.sleep(400);
                 }
                 Parent.PostConnect();
+                Parent.MaincardLayout.Load();
                 CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
                 cl.show(Parent.CardManager, "MainCard");
                 Parent.StartMplayerVideoStream();

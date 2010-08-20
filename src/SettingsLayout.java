@@ -84,7 +84,7 @@ public class SettingsLayout extends javax.swing.JPanel {
             color_rbg.setEnabled(true);
             Custom.setChecked(true);
         }
-        if (Parent.Camera.GetColorMode() == ColorMode.JP46) {
+        if (Parent.Camera.GetColorMode() == ColorMode.JP4) {
             color_rbg.setChecked(false);
             color_jp4.setChecked(true);
         }
@@ -199,6 +199,7 @@ public class SettingsLayout extends javax.swing.JPanel {
         NavigationPanel = new javax.swing.JPanel();
         SettingsMenu1Button = new EButton();
         SettingsMenu2Button = new EButton();
+        GuidesMenuButton = new EButton();
         ConfirmationPanel = new javax.swing.JPanel();
         SettingsOKButton1 = new EButton();
         SettingsCancelButton = new EButton();
@@ -319,7 +320,7 @@ public class SettingsLayout extends javax.swing.JPanel {
             }
         });
 
-        color_jp4.setText("JP46 RAW");
+        color_jp4.setText("JP4 RAW");
         color_jp4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 color_jp4ActionPerformed(evt);
@@ -430,7 +431,7 @@ public class SettingsLayout extends javax.swing.JPanel {
         );
 
         JPEGQualityPanel.setBackground(new java.awt.Color(0, 0, 0));
-        JPEGQualityPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "JPEG Quality", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bitstream Vera Sans", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        JPEGQualityPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "JPEG Quality", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("DejaVu Sans", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
 
         JPEG_Plus.setText("+");
         JPEG_Plus.addActionListener(new java.awt.event.ActionListener() {
@@ -498,6 +499,13 @@ public class SettingsLayout extends javax.swing.JPanel {
             }
         });
 
+        GuidesMenuButton.setText("Guides");
+        GuidesMenuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuidesMenuButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout NavigationPanelLayout = new javax.swing.GroupLayout(NavigationPanel);
         NavigationPanel.setLayout(NavigationPanelLayout);
         NavigationPanelLayout.setHorizontalGroup(
@@ -505,13 +513,16 @@ public class SettingsLayout extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NavigationPanelLayout.createSequentialGroup()
                 .addComponent(SettingsMenu1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(SettingsMenu2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(SettingsMenu2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(GuidesMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         NavigationPanelLayout.setVerticalGroup(
             NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(SettingsMenu1Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(SettingsMenu2Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(SettingsMenu2Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GuidesMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         ConfirmationPanel.setBackground(new java.awt.Color(0, 0, 0));
@@ -721,11 +732,11 @@ public class SettingsLayout extends javax.swing.JPanel {
                         .addComponent(WBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                         .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 344, Short.MAX_VALUE)
                         .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25))))
         );
@@ -736,7 +747,7 @@ public class SettingsLayout extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bgLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(WBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(bgLayout.createSequentialGroup()
@@ -941,7 +952,7 @@ public class SettingsLayout extends javax.swing.JPanel {
         }
 
         if (color_jp4.getChecked()) {
-            Parent.Camera.SetColorMode(ColorMode.JP46);
+            Parent.Camera.SetColorMode(ColorMode.JP4);
         }
 
         if (fps24.getChecked()) {
@@ -1080,6 +1091,12 @@ public class SettingsLayout extends javax.swing.JPanel {
             System.exit(0);
         }
     }//GEN-LAST:event_TerminateButtonActionPerformed
+
+    private void GuidesMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuidesMenuButtonActionPerformed
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "GuidesCard");
+        Parent.GuidesPanel.Load();
+    }//GEN-LAST:event_GuidesMenuButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton Amax;
     private EButton Cimax;
@@ -1091,6 +1108,7 @@ public class SettingsLayout extends javax.swing.JPanel {
     private EButton FormatQuicktime;
     private EButton Full;
     private EButton FullHD;
+    private EButton GuidesMenuButton;
     private EButton JPEGQualityButton;
     private javax.swing.JPanel JPEGQualityPanel;
     private EButton JPEG_Minus;

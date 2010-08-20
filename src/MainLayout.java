@@ -19,6 +19,9 @@
 -----------------------------------------------------------------------------**/
 
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -52,6 +55,12 @@ public class MainLayout extends JPanel {
         ExposureButton.setValue(Parent.Camera.GetExposure());
         GainButton.setValue(Parent.Camera.GetGain());
         histogram.SetParent(Parent);
+        guides1.SetParent(Parent);
+    }
+
+    public void Load() {
+        guides1.SetOptions(Parent.Camera.GetGuides());
+        guides1.repaint();
     }
 
     public javax.swing.JTextPane GetInfoTextPane() {
@@ -66,6 +75,33 @@ public class MainLayout extends JPanel {
         histogram.repaint();
     }
 
+    public void paint(Graphics g) {
+        super.paint(g);
+        String testtext = "test";
+        VideoFrame.invalidate();
+        Graphics graphics = VideoFrame.getGraphics();
+        // clear the area before drawing anything new on the canvas
+        graphics.setColor(Color.DARK_GRAY);
+        graphics.fillRect(0, 0, 800, 600);
+
+        int x = 50;
+        int y = 50;
+
+        Font font = new Font("Arial", Font.PLAIN, 18);
+        graphics.setFont(font);
+
+        // draw border by drawing it 4 times with offset in each direction
+        graphics.setColor(Color.black);
+        graphics.drawString(testtext, x + 1, y + 1);
+        graphics.drawString(testtext, x + 1, y - 1);
+        graphics.drawString(testtext, x - 1, y + 1);
+        graphics.drawString(testtext, x - 1, y - 1);
+
+        // draw the filling
+        graphics.setColor(Color.white);
+        graphics.drawString(testtext, x, y);
+    }
+
     public int getWinID() {
         int winid = 0;
         if (Parent.Settings.GetOS() == OStype.Windows) {
@@ -74,7 +110,7 @@ public class MainLayout extends JPanel {
                 cl = Class.forName("sun.awt.windows.WComponentPeer");
                 java.lang.reflect.Field f = cl.getDeclaredField("hwnd");
                 f.setAccessible(true);
-                winid = (int) f.getLong(overlay.getPeer());
+                winid = (int) f.getLong(guides1.getPeer());
                 //debugoutput.append("Video window ID: " + winid);
             } catch (ClassNotFoundException e1) {
                 // TODO Auto-generated catch block
@@ -139,8 +175,6 @@ public class MainLayout extends JPanel {
         ParameterPanel = new javax.swing.JPanel();
         ExposureButton = new EButton();
         GainButton = new EButton();
-        SaveConfig = new EButton();
-        LoadConfig = new EButton();
         SettingsButton = new EButton();
         histogram = new Histogram();
         CaptureStill = new EButton();
@@ -150,6 +184,7 @@ public class MainLayout extends JPanel {
         InfoTextPane = new javax.swing.JTextPane();
         NoticeArea = new javax.swing.JLabel();
         VideoFrame = new javax.swing.JPanel();
+        guides1 = new Guides();
         overlay = new java.awt.Canvas();
 
         setBackground(new java.awt.Color(0, 0, 0));
@@ -224,20 +259,6 @@ public class MainLayout extends JPanel {
             }
         });
 
-        SaveConfig.setText("save");
-        SaveConfig.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveConfigActionPerformed(evt);
-            }
-        });
-
-        LoadConfig.setText("load");
-        LoadConfig.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoadConfigActionPerformed(evt);
-            }
-        });
-
         SettingsButton.setBackground(new java.awt.Color(255, 255, 255));
         SettingsButton.setText("Settings");
         SettingsButton.setAlignmentY(0.0F);
@@ -286,6 +307,7 @@ public class MainLayout extends JPanel {
             }
         });
 
+        zoombutton.setForeground(new java.awt.Color(138, 112, 112));
         zoombutton.setText("zoom");
         zoombutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,18 +325,15 @@ public class MainLayout extends JPanel {
                 .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SaveConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LoadConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(128, 128, 128)
                 .addComponent(SettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(histogram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CaptureStill, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RecordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(RecordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         ParameterPanelLayout.setVerticalGroup(
             ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,8 +343,6 @@ public class MainLayout extends JPanel {
             .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(SaveConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(LoadConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(zoombutton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(SettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(histogram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -346,46 +363,45 @@ public class MainLayout extends JPanel {
         InfoPanel.setLayout(InfoPanelLayout);
         InfoPanelLayout.setHorizontalGroup(
             InfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(NoticeArea, javax.swing.GroupLayout.DEFAULT_SIZE, 924, Short.MAX_VALUE)
-            .addComponent(InfoTextPane, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(NoticeArea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 939, Short.MAX_VALUE)
+            .addGroup(InfoPanelLayout.createSequentialGroup()
+                .addComponent(InfoTextPane, javax.swing.GroupLayout.DEFAULT_SIZE, 927, Short.MAX_VALUE)
+                .addContainerGap())
         );
         InfoPanelLayout.setVerticalGroup(
             InfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InfoPanelLayout.createSequentialGroup()
                 .addComponent(InfoTextPane, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NoticeArea, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE))
+                .addComponent(NoticeArea, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         VideoFrame.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
+        VideoFrame.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        overlay.setBackground(java.awt.Color.darkGray);
+        guides1.setBackground(java.awt.Color.darkGray);
+        VideoFrame.add(guides1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 170, 150, 180));
 
-        javax.swing.GroupLayout VideoFrameLayout = new javax.swing.GroupLayout(VideoFrame);
-        VideoFrame.setLayout(VideoFrameLayout);
-        VideoFrameLayout.setHorizontalGroup(
-            VideoFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(overlay, javax.swing.GroupLayout.PREFERRED_SIZE, 922, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        VideoFrameLayout.setVerticalGroup(
-            VideoFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(overlay, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-        );
+        overlay.setBackground(new java.awt.Color(64, 64, 64));
+        VideoFrame.add(overlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 720, 360));
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(SliderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(bgLayout.createSequentialGroup()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ParameterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1032, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(InfoPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(VideoFrame, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(45, 45, 45))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(SliderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 819, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(InfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(ParameterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,22 +410,21 @@ public class MainLayout extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(SliderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                        .addComponent(ParameterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ParameterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -430,11 +445,11 @@ public class MainLayout extends JPanel {
     private void RecordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordButtonActionPerformed
         CamogmState check = Parent.Camera.GetCamogmState();
         if (check == CamogmState.STOPPED) {
-            Parent.Camera.ExecuteCommand(Command.RECORDSTART);
+            Parent.Camera.ExecuteCommand("RECORDSTART");
             RecordButton.setText("Stop");
             RecordButton.setChecked(true);
         } else if (check == CamogmState.RECORDING) {
-            Parent.Camera.ExecuteCommand(Command.RECORDSTOP);
+            Parent.Camera.ExecuteCommand("RECORDSTOP");
             RecordButton.setText("Record");
             RecordButton.setChecked(false);
         }
@@ -475,22 +490,6 @@ public class MainLayout extends JPanel {
         Parent.Player.close();
     }//GEN-LAST:event_SettingsButtonActionPerformed
 
-    private void LoadConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadConfigActionPerformed
-        try {
-            Parent.Camera.ReadConfigFile("autosave.cfg");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(MainLayout.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_LoadConfigActionPerformed
-
-    private void SaveConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveConfigActionPerformed
-        try {
-            Parent.Camera.WriteConfigFile("autosave.cfg");
-        } catch (IOException ex) {
-            Logger.getLogger(MainLayout.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_SaveConfigActionPerformed
-
     private void CaptureStillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaptureStillActionPerformed
         String ReturnMessage = Parent.Camera.CaptureStillImage("QUALITY=100&COLOR=2&EXTENSION=.jp46");
         NoticeArea.setText(ReturnMessage);
@@ -515,17 +514,16 @@ public class MainLayout extends JPanel {
     private EButton GainButton;
     private javax.swing.JPanel InfoPanel;
     private javax.swing.JTextPane InfoTextPane;
-    private EButton LoadConfig;
     private javax.swing.JLabel NoticeArea;
     private javax.swing.JLabel ParameterName;
     private javax.swing.JPanel ParameterPanel;
     private EButton RecordButton;
-    private EButton SaveConfig;
     private EButton SettingsButton;
     private javax.swing.JPanel SliderPanel;
     private javax.swing.JPanel VideoFrame;
     private javax.swing.JPanel bg;
     private EButton decvalue;
+    private Guides guides1;
     private Histogram histogram;
     private EButton incvalue;
     private java.awt.Canvas overlay;

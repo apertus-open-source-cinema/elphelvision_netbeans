@@ -63,6 +63,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     ResolutionSettings ResolutionSettingsCardLayout;
     FPSSettings FPSSettingsCardLayout;
     NumericalInputPanel NumberPanel;
+    GuidesLayout GuidesPanel;
 
     public static void main(String[] args) {
         Frame f = new Frame();
@@ -97,12 +98,14 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         return this.CardManager;
     }
 
+
+
     public void StartMplayerVideoStream() {
         try {
             String mplayerOptions = null;
             if (Settings.GetOS() == OStype.Linux) {
                 //mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo x11:ck-method=auto -colorkey 0x404040 -wid " + MaincardLayout.getWinID();
-                mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo x11 -zoom -colorkey 0x404040";
+                mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo xv -zoom -colorkey 0x404040";
                 Settings.SetMplayerParameters(mplayerOptions);
             }
             if (Settings.GetOS() == OStype.Windows) {
@@ -115,39 +118,6 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
-
-    public void paint(Graphics g) {
-        super.paint(g);
-
-        /*
-        overlay.invalidate();
-
-
-        Graphics graphics = overlay.getGraphics();
-
-        // clear the area before drawing anything new on the canvas
-        graphics.setColor(Color.DARK_GRAY);
-        graphics.fillRect(0, 0, 800, 600);
-
-        int x = 50;
-        int y = 50;
-
-        Font font = new Font("Arial", Font.PLAIN, 18);
-        graphics.setFont(font);
-
-        // draw border by drawing it 4 times with offset in each direction
-        graphics.setColor(Color.black);
-        graphics.drawString(testtext, x+1, y+1);
-        graphics.drawString(testtext, x+1, y-1);
-        graphics.drawString(testtext, x-1, y+1);
-        graphics.drawString(testtext, x-1, y-1);
-
-        // draw the filling
-        graphics.setColor(Color.white);
-        graphics.drawString(testtext, x, y);
-         */
-        //debugoutput.append(logger.);
     }
 
     public void start() {
@@ -194,6 +164,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         //FPSSettingsCardLayout.init();
         NumberPanel = new NumericalInputPanel(this);
         //NumberPanel.init();
+        GuidesPanel = new GuidesLayout(this);
 
         CardManager.add(ConnectCardLayout, "ConnectCard");
         CardManager.add(MaincardLayout, "MainCard");
@@ -201,7 +172,9 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         CardManager.add(Settings2CardLayout, "Settings2Card");
         CardManager.add(ResolutionSettingsCardLayout, "CustomResolutionCard");
         CardManager.add(FPSSettingsCardLayout, "CustomFPSCard");
+        CardManager.add(GuidesPanel, "GuidesCard");
         CardManager.add(NumberPanel, "Numberpanel");
+
 
         add(CardManager);
 
