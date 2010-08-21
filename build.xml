@@ -107,15 +107,17 @@
 	     <mkdir  dir="${release.dir}/${standalone.jar.name}-mac" />
 	     <mkdir  dir="${release.dir}/${standalone.jar.name}-win" />
 	     <echo  file="${release.dir}/${standalone.jar.name}-win/${standalone.jar.name}.bat">
-	java -jar -Xmx256m ${standalone.jar.name}-win.jar
+	     java -jar -Xmx256m ${standalone.jar.name}.jar
 	     </echo>
 	     <copy todir="${release.dir}/${standalone.jar.name}-win/" file="${dist.jar.dir}/${standalone.jar.name}.jar" />
 	     <mkdir  dir="${release.dir}/${standalone.jar.name}-linux" />
 	     <echo  file="${release.dir}/${standalone.jar.name}-linux/${standalone.jar.name}.sh">
-	java -jar -Xmx256m ${standalone.jar.name}-linux.jar
+             java -jar -Xmx256m ${standalone.jar.name}.jar
 	     </echo>
 	     <copy todir="${release.dir}/${standalone.jar.name}-linux/" file="${dist.jar.dir}/${standalone.jar.name}.jar" />
-	     <copy todir="${basedir}/default.config" file="${dist.jar.dir}/default.config" />
+             <copy todir="${release.dir}/${standalone.jar.name}-linux" file="${dist.jar.dir}/default.config" />
+             <copy todir="${release.dir}/${standalone.jar.name}-win" file="${dist.jar.dir}/default.config" />
+             <copy todir="${release.dir}/${standalone.jar.name}-mac" file="${dist.jar.dir}/default.config" />
 	     <echo>Bundling: Creating ZIP Archives</echo>
 	     <zip destfile="${release.dir}/${standalone.jar.name}-win.zip"  
 		  basedir="${release.dir}/${standalone.jar.name}-win" update="true" />
