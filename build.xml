@@ -93,8 +93,9 @@
 	    </binlib>
 	    <fileset file="${basedir}/properties.cfg"></fileset><!-- optional -->
 	</one-jar> 
+        <copy todir="${dist.jar.dir}" file="${basedir}/default.config" />
 	<echo file="${dist.jar.dir}/README.txt" append="true">
-	Run the stand-alone distribution from the command line using:
+   	Run the stand-alone distribution from the command line using:
 	java -jar -Xmx256m ${standalone.jar.name}-all.jar</echo>
 	<echo>Bundling: OneJAR is done.</echo>
 	</target>
@@ -108,14 +109,13 @@
 	     <echo  file="${release.dir}/${standalone.jar.name}-win/${standalone.jar.name}.bat">
 	java -jar -Xmx256m ${standalone.jar.name}-win.jar
 	     </echo>
-	     <copy todir="${release.dir}/${standalone.jar.name}-win/"
-		    file="${dist.jar.dir}/${standalone.jar.name}.jar" />
+	     <copy todir="${release.dir}/${standalone.jar.name}-win/" file="${dist.jar.dir}/${standalone.jar.name}.jar" />
 	     <mkdir  dir="${release.dir}/${standalone.jar.name}-linux" />
 	     <echo  file="${release.dir}/${standalone.jar.name}-linux/${standalone.jar.name}.sh">
 	java -jar -Xmx256m ${standalone.jar.name}-linux.jar
 	     </echo>
-	     <copy todir="${release.dir}/${standalone.jar.name}-linux/"
-		    file="${dist.jar.dir}/${standalone.jar.name}.jar" />
+	     <copy todir="${release.dir}/${standalone.jar.name}-linux/" file="${dist.jar.dir}/${standalone.jar.name}.jar" />
+	     <copy todir="${basedir}/default.config" file="${dist.jar.dir}/default.config" />
 	     <echo>Bundling: Creating ZIP Archives</echo>
 	     <zip destfile="${release.dir}/${standalone.jar.name}-win.zip"  
 		  basedir="${release.dir}/${standalone.jar.name}-win" update="true" />
