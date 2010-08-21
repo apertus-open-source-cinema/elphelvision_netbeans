@@ -234,7 +234,7 @@ public class MainLayout extends JPanel {
                 .addComponent(decvalue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        bg.add(SliderPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+        bg.add(SliderPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         ParameterPanel.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -263,7 +263,8 @@ public class MainLayout extends JPanel {
         });
 
         SettingsButton.setBackground(new java.awt.Color(255, 255, 255));
-        SettingsButton.setText("Settings");
+        SettingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/settings.png"))); // NOI18N
+        SettingsButton.setToolTipText("Settings");
         SettingsButton.setAlignmentY(0.0F);
         SettingsButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         SettingsButton.setIconTextGap(0);
@@ -311,7 +312,7 @@ public class MainLayout extends JPanel {
         });
 
         zoombutton.setForeground(new java.awt.Color(138, 112, 112));
-        zoombutton.setText("zoom");
+        zoombutton.setText("todo zoom");
         zoombutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 zoombuttonActionPerformed(evt);
@@ -323,14 +324,14 @@ public class MainLayout extends JPanel {
         ParameterPanelLayout.setHorizontalGroup(
             ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ParameterPanelLayout.createSequentialGroup()
-                .addComponent(zoombutton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(SettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(128, 128, 128)
-                .addComponent(SettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(zoombutton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
                 .addComponent(histogram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CaptureStill, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -345,12 +346,12 @@ public class MainLayout extends JPanel {
             .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(zoombutton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(SettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(zoombutton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(histogram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(SettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        bg.add(ParameterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 540, -1, -1));
+        bg.add(ParameterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 980, -1));
 
         InfoPanel.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -477,7 +478,7 @@ public class MainLayout extends JPanel {
         //Parent.Player.setProperty("fullscreen", 1);
         //Parent.Player.setProperty("fullscreen", "yes");
         //Parent.Player.getProperty("fullscreen"); // TODO
-    }//GEN-LAST:event_zoombuttonActionPerformed
+}//GEN-LAST:event_zoombuttonActionPerformed
 
     public void EnableRecord(boolean val) {
         this.RecordButton.setEnabled(val);

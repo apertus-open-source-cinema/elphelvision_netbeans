@@ -42,63 +42,48 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="ResolutionPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="ColorModePanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="FPSPanel" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="NavigationPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
                           <Component id="JPEGQualityPanel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="WBPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="RecordFormatPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="81" max="32767" attributes="0"/>
+                          <EmptySpace pref="87" max="32767" attributes="0"/>
                           <Component id="TerminateButton" min="-2" pref="127" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="344" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="NavigationPanel10" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="198" max="32767" attributes="0"/>
                           <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="JPEGQualityPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="WBPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="ResolutionPanel" min="-2" max="-2" attributes="0"/>
+                      <Component id="RecordFormatPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="TerminateButton" min="-2" pref="65" max="-2" attributes="0"/>
+                      <Component id="ColorModePanel" min="-2" max="-2" attributes="0"/>
+                      <Component id="FPSPanel" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="134" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="JPEGQualityPanel" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                              <Component id="RecordFormatPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="WBPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="ResolutionPanel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="ColorModePanel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="FPSPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace pref="146" max="32767" attributes="0"/>
-                                  <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                          <Component id="TerminateButton" min="-2" pref="65" max="-2" attributes="0"/>
-                          <EmptySpace pref="446" max="32767" attributes="0"/>
-                          <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="NavigationPanel10" min="-2" max="-2" attributes="0"/>
+                      <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -470,63 +455,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="NavigationPanel">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" id="black" palette="1" red="0" type="palette"/>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="SettingsMenu1Button" min="-2" pref="135" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="SettingsMenu2Button" min="-2" pref="136" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="GuidesMenuButton" min="-2" pref="136" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="SettingsMenu1Button" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="SettingsMenu2Button" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="GuidesMenuButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="EButton" name="SettingsMenu1Button">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Settings Tab 1"/>
-                <Property name="checked" type="boolean" value="true"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu1ButtonActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="EButton" name="SettingsMenu2Button">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Settings Tab 2"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu2ButtonActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="EButton" name="GuidesMenuButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Guides"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GuidesMenuButtonActionPerformed"/>
-              </Events>
-            </Component>
-          </SubComponents>
-        </Container>
         <Container class="javax.swing.JPanel" name="ConfirmationPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -538,15 +466,16 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="SettingsOKButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="SettingsCancelButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="SettingsCancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="SettingsOKButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -782,6 +711,74 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TerminateButtonActionPerformed"/>
           </Events>
         </Component>
+        <Container class="javax.swing.JPanel" name="NavigationPanel10">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" id="black" palette="1" red="0" type="palette"/>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="SettingsMenu1Button10" min="-2" pref="135" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="SettingsMenu2Button10" min="-2" pref="136" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="SettingsMenu3Button10" min="-2" pref="135" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="GuidesMenuButton10" min="-2" pref="136" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="SettingsMenu1Button10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="SettingsMenu2Button10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="SettingsMenu3Button10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="GuidesMenuButton10" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="EButton" name="SettingsMenu1Button10">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Settings Tab 1"/>
+                <Property name="checked" type="boolean" value="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu1Button10ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="EButton" name="SettingsMenu2Button10">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Settings Tab 2"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu2Button10ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="EButton" name="GuidesMenuButton10">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Guides"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GuidesMenuButton10ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="EButton" name="SettingsMenu3Button10">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Settings Tab 3"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu3Button10ActionPerformed"/>
+              </Events>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
   </SubComponents>

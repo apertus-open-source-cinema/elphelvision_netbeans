@@ -85,9 +85,6 @@ public class ResolutionSettings extends javax.swing.JPanel {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
-        NavigationPanel = new javax.swing.JPanel();
-        SettingsMenu1Button = new EButton();
-        ResolutionMenuButton = new EButton();
         MirrorPanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         FlipHorizontal = new EButton();
@@ -113,39 +110,6 @@ public class ResolutionSettings extends javax.swing.JPanel {
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
 
-        NavigationPanel.setBackground(java.awt.Color.black);
-
-        SettingsMenu1Button.setText("Settings Tab 1");
-        SettingsMenu1Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SettingsMenu1ButtonActionPerformed(evt);
-            }
-        });
-
-        ResolutionMenuButton.setChecked(true);
-        ResolutionMenuButton.setText("Resolution Menu");
-        ResolutionMenuButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ResolutionMenuButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout NavigationPanelLayout = new javax.swing.GroupLayout(NavigationPanel);
-        NavigationPanel.setLayout(NavigationPanelLayout);
-        NavigationPanelLayout.setHorizontalGroup(
-            NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NavigationPanelLayout.createSequentialGroup()
-                .addComponent(SettingsMenu1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ResolutionMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        NavigationPanelLayout.setVerticalGroup(
-            NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(SettingsMenu1Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(ResolutionMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
         MirrorPanel.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel10.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
@@ -157,22 +121,22 @@ public class ResolutionSettings extends javax.swing.JPanel {
         jLabel10.setMinimumSize(new java.awt.Dimension(84, 14));
         jLabel10.setPreferredSize(new java.awt.Dimension(84, 14));
 
+        FlipHorizontal.setText("horizontal");
         FlipHorizontal.setAlignmentY(0.0F);
         FlipHorizontal.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         FlipHorizontal.setIconTextGap(20);
         FlipHorizontal.setMargin(new java.awt.Insets(0, 5, 0, 0));
-        FlipHorizontal.setText("horizontal");
         FlipHorizontal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FlipHorizontalActionPerformed(evt);
             }
         });
 
+        FlipVertical.setText("vertical");
         FlipVertical.setAlignmentY(0.0F);
         FlipVertical.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         FlipVertical.setIconTextGap(20);
         FlipVertical.setMargin(new java.awt.Insets(0, 5, 0, 0));
-        FlipVertical.setText("vertical");
         FlipVertical.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FlipVerticalActionPerformed(evt);
@@ -206,22 +170,22 @@ public class ResolutionSettings extends javax.swing.JPanel {
         jLabel5.setText("Orientation");
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        OrientationLandscape.setText("Landscape");
         OrientationLandscape.setAlignmentY(0.0F);
         OrientationLandscape.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         OrientationLandscape.setIconTextGap(20);
         OrientationLandscape.setMargin(new java.awt.Insets(0, 5, 0, 0));
-        OrientationLandscape.setText("Landscape");
         OrientationLandscape.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OrientationLandscapeActionPerformed(evt);
             }
         });
 
+        OrientationPortrait.setText("Portrait");
         OrientationPortrait.setAlignmentY(0.0F);
         OrientationPortrait.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         OrientationPortrait.setIconTextGap(20);
         OrientationPortrait.setMargin(new java.awt.Insets(0, 5, 0, 0));
-        OrientationPortrait.setText("Portrait");
         OrientationPortrait.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OrientationPortraitActionPerformed(evt);
@@ -347,16 +311,16 @@ public class ResolutionSettings extends javax.swing.JPanel {
         jLabel7.setVerifyInputWhenFocusTarget(false);
         jLabel7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        HeightType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         HeightType.setText("type");
+        HeightType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         HeightType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 HeightTypeActionPerformed(evt);
             }
         });
 
-        WidthType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         WidthType.setText("type");
+        WidthType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         WidthType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WidthTypeActionPerformed(evt);
@@ -413,17 +377,15 @@ public class ResolutionSettings extends javax.swing.JPanel {
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addComponent(DimensionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(332, 332, 332)
-                        .addComponent(RotationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(MirrorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 505, Short.MAX_VALUE)
-                        .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(DimensionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(RotationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(MirrorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(383, 383, 383))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                .addContainerGap(800, Short.MAX_VALUE)
+                .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         bgLayout.setVerticalGroup(
@@ -431,14 +393,13 @@ public class ResolutionSettings extends javax.swing.JPanel {
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DimensionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MirrorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RotationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(385, 385, 385)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(RotationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(DimensionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 396, Short.MAX_VALUE)
+                        .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -535,15 +496,6 @@ public class ResolutionSettings extends javax.swing.JPanel {
         UpdateHeightLabel();
     }//GEN-LAST:event_HeightFieldCaretUpdate
 
-    private void SettingsMenu1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1ButtonActionPerformed
-        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "Settings1Card");
-        Parent.StartMplayerVideoStream();
-}//GEN-LAST:event_SettingsMenu1ButtonActionPerformed
-
-    private void ResolutionMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResolutionMenuButtonActionPerformed
-}//GEN-LAST:event_ResolutionMenuButtonActionPerformed
-
     private void OrientationLandscapeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrientationLandscapeActionPerformed
         OrientationLandscape.setChecked(true);
         OrientationPortrait.setChecked(false);
@@ -597,13 +549,10 @@ public class ResolutionSettings extends javax.swing.JPanel {
     private javax.swing.JTextField HeightField;
     private EButton HeightType;
     private javax.swing.JPanel MirrorPanel;
-    private javax.swing.JPanel NavigationPanel;
     private EButton OrientationLandscape;
     private EButton OrientationPortrait;
-    private EButton ResolutionMenuButton;
     private javax.swing.JPanel RotationPanel;
     private EButton SettingsCancelButton;
-    private EButton SettingsMenu1Button;
     private EButton SettingsOKButton;
     private javax.swing.JTextField WidthField;
     private EButton WidthType;

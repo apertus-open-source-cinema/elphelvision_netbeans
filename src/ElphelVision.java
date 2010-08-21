@@ -23,7 +23,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Frame;
-import java.awt.Graphics;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,8 +57,9 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     int HistogramFPS = 15;
     ConnectLayout ConnectCardLayout;
     MainLayout MaincardLayout;
-    SettingsLayout Settings1CardLayout;
+    Settings1Layout Settings1CardLayout;
     Settings2Layout Settings2CardLayout;
+    Settings3Layout Settings3CardLayout;
     ResolutionSettings ResolutionSettingsCardLayout;
     FPSSettings FPSSettingsCardLayout;
     NumericalInputPanel NumberPanel;
@@ -151,13 +151,10 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         CardManager = new JPanel(new CardLayout());
 
         ConnectCardLayout = new ConnectLayout(this);
-        //ConnectCardLayout.init();
         MaincardLayout = new MainLayout(this);
-        //MaincardLayout.init();
-        Settings1CardLayout = new SettingsLayout(this);
-        //Settings1CardLayout.init();
+        Settings1CardLayout = new Settings1Layout(this);
         Settings2CardLayout = new Settings2Layout(this);
-        // Settings2CardLayout.init();
+        Settings3CardLayout = new Settings3Layout(this);
         ResolutionSettingsCardLayout = new ResolutionSettings(this);
         //ResolutionSettingsCardLayout.init();
         FPSSettingsCardLayout = new FPSSettings(this);
@@ -170,6 +167,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         CardManager.add(MaincardLayout, "MainCard");
         CardManager.add(Settings1CardLayout, "Settings1Card");
         CardManager.add(Settings2CardLayout, "Settings2Card");
+        CardManager.add(Settings3CardLayout, "Settings3Card");
         CardManager.add(ResolutionSettingsCardLayout, "CustomResolutionCard");
         CardManager.add(FPSSettingsCardLayout, "CustomFPSCard");
         CardManager.add(GuidesPanel, "GuidesCard");

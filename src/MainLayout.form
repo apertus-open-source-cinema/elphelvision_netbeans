@@ -56,7 +56,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="50" width="-1" height="-1"/>
+              <AbsoluteConstraints x="10" y="40" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
 
@@ -122,7 +122,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="70" y="540" width="-1" height="-1"/>
+              <AbsoluteConstraints x="10" y="540" width="980" height="-1"/>
             </Constraint>
           </Constraints>
 
@@ -130,14 +130,14 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="zoombutton" min="-2" pref="55" max="-2" attributes="0"/>
+                      <Component id="SettingsButton" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="ExposureButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="GainButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
-                      <Component id="SettingsButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="zoombutton" min="-2" pref="55" max="-2" attributes="0"/>
+                      <EmptySpace pref="231" max="32767" attributes="0"/>
                       <Component id="histogram" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="CaptureStill" min="-2" pref="52" max="-2" attributes="0"/>
@@ -156,9 +156,9 @@
                       <Component id="ExposureButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="GainButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="zoombutton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="SettingsButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="histogram" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="SettingsButton" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -198,7 +198,10 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Settings"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/media/settings.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Settings"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="iconTextGap" type="int" value="0"/>
@@ -273,7 +276,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="70" green="70" red="8a" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="zoom"/>
+                <Property name="text" type="java.lang.String" value="todo zoom"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="zoombuttonActionPerformed"/>

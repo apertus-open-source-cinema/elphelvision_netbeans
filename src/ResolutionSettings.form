@@ -41,20 +41,16 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="DimensionsPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="332" max="-2" attributes="0"/>
-                          <Component id="RotationPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="MirrorPanel" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="505" max="32767" attributes="0"/>
-                          <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="DimensionsPanel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="RotationPanel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="MirrorPanel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="383" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="800" max="32767" attributes="0"/>
+                  <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -64,67 +60,20 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="DimensionsPanel" min="-2" max="-2" attributes="0"/>
                       <Component id="MirrorPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="RotationPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="DimensionsPanel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="396" max="32767" attributes="0"/>
+                          <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="385" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
-                      <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="NavigationPanel">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" id="black" palette="1" red="0" type="palette"/>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="SettingsMenu1Button" min="-2" pref="135" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="ResolutionMenuButton" min="-2" pref="136" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="SettingsMenu1Button" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="ResolutionMenuButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="EButton" name="SettingsMenu1Button">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Settings Tab 1"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu1ButtonActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="EButton" name="ResolutionMenuButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Resolution Menu"/>
-                <Property name="checked" type="boolean" value="true"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResolutionMenuButtonActionPerformed"/>
-              </Events>
-            </Component>
-          </SubComponents>
-        </Container>
         <Container class="javax.swing.JPanel" name="MirrorPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">

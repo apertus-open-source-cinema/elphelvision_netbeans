@@ -42,9 +42,7 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="505" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="800" max="-2" attributes="0"/>
                           <Component id="jPanel1" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -62,62 +60,13 @@
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="FPSPanel" min="-2" pref="239" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="263" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel1" pref="53" max="32767" attributes="0"/>
-                      <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jPanel1" pref="53" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="NavigationPanel">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" id="black" palette="1" red="0" type="palette"/>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="SettingsMenu1Button" min="-2" pref="135" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="ResolutionMenuButton" min="-2" pref="136" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="SettingsMenu1Button" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="ResolutionMenuButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="EButton" name="SettingsMenu1Button">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Settings Tab 1"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu1ButtonActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="EButton" name="ResolutionMenuButton">
-              <Properties>
-                <Property name="checked" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="FPS Menu"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResolutionMenuButtonActionPerformed"/>
-              </Events>
-            </Component>
-          </SubComponents>
-        </Container>
         <Container class="javax.swing.JPanel" name="jPanel1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -243,10 +192,10 @@
             </Component>
             <Component class="EButton" name="FPSType">
               <Properties>
+                <Property name="text" type="java.lang.String" value="type"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="DejaVu Sans" size="10" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="type"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FPSTypeActionPerformed"/>
@@ -425,10 +374,10 @@
                 </Component>
                 <Component class="EButton" name="SkipFrameType">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="type"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="DejaVu Sans" size="10" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="type"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SkipFrameTypeActionPerformed"/>
@@ -436,10 +385,10 @@
                 </Component>
                 <Component class="EButton" name="SkipSecondsType">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="type"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="DejaVu Sans" size="10" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="type"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SkipSecondsTypeActionPerformed"/>

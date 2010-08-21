@@ -49,7 +49,9 @@ public class Settings2Layout extends javax.swing.JPanel {
 
     public void Load() {
         Parent.Camera.ReadGammaCurve();
-        MovieSplitSizeField.setText(String.valueOf(Parent.Camera.GetMovieClipMaxChunkSize()));
+        black_level.setValue(String.valueOf(Parent.Camera.GetBlacklevel()));
+        gamma.setValue(String.valueOf(Parent.Camera.GetGamma()));
+        gammacurve.SetControlPoints(6 + Parent.Camera.GetBlacklevel(), 256, 150, 256, 150, 0, 6 + 256, 0);
     }
 
     public void StartMplayerVideoStream() {
@@ -135,9 +137,10 @@ public class Settings2Layout extends javax.swing.JPanel {
         SettingsMenu1Button = new EButton();
         SettingsMenu2Button = new EButton();
         GuidesMenuButton = new EButton();
+        SettingsMenu3Button = new EButton();
         ConfirmationPanel = new javax.swing.JPanel();
-        SettingsOKButton = new EButton();
         SettingsCancelButton = new EButton();
+        SettingsOKButton = new EButton();
         VideoFrame = new javax.swing.JPanel();
         overlay = new java.awt.Canvas();
         Gamma = new javax.swing.JPanel();
@@ -155,12 +158,8 @@ public class Settings2Layout extends javax.swing.JPanel {
         black_inc = new EButton();
         black_level = new EButton();
         black_dec = new EButton();
-        MovieMaxSplitSizePanel = new javax.swing.JPanel();
-        MovieSplitSizeField = new javax.swing.JTextField();
-        MovieSplitSizeLabel = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        MovieSplitSizeType = new EButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -189,14 +188,23 @@ public class Settings2Layout extends javax.swing.JPanel {
             }
         });
 
+        SettingsMenu3Button.setText("Settings Tab 3");
+        SettingsMenu3Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsMenu3ButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout NavigationPanelLayout = new javax.swing.GroupLayout(NavigationPanel);
         NavigationPanel.setLayout(NavigationPanelLayout);
         NavigationPanelLayout.setHorizontalGroup(
             NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NavigationPanelLayout.createSequentialGroup()
+            .addGroup(NavigationPanelLayout.createSequentialGroup()
                 .addComponent(SettingsMenu1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SettingsMenu2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(SettingsMenu3Button, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(GuidesMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -205,17 +213,11 @@ public class Settings2Layout extends javax.swing.JPanel {
             .addGroup(NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(SettingsMenu1Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(SettingsMenu2Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(SettingsMenu3Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(GuidesMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         ConfirmationPanel.setBackground(java.awt.Color.black);
-
-        SettingsOKButton.setText("OK");
-        SettingsOKButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SettingsOKButtonActionPerformed(evt);
-            }
-        });
 
         SettingsCancelButton.setText("Cancel");
         SettingsCancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -224,20 +226,28 @@ public class Settings2Layout extends javax.swing.JPanel {
             }
         });
 
+        SettingsOKButton.setText("OK");
+        SettingsOKButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsOKButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ConfirmationPanelLayout = new javax.swing.GroupLayout(ConfirmationPanel);
         ConfirmationPanel.setLayout(ConfirmationPanelLayout);
         ConfirmationPanelLayout.setHorizontalGroup(
             ConfirmationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConfirmationPanelLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
                 .addComponent(SettingsOKButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         ConfirmationPanelLayout.setVerticalGroup(
             ConfirmationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConfirmationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(SettingsOKButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(SettingsOKButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         VideoFrame.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
@@ -418,67 +428,11 @@ public class Settings2Layout extends javax.swing.JPanel {
                 .addComponent(black_dec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        MovieMaxSplitSizePanel.setBackground(new java.awt.Color(0, 0, 0));
-
-        MovieSplitSizeField.setBackground(new java.awt.Color(0, 0, 0));
-        MovieSplitSizeField.setForeground(new java.awt.Color(255, 255, 255));
-        MovieSplitSizeField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        MovieSplitSizeField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        MovieSplitSizeField.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                MovieSplitSizeFieldCaretUpdate(evt);
-            }
-        });
-
-        MovieSplitSizeLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 18));
-        MovieSplitSizeLabel.setForeground(new java.awt.Color(255, 255, 255));
-        MovieSplitSizeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MovieSplitSizeLabel.setText("Movie Split Size");
-        MovieSplitSizeLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        MovieSplitSizeLabel.setAlignmentY(0.0F);
-        MovieSplitSizeLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        MovieSplitSizeLabel.setIconTextGap(0);
-        MovieSplitSizeLabel.setInheritsPopupMenu(false);
-        MovieSplitSizeLabel.setRequestFocusEnabled(false);
-        MovieSplitSizeLabel.setVerifyInputWhenFocusTarget(false);
-        MovieSplitSizeLabel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("MB");
-
-        MovieSplitSizeType.setText("type");
-        MovieSplitSizeType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        MovieSplitSizeType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MovieSplitSizeTypeActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout MovieMaxSplitSizePanelLayout = new javax.swing.GroupLayout(MovieMaxSplitSizePanel);
-        MovieMaxSplitSizePanel.setLayout(MovieMaxSplitSizePanelLayout);
-        MovieMaxSplitSizePanelLayout.setHorizontalGroup(
-            MovieMaxSplitSizePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MovieMaxSplitSizePanelLayout.createSequentialGroup()
-                .addComponent(MovieSplitSizeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MovieSplitSizeField, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MovieSplitSizeType, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        MovieMaxSplitSizePanelLayout.setVerticalGroup(
-            MovieMaxSplitSizePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MovieMaxSplitSizePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                .addComponent(MovieSplitSizeField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel3)
-                .addComponent(MovieSplitSizeType, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(MovieSplitSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
         jLabel2.setForeground(new java.awt.Color(254, 254, 254));
         jLabel2.setText("Presets not working yet");
+
+        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setText("Red curve is just a drawing test for now");
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -494,21 +448,17 @@ public class Settings2Layout extends javax.swing.JPanel {
                                 .addGap(12, 12, 12)
                                 .addComponent(Blacklevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(gammacurve, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
                             .addGroup(bgLayout.createSequentialGroup()
+                                .addComponent(GammaPresets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(bgLayout.createSequentialGroup()
-                                        .addComponent(GammaPresets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addGap(136, 136, 136)
-                                .addComponent(MovieMaxSplitSizePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 499, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                         .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -534,8 +484,8 @@ public class Settings2Layout extends javax.swing.JPanel {
                                 .addComponent(GammaPresets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(23, 23, 23)
                                 .addComponent(jLabel2)
-                                .addGap(30, 30, 30)
-                                .addComponent(MovieMaxSplitSizePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -554,11 +504,10 @@ public class Settings2Layout extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SettingsOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsOKButtonActionPerformed
-        Parent.Camera.SetMovieClipMaxChunkSize(Integer.parseInt(MovieSplitSizeField.getText()));
         try { // Save to config file
             Parent.Camera.WriteConfigFile("autosave.cfg");
         } catch (IOException ex) {
-            Logger.getLogger(SettingsLayout.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
@@ -618,9 +567,9 @@ public class Settings2Layout extends javax.swing.JPanel {
     }//GEN-LAST:event_gamma_decActionPerformed
 
     private void SettingsMenu1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1ButtonActionPerformed
+        Parent.Settings1CardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings1Card");
-        Parent.Player.close();
 }//GEN-LAST:event_SettingsMenu1ButtonActionPerformed
 
     private void SettingsMenu2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu2ButtonActionPerformed
@@ -654,36 +603,29 @@ public class Settings2Layout extends javax.swing.JPanel {
         gammapreset_cines.setChecked(true);
     }//GEN-LAST:event_gammapreset_cinesActionPerformed
 
-    private void MovieSplitSizeFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_MovieSplitSizeFieldCaretUpdate
-
-}//GEN-LAST:event_MovieSplitSizeFieldCaretUpdate
-
-    private void MovieSplitSizeTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MovieSplitSizeTypeActionPerformed
-        Parent.NumberPanel.Load("Width", Integer.parseInt(MovieSplitSizeField.getText()), MovieSplitSizeField, "CustomResolutionCard");
-        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "Numberpanel");
-}//GEN-LAST:event_MovieSplitSizeTypeActionPerformed
-
     private void GuidesMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuidesMenuButtonActionPerformed
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "GuidesCard");
         Parent.GuidesPanel.Load();
 }//GEN-LAST:event_GuidesMenuButtonActionPerformed
 
+    private void SettingsMenu3ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu3ButtonActionPerformed
+        Parent.Settings3CardLayout.Load();
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "Settings3Card");
+        Parent.Player.close();
+    }//GEN-LAST:event_SettingsMenu3ButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Blacklevel;
     private javax.swing.JPanel ConfirmationPanel;
     private javax.swing.JPanel Gamma;
     private javax.swing.JPanel GammaPresets;
     private EButton GuidesMenuButton;
-    private javax.swing.JPanel MovieMaxSplitSizePanel;
-    private javax.swing.JTextField MovieSplitSizeField;
-    private javax.swing.JLabel MovieSplitSizeLabel;
-    private EButton MovieSplitSizeType;
     private javax.swing.JPanel NavigationPanel;
     private EButton SettingsCancelButton;
     private EButton SettingsMenu1Button;
     private EButton SettingsMenu2Button;
+    private EButton SettingsMenu3Button;
     private EButton SettingsOKButton;
     private javax.swing.JPanel VideoFrame;
     private javax.swing.JPanel bg;

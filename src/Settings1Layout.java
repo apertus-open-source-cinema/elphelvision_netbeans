@@ -24,11 +24,11 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class SettingsLayout extends javax.swing.JPanel {
+public class Settings1Layout extends javax.swing.JPanel {
 
     ElphelVision Parent;
 
-    public SettingsLayout(ElphelVision parent) {
+    public Settings1Layout(ElphelVision parent) {
         Parent = parent;
 
         try {
@@ -196,10 +196,6 @@ public class SettingsLayout extends javax.swing.JPanel {
         JPEG_Plus = new EButton();
         JPEGQualityButton = new EButton();
         JPEG_Minus = new EButton();
-        NavigationPanel = new javax.swing.JPanel();
-        SettingsMenu1Button = new EButton();
-        SettingsMenu2Button = new EButton();
-        GuidesMenuButton = new EButton();
         ConfirmationPanel = new javax.swing.JPanel();
         SettingsOKButton1 = new EButton();
         SettingsCancelButton = new EButton();
@@ -216,6 +212,11 @@ public class SettingsLayout extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         FormatJPEGs = new EButton();
         TerminateButton = new EButton();
+        NavigationPanel10 = new javax.swing.JPanel();
+        SettingsMenu1Button10 = new EButton();
+        SettingsMenu2Button10 = new EButton();
+        GuidesMenuButton10 = new EButton();
+        SettingsMenu3Button10 = new EButton();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -482,49 +483,6 @@ public class SettingsLayout extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        NavigationPanel.setBackground(java.awt.Color.black);
-
-        SettingsMenu1Button.setText("Settings Tab 1");
-        SettingsMenu1Button.setChecked(true);
-        SettingsMenu1Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SettingsMenu1ButtonActionPerformed(evt);
-            }
-        });
-
-        SettingsMenu2Button.setText("Settings Tab 2");
-        SettingsMenu2Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SettingsMenu2ButtonActionPerformed(evt);
-            }
-        });
-
-        GuidesMenuButton.setText("Guides");
-        GuidesMenuButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuidesMenuButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout NavigationPanelLayout = new javax.swing.GroupLayout(NavigationPanel);
-        NavigationPanel.setLayout(NavigationPanelLayout);
-        NavigationPanelLayout.setHorizontalGroup(
-            NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NavigationPanelLayout.createSequentialGroup()
-                .addComponent(SettingsMenu1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(SettingsMenu2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(GuidesMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        NavigationPanelLayout.setVerticalGroup(
-            NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(SettingsMenu1Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(SettingsMenu2Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(GuidesMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
         ConfirmationPanel.setBackground(new java.awt.Color(0, 0, 0));
 
         SettingsOKButton1.setText("OK");
@@ -546,8 +504,9 @@ public class SettingsLayout extends javax.swing.JPanel {
         ConfirmationPanelLayout.setHorizontalGroup(
             ConfirmationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConfirmationPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(SettingsOKButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         ConfirmationPanelLayout.setVerticalGroup(
@@ -710,6 +669,59 @@ public class SettingsLayout extends javax.swing.JPanel {
             }
         });
 
+        NavigationPanel10.setBackground(java.awt.Color.black);
+
+        SettingsMenu1Button10.setText("Settings Tab 1");
+        SettingsMenu1Button10.setChecked(true);
+        SettingsMenu1Button10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsMenu1Button10ActionPerformed(evt);
+            }
+        });
+
+        SettingsMenu2Button10.setText("Settings Tab 2");
+        SettingsMenu2Button10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsMenu2Button10ActionPerformed(evt);
+            }
+        });
+
+        GuidesMenuButton10.setText("Guides");
+        GuidesMenuButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuidesMenuButton10ActionPerformed(evt);
+            }
+        });
+
+        SettingsMenu3Button10.setText("Settings Tab 3");
+        SettingsMenu3Button10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsMenu3Button10ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout NavigationPanel10Layout = new javax.swing.GroupLayout(NavigationPanel10);
+        NavigationPanel10.setLayout(NavigationPanel10Layout);
+        NavigationPanel10Layout.setHorizontalGroup(
+            NavigationPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(NavigationPanel10Layout.createSequentialGroup()
+                .addComponent(SettingsMenu1Button10, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(SettingsMenu2Button10, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(SettingsMenu3Button10, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(GuidesMenuButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        NavigationPanel10Layout.setVerticalGroup(
+            NavigationPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(NavigationPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(SettingsMenu1Button10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(SettingsMenu2Button10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(SettingsMenu3Button10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GuidesMenuButton10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -719,49 +731,40 @@ public class SettingsLayout extends javax.swing.JPanel {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(ResolutionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ColorModePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(18, 18, 18)
+                        .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(101, 101, 101)
                         .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(WBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                        .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 344, Short.MAX_VALUE)
-                        .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                        .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(NavigationPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
+                        .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(WBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ResolutionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ColorModePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bgLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(WBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ResolutionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ColorModePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
-                                .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 446, Short.MAX_VALUE)
-                        .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(NavigationPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -776,13 +779,6 @@ public class SettingsLayout extends javax.swing.JPanel {
             .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void SettingsMenu2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu2ButtonActionPerformed
-        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "Settings2Card");
-        Parent.Settings2CardLayout.Load();
-        Parent.Settings2CardLayout.StartMplayerVideoStream();
-    }//GEN-LAST:event_SettingsMenu2ButtonActionPerformed
 
     private void FullHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FullHDActionPerformed
         FullHD.setChecked(true);
@@ -1006,17 +1002,13 @@ public class SettingsLayout extends javax.swing.JPanel {
         try { // Save to config file
             Parent.Camera.WriteConfigFile("autosave.cfg");
         } catch (IOException ex) {
-            Logger.getLogger(SettingsLayout.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
         Parent.StartMplayerVideoStream();
     }//GEN-LAST:event_SettingsOKButton1ActionPerformed
-
-    private void SettingsMenu1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1ButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SettingsMenu1ButtonActionPerformed
 
     private void WBTungstenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WBTungstenActionPerformed
         WBAuto.setChecked(false);
@@ -1092,11 +1084,30 @@ public class SettingsLayout extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_TerminateButtonActionPerformed
 
-    private void GuidesMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuidesMenuButtonActionPerformed
+    private void SettingsMenu1Button10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1Button10ActionPerformed
+
+}//GEN-LAST:event_SettingsMenu1Button10ActionPerformed
+
+    private void SettingsMenu2Button10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu2Button10ActionPerformed
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "Settings2Card");
+        Parent.Settings2CardLayout.Load();
+        Parent.Settings2CardLayout.StartMplayerVideoStream();
+}//GEN-LAST:event_SettingsMenu2Button10ActionPerformed
+
+    private void GuidesMenuButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuidesMenuButton10ActionPerformed
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "GuidesCard");
         Parent.GuidesPanel.Load();
-    }//GEN-LAST:event_GuidesMenuButtonActionPerformed
+}//GEN-LAST:event_GuidesMenuButton10ActionPerformed
+
+    private void SettingsMenu3Button10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu3Button10ActionPerformed
+        Parent.Settings3CardLayout.Load();
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "Settings3Card");
+        Parent.Player.close();
+}//GEN-LAST:event_SettingsMenu3Button10ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton Amax;
     private EButton Cimax;
@@ -1109,16 +1120,67 @@ public class SettingsLayout extends javax.swing.JPanel {
     private EButton Full;
     private EButton FullHD;
     private EButton GuidesMenuButton;
+    private EButton GuidesMenuButton1;
+    private EButton GuidesMenuButton10;
+    private EButton GuidesMenuButton2;
+    private EButton GuidesMenuButton3;
+    private EButton GuidesMenuButton4;
+    private EButton GuidesMenuButton5;
+    private EButton GuidesMenuButton6;
+    private EButton GuidesMenuButton7;
+    private EButton GuidesMenuButton8;
+    private EButton GuidesMenuButton9;
     private EButton JPEGQualityButton;
     private javax.swing.JPanel JPEGQualityPanel;
     private EButton JPEG_Minus;
     private EButton JPEG_Plus;
     private javax.swing.JPanel NavigationPanel;
+    private javax.swing.JPanel NavigationPanel1;
+    private javax.swing.JPanel NavigationPanel10;
+    private javax.swing.JPanel NavigationPanel2;
+    private javax.swing.JPanel NavigationPanel3;
+    private javax.swing.JPanel NavigationPanel4;
+    private javax.swing.JPanel NavigationPanel5;
+    private javax.swing.JPanel NavigationPanel6;
+    private javax.swing.JPanel NavigationPanel7;
+    private javax.swing.JPanel NavigationPanel8;
+    private javax.swing.JPanel NavigationPanel9;
     private javax.swing.JPanel RecordFormatPanel;
     private javax.swing.JPanel ResolutionPanel;
     private EButton SettingsCancelButton;
     private EButton SettingsMenu1Button;
+    private EButton SettingsMenu1Button1;
+    private EButton SettingsMenu1Button10;
+    private EButton SettingsMenu1Button2;
+    private EButton SettingsMenu1Button3;
+    private EButton SettingsMenu1Button4;
+    private EButton SettingsMenu1Button5;
+    private EButton SettingsMenu1Button6;
+    private EButton SettingsMenu1Button7;
+    private EButton SettingsMenu1Button8;
+    private EButton SettingsMenu1Button9;
     private EButton SettingsMenu2Button;
+    private EButton SettingsMenu2Button1;
+    private EButton SettingsMenu2Button10;
+    private EButton SettingsMenu2Button2;
+    private EButton SettingsMenu2Button3;
+    private EButton SettingsMenu2Button4;
+    private EButton SettingsMenu2Button5;
+    private EButton SettingsMenu2Button6;
+    private EButton SettingsMenu2Button7;
+    private EButton SettingsMenu2Button8;
+    private EButton SettingsMenu2Button9;
+    private EButton SettingsMenu3Button;
+    private EButton SettingsMenu3Button1;
+    private EButton SettingsMenu3Button10;
+    private EButton SettingsMenu3Button2;
+    private EButton SettingsMenu3Button3;
+    private EButton SettingsMenu3Button4;
+    private EButton SettingsMenu3Button5;
+    private EButton SettingsMenu3Button6;
+    private EButton SettingsMenu3Button7;
+    private EButton SettingsMenu3Button8;
+    private EButton SettingsMenu3Button9;
     private EButton SettingsOKButton1;
     private EButton SmallHD;
     private EButton TerminateButton;

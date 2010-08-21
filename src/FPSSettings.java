@@ -51,9 +51,6 @@ public class FPSSettings extends javax.swing.JPanel {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
-        NavigationPanel = new javax.swing.JPanel();
-        SettingsMenu1Button = new EButton();
-        ResolutionMenuButton = new EButton();
         jPanel1 = new javax.swing.JPanel();
         SettingsCancelButton = new EButton();
         SettingsOKButton = new EButton();
@@ -72,39 +69,6 @@ public class FPSSettings extends javax.swing.JPanel {
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
-
-        NavigationPanel.setBackground(java.awt.Color.black);
-
-        SettingsMenu1Button.setText("Settings Tab 1");
-        SettingsMenu1Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SettingsMenu1ButtonActionPerformed(evt);
-            }
-        });
-
-        ResolutionMenuButton.setChecked(true);
-        ResolutionMenuButton.setText("FPS Menu");
-        ResolutionMenuButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ResolutionMenuButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout NavigationPanelLayout = new javax.swing.GroupLayout(NavigationPanel);
-        NavigationPanel.setLayout(NavigationPanelLayout);
-        NavigationPanelLayout.setHorizontalGroup(
-            NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NavigationPanelLayout.createSequentialGroup()
-                .addComponent(SettingsMenu1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ResolutionMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        NavigationPanelLayout.setVerticalGroup(
-            NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NavigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(SettingsMenu1Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(ResolutionMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
 
         jPanel1.setBackground(java.awt.Color.black);
 
@@ -177,7 +141,7 @@ public class FPSSettings extends javax.swing.JPanel {
         });
 
         TimelapsePanel.setBackground(new java.awt.Color(0, 0, 0));
-        TimelapsePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "Timelapse", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Bitstream Vera Sans", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        TimelapsePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "Timelapse", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("DejaVu Sans", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("DejaVu Sans", 1, 18));
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -319,9 +283,7 @@ public class FPSSettings extends javax.swing.JPanel {
             .addGroup(bgLayout.createSequentialGroup()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(505, 505, 505)
+                        .addGap(800, 800, 800)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(40, 40, 40)
@@ -334,9 +296,7 @@ public class FPSSettings extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(263, 263, 263)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-                    .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -375,15 +335,6 @@ public class FPSSettings extends javax.swing.JPanel {
         UpdateWidthLabel();
     }//GEN-LAST:event_SkipFramesFieldCaretUpdate
 
-    private void SettingsMenu1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1ButtonActionPerformed
-        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "Settings1Card");
-        Parent.StartMplayerVideoStream();
-}//GEN-LAST:event_SettingsMenu1ButtonActionPerformed
-
-    private void ResolutionMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResolutionMenuButtonActionPerformed
-}//GEN-LAST:event_ResolutionMenuButtonActionPerformed
-
     private void FPSTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FPSTypeActionPerformed
         Parent.NumberPanel.Load("FPS", Integer.parseInt(FPSField.getText()), FPSField, "FPSSettings");
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
@@ -414,10 +365,7 @@ public class FPSSettings extends javax.swing.JPanel {
     private javax.swing.JTextField FPSField;
     private javax.swing.JPanel FPSPanel;
     private EButton FPSType;
-    private javax.swing.JPanel NavigationPanel;
-    private EButton ResolutionMenuButton;
     private EButton SettingsCancelButton;
-    private EButton SettingsMenu1Button;
     private EButton SettingsOKButton;
     private EButton SkipFrameType;
     private javax.swing.JTextField SkipFramesField;

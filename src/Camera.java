@@ -290,7 +290,7 @@ public class Camera {
     }
 
     public void SetMovieClipMaxChunkSize(int newchunksize) {
-        long newsize = (long)newchunksize * 1024 * 1024;  // Megabytes
+        long newsize = (long) newchunksize * 1024 * 1024;  // Megabytes
         this.ExecuteCommand("set_size&size=" + newsize);
     }
 
@@ -1244,15 +1244,14 @@ public class Camera {
                         this.WB_Factor_GB = (Float.parseFloat(value.trim()));
                     }
                     if (name.trim().equals("Gamma")) {
-                        this.Gamma = (Float.parseFloat(value.trim()));
+                        this.SetGamma(Float.parseFloat(value.trim()));
                     }
                     if (name.trim().equals("Blacklevel")) {
-                        this.Blacklevel = (Integer.parseInt(value.trim()));
+                        this.SetBlacklevel(Integer.parseInt(value.trim()));
                     }
                     if (name.trim().equals("MovieMaxChunkSize")) {
-                        this.MovieClipMaxChunkSize = (Integer.parseInt(value.trim()));
+                        this.SetMovieClipMaxChunkSize(Integer.parseInt(value.trim()));
                     }
-
                 } else {
                     //Empty or invalid line. Unable to process
                 }
