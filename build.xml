@@ -109,7 +109,7 @@
 	     </echo>
 	     <copy todir="${release.dir}/${standalone.jar.name}-win" file="${dist.jar.dir}/default.config" />
 	     <copy todir="${release.dir}/${standalone.jar.name}-win/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" />
-	     <zip destfile="${release.dir}/${standalone.jar.name}-win.zip" basedir="${release.dir}/${standalone.jar.name}-win" update="true" />
+	     <zip destfile="${release.dir}/${standalone.jar.name}-win.zip" basedir="${release.dir}/${standalone.jar.name}-win" update="false" />
 
 	     <echo>Bundling: Creating Linux ZIP Archive</echo>
 	     <mkdir  dir="${release.dir}/${standalone.jar.name}-linux" />
@@ -118,21 +118,17 @@
 	     </echo>
 	     <copy todir="${release.dir}/${standalone.jar.name}-linux/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" />
 	     <copy todir="${release.dir}/${standalone.jar.name}-linux" file="${dist.jar.dir}/default.config" />
-	     <zip destfile="${release.dir}/${standalone.jar.name}-linux.zip" basedir="${release.dir}/${standalone.jar.name}-linux" update="true" />
+	     <zip destfile="${release.dir}/${standalone.jar.name}-linux.zip" basedir="${release.dir}/${standalone.jar.name}-linux" update="false" />
 	 
 	     <echo>Bundling: Creating Mac ZIP Archive</echo>
 	     <mkdir  dir="${release.dir}/${standalone.jar.name}-mac" />
 	     <move todir="${release.dir}/${standalone.jar.name}-mac/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" ></move>
 	     <copy todir="${release.dir}/${standalone.jar.name}-mac" file="${dist.jar.dir}/default.config" />
-	     <zip destfile="${release.dir}/${standalone.jar.name}-mac.zip" basedir="${release.dir}/${standalone.jar.name}-mac" update="true" />
+	     <zip destfile="${release.dir}/${standalone.jar.name}-mac.zip" basedir="${release.dir}/${standalone.jar.name}-mac" update="false" />
 
 	     <echo>Bundling: Cleaning up temporary files</echo>
 	     <delete dir="${release.dir}/${standalone.jar.name}-win" />
 	     <delete dir="${release.dir}/${standalone.jar.name}-linux" />
 	     <delete dir="${release.dir}/${standalone.jar.name}-mac" />
-	</target>
-
-	<target name="-post-clean">
-	       <delete dir="${release.dir}" />
 	</target>
 </project>
