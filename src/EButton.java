@@ -211,9 +211,12 @@ public class EButton extends JButton implements java.io.Serializable {
         // Button Text
         if (Checked) {
             this.setForeground(DefaultTextColorChecked);
+            this.setForeground(Color.BLACK);
+            g2.setPaint(Color.BLACK);
         } else {
             this.setForeground(TextColor);
             this.setForeground(Color.WHITE);
+            g2.setPaint(Color.WHITE);
         }
         //java.awt.Dimension rect = this.getSize();
 

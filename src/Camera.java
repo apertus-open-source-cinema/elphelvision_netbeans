@@ -867,8 +867,9 @@ public class Camera {
             return;
         }
 
+        String param_url = "";
         try {
-            String param_url = "";
+
             URLConnection conn = null;
             BufferedReader data = null;
             String line;
@@ -954,7 +955,7 @@ public class Camera {
             try {
                 ParamURL = new URL(param_url);
             } catch (MalformedURLException e) {
-                Parent.WriteErrortoConsole("SetPreset Error: Bad URL: " + param_url);
+                Parent.WriteErrortoConsole("SetPreset(" + param_url + ") Error: Bad URL: " + param_url);
             }
 
             conn = ParamURL.openConnection();
@@ -970,7 +971,7 @@ public class Camera {
             result = buf.toString();
             data.close();
         } catch (IOException e) {
-            Parent.WriteErrortoConsole("SetPreset Error: " + e.getMessage());
+            Parent.WriteErrortoConsole("SetPreset(" + param_url + ") Error: " + e.getMessage());
         }
     }
 
@@ -1097,6 +1098,10 @@ public class Camera {
 
     public String ReadConfigFileIP(String FileName) throws FileNotFoundException {
         File ConfigFile = new File(FileName);
+
+        if (!ConfigFile.exists())
+            return null;
+
         String RetValue = null;
 
         Scanner scanner1 = new Scanner(ConfigFile);
@@ -1143,9 +1148,6 @@ public class Camera {
                         break;
                     }
                     String value = scanner2.next();
-                    if (name.trim().equals("IP")) {
-                        this.SetIP(value.trim()); // TODO: autoconnect
-                    }
                     if (name.trim().equals("ImageWidth")) {
                         this.ImageWidth = Integer.parseInt(value.trim());
                     }

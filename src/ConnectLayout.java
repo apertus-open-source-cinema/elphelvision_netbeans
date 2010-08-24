@@ -56,7 +56,20 @@ public class ConnectLayout extends javax.swing.JPanel {
                 Logger.getLogger(ConnectLayout.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            Parent.WriteWarningtoConsole("autosave.config not found: falling back to default Camera IP");
+            Parent.WriteWarningtoConsole("autosave.config not found: falling back to default.config");
+            try {
+                String IP = Parent.Camera.ReadConfigFileIP("default.config");
+                if (IP != null) {
+                    CameraIP.setText(IP);
+                    Parent.WriteLogtoConsole("default.config found: read IP: " + IP);
+                } else {
+                    Parent.WriteWarningtoConsole("default.config not found: using 192.168.0.9 as default IP");
+                }
+            } catch (FileNotFoundException ex) {
+                Parent.WriteWarningtoConsole("default.config not found: using 192.168.0.9 as default IP");
+                Logger.getLogger(ConnectLayout.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
     }
 

@@ -34,7 +34,7 @@ import javax.swing.JTextArea;
 // List of available commands: http://www1.mplayerhq.hu/DOCS/tech/slave.txt
 public class Mplayer {
 
-    private boolean debug = true;
+    static boolean debug = false;
     private ElphelVision Parent;
     private Process mplayerProcess;
     private PrintStream mplayerIn;
@@ -61,10 +61,9 @@ public class Mplayer {
             mplayerOutErr = new BufferedReader(new InputStreamReader(readFrom));
 
             // create the threads to redirect the standard output and error of MPlayer
-            if (debug) {
-                new LineRedirecter(debugout, mplayerProcess.getInputStream(), writeTo, "MPlayer says: ").start();
-                new LineRedirecter(debugout, mplayerProcess.getErrorStream(), writeTo, "MPlayer encountered an error: ").start();
-            }
+            new LineRedirecter(debugout, mplayerProcess.getInputStream(), writeTo, "MPlayer says: ").start();
+            new LineRedirecter(debugout, mplayerProcess.getErrorStream(), writeTo, "MPlayer encountered an error: ").start();
+
             // the standard input of MPlayer
             mplayerIn = new PrintStream(mplayerProcess.getOutputStream());
         } else {
@@ -190,7 +189,7 @@ public class Mplayer {
             mplayerIn.print(command);
             mplayerIn.print("\n");
             mplayerIn.flush();
-            logger.info("Command sent");
+            //logger.info("Command sent");
             if (expected != null) {
                 String response = waitForAnswer(expected);
                 logger.info("MPlayer command response: " + response);
@@ -217,7 +216,6 @@ public class Mplayer {
                         //debugoutput.append(line);
                         return line;
                     }
-
                 }
             } catch (IOException e) {
             }
@@ -249,6 +247,7 @@ public class Mplayer {
         }
 
         public void run() {
+
             try {
                 // creates the decorating reader and writer
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -257,10 +256,11 @@ public class Mplayer {
 
                 // read line by line
                 while ((line = reader.readLine()) != null) {
-                    logger.info((prefix != null ? prefix : "") + line);
+                    //logger.info((prefix != null ? prefix : "") + line);
                     printStream.println(line);
                     //this.debugoutput.append(line + "\n");
-                }
+                    }
+
             } catch (IOException exc) {
                 logger.log(Level.WARNING, "An error has occured while grabbing lines", exc);
             }
