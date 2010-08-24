@@ -441,7 +441,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
         }
 
         try { // Save to config file
-            Parent.Camera.WriteConfigFile("autosave.cfg");
+            Parent.Camera.WriteConfigFile("autosave.config");
         } catch (IOException ex) {
             Logger.getLogger(ResolutionSettings.class.getName()).log(Level.SEVERE, null, ex);
         }

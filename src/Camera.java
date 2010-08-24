@@ -115,6 +115,7 @@ public class Camera {
     private boolean GuideDrawThirds = false;
     private boolean GuideDrawSafeArea = false;
     private GammaPreset GammaPreset;
+    private ElphelVision Parent;
     private float ExposureTimeEV[] = {
         4,
         3.2f,
@@ -257,8 +258,10 @@ public class Camera {
     private WhiteBalance ImageWhiteBalance = WhiteBalance.AUTO;
     private MirrorImage ImageFlip = MirrorImage.NONE;
     private int MovieClipMaxChunkSize; // in Megabytes // Default 4 GB = 4 x 1024 x 1024 x 1024 bytes
+    private boolean ConnectionEstablished = false;
 
-    Camera() {
+    Camera(ElphelVision parent) {
+        this.Parent = parent;
         this.ImageHeight = 0;
         this.ImageWidth = 0;
         this.FPS = 0;
@@ -287,6 +290,10 @@ public class Camera {
 
     public String GetIP() {
         return this.IP;
+    }
+
+    public boolean GetCameraConnectionEstablished() {
+        return this.ConnectionEstablished;
     }
 
     public void SetMovieClipMaxChunkSize(int newchunksize) {
@@ -607,7 +614,6 @@ public class Camera {
     }
 
     public void ReadHistogram() {
-
         URLConnection conn = null;
         BufferedReader data = null;
         String line;
@@ -620,7 +626,7 @@ public class Camera {
         try {
             HistURL = new URL(camera);
         } catch (MalformedURLException e) {
-            System.out.println("Bad URL: " + HistURL);
+            Parent.WriteErrortoConsole("Reading histogram data failed at URL: " + HistURL);
         }
 
         try {
@@ -637,7 +643,7 @@ public class Camera {
             result = buf.toString();
             data.close();
         } catch (IOException e) {
-            System.out.println("IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("Reading histogram data IO Error:" + e.getMessage());
         }
 
         try {
@@ -661,7 +667,7 @@ public class Camera {
                 }
             int b = 1;
         } catch (Exception e) {
-            System.out.println("IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("Reading histogram data IO Error:" + e.getMessage());
         }
     }
 
@@ -679,7 +685,7 @@ public class Camera {
         try {
             GammaURL = new URL(camera);
         } catch (MalformedURLException e) {
-            System.out.println("Bad URL: " + GammaURL);
+            Parent.WriteErrortoConsole("Reading gamma curve data failed at URL: " + GammaURL);
         }
 
         try {
@@ -696,7 +702,7 @@ public class Camera {
             result = buf.toString();
             data.close();
         } catch (IOException e) {
-            System.out.println("IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("Reading gamma curve data failed IO Error:" + e.getMessage());
         }
         String[] x = Pattern.compile(";").split(result);
         int a = 0;
@@ -726,6 +732,9 @@ public class Camera {
         } catch (MalformedURLException e) {
             System.out.println("Bad URL: " + this.CameraPingUrl);
             error = false;
+        }
+        if (error) {
+            this.ConnectionEstablished = true;
         }
         return error;
     }
@@ -797,7 +806,7 @@ public class Camera {
                 e.printStackTrace();
             }
         } catch (IOException e) {
-            System.out.println("IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("InitCameraServices: " + e.getMessage());
         }
 
         if (this.CAMOGMState == CamogmState.NOTRUNNING) {
@@ -945,7 +954,7 @@ public class Camera {
             try {
                 ParamURL = new URL(param_url);
             } catch (MalformedURLException e) {
-                System.out.println("Bad URL: " + param_url);
+                Parent.WriteErrortoConsole("SetPreset Error: Bad URL: " + param_url);
             }
 
             conn = ParamURL.openConnection();
@@ -961,14 +970,17 @@ public class Camera {
             result = buf.toString();
             data.close();
         } catch (IOException e) {
-            System.out.println("IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("SetPreset Error: " + e.getMessage());
         }
     }
 
-    public void CheckHDD() {
+    public boolean CheckHDD() {
         if (this.HDDSpaceFree == -1) {
             String message = "No HDD detected, video recording disabled";
             JOptionPane.showMessageDialog(new JFrame(), message, "Dialog", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -1264,8 +1276,8 @@ public class Camera {
     }
 
     private void SendParameter(CameraParameter par, float value) {
+        String param_url = "";
         try {
-            String param_url = "";
             URLConnection conn = null;
             BufferedReader data = null;
             String line;
@@ -1333,7 +1345,7 @@ public class Camera {
             result = buf.toString();
             data.close();
         } catch (IOException e) {
-            System.out.println("IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("SendParameter(" + param_url + ") IO Error: " + e.getMessage());
         }
     }
 
@@ -1372,7 +1384,7 @@ public class Camera {
             result = buf.toString();
             data.close();
         } catch (IOException e) {
-            System.out.println("IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("SendCamVCParameters(" + UrlParameter + ") IO Error:" + e.getMessage());
         }
     }
 
@@ -1395,7 +1407,7 @@ public class Camera {
             try {
                 ParamURL = new URL(param_url);
             } catch (MalformedURLException e) {
-                System.out.println("Bad URL: " + param_url);
+                Parent.WriteErrortoConsole("SendParametertoCamera Bad URL: " + param_url);
             }
 
             conn = ParamURL.openConnection();
@@ -1411,7 +1423,7 @@ public class Camera {
             result = buf.toString();
             data.close();
         } catch (IOException e) {
-            System.out.println("IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("SendParametertoCamera IO Error: " + e.getMessage());
         }
     }
 
@@ -1481,7 +1493,7 @@ public class Camera {
                 e.printStackTrace();
             }
         } catch (IOException e) {
-            System.out.println("IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("CaptureStillImage IO Error: " + e.getMessage());
         }
         return ReturnValue;
     }
@@ -1554,7 +1566,7 @@ public class Camera {
             result = buf.toString();
             data.close();
         } catch (IOException e) {
-            System.out.println("IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("ExecuteCommand(" + Command + ") IO Error: " + e.getMessage());
         }
     }
 
@@ -1613,12 +1625,10 @@ public class Camera {
                 e.printStackTrace();
                 return false;
             }
-
         } catch (IOException e) {
-            System.out.println("IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("Pinging Camera IO Error: " + e.getMessage());
             return false;
         }
-
         return false;
     }
 
@@ -1854,7 +1864,7 @@ public class Camera {
             }
 
         } catch (IOException e) {
-            System.out.println("IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("UpdateCameraData() IO Error:" + e.getMessage());
         }
     }
 }

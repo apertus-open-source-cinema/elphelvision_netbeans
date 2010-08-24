@@ -277,7 +277,7 @@ public class GuidesLayout extends javax.swing.JPanel {
         Parent.MaincardLayout.Load();
 
         try { // Save to config file
-            Parent.Camera.WriteConfigFile("autosave.cfg");
+            Parent.Camera.WriteConfigFile("autosave.config");
         } catch (IOException ex) {
             Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
         }

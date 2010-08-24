@@ -19,7 +19,11 @@
 -----------------------------------------------------------------------------**/
 
 import java.awt.CardLayout;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +33,8 @@ public class ConnectLayout extends javax.swing.JPanel {
 
     public ConnectLayout(ElphelVision parent) {
         Parent = parent;
+
+        //Title.setText("Elphel Vision Alpha V" + Parent.GetAppVersion());
 
         try {
             java.awt.EventQueue.invokeAndWait(new Runnable() {
@@ -40,11 +46,17 @@ public class ConnectLayout extends javax.swing.JPanel {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
-        try {
-            CameraIP.setText(Parent.Camera.ReadConfigFileIP("autosave.cfg"));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ConnectLayout.class.getName()).log(Level.SEVERE, null, ex);
+        Parent.WriteLogtoConsole("Looking for autosave.config to read IP");
+        File AutoSaveFile = new File("autosave.config");
+        if (AutoSaveFile.exists()) {
+            try {
+                CameraIP.setText(Parent.Camera.ReadConfigFileIP("autosave.config"));
+                Parent.WriteLogtoConsole("autosave.config found - IP loaded");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ConnectLayout.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            Parent.WriteWarningtoConsole("autosave.config not found: falling back to default Camera IP");
         }
     }
 
@@ -163,28 +175,35 @@ public class ConnectLayout extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonActionPerformed
-        ConnectionStatus.setText("Status: Connecting...");
+        Parent.WriteLogtoConsole("Trying to connect to: " + CameraIP.getText());
 
         try {
             Parent.Camera.SetIP(CameraIP.getText());
             Parent.Camera.InitCameraConnection();
 
             if (Parent.Camera.PingCamera()) {
+                Parent.WriteLogtoConsole("Connection to: " + CameraIP.getText() + " established");
                 while (!Parent.Camera.InitCameraServices()) {
                     Thread.sleep(400);
                 }
                 Parent.PostConnect();
+                Parent.WriteLogtoConsole("Loading Main Window");
                 Parent.MaincardLayout.Load();
                 CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
                 cl.show(Parent.CardManager, "MainCard");
+                Parent.WriteLogtoConsole("Starting Video Stream");
                 Parent.StartMplayerVideoStream();
-                Parent.Camera.CheckHDD();
+                Parent.WriteLogtoConsole("Checking Camera connected HDD");
+                if (Parent.Camera.CheckHDD()) {
+                    Parent.WriteLogtoConsole("HDD detected");
+                } else {
+                    Parent.WriteWarningtoConsole("HDD detection failed");
+                }
             } else {
-                ConnectionStatus.setText("Status: Connection failed!");
+                Parent.WriteErrortoConsole("Connecting to: " + CameraIP.getText() + " failed");
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Parent.WriteErrortoConsole("Connecting failed: " + e.getMessage());
         }
 
     }//GEN-LAST:event_ConnectButtonActionPerformed

@@ -27,9 +27,12 @@ import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -64,6 +67,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     FPSSettings FPSSettingsCardLayout;
     NumericalInputPanel NumberPanel;
     GuidesLayout GuidesPanel;
+    String AppVersion = "0.3";
 
     public static void main(String[] args) {
         Frame f = new Frame();
@@ -87,6 +91,15 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     }
 
     public ElphelVision() {
+        SetConsoleColor(Color.WHITE);
+        System.out.println("=====================================================");
+        SetConsoleColor(Color.CYAN);
+        System.out.println(" ElphelVision - Apertus Viewfinder Software");
+        System.out.println(" http://apertus.org");
+        System.out.println(" Version: " + this.GetAppVersion());
+        SetConsoleColor(Color.WHITE);
+        System.out.println("=====================================================");
+        System.out.println(" ");
         //super();
     }
 
@@ -94,11 +107,62 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         Player.close();
     }
 
+    public void SetConsoleColor(Color newcolor) {
+        if (newcolor == Color.BLACK) {
+            System.out.print("\033[30m");
+        } else if (newcolor == Color.WHITE) {
+            System.out.print("\033[39m");
+        } else if (newcolor == Color.RED) {
+            System.out.print("\033[31m");
+        } else if (newcolor == Color.GREEN) {
+            System.out.print("\033[32m");
+        } else if (newcolor == Color.YELLOW) {
+            System.out.print("\033[33m");
+        } else if (newcolor == Color.BLUE) {
+            System.out.print("\033[34m");
+        } else if (newcolor == Color.MAGENTA) {
+            System.out.print("\033[35m");
+        } else if (newcolor == Color.CYAN) {
+            System.out.print("\033[36m");
+        }
+        /*
+        ANSI CODES:
+        Black: \033[30m
+        Red: \033[31m
+        Green: \033[32m
+        Yellow: \033[33m
+        Blue: \033[34m
+        Magenta: \033[35m
+        Cyan: \033[36m
+        White: \033[37m
+         */
+    }
+
+    public void WriteLogtoConsole(String log) {
+        SetConsoleColor(Color.WHITE);
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.S");
+        System.out.println("[" + sdf.format(cal.getTime()) + "] LOG:\033[1m " + log + "\033[22m\033[0m");
+    }
+
+    public void WriteWarningtoConsole(String log) {
+        SetConsoleColor(Color.YELLOW);
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.S");
+        System.out.println("[" + sdf.format(cal.getTime()) + "] WARNING: \033[1m" + log + "\033[22m\033[0m");
+    }
+
+    public void WriteErrortoConsole(String log) {
+        SetConsoleColor(Color.RED);
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.S");
+        System.out.println("[" + sdf.format(cal.getTime()) + "] ERROR: \033[1m" + log + "\033[22m\033[0m");
+        SetConsoleColor(Color.WHITE);
+    }
+
     public JPanel GetCardManager() {
         return this.CardManager;
     }
-
-
 
     public void StartMplayerVideoStream() {
         try {
@@ -120,6 +184,10 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         }
     }
 
+    public String GetAppVersion() {
+        return AppVersion;
+    }
+
     public void start() {
         //super.start();
 
@@ -128,7 +196,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         InfoAreaAnimator = new Thread(this);
 
         //Init everything
-        Camera = new Camera();
+        Camera = new Camera(this);
         Settings = new UserSettings();
 
         String osname = System.getProperty("os.name");
@@ -173,7 +241,6 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         CardManager.add(GuidesPanel, "GuidesCard");
         CardManager.add(NumberPanel, "Numberpanel");
 
-
         add(CardManager);
 
         ReadCameraData();
@@ -189,55 +256,71 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             InfoAreaAnimator.start();
         }
 
-        Player = new Mplayer();
+        Player = new Mplayer(this);
     }
 
     public void PostConnect() {
-        LoadConfigFile("autosave.cfg");
+        this.WriteLogtoConsole("looking for autosave.config to read camera parameters");
+        if (LoadConfigFile("autosave.config")) {
+            this.WriteLogtoConsole("autosave.config loaded successfully");
+        } else {
+            this.WriteWarningtoConsole("autosave.config not found, falling back to default.config");
+            if (LoadConfigFile("default.config")) {
+                this.WriteLogtoConsole("default.config loaded successfully");
+            } else {
+                this.WriteErrortoConsole("default.config not found");
+            }
+        }
     }
 
-    private void LoadConfigFile(String Filename) {
+    private boolean LoadConfigFile(String Filename) {
         File configfile = new File(Filename);
         if (configfile.exists()) {
             try {
                 Camera.ReadConfigFile(Filename);
+                return true;
             } catch (FileNotFoundException ex) {
+                return false;
             }
+        } else {
+            return false;
         }
     }
 
     public void run() {
-        while (Thread.currentThread() == ReadCameraDataAnimator) {
-            ReadCameraData();
-            try {
-                Thread.sleep((int) (1.0f / ReadCameradataFPS * 1000.0f));
-            } catch (InterruptedException e) {
-                break;
-            }
-        }
-
-        while (Thread.currentThread() == HistogramAnimator) {
-            if (Camera != null) {
-                Camera.ReadHistogram();
-                if (MaincardLayout != null) {
-                    MaincardLayout.RedrawHistogram();
+        if (Camera.GetCameraConnectionEstablished()) {
+            while (Thread.currentThread() == ReadCameraDataAnimator) {
+                ReadCameraData();
+                try {
+                    Thread.sleep((int) (1.0f / ReadCameradataFPS * 1000.0f));
+                } catch (InterruptedException e) {
+                    break;
                 }
             }
-            try {
-                Thread.sleep((int) (1.0f / HistogramFPS * 1000.0f));
-            } catch (InterruptedException e) {
-                break;
-            }
-        }
 
-        while (Thread.currentThread() == InfoAreaAnimator) {
-            if (Camera != null) {
-                UpdateInfoArea();
+            while (Thread.currentThread() == HistogramAnimator) {
+                if (Camera != null) {
+                    Camera.ReadHistogram();
+                    if (MaincardLayout != null) {
+                        MaincardLayout.RedrawHistogram();
+                    }
+                }
+                try {
+                    Thread.sleep((int) (1.0f / HistogramFPS * 1000.0f));
+                } catch (InterruptedException e) {
+                    break;
+                }
             }
-            try {
-                Thread.sleep((int) (1.0f / InfoAreaFPS * 1000.0f));
-            } catch (InterruptedException e) {
-                break;
+
+            while (Thread.currentThread() == InfoAreaAnimator) {
+                if (Camera != null) {
+                    UpdateInfoArea();
+                }
+                try {
+                    Thread.sleep((int) (1.0f / InfoAreaFPS * 1000.0f));
+                } catch (InterruptedException e) {
+                    break;
+                }
             }
         }
     }

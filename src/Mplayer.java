@@ -34,27 +34,24 @@ import javax.swing.JTextArea;
 // List of available commands: http://www1.mplayerhq.hu/DOCS/tech/slave.txt
 public class Mplayer {
 
-    /** The process corresponding to MPlayer. */
+    private boolean debug = true;
+    private ElphelVision Parent;
     private Process mplayerProcess;
-    /** The standard input for MPlayer where you can send commands. */
     private PrintStream mplayerIn;
-    /** A combined reader for the the standard output and error of MPlayer. Used to read MPlayer responses. */
     private BufferedReader mplayerOutErr;
     private static Logger logger = Logger.getLogger(ElphelVision.class.getName());
     private JTextArea debugout;
 
-    Mplayer(JTextArea debugoutput) {
-        this.debugout = debugoutput;
-    }
-
-    Mplayer() {
+    Mplayer(ElphelVision parent) {
+        this.Parent = parent;
     }
 
     public void open(String file, String parameters, String mplayerpath) throws IOException {
         if (mplayerProcess == null) {
-            // start MPlayer as an external process
             String command = mplayerpath + " " + parameters + " " + file;
-            logger.info("Starting MPlayer process: " + command);
+
+            Parent.WriteLogtoConsole("Starting MPlayer process: " + command);
+
             mplayerProcess = Runtime.getRuntime().exec(command);
 
             // create the piped streams where to redirect the standard output and error of MPlayer
@@ -64,18 +61,18 @@ public class Mplayer {
             mplayerOutErr = new BufferedReader(new InputStreamReader(readFrom));
 
             // create the threads to redirect the standard output and error of MPlayer
-            new LineRedirecter(debugout, mplayerProcess.getInputStream(), writeTo, "MPlayer says: ").start();
-            new LineRedirecter(debugout, mplayerProcess.getErrorStream(), writeTo, "MPlayer encountered an error: ").start();
-
+            if (debug) {
+                new LineRedirecter(debugout, mplayerProcess.getInputStream(), writeTo, "MPlayer says: ").start();
+                new LineRedirecter(debugout, mplayerProcess.getErrorStream(), writeTo, "MPlayer encountered an error: ").start();
+            }
             // the standard input of MPlayer
             mplayerIn = new PrintStream(mplayerProcess.getOutputStream());
         } else {
             execute("loadfile \"" + file + "\" 0");
         }
-// wait to start playing
-
+        // wait to start playing
         waitForAnswer("Starting playback...");
-        logger.info("Started playing file " + file);
+        Parent.WriteLogtoConsole("Started playing: " + file);
     }
 
     public void close() {
