@@ -162,27 +162,27 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     public JPanel GetCardManager() {
         return this.CardManager;
     }
-/*
+    /*
     public void StartMplayerVideoStream() {
-        try {
-            String mplayerOptions = null;
-            if (Settings.GetOS() == OStype.Linux) {
-                //mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo x11:ck-method=auto -colorkey 0x404040 -wid " + MaincardLayout.getWinID();
-                mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo xv -zoom -colorkey 0x404040";
-                Settings.SetMplayerParameters(mplayerOptions);
-            }
-            if (Settings.GetOS() == OStype.Windows) {
-                mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo directx -colorkey 0x404040";
-                Settings.SetMplayerParameters(mplayerOptions);
-                MaincardLayout.getWinID();
-            }
-            Player.open("rtsp://" + Camera.GetIP() + ":554", Settings.GetMplayerParameters() + " -wid " + MaincardLayout.getWinID(), Settings.GetMplayerPath());
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    try {
+    String mplayerOptions = null;
+    if (Settings.GetOS() == OStype.Linux) {
+    //mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo x11:ck-method=auto -colorkey 0x404040 -wid " + MaincardLayout.getWinID();
+    mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo xv -zoom -colorkey 0x404040";
+    Settings.SetMplayerParameters(mplayerOptions);
     }
- * */
+    if (Settings.GetOS() == OStype.Windows) {
+    mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo directx -colorkey 0x404040";
+    Settings.SetMplayerParameters(mplayerOptions);
+    MaincardLayout.getWinID();
+    }
+    Player.open("rtsp://" + Camera.GetIP() + ":554", Settings.GetMplayerParameters() + " -wid " + MaincardLayout.getWinID(), Settings.GetMplayerPath());
+    } catch (IOException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+    }
+    }
+     * */
 
     public String GetAppVersion() {
         return AppVersion;
@@ -243,19 +243,6 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
         add(CardManager);
 
-        //ReadCameraData();
-        if (!ReadCameraDataAnimator.isAlive()) {
-            ReadCameraDataAnimator.start();
-        }
-        if (!HistogramAnimator.isAlive()) {
-            HistogramAnimator.start();
-        }
-
-        InitInfoArea();
-        if (!InfoAreaAnimator.isAlive()) {
-            InfoAreaAnimator.start();
-        }
-
         Player = new VLCPlayer(this);
     }
 
@@ -271,6 +258,19 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
                 this.WriteErrortoConsole("default.config not found");
             }
         }
+
+        if (!ReadCameraDataAnimator.isAlive()) {
+            ReadCameraDataAnimator.start();
+        }
+        if (!HistogramAnimator.isAlive()) {
+            HistogramAnimator.start();
+        }
+
+        InitInfoArea();
+        if (!InfoAreaAnimator.isAlive()) {
+            InfoAreaAnimator.start();
+        }
+        run();
     }
 
     private boolean LoadConfigFile(String Filename) {
