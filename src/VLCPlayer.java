@@ -30,7 +30,7 @@ public class VLCPlayer {
 
     VLCPlayer(ElphelVision parent) {
         this.Parent = parent;
-        String args = "--rtsp-caching=20";
+        String args = "--rtsp-caching=20 --no-video-title-show";
         jvlc = new JVLC(args);
     }
 

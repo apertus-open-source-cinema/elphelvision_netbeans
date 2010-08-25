@@ -43,7 +43,7 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="guidespreview1" alignment="0" pref="712" max="32767" attributes="0"/>
+                      <Component id="guidespreview1" alignment="0" min="-2" pref="712" max="-2" attributes="0"/>
                       <Component id="NavigationPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -257,8 +257,8 @@
             </Component>
             <Component class="EButton" name="GuidesMenuButton1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Guides"/>
                 <Property name="checked" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Guides"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GuidesMenuButton1ActionPerformed"/>

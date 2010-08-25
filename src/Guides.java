@@ -17,9 +17,14 @@
  *!
 -----------------------------------------------------------------------------**/
 
-import java.awt.*;
+//import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import javax.swing.JPanel;
 
-public class Guides extends java.awt.Canvas {
+public class Guides extends JPanel {
 
     private ElphelVision Parent = null;
     private boolean DrawCenterX = false;
@@ -43,6 +48,7 @@ public class Guides extends java.awt.Canvas {
         this.DrawOuterX = drawOuterX;
         this.DrawThirds = drawThirds;
         this.DrawSafeArea = drawSafeArea;
+        //this.invalidate();
     }
 
     public void SetOptions(boolean[] inval) {
@@ -50,6 +56,7 @@ public class Guides extends java.awt.Canvas {
         this.DrawOuterX = inval[1];
         this.DrawThirds = inval[2];
         this.DrawSafeArea = inval[3];
+        this.invalidate();
     }
 
     public void run() {

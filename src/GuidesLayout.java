@@ -221,7 +221,7 @@ public class GuidesLayout extends javax.swing.JPanel {
                 .addComponent(GuidesMenuButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 18));
         jLabel1.setForeground(new java.awt.Color(254, 254, 254));
         jLabel1.setText("Guides are not displayed in main window yet");
 
@@ -233,7 +233,7 @@ public class GuidesLayout extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
-                    .addComponent(guidespreview1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+                    .addComponent(guidespreview1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NavigationPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()

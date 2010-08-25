@@ -55,13 +55,12 @@ public class MainLayout extends JPanel {
         ExposureButton.setValue(Parent.Camera.GetExposure());
         GainButton.setValue(Parent.Camera.GetGain());
         histogram.SetParent(Parent);
-        guides1.SetParent(Parent);
-        
+        //guides.SetParent(Parent);
     }
 
     public void Load() {
-        guides1.SetOptions(Parent.Camera.GetGuides());
-        guides1.repaint();
+        //guides.SetOptions(Parent.Camera.GetGuides());
+        //guides.repaint();
         Parent.Player.SetCanvas(vlcoverlay);
     }
 
@@ -77,89 +76,91 @@ public class MainLayout extends JPanel {
         histogram.repaint();
     }
 
+    /*
+    @Override
     public void paint(Graphics g) {
-        super.paint(g);
-        String testtext = "test";
-        VideoFrame.invalidate();
-        Graphics graphics = VideoFrame.getGraphics();
-        // clear the area before drawing anything new on the canvas
-        graphics.setColor(Color.DARK_GRAY);
-        graphics.fillRect(0, 0, 800, 600);
+    super.paint(g);
 
-        int x = 50;
-        int y = 50;
+    String testtext = "test";
+    VideoFrame.invalidate();
+    Graphics graphics = VideoFrame.getGraphics();
+    // clear the area before drawing anything new on the canvas
+    graphics.setColor(Color.DARK_GRAY);
+    graphics.fillRect(0, 0, 50, 100);
 
-        Font font = new Font("Arial", Font.PLAIN, 18);
-        graphics.setFont(font);
+    int x = 50;
+    int y = 50;
 
-        // draw border by drawing it 4 times with offset in each direction
-        graphics.setColor(Color.black);
-        graphics.drawString(testtext, x + 1, y + 1);
-        graphics.drawString(testtext, x + 1, y - 1);
-        graphics.drawString(testtext, x - 1, y + 1);
-        graphics.drawString(testtext, x - 1, y - 1);
+    Font font = new Font("Arial", Font.PLAIN, 18);
+    graphics.setFont(font);
 
-        // draw the filling
-        graphics.setColor(Color.white);
-        graphics.drawString(testtext, x, y);
+    // draw border by drawing it 4 times with offset in each direction
+    graphics.setColor(Color.black);
+    graphics.drawString(testtext, x + 1, y + 1);
+    graphics.drawString(testtext, x + 1, y - 1);
+    graphics.drawString(testtext, x - 1, y + 1);
+    graphics.drawString(testtext, x - 1, y - 1);
+
+    // draw the filling
+    graphics.setColor(Color.white);
+    graphics.drawString(testtext, x, y);
+    }
+     */
+    /*public int getWinID() {
+    int winid = 0;
+    if (Parent.Settings.GetOS() == OStype.Windows) {
+    try {
+    final java.lang.Class<?> cl;
+    cl = Class.forName("sun.awt.windows.WComponentPeer");
+    java.lang.reflect.Field f = cl.getDeclaredField("hwnd");
+    f.setAccessible(true);
+    winid = (int) f.getLong(guides1.getPeer());
+    //debugoutput.append("Video window ID: " + winid);
+    } catch (ClassNotFoundException e1) {
+    // TODO Auto-generated catch block
+    e1.printStackTrace();
+    } catch (IllegalArgumentException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+    } catch (IllegalAccessException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+    } catch (SecurityException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+    } catch (NoSuchFieldException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
     }
 
-    public int getWinID() {
-        int winid = 0;
-        if (Parent.Settings.GetOS() == OStype.Windows) {
-            try {
-                final java.lang.Class<?> cl;
-                cl = Class.forName("sun.awt.windows.WComponentPeer");
-                java.lang.reflect.Field f = cl.getDeclaredField("hwnd");
-                f.setAccessible(true);
-                winid = (int) f.getLong(guides1.getPeer());
-                //debugoutput.append("Video window ID: " + winid);
-            } catch (ClassNotFoundException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SecurityException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (NoSuchFieldException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+    } else if (Parent.Settings.GetOS() == OStype.Linux) {
+    try {
+    final Class<?> cl = Class.forName("sun.awt.X11ComponentPeer");
+    java.lang.reflect.Method m = cl.getMethod("getContentWindow", null);
+    Object obj = m.invoke(vlcoverlay.getPeer());
+    winid = (int) Long.parseLong(obj.toString());
 
-        } else if (Parent.Settings.GetOS() == OStype.Linux) {
-            try {
-                final Class<?> cl = Class.forName("sun.awt.X11ComponentPeer");
-                java.lang.reflect.Method m = cl.getMethod("getContentWindow", null);
-                Object obj = m.invoke(vlcoverlay.getPeer());
-                winid = (int) Long.parseLong(obj.toString());
-
-                //debugoutput.append("Video window ID: " + winid);
-            } catch (InvocationTargetException ex) {
-                ex.printStackTrace();
-            } catch (NoSuchMethodException ex) {
-                ex.printStackTrace();
-            } catch (ClassNotFoundException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SecurityException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        return winid;
+    //debugoutput.append("Video window ID: " + winid);
+    } catch (InvocationTargetException ex) {
+    ex.printStackTrace();
+    } catch (NoSuchMethodException ex) {
+    ex.printStackTrace();
+    } catch (ClassNotFoundException e1) {
+    // TODO Auto-generated catch block
+    e1.printStackTrace();
+    } catch (IllegalArgumentException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+    } catch (IllegalAccessException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+    } catch (SecurityException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
     }
-
+    }
+    return winid;
+    }*/
     /** This method is called from within the init() method to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -187,7 +188,6 @@ public class MainLayout extends JPanel {
         NoticeArea = new javax.swing.JLabel();
         VideoFrame = new javax.swing.JPanel();
         vlcoverlay = new java.awt.Canvas();
-        guides1 = new Guides();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -325,7 +325,7 @@ public class MainLayout extends JPanel {
         ParameterPanel.setLayout(ParameterPanelLayout);
         ParameterPanelLayout.setHorizontalGroup(
             ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ParameterPanelLayout.createSequentialGroup()
+            .addGroup(ParameterPanelLayout.createSequentialGroup()
                 .addComponent(SettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,24 +333,29 @@ public class MainLayout extends JPanel {
                 .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(zoombutton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addComponent(histogram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CaptureStill, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RecordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(RecordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63))
         );
         ParameterPanelLayout.setVerticalGroup(
             ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(CaptureStill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(RecordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(zoombutton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(histogram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(SettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(ParameterPanelLayout.createSequentialGroup()
+                .addComponent(histogram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(ParameterPanelLayout.createSequentialGroup()
+                .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CaptureStill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RecordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         bg.add(ParameterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 980, -1));
@@ -386,16 +391,14 @@ public class MainLayout extends JPanel {
         bg.add(InfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, -1, -1));
 
         VideoFrame.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
+        VideoFrame.setDoubleBuffered(false);
+        VideoFrame.setOpaque(false);
         VideoFrame.setLayout(new javax.swing.BoxLayout(VideoFrame, javax.swing.BoxLayout.LINE_AXIS));
 
         vlcoverlay.setBackground(new java.awt.Color(23, 23, 23));
         VideoFrame.add(vlcoverlay);
 
-        guides1.setBackground(java.awt.Color.darkGray);
-        guides1.setVisible(false);
-        VideoFrame.add(guides1);
-
-        bg.add(VideoFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 920, 480));
+        bg.add(VideoFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 50, 853, 480));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -465,10 +468,10 @@ public class MainLayout extends JPanel {
     }//GEN-LAST:event_GainButtonActionPerformed
 
     private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
-        Parent.Settings1CardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings1Card");
         Parent.Player.close();
+        Parent.Settings1CardLayout.Load();
     }//GEN-LAST:event_SettingsButtonActionPerformed
 
     private void CaptureStillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaptureStillActionPerformed
@@ -504,7 +507,6 @@ public class MainLayout extends JPanel {
     private javax.swing.JPanel VideoFrame;
     private javax.swing.JPanel bg;
     private EButton decvalue;
-    private Guides guides1;
     private Histogram histogram;
     private EButton incvalue;
     private java.awt.Canvas vlcoverlay;
