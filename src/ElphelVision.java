@@ -48,9 +48,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     //private static final long serialVersionUID = 21L;
     Camera Camera; // class containing all camera specific information
     UserSettings Settings; // class containing user settings
-    Mplayer Player; // Mplayer class dealing with video overlay
-    //JPanel MainCard; // main card of the application
-    JPanel CardManager;
+    VLCPlayer Player; // VLC Video player class dealing with video overlay
     Thread ReadCameraDataAnimator;
     Thread InfoAreaAnimator;
     Thread HistogramAnimator;
@@ -58,6 +56,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     int ReadCameradataFPS = 10;
     int InfoAreaFPS = 10;
     int HistogramFPS = 15;
+    JPanel CardManager;
     ConnectLayout ConnectCardLayout;
     MainLayout MaincardLayout;
     Settings1Layout Settings1CardLayout;
@@ -163,7 +162,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     public JPanel GetCardManager() {
         return this.CardManager;
     }
-
+/*
     public void StartMplayerVideoStream() {
         try {
             String mplayerOptions = null;
@@ -183,6 +182,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             e.printStackTrace();
         }
     }
+ * */
 
     public String GetAppVersion() {
         return AppVersion;
@@ -243,7 +243,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
         add(CardManager);
 
-        ReadCameraData();
+        //ReadCameraData();
         if (!ReadCameraDataAnimator.isAlive()) {
             ReadCameraDataAnimator.start();
         }
@@ -256,7 +256,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             InfoAreaAnimator.start();
         }
 
-        Player = new Mplayer(this);
+        Player = new VLCPlayer(this);
     }
 
     public void PostConnect() {

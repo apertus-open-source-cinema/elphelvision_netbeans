@@ -856,9 +856,10 @@ public class Settings1Layout extends javax.swing.JPanel {
     }//GEN-LAST:event_fps30ActionPerformed
 
     private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
+        Parent.MaincardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.StartMplayerVideoStream();
+        Parent.Player.PlayVideoStream();
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void CustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomActionPerformed
@@ -1004,10 +1005,10 @@ public class Settings1Layout extends javax.swing.JPanel {
         } catch (IOException ex) {
             Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        Parent.MaincardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.StartMplayerVideoStream();
+        Parent.Player.PlayVideoStream();
     }//GEN-LAST:event_SettingsOKButton1ActionPerformed
 
     private void WBTungstenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WBTungstenActionPerformed
@@ -1085,14 +1086,13 @@ public class Settings1Layout extends javax.swing.JPanel {
     }//GEN-LAST:event_TerminateButtonActionPerformed
 
     private void SettingsMenu1Button10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1Button10ActionPerformed
-
 }//GEN-LAST:event_SettingsMenu1Button10ActionPerformed
 
     private void SettingsMenu2Button10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu2Button10ActionPerformed
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings2Card");
         Parent.Settings2CardLayout.Load();
-        Parent.Settings2CardLayout.StartMplayerVideoStream();
+        Parent.Player.PlayVideoStream();
 }//GEN-LAST:event_SettingsMenu2Button10ActionPerformed
 
     private void GuidesMenuButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuidesMenuButton10ActionPerformed
@@ -1107,7 +1107,6 @@ public class Settings1Layout extends javax.swing.JPanel {
         cl.show(Parent.GetCardManager(), "Settings3Card");
         Parent.Player.close();
 }//GEN-LAST:event_SettingsMenu3Button10ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton Amax;
     private EButton Cimax;

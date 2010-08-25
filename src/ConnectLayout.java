@@ -205,7 +205,7 @@ public class ConnectLayout extends javax.swing.JPanel {
                 CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
                 cl.show(Parent.CardManager, "MainCard");
                 Parent.WriteLogtoConsole("Starting Video Stream");
-                Parent.StartMplayerVideoStream();
+                Parent.Player.PlayVideoStream();
                 Parent.WriteLogtoConsole("Checking Camera connected HDD");
                 if (Parent.Camera.CheckHDD()) {
                     Parent.WriteLogtoConsole("HDD detected");
@@ -213,10 +213,10 @@ public class ConnectLayout extends javax.swing.JPanel {
                     Parent.WriteWarningtoConsole("HDD detection failed");
                 }
             } else {
-                Parent.WriteErrortoConsole("Connecting to: " + CameraIP.getText() + " failed");
+                Parent.WriteErrortoConsole("ConnectButtonActionPerformed() Connecting to: " + CameraIP.getText() + " failed");
             }
         } catch (Exception e) {
-            Parent.WriteErrortoConsole("Connecting failed: " + e.getMessage());
+            Parent.WriteErrortoConsole("ConnectButtonActionPerformed() Connecting failed: " + e.getMessage());
         }
 
     }//GEN-LAST:event_ConnectButtonActionPerformed

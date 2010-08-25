@@ -288,14 +288,14 @@ public class Settings3Layout extends javax.swing.JPanel {
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
         Parent.Player.close();
-        Parent.StartMplayerVideoStream();
+        Parent.Player.PlayVideoStream();
     }//GEN-LAST:event_SettingsOKButtonActionPerformed
 
     private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
         Parent.Player.close();
-        Parent.StartMplayerVideoStream();
+        Parent.Player.PlayVideoStream();
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void MovieSplitSizeFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_MovieSplitSizeFieldCaretUpdate
@@ -317,7 +317,8 @@ public class Settings3Layout extends javax.swing.JPanel {
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings2Card");
         Parent.Settings2CardLayout.Load();
-        Parent.Settings2CardLayout.StartMplayerVideoStream();
+        Parent.Player.PlayVideoStream();
+        //Parent.Settings2CardLayout.StartMplayerVideoStream();
 }//GEN-LAST:event_SettingsMenu2Button1ActionPerformed
 
     private void GuidesMenuButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuidesMenuButton1ActionPerformed

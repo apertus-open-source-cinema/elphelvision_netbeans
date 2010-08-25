@@ -52,17 +52,17 @@ public class Settings2Layout extends javax.swing.JPanel {
         black_level.setValue(String.valueOf(Parent.Camera.GetBlacklevel()));
         gamma.setValue(String.valueOf(Parent.Camera.GetGamma()));
         gammacurve.SetControlPoints(6 + Parent.Camera.GetBlacklevel(), 256, 150, 256, 150, 0, 6 + 256, 0);
+        Parent.Player.SetCanvas(vlcoverlay);
     }
 
-    public void StartMplayerVideoStream() {
-        try {
-            String mplayerOptions = null;
-            Parent.Player.open("rtsp://" + Parent.Camera.GetIP() + ":554", Parent.Settings.GetMplayerParameters() + " -wid " + getWinID(), Parent.Settings.GetMplayerPath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    /* public void StartMplayerVideoStream() {
+    try {
+    String mplayerOptions = null;
+    Parent.Player.open("rtsp://" + Parent.Camera.GetIP() + ":554", Parent.Settings.GetMplayerParameters() + " -wid " + getWinID(), Parent.Settings.GetMplayerPath());
+    } catch (IOException e) {
+    e.printStackTrace();
     }
-
+    }*/
     public void RedrawGammacurve() {
         gammacurve.repaint();
     }
@@ -75,7 +75,7 @@ public class Settings2Layout extends javax.swing.JPanel {
                 cl = Class.forName("sun.awt.windows.WComponentPeer");
                 java.lang.reflect.Field f = cl.getDeclaredField("hwnd");
                 f.setAccessible(true);
-                winid = (int) f.getLong(overlay.getPeer());
+                winid = (int) f.getLong(vlcoverlay.getPeer());
                 //debugoutput.append("Video window ID: " + winid);
             } catch (ClassNotFoundException e1) {
                 // TODO Auto-generated catch block
@@ -98,7 +98,7 @@ public class Settings2Layout extends javax.swing.JPanel {
             try {
                 final Class<?> cl = Class.forName("sun.awt.X11ComponentPeer");
                 java.lang.reflect.Method m = cl.getMethod("getContentWindow", null);
-                Object obj = m.invoke(overlay.getPeer());
+                Object obj = m.invoke(vlcoverlay.getPeer());
                 winid = (int) Long.parseLong(obj.toString());
 
                 //debugoutput.append("Video window ID: " + winid);
@@ -142,7 +142,7 @@ public class Settings2Layout extends javax.swing.JPanel {
         SettingsCancelButton = new EButton();
         SettingsOKButton = new EButton();
         VideoFrame = new javax.swing.JPanel();
-        overlay = new java.awt.Canvas();
+        vlcoverlay = new java.awt.Canvas();
         Gamma = new javax.swing.JPanel();
         gamma_inc = new EButton();
         gamma = new EButton();
@@ -252,18 +252,18 @@ public class Settings2Layout extends javax.swing.JPanel {
 
         VideoFrame.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
 
-        overlay.setBackground(java.awt.Color.darkGray);
-        overlay.setForeground(new java.awt.Color(254, 254, 254));
+        vlcoverlay.setBackground(java.awt.Color.darkGray);
+        vlcoverlay.setForeground(new java.awt.Color(254, 254, 254));
 
         javax.swing.GroupLayout VideoFrameLayout = new javax.swing.GroupLayout(VideoFrame);
         VideoFrame.setLayout(VideoFrameLayout);
         VideoFrameLayout.setHorizontalGroup(
             VideoFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(overlay, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(vlcoverlay, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         VideoFrameLayout.setVerticalGroup(
             VideoFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(overlay, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(vlcoverlay, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         Gamma.setBackground(java.awt.Color.black);
@@ -276,8 +276,8 @@ public class Settings2Layout extends javax.swing.JPanel {
         });
 
         gamma.setText("Gamma");
-        gamma.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        gamma.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gamma.setHorizontalAlignment(2);
+        gamma.setHorizontalTextPosition(2);
         gamma.setIconTextGap(0);
         gamma.setMargin(new java.awt.Insets(0, 5, 0, 0));
         gamma.addActionListener(new java.awt.event.ActionListener() {
@@ -393,8 +393,8 @@ public class Settings2Layout extends javax.swing.JPanel {
         });
 
         black_level.setText("Black Level");
-        black_level.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        black_level.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        black_level.setHorizontalAlignment(2);
+        black_level.setHorizontalTextPosition(2);
         black_level.setIconTextGap(0);
         black_level.setMargin(new java.awt.Insets(0, 5, 0, 0));
         black_level.addActionListener(new java.awt.event.ActionListener() {
@@ -509,11 +509,11 @@ public class Settings2Layout extends javax.swing.JPanel {
         } catch (IOException ex) {
             Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        Parent.Player.close();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.Player.close();
-        Parent.StartMplayerVideoStream();
+        Parent.MaincardLayout.Load();
+        Parent.Player.PlayVideoStream();
     }//GEN-LAST:event_SettingsOKButtonActionPerformed
 
     private void gammaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gammaActionPerformed
@@ -536,10 +536,11 @@ public class Settings2Layout extends javax.swing.JPanel {
     }//GEN-LAST:event_black_decActionPerformed
 
     private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
+        Parent.Player.close();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.Player.close();
-        Parent.StartMplayerVideoStream();
+        Parent.MaincardLayout.Load();
+        Parent.Player.PlayVideoStream();
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void black_levelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_black_levelActionPerformed
@@ -567,6 +568,7 @@ public class Settings2Layout extends javax.swing.JPanel {
     }//GEN-LAST:event_gamma_decActionPerformed
 
     private void SettingsMenu1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1ButtonActionPerformed
+        Parent.Player.close();
         Parent.Settings1CardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings1Card");
@@ -604,16 +606,17 @@ public class Settings2Layout extends javax.swing.JPanel {
     }//GEN-LAST:event_gammapreset_cinesActionPerformed
 
     private void GuidesMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuidesMenuButtonActionPerformed
+        Parent.Player.close();
+        Parent.GuidesPanel.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "GuidesCard");
-        Parent.GuidesPanel.Load();
 }//GEN-LAST:event_GuidesMenuButtonActionPerformed
 
     private void SettingsMenu3ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu3ButtonActionPerformed
+        Parent.Player.close();
         Parent.Settings3CardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings3Card");
-        Parent.Player.close();
     }//GEN-LAST:event_SettingsMenu3ButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Blacklevel;
@@ -643,6 +646,6 @@ public class Settings2Layout extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private java.awt.Canvas overlay;
+    private java.awt.Canvas vlcoverlay;
     // End of variables declaration//GEN-END:variables
 }
