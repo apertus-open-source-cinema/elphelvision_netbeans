@@ -19,19 +19,28 @@
 -----------------------------------------------------------------------------**/
 
 import java.awt.Canvas;
-import org.videolan.jvlc.JVLC;
-import org.videolan.jvlc.MediaPlayer;
+import uk.co.caprica.vlcj.player.MediaPlayer;
+import uk.co.caprica.vlcj.player.MediaPlayerFactory;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
+import uk.co.caprica.vlcj.runtime.windows.WindowsRuntimeUtil;
 
 public class VLCPlayer {
 
-    private MediaPlayer mediaPlayer;
-    private JVLC jvlc;
+    private EmbeddedMediaPlayer mediaPlayer;
+    private MediaPlayerFactory mediaPlayerFactory;
     private ElphelVision Parent;
 
     VLCPlayer(ElphelVision parent) {
         this.Parent = parent;
-        String args = "--rtsp-caching=20 --no-video-title-show";
-        jvlc = new JVLC(args);
+        String vlcArgs = "--rtsp-caching=20 --no-video-title-show";
+        // This burns so many people on Windows that I decided to leave it in...
+        if (RuntimeUtil.isWindows()) {
+            vlcArgs = "--plugin-path=" + WindowsRuntimeUtil.getVlcInstallDir() + "\\plugins";
+        }
+
+        mediaPlayerFactory = new MediaPlayerFactory(vlcArgs != null ? new String[]{vlcArgs} : new String[]{});
+        mediaPlayer = mediaPlayerFactory.newMediaPlayer(null);
     }
 
     public void close() {
@@ -39,10 +48,11 @@ public class VLCPlayer {
     }
 
     public void SetCanvas(Canvas overlayelemt) {
-        jvlc.setVideoOutput(overlayelemt);
+        mediaPlayer.setVideoSurface(overlayelemt);
     }
 
     public void PlayVideoStream() {
-        mediaPlayer = jvlc.play("rtsp://192.168.10.141:554"); // TODO
+        mediaPlayer.playMedia("rtsp://192.168.10.141:554");
+        //mediaPlayer = jvlc.play("rtsp://192.168.10.141:554");
     }
 }
