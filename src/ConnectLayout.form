@@ -56,8 +56,11 @@
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="330" max="32767" attributes="0"/>
-                  <Component id="ConnectPanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="315" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="ConnectPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="303" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -68,7 +71,9 @@
                   <Component id="Title" min="-2" pref="67" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
                   <Component id="ConnectPanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="230" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="185" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -124,8 +129,8 @@
           <SubComponents>
             <Component class="EButton" name="ConnectButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Connect"/>
                 <Property name="clickFeedback" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Connect"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ConnectButtonActionPerformed"/>
@@ -182,6 +187,11 @@
             </Container>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Todo: Fullscreen option"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

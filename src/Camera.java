@@ -109,6 +109,7 @@ public class Camera {
     private float Gamma;
     private int[] GammaCurve;
     private int Blacklevel;
+    private int FrameSizeBytes;
     private boolean AutoExposure = false;
     private boolean GuideDrawCenterX = false;
     private boolean GuideDrawOuterX = false;
@@ -280,6 +281,7 @@ public class Camera {
         this.GuideDrawOuterX = false;
         this.GuideDrawThirds = false;
         this.GuideDrawSafeArea = false;
+        this.FrameSizeBytes = 0;
         this.MovieClipMaxChunkSize = 2048; // Megabytes
     }
 
@@ -315,6 +317,48 @@ public class Camera {
 
     public MirrorImage GetImageFlipMode() {
         return this.ImageFlip;
+    }
+
+    public int GetFrameSizeBytes() {
+        URLConnection conn = null;
+        BufferedReader data = null;
+        String line;
+        String result = null;
+        StringBuffer buf = new StringBuffer();
+        URL FramesizeURL = null;
+        int parameter = 0;
+        String camera = "http://" + this.IP + "/ElphelVision/getparam.php?parameter=FRAME_SIZE";
+        try {
+            FramesizeURL = new URL(camera);
+        } catch (MalformedURLException e) {
+            Parent.WriteErrortoConsole("GetDatarate(): Reading FRAME_SIZE data failed at URL: " + FramesizeURL);
+        }
+
+        try {
+            conn = FramesizeURL.openConnection();
+            conn.connect();
+
+            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            buf.delete(0, buf.length());
+            while ((line = data.readLine()) != null) {
+                buf.append(line + "\n");
+            }
+
+            result = buf.toString();
+            data.close();
+        } catch (IOException e) {
+            Parent.WriteErrortoConsole("Reading FRAME_SIZE data IO Error:" + e.getMessage());
+        }
+
+        try {
+            result = result.replace("\n","");
+            this.FrameSizeBytes = Integer.parseInt(result);
+
+        } catch (Exception e) {
+            Parent.WriteErrortoConsole("Reading histogram data IO Error:" + e.getMessage());
+        }
+        return this.FrameSizeBytes;
     }
 
     public void SetAutoExposure(boolean OnOff) {
@@ -1099,8 +1143,9 @@ public class Camera {
     public String ReadConfigFileIP(String FileName) throws FileNotFoundException {
         File ConfigFile = new File(FileName);
 
-        if (!ConfigFile.exists())
+        if (!ConfigFile.exists()) {
             return null;
+        }
 
         String RetValue = null;
 

@@ -18,9 +18,6 @@
 -----------------------------------------------------------------------------**/
 
 import java.awt.*;
-import java.awt.image.ColorModel;
-import java.net.*;
-import java.io.*;
 import javax.swing.JPanel;
 
 public class Histogram extends JPanel implements Runnable, java.io.Serializable {
@@ -29,12 +26,7 @@ public class Histogram extends JPanel implements Runnable, java.io.Serializable 
     int i = 0;
     Thread animator;
     int fps = 25;
-    URLConnection conn = null;
-    BufferedReader data = null;
-    String line;
-    String result;
-    StringBuffer buf = new StringBuffer();
-    URL theURL = null;
+    
     ElphelVision Parent = null;
 
     public Histogram() {

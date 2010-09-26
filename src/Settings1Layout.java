@@ -41,6 +41,8 @@ public class Settings1Layout extends javax.swing.JPanel {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        
+        datarateMonitor1.SetParent(Parent);
     }
 
     public void Load() {
@@ -160,6 +162,7 @@ public class Settings1Layout extends javax.swing.JPanel {
 
 
         JPEGQualityButton.setValue("" + Parent.Camera.GetJPEGQuality());
+        datarateMonitor1.startAnimator();
     }
 
     /** This method is called from within the init() method to
@@ -217,6 +220,7 @@ public class Settings1Layout extends javax.swing.JPanel {
         SettingsMenu2Button10 = new EButton();
         GuidesMenuButton10 = new EButton();
         SettingsMenu3Button10 = new EButton();
+        datarateMonitor1 = new DatarateMonitor();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -441,12 +445,12 @@ public class Settings1Layout extends javax.swing.JPanel {
             }
         });
 
-        JPEGQualityButton.setText("JPEG %");
         JPEGQualityButton.setAlignmentY(0.0F);
-        JPEGQualityButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        JPEGQualityButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        JPEGQualityButton.setHorizontalAlignment(2);
+        JPEGQualityButton.setHorizontalTextPosition(2);
         JPEGQualityButton.setIconTextGap(20);
         JPEGQualityButton.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        JPEGQualityButton.setText("JPEG %");
         JPEGQualityButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JPEGQualityButtonActionPerformed(evt);
@@ -524,67 +528,67 @@ public class Settings1Layout extends javax.swing.JPanel {
         jLabel4.setText("White Balance");
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        WBTungsten.setText("Tungsten");
         WBTungsten.setAlignmentY(0.0F);
-        WBTungsten.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        WBTungsten.setHorizontalTextPosition(0);
         WBTungsten.setIconTextGap(20);
         WBTungsten.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        WBTungsten.setText("Tungsten");
         WBTungsten.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WBTungstenActionPerformed(evt);
             }
         });
 
-        WBDaylight.setText("Daylight");
         WBDaylight.setAlignmentY(0.0F);
-        WBDaylight.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        WBDaylight.setHorizontalTextPosition(0);
         WBDaylight.setIconTextGap(20);
         WBDaylight.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        WBDaylight.setText("Daylight");
         WBDaylight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WBDaylightActionPerformed(evt);
             }
         });
 
-        WBFlourescent.setBorder(null);
-        WBFlourescent.setText("Fluorescent");
         WBFlourescent.setAlignmentY(0.0F);
-        WBFlourescent.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        WBFlourescent.setBorder(null);
+        WBFlourescent.setHorizontalTextPosition(0);
         WBFlourescent.setIconTextGap(20);
         WBFlourescent.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        WBFlourescent.setText("Fluorescent");
         WBFlourescent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WBFlourescentActionPerformed(evt);
             }
         });
 
-        WBAuto.setText("Auto");
         WBAuto.setAlignmentY(0.0F);
-        WBAuto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        WBAuto.setHorizontalTextPosition(0);
         WBAuto.setIconTextGap(20);
         WBAuto.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        WBAuto.setText("Auto");
         WBAuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WBAutoActionPerformed(evt);
             }
         });
 
-        WBCloudy.setText("Cloudy");
         WBCloudy.setAlignmentY(0.0F);
-        WBCloudy.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        WBCloudy.setHorizontalTextPosition(0);
         WBCloudy.setIconTextGap(20);
         WBCloudy.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        WBCloudy.setText("Cloudy");
         WBCloudy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WBCloudyActionPerformed(evt);
             }
         });
 
-        WBCustom.setText("Custom");
         WBCustom.setAlignmentY(0.0F);
-        WBCustom.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        WBCustom.setHorizontalTextPosition(0);
         WBCustom.setIconTextGap(20);
         WBCustom.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        WBCustom.setText("Custom");
         WBCustom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WBCustomActionPerformed(evt);
@@ -671,8 +675,8 @@ public class Settings1Layout extends javax.swing.JPanel {
 
         NavigationPanel10.setBackground(java.awt.Color.black);
 
-        SettingsMenu1Button10.setText("Settings Tab 1");
         SettingsMenu1Button10.setChecked(true);
+        SettingsMenu1Button10.setText("Settings Tab 1");
         SettingsMenu1Button10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SettingsMenu1Button10ActionPerformed(evt);
@@ -722,6 +726,19 @@ public class Settings1Layout extends javax.swing.JPanel {
                 .addComponent(GuidesMenuButton10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        datarateMonitor1.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout datarateMonitor1Layout = new javax.swing.GroupLayout(datarateMonitor1);
+        datarateMonitor1.setLayout(datarateMonitor1Layout);
+        datarateMonitor1Layout.setHorizontalGroup(
+            datarateMonitor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 134, Short.MAX_VALUE)
+        );
+        datarateMonitor1Layout.setVerticalGroup(
+            datarateMonitor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -736,12 +753,14 @@ public class Settings1Layout extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(101, 101, 101)
-                        .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(datarateMonitor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(WBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                         .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(NavigationPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -754,12 +773,15 @@ public class Settings1Layout extends javax.swing.JPanel {
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(WBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ResolutionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ColorModePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(datarateMonitor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1118,68 +1140,18 @@ public class Settings1Layout extends javax.swing.JPanel {
     private EButton FormatQuicktime;
     private EButton Full;
     private EButton FullHD;
-    private EButton GuidesMenuButton;
-    private EButton GuidesMenuButton1;
     private EButton GuidesMenuButton10;
-    private EButton GuidesMenuButton2;
-    private EButton GuidesMenuButton3;
-    private EButton GuidesMenuButton4;
-    private EButton GuidesMenuButton5;
-    private EButton GuidesMenuButton6;
-    private EButton GuidesMenuButton7;
-    private EButton GuidesMenuButton8;
-    private EButton GuidesMenuButton9;
     private EButton JPEGQualityButton;
     private javax.swing.JPanel JPEGQualityPanel;
     private EButton JPEG_Minus;
     private EButton JPEG_Plus;
-    private javax.swing.JPanel NavigationPanel;
-    private javax.swing.JPanel NavigationPanel1;
     private javax.swing.JPanel NavigationPanel10;
-    private javax.swing.JPanel NavigationPanel2;
-    private javax.swing.JPanel NavigationPanel3;
-    private javax.swing.JPanel NavigationPanel4;
-    private javax.swing.JPanel NavigationPanel5;
-    private javax.swing.JPanel NavigationPanel6;
-    private javax.swing.JPanel NavigationPanel7;
-    private javax.swing.JPanel NavigationPanel8;
-    private javax.swing.JPanel NavigationPanel9;
     private javax.swing.JPanel RecordFormatPanel;
     private javax.swing.JPanel ResolutionPanel;
     private EButton SettingsCancelButton;
-    private EButton SettingsMenu1Button;
-    private EButton SettingsMenu1Button1;
     private EButton SettingsMenu1Button10;
-    private EButton SettingsMenu1Button2;
-    private EButton SettingsMenu1Button3;
-    private EButton SettingsMenu1Button4;
-    private EButton SettingsMenu1Button5;
-    private EButton SettingsMenu1Button6;
-    private EButton SettingsMenu1Button7;
-    private EButton SettingsMenu1Button8;
-    private EButton SettingsMenu1Button9;
-    private EButton SettingsMenu2Button;
-    private EButton SettingsMenu2Button1;
     private EButton SettingsMenu2Button10;
-    private EButton SettingsMenu2Button2;
-    private EButton SettingsMenu2Button3;
-    private EButton SettingsMenu2Button4;
-    private EButton SettingsMenu2Button5;
-    private EButton SettingsMenu2Button6;
-    private EButton SettingsMenu2Button7;
-    private EButton SettingsMenu2Button8;
-    private EButton SettingsMenu2Button9;
-    private EButton SettingsMenu3Button;
-    private EButton SettingsMenu3Button1;
     private EButton SettingsMenu3Button10;
-    private EButton SettingsMenu3Button2;
-    private EButton SettingsMenu3Button3;
-    private EButton SettingsMenu3Button4;
-    private EButton SettingsMenu3Button5;
-    private EButton SettingsMenu3Button6;
-    private EButton SettingsMenu3Button7;
-    private EButton SettingsMenu3Button8;
-    private EButton SettingsMenu3Button9;
     private EButton SettingsOKButton1;
     private EButton SmallHD;
     private EButton TerminateButton;
@@ -1193,6 +1165,7 @@ public class Settings1Layout extends javax.swing.JPanel {
     private javax.swing.JPanel bg;
     private EButton color_jp4;
     private EButton color_rbg;
+    private DatarateMonitor datarateMonitor1;
     private EButton fps24;
     private EButton fps25;
     private EButton fps30;
