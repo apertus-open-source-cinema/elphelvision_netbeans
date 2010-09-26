@@ -90,7 +90,6 @@ public class ConnectLayout extends javax.swing.JPanel {
         InfoArea1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ConnectionStatus = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -106,8 +105,8 @@ public class ConnectLayout extends javax.swing.JPanel {
 
         ConnectPanel.setBackground(new java.awt.Color(0, 0, 0));
 
-        ConnectButton.setText("Connect");
         ConnectButton.setClickFeedback(true);
+        ConnectButton.setText("Connect");
         ConnectButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ConnectButtonActionPerformed(evt);
@@ -154,8 +153,6 @@ public class ConnectLayout extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jLabel1.setText("Todo: Fullscreen option");
-
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -164,10 +161,8 @@ public class ConnectLayout extends javax.swing.JPanel {
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 1047, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addContainerGap(330, Short.MAX_VALUE)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(342, Short.MAX_VALUE)
+                .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(303, 303, 303))
         );
         bgLayout.setVerticalGroup(
@@ -177,9 +172,7 @@ public class ConnectLayout extends javax.swing.JPanel {
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(119, 119, 119)
                 .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(230, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -235,7 +228,6 @@ public class ConnectLayout extends javax.swing.JPanel {
     private javax.swing.JLabel InfoArea1;
     private javax.swing.JLabel Title;
     private javax.swing.JPanel bg;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

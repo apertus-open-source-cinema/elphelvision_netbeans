@@ -2,6 +2,9 @@
  *! Author : Apertus Team
  *! Description: Main class of the Elphel Vision viewfinder software for Elphel cameras.
  *! Thanks to Adrian BER and his JJMplayer sources which helped greatly creating this.
+ *
+ *  Main Program Parameters:
+ *   --nowindowdecorations - turn off all window decorations so the application can fill the complete screen
 -----------------------------------------------------------------------------**
  *!
  *!  This program is free software: you can redistribute it and/or modify
@@ -67,8 +70,11 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     NumericalInputPanel NumberPanel;
     GuidesLayout GuidesPanel;
     String AppVersion = "0.3";
+    static boolean WindowDecorations = true;
 
     public static void main(String[] args) {
+        ProcessArgs(args);
+
         Frame f = new Frame();
         f.addWindowListener(new java.awt.event.WindowAdapter() {
 
@@ -84,6 +90,9 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         EV.start();
         EV.setSize(1024, 600); // same size as defined in the HTML APPLET
         f.add(EV);
+        if (!WindowDecorations) {
+            f.setUndecorated(true);
+        }
         f.pack();
         f.setSize(1024, 600 + 20); // add 20, seems enough for the Frame title,
         f.show();
@@ -104,6 +113,13 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
     public void destroy() {
         Player.close();
+    }
+
+    static void ProcessArgs(String[] args) {
+        for (int i=0; i< args.length;i++) {
+            if (args[i].equals("--nowindowdecorations"))
+                WindowDecorations = false;
+        }
     }
 
     public void SetConsoleColor(Color newcolor) {
