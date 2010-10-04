@@ -352,7 +352,7 @@ public class Camera {
         }
 
         try {
-            result = result.replace("\n","");
+            result = result.replace("\n", "");
             this.FrameSizeBytes = Integer.parseInt(result);
 
         } catch (Exception e) {
@@ -1876,6 +1876,17 @@ public class Camera {
                         if (((Node) Elmnt9.item(0)) != null) {
                             // Todo
                             //Integer.parseInt(((Node) Elmnt9.item(0)).getNodeValue());
+                        }
+
+                        NodeList NmElmntLstauto_exposure = fstElmnt.getElementsByTagName("auto_exposure");
+                        Element NmElmntauto_exposure = (Element) NmElmntLstauto_exposure.item(0);
+                        NodeList Elmntauto_exposure = NmElmntauto_exposure.getChildNodes();
+                        if (((Node) Elmntauto_exposure.item(0)) != null) {
+                            if (((Node) Elmntauto_exposure.item(0)).getNodeValue().equals("1")) {
+                                this.AutoExposure = true;
+                            } else {
+                                this.AutoExposure = false;
+                            }
                         }
 
                         NodeList NmElmntLstFlipH = fstElmnt.getElementsByTagName("fliph");

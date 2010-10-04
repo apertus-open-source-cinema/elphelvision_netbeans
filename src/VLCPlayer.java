@@ -18,7 +18,14 @@
  *!
 -----------------------------------------------------------------------------**/
 
+import com.sun.jna.platform.WindowUtils;
 import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Window;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
@@ -34,6 +41,7 @@ public class VLCPlayer {
     VLCPlayer(ElphelVision parent) {
         this.Parent = parent;
         String vlcArgs = "--rtsp-caching=20 --no-video-title-show";
+
         // This burns so many people on Windows that I decided to leave it in...
         if (RuntimeUtil.isWindows()) {
             vlcArgs = "--plugin-path=" + WindowsRuntimeUtil.getVlcInstallDir() + "\\plugins";
@@ -52,7 +60,6 @@ public class VLCPlayer {
     }
 
     public void PlayVideoStream() {
-        mediaPlayer.playMedia("rtsp://192.168.10.141:554");
-        //mediaPlayer = jvlc.play("rtsp://192.168.10.141:554");
+        mediaPlayer.playMedia("rtsp://" + Parent.Camera.GetIP() + ":554");
     }
 }

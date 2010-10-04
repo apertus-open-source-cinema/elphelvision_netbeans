@@ -29,7 +29,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="bg" alignment="0" max="32767" attributes="0"/>
+          <Component id="bg" alignment="0" pref="602" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -135,9 +135,7 @@
                       <Component id="ExposureButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="GainButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="zoombutton" min="-2" pref="55" max="-2" attributes="0"/>
-                      <EmptySpace pref="168" max="32767" attributes="0"/>
+                      <EmptySpace pref="229" max="32767" attributes="0"/>
                       <Component id="histogram" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="CaptureStill" min="-2" pref="52" max="-2" attributes="0"/>
@@ -149,22 +147,20 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="ExposureButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="GainButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="zoombutton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="SettingsButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="histogram" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="CaptureStill" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="RecordButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="ExposureButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="GainButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="SettingsButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="histogram" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="CaptureStill" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="RecordButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -276,17 +272,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RecordButtonActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="EButton" name="zoombutton">
-              <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="70" green="70" red="8a" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="todo zoom"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="zoombuttonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

@@ -116,9 +116,10 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     }
 
     static void ProcessArgs(String[] args) {
-        for (int i=0; i< args.length;i++) {
-            if (args[i].equals("--nowindowdecorations"))
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("--nowindowdecorations")) {
                 WindowDecorations = false;
+            }
         }
     }
 
@@ -274,6 +275,10 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
                 this.WriteErrortoConsole("default.config not found");
             }
         }
+
+        // turn off autoexposure shutter by default
+        // TODO: make chooseable
+        Camera.SetAutoExposure(false);
 
         if (!ReadCameraDataAnimator.isAlive()) {
             ReadCameraDataAnimator.start();
