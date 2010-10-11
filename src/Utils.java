@@ -20,8 +20,8 @@
 
 public class Utils {
 
-    public static float Round(float Rval, int Rpl) {
-        float p = (float) Math.pow(10, Rpl);
+    public static float Round(float Rval, int decimals) {
+        float p = (float) Math.pow(10, decimals);
         Rval = Rval * p;
         float tmp = Math.round(Rval);
         return (float) tmp / p;

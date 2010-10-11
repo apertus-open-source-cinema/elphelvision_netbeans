@@ -530,8 +530,8 @@ public class Camera {
     }
 
     public void SetJPEGQuality(int newquality) {
-        if (newquality > 99) {
-            newquality = 99;
+        if (newquality > 100) {
+            newquality = 100;
         }
         if (newquality < 0) {
             newquality = 0;

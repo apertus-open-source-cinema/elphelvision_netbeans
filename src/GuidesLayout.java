@@ -61,7 +61,6 @@ public class GuidesLayout extends javax.swing.JPanel {
 
         bg = new javax.swing.JPanel();
         ConfirmationPanel = new javax.swing.JPanel();
-        SettingsOKButton = new EButton();
         SettingsCancelButton = new EButton();
         jPanel1 = new javax.swing.JPanel();
         CenterXButton = new EButton();
@@ -81,14 +80,7 @@ public class GuidesLayout extends javax.swing.JPanel {
 
         ConfirmationPanel.setBackground(java.awt.Color.black);
 
-        SettingsOKButton.setText("OK");
-        SettingsOKButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SettingsOKButtonActionPerformed(evt);
-            }
-        });
-
-        SettingsCancelButton.setText("Cancel");
+        SettingsCancelButton.setText("Close");
         SettingsCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SettingsCancelButtonActionPerformed(evt);
@@ -100,15 +92,12 @@ public class GuidesLayout extends javax.swing.JPanel {
         ConfirmationPanelLayout.setHorizontalGroup(
             ConfirmationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConfirmationPanelLayout.createSequentialGroup()
-                .addComponent(SettingsOKButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(112, 112, 112)
                 .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         ConfirmationPanelLayout.setVerticalGroup(
             ConfirmationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ConfirmationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(SettingsOKButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
@@ -184,8 +173,8 @@ public class GuidesLayout extends javax.swing.JPanel {
             }
         });
 
-        GuidesMenuButton1.setText("Guides");
         GuidesMenuButton1.setChecked(true);
+        GuidesMenuButton1.setText("Guides");
         GuidesMenuButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuidesMenuButton1ActionPerformed(evt);
@@ -253,7 +242,7 @@ public class GuidesLayout extends javax.swing.JPanel {
                     .addComponent(guidespreview1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(ConfirmationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(NavigationPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -272,7 +261,7 @@ public class GuidesLayout extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SettingsOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsOKButtonActionPerformed
+    private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
         Parent.Camera.SetGuides(CenterXButton.getChecked(), OuterXButton.getChecked(), ThirdsButton.getChecked(), SafeAreaButton.getChecked());
         Parent.MaincardLayout.Load();
 
@@ -282,13 +271,6 @@ public class GuidesLayout extends javax.swing.JPanel {
             Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.Player.close();
-        Parent.Player.PlayVideoStream();
-    }//GEN-LAST:event_SettingsOKButtonActionPerformed
-
-    private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
         Parent.MaincardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
@@ -353,7 +335,6 @@ public class GuidesLayout extends javax.swing.JPanel {
     private EButton SettingsMenu1Button1;
     private EButton SettingsMenu2Button1;
     private EButton SettingsMenu3Button;
-    private EButton SettingsOKButton;
     private EButton ThirdsButton;
     private javax.swing.JPanel bg;
     private Guides guidespreview1;

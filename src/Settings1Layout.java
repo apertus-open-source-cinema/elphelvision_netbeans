@@ -24,9 +24,11 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class Settings1Layout extends javax.swing.JPanel {
+public class Settings1Layout extends javax.swing.JPanel implements Runnable {
 
     ElphelVision Parent;
+    Thread SettingsOVerviewUpdater;
+    int UpdaterFPS = 4;
 
     public Settings1Layout(ElphelVision parent) {
         Parent = parent;
@@ -41,11 +43,49 @@ public class Settings1Layout extends javax.swing.JPanel {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
+
         datarateMonitor1.SetParent(Parent);
     }
 
+    private void startUpdater() {
+        SettingsOVerviewUpdater = new Thread(this);
+        SettingsOVerviewUpdater.start();
+    }
+
+    public void run() {
+
+        while (Thread.currentThread() == SettingsOVerviewUpdater) {
+
+            Overview_Resolution.setText(Parent.Camera.GetImageWidth() + " x " + Parent.Camera.GetImageHeight());
+            Overview_FPS.setText(Parent.Camera.GetFPS() + "");
+            Overview_JPEGQ.setText(Parent.Camera.GetJPEGQuality() + " %");
+            if (Parent.Camera.GetColorMode() == ColorMode.JP4) {
+                Overview_ColorMode.setText("JP4 RAW");
+            } else {
+                Overview_ColorMode.setText("RGB");
+            }
+            if (Parent.Camera.GetRecordFormat() == RecordFormat.MOV) {
+                Overview_Format.setText("Quicktime MOV");
+            } else {
+                Overview_Format.setText("Image Sequence");
+            }
+            Overview_FreeSpace.setText(Parent.Camera.GetFreeHDDSpace() + " MB");
+            float capacity = Parent.Camera.GetFreeHDDSpace() /( (float)(Parent.Camera.GetFrameSizeBytes()) / 1024.0f / 1024.0f * (float) (Parent.Camera.GetFPS()) * 3600.0f);
+            Overview_RecCapacity.setText(Utils.Round(capacity, 2) + " h");
+
+            repaint();
+
+            try {
+                Thread.sleep(1 / UpdaterFPS * 1000);
+            } catch (InterruptedException e) {
+                break;
+            }
+        }
+    }
+
     public void Load() {
+        startUpdater();
+
         if (Parent.Camera.GetPreset() == CameraPreset.AMAX) {
             SmallHD.setChecked(false);
             Amax.setChecked(true);
@@ -175,6 +215,24 @@ public class Settings1Layout extends javax.swing.JPanel {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        datarateMonitor1 = new DatarateMonitor();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        Overview_Resolution = new javax.swing.JLabel();
+        Overview_FPS = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        Overview_JPEGQ = new javax.swing.JLabel();
+        Overview_ColorMode = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        Overview_Format = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        Overview_FreeSpace = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        Overview_RecCapacity = new javax.swing.JLabel();
         ResolutionPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Amax = new EButton();
@@ -196,11 +254,11 @@ public class Settings1Layout extends javax.swing.JPanel {
         fps60 = new EButton();
         fpscustom = new EButton();
         JPEGQualityPanel = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         JPEG_Plus = new EButton();
         JPEGQualityButton = new EButton();
         JPEG_Minus = new EButton();
         ConfirmationPanel = new javax.swing.JPanel();
-        SettingsOKButton1 = new EButton();
         SettingsCancelButton = new EButton();
         WBPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -220,10 +278,199 @@ public class Settings1Layout extends javax.swing.JPanel {
         SettingsMenu2Button10 = new EButton();
         GuidesMenuButton10 = new EButton();
         SettingsMenu3Button10 = new EButton();
-        datarateMonitor1 = new DatarateMonitor();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(44, 44, 44), 1, true));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        datarateMonitor1.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout datarateMonitor1Layout = new javax.swing.GroupLayout(datarateMonitor1);
+        datarateMonitor1.setLayout(datarateMonitor1Layout);
+        datarateMonitor1Layout.setHorizontalGroup(
+            datarateMonitor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 134, Short.MAX_VALUE)
+        );
+        datarateMonitor1Layout.setVerticalGroup(
+            datarateMonitor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 47, Short.MAX_VALUE)
+        );
+
+        jLabel7.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Settings Overview");
+        jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel8.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel8.setText("Resolution:");
+        jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel9.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel9.setText("FPS:");
+        jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        Overview_Resolution.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        Overview_Resolution.setForeground(new java.awt.Color(255, 255, 255));
+        Overview_Resolution.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Overview_Resolution.setText("loading");
+        Overview_Resolution.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        Overview_FPS.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        Overview_FPS.setForeground(new java.awt.Color(255, 255, 255));
+        Overview_FPS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Overview_FPS.setText("loading");
+        Overview_FPS.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel10.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel10.setText("JPEG Quality:");
+        jLabel10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel11.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel11.setText("Color Mode:");
+        jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel12.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel12.setText("Format:");
+        jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        Overview_JPEGQ.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        Overview_JPEGQ.setForeground(new java.awt.Color(255, 255, 255));
+        Overview_JPEGQ.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Overview_JPEGQ.setText("loading");
+        Overview_JPEGQ.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        Overview_ColorMode.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        Overview_ColorMode.setForeground(new java.awt.Color(255, 255, 255));
+        Overview_ColorMode.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Overview_ColorMode.setText("loading");
+        Overview_ColorMode.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel13.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel13.setText("Datarate:");
+        jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        Overview_Format.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        Overview_Format.setForeground(new java.awt.Color(255, 255, 255));
+        Overview_Format.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Overview_Format.setText("loading");
+        Overview_Format.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel14.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel14.setText("Free Space:");
+        jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        Overview_FreeSpace.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        Overview_FreeSpace.setForeground(new java.awt.Color(255, 255, 255));
+        Overview_FreeSpace.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Overview_FreeSpace.setText("loading");
+        Overview_FreeSpace.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel15.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel15.setText("Record Capacity:");
+        jLabel15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        Overview_RecCapacity.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        Overview_RecCapacity.setForeground(new java.awt.Color(255, 255, 255));
+        Overview_RecCapacity.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Overview_RecCapacity.setText("loading");
+        Overview_RecCapacity.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                        .addGap(164, 164, 164))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(datarateMonitor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(113, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Overview_Resolution, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Overview_FPS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Overview_JPEGQ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Overview_ColorMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Overview_Format, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Overview_FreeSpace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Overview_RecCapacity, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(133, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Overview_Resolution, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Overview_FPS, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Overview_JPEGQ, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Overview_ColorMode, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Overview_Format, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Overview_FreeSpace, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Overview_RecCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(datarateMonitor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65))
+        );
 
         ResolutionPanel.setBackground(java.awt.Color.black);
 
@@ -279,18 +526,15 @@ public class Settings1Layout extends javax.swing.JPanel {
         ResolutionPanel.setLayout(ResolutionPanelLayout);
         ResolutionPanelLayout.setHorizontalGroup(
             ResolutionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ResolutionPanelLayout.createSequentialGroup()
-                .addGroup(ResolutionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ResolutionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Custom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SmallHD, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(FullHD, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Cimax, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Amax, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(ResolutionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Full, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(ResolutionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addComponent(Custom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(SmallHD, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(FullHD, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Cimax, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Amax, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(ResolutionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Full, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ResolutionPanelLayout.setVerticalGroup(
             ResolutionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,7 +599,7 @@ public class Settings1Layout extends javax.swing.JPanel {
 
         FPSPanel.setBackground(java.awt.Color.black);
 
-        jLabel3.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
+        jLabel3.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("FPS");
@@ -436,7 +680,13 @@ public class Settings1Layout extends javax.swing.JPanel {
         );
 
         JPEGQualityPanel.setBackground(new java.awt.Color(0, 0, 0));
-        JPEGQualityPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "JPEG Quality", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("DejaVu Sans", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        JPEGQualityPanel.setBorder(null);
+
+        jLabel6.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("JPEG Quality");
+        jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         JPEG_Plus.setText("+");
         JPEG_Plus.addActionListener(new java.awt.event.ActionListener() {
@@ -468,35 +718,28 @@ public class Settings1Layout extends javax.swing.JPanel {
         JPEGQualityPanel.setLayout(JPEGQualityPanelLayout);
         JPEGQualityPanelLayout.setHorizontalGroup(
             JPEGQualityPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPEGQualityPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(JPEGQualityPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JPEGQualityButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JPEG_Minus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JPEG_Plus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGroup(JPEGQualityPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addComponent(JPEG_Plus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(JPEGQualityButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(JPEG_Minus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
         JPEGQualityPanelLayout.setVerticalGroup(
             JPEGQualityPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPEGQualityPanelLayout.createSequentialGroup()
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JPEG_Plus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(JPEGQualityButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(JPEGQualityButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(JPEG_Minus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         ConfirmationPanel.setBackground(new java.awt.Color(0, 0, 0));
 
-        SettingsOKButton1.setText("OK");
-        SettingsOKButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SettingsOKButton1ActionPerformed(evt);
-            }
-        });
-
-        SettingsCancelButton.setText("Cancel");
+        SettingsCancelButton.setText("Close");
         SettingsCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SettingsCancelButtonActionPerformed(evt);
@@ -508,16 +751,12 @@ public class Settings1Layout extends javax.swing.JPanel {
         ConfirmationPanelLayout.setHorizontalGroup(
             ConfirmationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConfirmationPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(SettingsOKButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(124, 124, 124)
                 .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         ConfirmationPanelLayout.setVerticalGroup(
             ConfirmationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ConfirmationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(SettingsOKButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         WBPanel.setBackground(new java.awt.Color(0, 0, 0));
@@ -726,19 +965,6 @@ public class Settings1Layout extends javax.swing.JPanel {
                 .addComponent(GuidesMenuButton10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        datarateMonitor1.setBackground(new java.awt.Color(0, 0, 0));
-
-        javax.swing.GroupLayout datarateMonitor1Layout = new javax.swing.GroupLayout(datarateMonitor1);
-        datarateMonitor1.setLayout(datarateMonitor1Layout);
-        datarateMonitor1Layout.setHorizontalGroup(
-            datarateMonitor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 134, Short.MAX_VALUE)
-        );
-        datarateMonitor1Layout.setVerticalGroup(
-            datarateMonitor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -746,26 +972,24 @@ public class Settings1Layout extends javax.swing.JPanel {
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(NavigationPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(ResolutionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ColorModePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(101, 101, 101)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(datarateMonitor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(WBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
-                        .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addComponent(NavigationPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
-                        .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ColorModePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
+                .addComponent(WBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TerminateButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ConfirmationPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         bgLayout.setVerticalGroup(
@@ -774,19 +998,21 @@ public class Settings1Layout extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(WBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ResolutionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ColorModePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(datarateMonitor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(NavigationPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ResolutionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ColorModePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(NavigationPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -804,50 +1030,45 @@ public class Settings1Layout extends javax.swing.JPanel {
 
     private void FullHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FullHDActionPerformed
         FullHD.setChecked(true);
+
         Cimax.setChecked(false);
         Amax.setChecked(false);
         SmallHD.setChecked(false);
         Custom.setChecked(false);
         Full.setChecked(false);
 
-        /*
-        color_rbg.setEnabled(true);
-         */
+        Parent.Camera.SetPreset(CameraPreset.FULLHD);
     }//GEN-LAST:event_FullHDActionPerformed
 
     private void color_jp4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_color_jp4ActionPerformed
         color_jp4.setChecked(true);
         color_rbg.setChecked(false);
+
+        Parent.Camera.SetColorMode(ColorMode.JP4);
     }//GEN-LAST:event_color_jp4ActionPerformed
 
     private void CimaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CimaxActionPerformed
         Cimax.setChecked(true);
+
         Amax.setChecked(false);
         FullHD.setChecked(false);
         SmallHD.setChecked(false);
         Custom.setChecked(false);
         Full.setChecked(false);
 
-        /*
-        color_rbg.setEnabled(false);
-        color_rbg.setChecked(false);
-        color_jp4.setChecked(true);
-         */
+        Parent.Camera.SetPreset(CameraPreset.CIMAX);
     }//GEN-LAST:event_CimaxActionPerformed
 
     private void AmaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AmaxActionPerformed
         Amax.setChecked(true);
+
         Cimax.setChecked(false);
         FullHD.setChecked(false);
         SmallHD.setChecked(false);
         Custom.setChecked(false);
         Full.setChecked(false);
 
-        /*
-        color_rbg.setEnabled(false);
-        color_rbg.setChecked(false);
-        color_jp4.setChecked(true);
-         */
+        Parent.Camera.SetPreset(CameraPreset.AMAX);
     }//GEN-LAST:event_AmaxActionPerformed
 
     private void SmallHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SmallHDActionPerformed
@@ -858,14 +1079,14 @@ public class Settings1Layout extends javax.swing.JPanel {
         Custom.setChecked(false);
         Full.setChecked(false);
 
-        /*
-        color_rbg.setEnabled(true);
-         */
+        Parent.Camera.SetPreset(CameraPreset.SMALLHD);
     }//GEN-LAST:event_SmallHDActionPerformed
 
     private void color_rbgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_color_rbgActionPerformed
         color_jp4.setChecked(false);
         color_rbg.setChecked(true);
+
+        Parent.Camera.SetColorMode(ColorMode.RGB);
     }//GEN-LAST:event_color_rbgActionPerformed
 
     private void fps30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fps30ActionPerformed
@@ -875,9 +1096,17 @@ public class Settings1Layout extends javax.swing.JPanel {
         fps50.setChecked(false);
         fps60.setChecked(false);
         fpscustom.setChecked(false);
+
+        Parent.Camera.SetFPS(30.0f);
     }//GEN-LAST:event_fps30ActionPerformed
 
     private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
+        try { // Save to config file
+            Parent.Camera.WriteConfigFile("autosave.config");
+        } catch (IOException ex) {
+            Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         Parent.MaincardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
@@ -897,15 +1126,20 @@ public class Settings1Layout extends javax.swing.JPanel {
         fps50.setChecked(false);
         fps60.setChecked(false);
         fpscustom.setChecked(false);
+
+        Parent.Camera.SetFPS(25.0f);
     }//GEN-LAST:event_fps25ActionPerformed
 
     private void fps24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fps24ActionPerformed
         fps24.setChecked(true);
+
         fps25.setChecked(false);
         fps30.setChecked(false);
         fps50.setChecked(false);
         fps60.setChecked(false);
         fpscustom.setChecked(false);
+
+        Parent.Camera.SetFPS(24.0f);
     }//GEN-LAST:event_fps24ActionPerformed
 
     private void fps50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fps50ActionPerformed
@@ -915,6 +1149,8 @@ public class Settings1Layout extends javax.swing.JPanel {
         fps50.setChecked(true);
         fps60.setChecked(false);
         fpscustom.setChecked(false);
+
+        Parent.Camera.SetFPS(50.0f);
     }//GEN-LAST:event_fps50ActionPerformed
 
     private void fps60ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fps60ActionPerformed
@@ -924,6 +1160,8 @@ public class Settings1Layout extends javax.swing.JPanel {
         fps50.setChecked(false);
         fps60.setChecked(true);
         fpscustom.setChecked(false);
+
+        Parent.Camera.SetFPS(60.0f);
     }//GEN-LAST:event_fps60ActionPerformed
 
     private void fpscustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fpscustomActionPerformed
@@ -932,107 +1170,6 @@ public class Settings1Layout extends javax.swing.JPanel {
         cl.show(Parent.GetCardManager(), "CustomFPSCard");
     }//GEN-LAST:event_fpscustomActionPerformed
 
-    private void JPEG_PlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JPEG_PlusActionPerformed
-        Parent.Camera.SetJPEGQuality(Parent.Camera.GetJPEGQuality() + 1);
-        JPEGQualityButton.setValue("" + Parent.Camera.GetJPEGQuality());
-    }//GEN-LAST:event_JPEG_PlusActionPerformed
-
-    private void JPEGQualityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JPEGQualityButtonActionPerformed
-}//GEN-LAST:event_JPEGQualityButtonActionPerformed
-
-    private void JPEG_MinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JPEG_MinusActionPerformed
-        Parent.Camera.SetJPEGQuality(Parent.Camera.GetJPEGQuality() - 1);
-        JPEGQualityButton.setValue("" + Parent.Camera.GetJPEGQuality());
-    }//GEN-LAST:event_JPEG_MinusActionPerformed
-
-    private void SettingsOKButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsOKButton1ActionPerformed
-        if (Full.getChecked()) {
-            Parent.Camera.SetPreset(CameraPreset.FULL);
-        }
-
-        if (FullHD.getChecked()) {
-            Parent.Camera.SetPreset(CameraPreset.FULLHD);
-        }
-
-        if (SmallHD.getChecked()) {
-            Parent.Camera.SetPreset(CameraPreset.SMALLHD);
-        }
-
-        if (Amax.getChecked()) {
-            Parent.Camera.SetPreset(CameraPreset.AMAX);
-        }
-
-        if (Cimax.getChecked()) {
-            Parent.Camera.SetPreset(CameraPreset.CIMAX);
-        }
-
-        if (color_rbg.getChecked()) {
-            Parent.Camera.SetColorMode(ColorMode.RGB);
-        }
-
-        if (color_jp4.getChecked()) {
-            Parent.Camera.SetColorMode(ColorMode.JP4);
-        }
-
-        if (fps24.getChecked()) {
-            Parent.Camera.SetFPS(24.0f);
-        }
-
-        if (fps25.getChecked()) {
-            Parent.Camera.SetFPS(25.0f);
-        }
-
-        if (fps30.getChecked()) {
-            Parent.Camera.SetFPS(30.0f);
-        }
-
-        if (fps50.getChecked()) {
-            Parent.Camera.SetFPS(50.0f);
-        }
-
-        if (fps60.getChecked()) {
-            Parent.Camera.SetFPS(60.0f);
-        }
-
-        if (WBAuto.getChecked()) {
-            Parent.Camera.SetWhiteBalance(WhiteBalance.AUTO);
-        }
-
-        if (WBDaylight.getChecked()) {
-            Parent.Camera.SetWhiteBalance(WhiteBalance.DAYLIGHT);
-        }
-
-        if (WBTungsten.getChecked()) {
-            Parent.Camera.SetWhiteBalance(WhiteBalance.TUNGSTEN);
-        }
-
-        if (WBFlourescent.getChecked()) {
-            Parent.Camera.SetWhiteBalance(WhiteBalance.FLOURESCENT);
-        }
-
-        if (WBCloudy.getChecked()) {
-            Parent.Camera.SetWhiteBalance(WhiteBalance.CLOUDY);
-        }
-
-        if (FormatQuicktime.getChecked()) {
-            Parent.Camera.SetRecordFormat(RecordFormat.MOV);
-        }
-
-        if (FormatJPEGs.getChecked()) {
-            Parent.Camera.SetRecordFormat(RecordFormat.JPEG);
-        }
-
-        try { // Save to config file
-            Parent.Camera.WriteConfigFile("autosave.config");
-        } catch (IOException ex) {
-            Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Parent.MaincardLayout.Load();
-        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.Player.PlayVideoStream();
-    }//GEN-LAST:event_SettingsOKButton1ActionPerformed
-
     private void WBTungstenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WBTungstenActionPerformed
         WBAuto.setChecked(false);
         WBDaylight.setChecked(false);
@@ -1040,6 +1177,8 @@ public class Settings1Layout extends javax.swing.JPanel {
         WBCloudy.setChecked(false);
         WBFlourescent.setChecked(false);
         WBCustom.setChecked(false);
+
+        Parent.Camera.SetWhiteBalance(WhiteBalance.TUNGSTEN);
     }//GEN-LAST:event_WBTungstenActionPerformed
 
     private void WBDaylightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WBDaylightActionPerformed
@@ -1049,6 +1188,8 @@ public class Settings1Layout extends javax.swing.JPanel {
         WBCloudy.setChecked(false);
         WBFlourescent.setChecked(false);
         WBCustom.setChecked(false);
+
+        Parent.Camera.SetWhiteBalance(WhiteBalance.DAYLIGHT);
     }//GEN-LAST:event_WBDaylightActionPerformed
 
     private void WBFlourescentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WBFlourescentActionPerformed
@@ -1058,6 +1199,8 @@ public class Settings1Layout extends javax.swing.JPanel {
         WBCloudy.setChecked(false);
         WBFlourescent.setChecked(true);
         WBCustom.setChecked(false);
+
+        Parent.Camera.SetWhiteBalance(WhiteBalance.FLOURESCENT);
     }//GEN-LAST:event_WBFlourescentActionPerformed
 
     private void WBAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WBAutoActionPerformed
@@ -1067,6 +1210,8 @@ public class Settings1Layout extends javax.swing.JPanel {
         WBCloudy.setChecked(false);
         WBFlourescent.setChecked(false);
         WBCustom.setChecked(false);
+
+        Parent.Camera.SetWhiteBalance(WhiteBalance.AUTO);
     }//GEN-LAST:event_WBAutoActionPerformed
 
     private void WBCloudyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WBCloudyActionPerformed
@@ -1076,6 +1221,8 @@ public class Settings1Layout extends javax.swing.JPanel {
         WBCloudy.setChecked(true);
         WBFlourescent.setChecked(false);
         WBCustom.setChecked(false);
+
+        Parent.Camera.SetWhiteBalance(WhiteBalance.CLOUDY);
     }//GEN-LAST:event_WBCloudyActionPerformed
 
     private void WBCustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WBCustomActionPerformed
@@ -1085,20 +1232,27 @@ public class Settings1Layout extends javax.swing.JPanel {
     private void FormatJPEGsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormatJPEGsActionPerformed
         FormatQuicktime.setChecked(false);
         FormatJPEGs.setChecked(true);
+
+        Parent.Camera.SetRecordFormat(RecordFormat.JPEG);
     }//GEN-LAST:event_FormatJPEGsActionPerformed
 
     private void FormatQuicktimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormatQuicktimeActionPerformed
         FormatQuicktime.setChecked(true);
         FormatJPEGs.setChecked(false);
+
+        Parent.Camera.SetRecordFormat(RecordFormat.MOV);
     }//GEN-LAST:event_FormatQuicktimeActionPerformed
 
     private void FullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FullActionPerformed
+        Full.setChecked(true);
+
         FullHD.setChecked(false);
         Cimax.setChecked(false);
         Amax.setChecked(false);
         SmallHD.setChecked(false);
         Custom.setChecked(false);
-        Full.setChecked(true);
+
+        Parent.Camera.SetPreset(CameraPreset.FULL);
     }//GEN-LAST:event_FullActionPerformed
 
     private void TerminateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TerminateButtonActionPerformed
@@ -1129,6 +1283,19 @@ public class Settings1Layout extends javax.swing.JPanel {
         cl.show(Parent.GetCardManager(), "Settings3Card");
         Parent.Player.close();
 }//GEN-LAST:event_SettingsMenu3Button10ActionPerformed
+
+    private void JPEG_MinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JPEG_MinusActionPerformed
+        Parent.Camera.SetJPEGQuality(Parent.Camera.GetJPEGQuality() - 1);
+        JPEGQualityButton.setValue("" + Parent.Camera.GetJPEGQuality());
+}//GEN-LAST:event_JPEG_MinusActionPerformed
+
+    private void JPEGQualityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JPEGQualityButtonActionPerformed
+}//GEN-LAST:event_JPEGQualityButtonActionPerformed
+
+    private void JPEG_PlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JPEG_PlusActionPerformed
+        Parent.Camera.SetJPEGQuality(Parent.Camera.GetJPEGQuality() + 1);
+        JPEGQualityButton.setValue("" + Parent.Camera.GetJPEGQuality());
+}//GEN-LAST:event_JPEG_PlusActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton Amax;
     private EButton Cimax;
@@ -1146,13 +1313,19 @@ public class Settings1Layout extends javax.swing.JPanel {
     private EButton JPEG_Minus;
     private EButton JPEG_Plus;
     private javax.swing.JPanel NavigationPanel10;
+    private javax.swing.JLabel Overview_ColorMode;
+    private javax.swing.JLabel Overview_FPS;
+    private javax.swing.JLabel Overview_Format;
+    private javax.swing.JLabel Overview_FreeSpace;
+    private javax.swing.JLabel Overview_JPEGQ;
+    private javax.swing.JLabel Overview_RecCapacity;
+    private javax.swing.JLabel Overview_Resolution;
     private javax.swing.JPanel RecordFormatPanel;
     private javax.swing.JPanel ResolutionPanel;
     private EButton SettingsCancelButton;
     private EButton SettingsMenu1Button10;
     private EButton SettingsMenu2Button10;
     private EButton SettingsMenu3Button10;
-    private EButton SettingsOKButton1;
     private EButton SmallHD;
     private EButton TerminateButton;
     private EButton WBAuto;
@@ -1173,9 +1346,20 @@ public class Settings1Layout extends javax.swing.JPanel {
     private EButton fps60;
     private EButton fpscustom;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

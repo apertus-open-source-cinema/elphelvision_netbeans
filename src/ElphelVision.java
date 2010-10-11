@@ -94,7 +94,11 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             f.setUndecorated(true);
         }
         f.pack();
-        f.setSize(1024, 600 + 20); // add 20, seems enough for the Frame title,
+        if (!WindowDecorations) {
+            f.setSize(1024, 600);
+        } else {
+            f.setSize(1024, 600 + 20); // add 20, seems enough for the Frame title,
+        }
         f.show();
     }
 
@@ -117,10 +121,22 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
     static void ProcessArgs(String[] args) {
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("--nowindowdecorations")) {
+            if (args[i].equals("--cleanscreen")) {
                 WindowDecorations = false;
             }
+            if (args[i].equals("--help") || args[i].equals("-h")) {
+                PrintHelp();
+                System.exit(0);
+            }
         }
+    }
+
+    static void PrintHelp() {
+        System.out.println("ElphelVision Help: ");
+        System.out.println("Arguments: ");
+        System.out.println("\t--cleanscreen\tremove window borders");
+        System.out.println("\t-h, --help\tshow this help message.");
+
     }
 
     public void SetConsoleColor(Color newcolor) {

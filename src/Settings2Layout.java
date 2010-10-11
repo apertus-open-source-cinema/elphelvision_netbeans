@@ -140,7 +140,6 @@ public class Settings2Layout extends javax.swing.JPanel {
         SettingsMenu3Button = new EButton();
         ConfirmationPanel = new javax.swing.JPanel();
         SettingsCancelButton = new EButton();
-        SettingsOKButton = new EButton();
         VideoFrame = new javax.swing.JPanel();
         vlcoverlay = new java.awt.Canvas();
         Gamma = new javax.swing.JPanel();
@@ -173,8 +172,8 @@ public class Settings2Layout extends javax.swing.JPanel {
             }
         });
 
-        SettingsMenu2Button.setText("Settings Tab 2");
         SettingsMenu2Button.setChecked(true);
+        SettingsMenu2Button.setText("Settings Tab 2");
         SettingsMenu2Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SettingsMenu2ButtonActionPerformed(evt);
@@ -219,17 +218,10 @@ public class Settings2Layout extends javax.swing.JPanel {
 
         ConfirmationPanel.setBackground(java.awt.Color.black);
 
-        SettingsCancelButton.setText("Cancel");
+        SettingsCancelButton.setText("Close");
         SettingsCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SettingsCancelButtonActionPerformed(evt);
-            }
-        });
-
-        SettingsOKButton.setText("OK");
-        SettingsOKButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SettingsOKButtonActionPerformed(evt);
             }
         });
 
@@ -238,16 +230,12 @@ public class Settings2Layout extends javax.swing.JPanel {
         ConfirmationPanelLayout.setHorizontalGroup(
             ConfirmationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConfirmationPanelLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(SettingsOKButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(118, 118, 118)
                 .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         ConfirmationPanelLayout.setVerticalGroup(
             ConfirmationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ConfirmationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(SettingsOKButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         VideoFrame.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
@@ -275,11 +263,11 @@ public class Settings2Layout extends javax.swing.JPanel {
             }
         });
 
-        gamma.setText("Gamma");
         gamma.setHorizontalAlignment(2);
         gamma.setHorizontalTextPosition(2);
         gamma.setIconTextGap(0);
         gamma.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        gamma.setText("Gamma");
         gamma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gammaActionPerformed(evt);
@@ -392,11 +380,11 @@ public class Settings2Layout extends javax.swing.JPanel {
             }
         });
 
-        black_level.setText("Black Level");
         black_level.setHorizontalAlignment(2);
         black_level.setHorizontalTextPosition(2);
         black_level.setIconTextGap(0);
         black_level.setMargin(new java.awt.Insets(0, 5, 0, 0));
+        black_level.setText("Black Level");
         black_level.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 black_levelActionPerformed(evt);
@@ -503,19 +491,6 @@ public class Settings2Layout extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SettingsOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsOKButtonActionPerformed
-        try { // Save to config file
-            Parent.Camera.WriteConfigFile("autosave.config");
-        } catch (IOException ex) {
-            Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Parent.Player.close();
-        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.MaincardLayout.Load();
-        Parent.Player.PlayVideoStream();
-    }//GEN-LAST:event_SettingsOKButtonActionPerformed
-
     private void gammaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gammaActionPerformed
     }//GEN-LAST:event_gammaActionPerformed
 
@@ -536,6 +511,12 @@ public class Settings2Layout extends javax.swing.JPanel {
     }//GEN-LAST:event_black_decActionPerformed
 
     private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
+        try { // Save to config file
+            Parent.Camera.WriteConfigFile("autosave.config");
+        } catch (IOException ex) {
+            Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         Parent.Player.close();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
@@ -629,7 +610,6 @@ public class Settings2Layout extends javax.swing.JPanel {
     private EButton SettingsMenu1Button;
     private EButton SettingsMenu2Button;
     private EButton SettingsMenu3Button;
-    private EButton SettingsOKButton;
     private javax.swing.JPanel VideoFrame;
     private javax.swing.JPanel bg;
     private EButton black_dec;
