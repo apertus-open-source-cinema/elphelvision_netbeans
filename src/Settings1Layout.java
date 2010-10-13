@@ -69,8 +69,8 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
             } else {
                 Overview_Format.setText("Image Sequence");
             }
-            Overview_FreeSpace.setText(Parent.Camera.GetFreeHDDSpace() + " MB");
-            float capacity = Parent.Camera.GetFreeHDDSpace() /( (float)(Parent.Camera.GetFrameSizeBytes()) / 1024.0f / 1024.0f * (float) (Parent.Camera.GetFPS()) * 3600.0f);
+            Overview_FreeSpace.setText(Utils.Round(Parent.Camera.GetFreeHDDSpace() / 1024.0f, 2) + " GB");
+            float capacity = Parent.Camera.GetFreeHDDSpace() / ((float) (Parent.Camera.GetFrameSizeBytes()) / 1024.0f / 1024.0f * (float) (Parent.Camera.GetFPS()) * 3600.0f);
             Overview_RecCapacity.setText(Utils.Round(capacity, 2) + " h");
 
             repaint();

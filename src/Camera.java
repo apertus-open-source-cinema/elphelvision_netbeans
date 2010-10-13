@@ -98,6 +98,7 @@ public class Camera {
     private float FPS;
     private RecordFormat RecordFormat = null;
     private float HDDSpaceFree;
+    private float HDDSpaceFreeRatio;
     private HDDState HDDState;
     private int RecordedFrames = 0;
     private float Datarate = 0;
@@ -287,7 +288,7 @@ public class Camera {
         this.FrameSizeBytes = 0;
         this.MovieClipMaxChunkSize = 2048; // Megabytes
         this.VideoFilesList = new ArrayList<VideoFile>();
-        
+
     }
 
     public void SetIP(String IP) {
@@ -470,6 +471,10 @@ public class Camera {
 
     public float GetFreeHDDSpace() {
         return this.HDDSpaceFree;
+    }
+
+    public float GetFreeHDDRatio() {
+        return this.HDDSpaceFreeRatio;
     }
 
     public int GetRecordedFramesCount() {
@@ -1786,10 +1791,24 @@ public class Camera {
                         Element NmElmnt6 = (Element) NmElmntLst6.item(0);
                         NodeList Elmnt6 = NmElmnt6.getChildNodes();
                         if (((Node) Elmnt6.item(0)).getNodeValue().startsWith("unmounted")) {
+                            this.HDDSpaceFreeRatio = -1;
+                        } else {
+                            try {
+                                this.HDDSpaceFreeRatio = Float.parseFloat(((Node) Elmnt6.item(0)).getNodeValue());
+                            } catch (Exception e) {
+                                this.HDDSpaceFreeRatio = -1;
+                            }
+
+                        }
+
+                        NodeList NmElmntLstHDD = fstElmnt.getElementsByTagName("hdd_freespace");
+                        Element NmElmntHDD = (Element) NmElmntLstHDD.item(0);
+                        NodeList ElmntHDD = NmElmntHDD.getChildNodes();
+                        if (((Node) Elmnt6.item(0)).getNodeValue().startsWith("unmounted")) {
                             this.HDDSpaceFree = -1;
                         } else {
                             try {
-                                this.HDDSpaceFree = Float.parseFloat(((Node) Elmnt6.item(0)).getNodeValue());
+                                this.HDDSpaceFree = Float.parseFloat(((Node) ElmntHDD.item(0)).getNodeValue());
                             } catch (Exception e) {
                                 this.HDDSpaceFree = -1;
                             }
