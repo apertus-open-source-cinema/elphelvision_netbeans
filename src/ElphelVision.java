@@ -2,10 +2,6 @@
  *! Author : Apertus Team
  *! Description: Main class of the Elphel Vision viewfinder software for Elphel cameras.
  *! Thanks to Adrian BER and his JJMplayer sources which helped greatly creating this.
- *
- *  Main Program Parameters:
- *   --nowindowdecorations - turn off all window decorations so the application can fill the complete screen
------------------------------------------------------------------------------**
  *!
  *!  This program is free software: you can redistribute it and/or modify
  *!  it under the terms of the GNU General Public License as published by
@@ -69,8 +65,9 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     FPSSettings FPSSettingsCardLayout;
     NumericalInputPanel NumberPanel;
     GuidesLayout GuidesPanel;
-    String AppVersion = "0.3";
-    static boolean WindowDecorations = true;
+    PlaybackLayout PlaybackCardLayout;
+    String AppVersion = "0.4";
+    static boolean WindowDecorations = false;
 
     public static void main(String[] args) {
         ProcessArgs(args);
@@ -88,7 +85,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
         ElphelVision EV = new ElphelVision();
         EV.start();
-        EV.setSize(1024, 600); // same size as defined in the HTML APPLET
+        EV.setSize(1024, 600);
+        
         f.add(EV);
         if (!WindowDecorations) {
             f.setUndecorated(true);
@@ -121,9 +119,10 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
     static void ProcessArgs(String[] args) {
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("--cleanscreen")) {
-                WindowDecorations = false;
-            }
+            /*if (args[i].equals("--cleanscreen")) {
+               WindowDecorations = false;
+            }*/
+            WindowDecorations = false;
             if (args[i].equals("--help") || args[i].equals("-h")) {
                 PrintHelp();
                 System.exit(0);
@@ -134,7 +133,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     static void PrintHelp() {
         System.out.println("ElphelVision Help: ");
         System.out.println("Arguments: ");
-        System.out.println("\t--cleanscreen\tremove window borders");
+        //System.out.println("\t--cleanscreen\tremove window borders");
         System.out.println("\t-h, --help\tshow this help message.");
 
     }
@@ -257,12 +256,10 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         Settings2CardLayout = new Settings2Layout(this);
         Settings3CardLayout = new Settings3Layout(this);
         ResolutionSettingsCardLayout = new ResolutionSettings(this);
-        //ResolutionSettingsCardLayout.init();
         FPSSettingsCardLayout = new FPSSettings(this);
-        //FPSSettingsCardLayout.init();
         NumberPanel = new NumericalInputPanel(this);
-        //NumberPanel.init();
         GuidesPanel = new GuidesLayout(this);
+        PlaybackCardLayout = new PlaybackLayout(this);
 
         CardManager.add(ConnectCardLayout, "ConnectCard");
         CardManager.add(MaincardLayout, "MainCard");
@@ -273,6 +270,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         CardManager.add(FPSSettingsCardLayout, "CustomFPSCard");
         CardManager.add(GuidesPanel, "GuidesCard");
         CardManager.add(NumberPanel, "Numberpanel");
+        CardManager.add(PlaybackCardLayout, "PlaybackCard");
 
         add(CardManager);
 

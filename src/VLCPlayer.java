@@ -54,4 +54,8 @@ public class VLCPlayer {
     public void PlayVideoStream() {
         mediaPlayer.playMedia("rtsp://" + Parent.Camera.GetIP() + ":554");
     }
+
+    public void PlayVideoFile(String file) {
+        mediaPlayer.playMedia("http://" + Parent.Camera.GetIP() + file);
+    }
 }

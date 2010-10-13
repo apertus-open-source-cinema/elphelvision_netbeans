@@ -53,6 +53,7 @@ public class Settings2Layout extends javax.swing.JPanel {
         gamma.setValue(String.valueOf(Parent.Camera.GetGamma()));
         gammacurve.SetControlPoints(6 + Parent.Camera.GetBlacklevel(), 256, 150, 256, 150, 0, 6 + 256, 0);
         Parent.Player.SetCanvas(vlcoverlay);
+        Parent.Player.PlayVideoStream();
     }
 
     /* public void StartMplayerVideoStream() {
@@ -66,62 +67,7 @@ public class Settings2Layout extends javax.swing.JPanel {
     public void RedrawGammacurve() {
         gammacurve.repaint();
     }
-
-    public int getWinID() {
-        int winid = 0;
-        if (Parent.Settings.GetOS() == OStype.Windows) {
-            try {
-                final java.lang.Class<?> cl;
-                cl = Class.forName("sun.awt.windows.WComponentPeer");
-                java.lang.reflect.Field f = cl.getDeclaredField("hwnd");
-                f.setAccessible(true);
-                winid = (int) f.getLong(vlcoverlay.getPeer());
-                //debugoutput.append("Video window ID: " + winid);
-            } catch (ClassNotFoundException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SecurityException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (NoSuchFieldException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-        } else if (Parent.Settings.GetOS() == OStype.Linux) {
-            try {
-                final Class<?> cl = Class.forName("sun.awt.X11ComponentPeer");
-                java.lang.reflect.Method m = cl.getMethod("getContentWindow", null);
-                Object obj = m.invoke(vlcoverlay.getPeer());
-                winid = (int) Long.parseLong(obj.toString());
-
-                //debugoutput.append("Video window ID: " + winid);
-            } catch (InvocationTargetException ex) {
-                ex.printStackTrace();
-            } catch (NoSuchMethodException ex) {
-                ex.printStackTrace();
-            } catch (ClassNotFoundException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SecurityException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        return winid;
-    }
+   
 
     /** This method is called from within the init() method to
      * initialize the form.

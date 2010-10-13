@@ -1268,7 +1268,6 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings2Card");
         Parent.Settings2CardLayout.Load();
-        Parent.Player.PlayVideoStream();
 }//GEN-LAST:event_SettingsMenu2Button10ActionPerformed
 
     private void GuidesMenuButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuidesMenuButton10ActionPerformed

@@ -23,6 +23,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -32,6 +33,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import java.util.regex.Pattern;
 import java.util.Scanner;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -105,7 +107,7 @@ public class Camera {
     private int ImageHeight;
     private ImageOrientation ImageOrientation;
     private CameraPreset Preset = CameraPreset.FULLHD;
-    private int[][] Histogram;// = {{0, 1, 2, 3}, {1, 10, 100, 255}};
+    private int[][] Histogram;
     private float Gamma;
     private int[] GammaCurve;
     private int Blacklevel;
@@ -117,6 +119,7 @@ public class Camera {
     private boolean GuideDrawSafeArea = false;
     private GammaPreset GammaPreset;
     private ElphelVision Parent;
+    private ArrayList<VideoFile> VideoFilesList;
     private float ExposureTimeEV[] = {
         4,
         3.2f,
@@ -283,6 +286,8 @@ public class Camera {
         this.GuideDrawSafeArea = false;
         this.FrameSizeBytes = 0;
         this.MovieClipMaxChunkSize = 2048; // Megabytes
+        this.VideoFilesList = new ArrayList<VideoFile>();
+        
     }
 
     public void SetIP(String IP) {
@@ -305,6 +310,10 @@ public class Camera {
 
     public int GetMovieClipMaxChunkSize() {
         return this.MovieClipMaxChunkSize;
+    }
+
+    public ArrayList<VideoFile> GetVideoFilesList() {
+        return VideoFilesList;
     }
 
     public void SetImageOrientation(ImageOrientation orientation) {
@@ -1921,6 +1930,86 @@ public class Camera {
                 e.printStackTrace();
             }
 
+        } catch (IOException e) {
+            Parent.WriteErrortoConsole("UpdateCameraData() IO Error:" + e.getMessage());
+        }
+    }
+
+    public void ReadCameraFileList() throws Exception {
+        URLConnection conn = null;
+        BufferedReader data = null;
+        String line;
+        String result;
+        StringBuffer buf = new StringBuffer();
+
+        URL CameraFileReadURL = new URL("http://" + this.IP + "/ElphelVision/elphelvision_interface.php?cmd=list_files");
+
+        // try to connect
+        try {
+            conn = CameraFileReadURL.openConnection();
+            conn.connect();
+
+            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            buf.delete(0, buf.length());
+            while ((line = data.readLine()) != null) {
+                buf.append(line + "\n");
+            }
+
+            result = buf.toString();
+            data.close();
+
+            // try to extract data from XML structure
+            try {
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
+
+                Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
+                doc.getDocumentElement().normalize();
+                NodeList nodeLst = doc.getElementsByTagName("file");
+
+                // Clear File list before filling it again:
+                VideoFilesList.clear();
+
+
+                for (int s = 0; s < nodeLst.getLength(); s++) {
+                    Node Node = nodeLst.item(s);
+                    if (Node.getNodeType() == Node.ELEMENT_NODE) {
+                        Element fstElmnt = (Element) Node;
+
+                        VideoFile readentry = new VideoFile();
+
+                        NodeList lstNmElmntLst1 = fstElmnt.getElementsByTagName("type");
+                        Element lstNmElmnt1 = (Element) lstNmElmntLst1.item(0);
+                        NodeList lstNm1 = lstNmElmnt1.getChildNodes();
+                        readentry.type = ((Node) lstNm1.item(0)).getNodeValue();
+
+                        NodeList lstNmElmntLst2 = fstElmnt.getElementsByTagName("name");
+                        Element lstNmElmnt2 = (Element) lstNmElmntLst2.item(0);
+                        NodeList lstNm2 = lstNmElmnt2.getChildNodes();
+                        readentry.name = ((Node) lstNm2.item(0)).getNodeValue();
+
+                        NodeList lstNmElmntLst3 = fstElmnt.getElementsByTagName("path");
+                        Element lstNmElmnt3 = (Element) lstNmElmntLst3.item(0);
+                        NodeList lstNm3 = lstNmElmnt3.getChildNodes();
+                        readentry.path = ((Node) lstNm3.item(0)).getNodeValue();
+
+                        NodeList lstNmElmntLst4 = fstElmnt.getElementsByTagName("size");
+                        Element lstNmElmnt4 = (Element) lstNmElmntLst4.item(0);
+                        NodeList lstNm4 = lstNmElmnt4.getChildNodes();
+                        readentry.size = Integer.parseInt(((Node) lstNm4.item(0)).getNodeValue());
+
+                        NodeList lstNmElmntLst5 = fstElmnt.getElementsByTagName("date");
+                        Element lstNmElmnt5 = (Element) lstNmElmntLst5.item(0);
+                        NodeList lstNm5 = lstNmElmnt5.getChildNodes();
+                        readentry.date = ((Node) lstNm5.item(0)).getNodeValue();
+
+                        VideoFilesList.add(readentry);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             Parent.WriteErrortoConsole("UpdateCameraData() IO Error:" + e.getMessage());
         }
