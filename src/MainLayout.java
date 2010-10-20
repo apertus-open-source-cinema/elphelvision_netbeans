@@ -473,6 +473,7 @@ public class MainLayout extends JPanel {
     }//GEN-LAST:event_SettingsButtonActionPerformed
 
     private void CaptureStillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaptureStillActionPerformed
+        Parent.Player.close();
         String Command = "";
         String Message = "";
         if (Parent.Camera.GetPhotoColorMode() == ColorMode.JP4) {
@@ -496,6 +497,7 @@ public class MainLayout extends JPanel {
 
         String ReturnMessage = Parent.Camera.CaptureStillImage(Command);
         NoticeArea.setText(Message + ReturnMessage);
+        Parent.Player.PlayVideoStream();
     }//GEN-LAST:event_CaptureStillActionPerformed
 
     private void PlaybackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlaybackButtonActionPerformed
