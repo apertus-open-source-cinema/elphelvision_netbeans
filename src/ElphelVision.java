@@ -66,6 +66,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     NumericalInputPanel NumberPanel;
     GuidesLayout GuidesPanel;
     PlaybackLayout PlaybackCardLayout;
+    PhotoSettingsLayout PhotoSettingsCardLayout;
     String AppVersion = "0.4";
     static boolean WindowDecorations = false;
 
@@ -260,6 +261,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         NumberPanel = new NumericalInputPanel(this);
         GuidesPanel = new GuidesLayout(this);
         PlaybackCardLayout = new PlaybackLayout(this);
+        PhotoSettingsCardLayout = new PhotoSettingsLayout(this);
 
         CardManager.add(ConnectCardLayout, "ConnectCard");
         CardManager.add(MaincardLayout, "MainCard");
@@ -271,6 +273,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         CardManager.add(GuidesPanel, "GuidesCard");
         CardManager.add(NumberPanel, "Numberpanel");
         CardManager.add(PlaybackCardLayout, "PlaybackCard");
+        CardManager.add(PhotoSettingsCardLayout, "PhotoSettings");
 
         add(CardManager);
 
@@ -436,7 +439,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
                 Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            CameraInfo += "HDD: " + Camera.GetFreeHDDSpace() + "% free";
+            CameraInfo += "HDD: " + Camera.GetFreeHDDRatio() + "% free";
             if (!MaincardLayout.GetRecordEnabled()) {
                 MaincardLayout.EnableRecord(true);
             }

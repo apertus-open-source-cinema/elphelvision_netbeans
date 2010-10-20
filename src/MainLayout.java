@@ -473,8 +473,29 @@ public class MainLayout extends JPanel {
     }//GEN-LAST:event_SettingsButtonActionPerformed
 
     private void CaptureStillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaptureStillActionPerformed
-        String ReturnMessage = Parent.Camera.CaptureStillImage("QUALITY=100&COLOR=2&EXTENSION=.jp46");
-        NoticeArea.setText(ReturnMessage);
+        String Command = "";
+        String Message = "";
+        if (Parent.Camera.GetPhotoColorMode() == ColorMode.JP4) {
+            Command += "COLOR=5&EXTENSION=.jp4";
+            Message += "JP4 RAW ";
+        }
+        if (Parent.Camera.GetPhotoColorMode() == ColorMode.RGB) {
+            Command += "COLOR=1&EXTENSION=.jpg";
+            Message += "RGB ";
+        }
+        if (Parent.Camera.GetPhotoresolution() == PhotoResolution.FULL) {
+            Command += "&WOI_LEFT=0&WOI_TOP=0&WOI_WIDTH=9999&WOI_HEIGHT=9999";
+            Message += "Full Resolution Image ";
+        }
+        if (Parent.Camera.GetPhotoresolution() == PhotoResolution.ASVIDEO) {
+            Command += "";
+            Message += "Video Resolution Image ";
+        }
+        Command += "&QUALITY=" + Parent.Camera.GetPhotoQuality();
+        Message += "(Quality=" + Parent.Camera.GetPhotoQuality() + ") ";
+
+        String ReturnMessage = Parent.Camera.CaptureStillImage(Command);
+        NoticeArea.setText(Message + ReturnMessage);
     }//GEN-LAST:event_CaptureStillActionPerformed
 
     private void PlaybackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlaybackButtonActionPerformed

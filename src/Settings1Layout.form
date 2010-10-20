@@ -53,11 +53,11 @@
                           <Component id="ColorModePanel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                           <Component id="RecordFormatPanel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="WBPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Component id="WBPanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="43" max="32767" attributes="0"/>
+                  <EmptySpace pref="13" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="TerminateButton" alignment="1" min="-2" pref="127" max="-2" attributes="0"/>
                       <Component id="ConfirmationPanel" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -72,8 +72,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="WBPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="FPSPanel" min="-2" max="-2" attributes="0"/>
                               <Component id="ResolutionPanel" min="-2" max="-2" attributes="0"/>
@@ -87,11 +86,15 @@
                               <Component id="ColorModePanel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="16" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="NavigationPanel10" min="-2" max="-2" attributes="0"/>
-                              <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="WBPanel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="NavigationPanel10" min="-2" max="-2" attributes="0"/>
+                      <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -1065,6 +1068,8 @@
                       <Component id="SettingsMenu3Button10" min="-2" pref="135" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="GuidesMenuButton10" min="-2" pref="136" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="PhotoSettingsMenu" min="-2" pref="136" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1075,6 +1080,7 @@
                       <Component id="SettingsMenu2Button10" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="SettingsMenu3Button10" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="GuidesMenuButton10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="PhotoSettingsMenu" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1111,6 +1117,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu3Button10ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="EButton" name="PhotoSettingsMenu">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Photo Settings"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PhotoSettingsMenuActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

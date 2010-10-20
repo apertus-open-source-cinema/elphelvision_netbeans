@@ -59,7 +59,6 @@ public class Settings3Layout extends javax.swing.JPanel {
         ConfirmationPanel = new javax.swing.JPanel();
         SettingsOKButton = new EButton();
         SettingsCancelButton = new EButton();
-        gammacurve = new GammaCurve();
         MovieMaxSplitSizePanel = new javax.swing.JPanel();
         MovieSplitSizeField = new javax.swing.JTextField();
         MovieSplitSizeLabel = new javax.swing.JLabel();
@@ -107,20 +106,6 @@ public class Settings3Layout extends javax.swing.JPanel {
                 .addComponent(SettingsOKButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        gammacurve.setBackground(new java.awt.Color(0, 0, 0));
-        gammacurve.setPreferredSize(new java.awt.Dimension(262, 262));
-
-        javax.swing.GroupLayout gammacurveLayout = new javax.swing.GroupLayout(gammacurve);
-        gammacurve.setLayout(gammacurveLayout);
-        gammacurveLayout.setHorizontalGroup(
-            gammacurveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
-        );
-        gammacurveLayout.setVerticalGroup(
-            gammacurveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 262, Short.MAX_VALUE)
-        );
-
         MovieMaxSplitSizePanel.setBackground(new java.awt.Color(0, 0, 0));
 
         MovieSplitSizeField.setBackground(new java.awt.Color(0, 0, 0));
@@ -133,7 +118,7 @@ public class Settings3Layout extends javax.swing.JPanel {
             }
         });
 
-        MovieSplitSizeLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 14)); // NOI18N
+        MovieSplitSizeLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 14));
         MovieSplitSizeLabel.setForeground(new java.awt.Color(255, 255, 255));
         MovieSplitSizeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MovieSplitSizeLabel.setText("Movie Split Size");
@@ -240,9 +225,6 @@ public class Settings3Layout extends javax.swing.JPanel {
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(584, 584, 584)
-                        .addComponent(gammacurve, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(MovieMaxSplitSizePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(NavigationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -255,9 +237,7 @@ public class Settings3Layout extends javax.swing.JPanel {
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MovieMaxSplitSizePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(164, 164, 164)
-                .addComponent(gammacurve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
+                .addGap(490, 490, 490)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(NavigationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -272,7 +252,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -341,7 +321,6 @@ public class Settings3Layout extends javax.swing.JPanel {
     private EButton SettingsMenu3Button;
     private EButton SettingsOKButton;
     private javax.swing.JPanel bg;
-    private GammaCurve gammacurve;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

@@ -87,6 +87,11 @@ enum GammaPreset {
     LINEAR, CINE1, CINE2, CINES
 }
 
+enum PhotoResolution {
+
+    FULL, ASVIDEO
+}
+
 /**
  * The camera class holds all settings/parameters/states/commands of the Elphel Camera.
  */
@@ -260,6 +265,9 @@ public class Camera {
     private int JPEGQual;
     private long RecordstartTime = 0;
     private ColorMode Colormode = ColorMode.RGB;
+    private ColorMode PhotoColormode = ColorMode.RGB;
+    private PhotoResolution Photoresolution = PhotoResolution.FULL;
+    private int PhotoQuality = 100;
     private WhiteBalance ImageWhiteBalance = WhiteBalance.AUTO;
     private MirrorImage ImageFlip = MirrorImage.NONE;
     private int MovieClipMaxChunkSize; // in Megabytes // Default 4 GB = 4 x 1024 x 1024 x 1024 bytes
@@ -562,6 +570,30 @@ public class Camera {
 
     public ColorMode GetColorMode() {
         return this.Colormode;
+    }
+
+    public void SetPhotoresolution(PhotoResolution Res) {
+        this.Photoresolution = Res;
+    }
+
+    public PhotoResolution GetPhotoresolution() {
+        return this.Photoresolution;
+    }
+
+    public void SetPhotoQuality(int newquality) {
+        this.PhotoQuality = newquality;
+    }
+
+    public int GetPhotoQuality() {
+        return this.PhotoQuality;
+    }
+
+    public void SetPhotoColorMode(ColorMode Mode) {
+        this.PhotoColormode = Mode;
+    }
+
+    public ColorMode GetPhotoColorMode() {
+        return this.PhotoColormode;
     }
 
     public void SetWhiteBalance(WhiteBalance newbalance) {
@@ -1148,6 +1180,21 @@ public class Camera {
             }
             line += "\n";
             line += "Blacklevel=" + Integer.toString(this.GetBlacklevel()) + "\n";
+            line += "PhotoColorMode=";
+            if (this.GetPhotoColorMode() == ColorMode.JP4) {
+                line += "JP4";
+            } else if (this.GetPhotoColorMode() == ColorMode.RGB) {
+                line += "RBG";
+            }
+            line += "\n";
+            line += "PhotoResolution=";
+            if (this.GetPhotoresolution() == PhotoResolution.ASVIDEO) {
+                line += "ASVIDEO";
+            } else if (this.GetPhotoresolution() == PhotoResolution.FULL) {
+                line += "FULL";
+            }
+            line += "\n";
+            line += "PhotoQuality=" + Integer.toString(this.GetPhotoQuality()) + "\n";
             output.write(line);
         } finally {
             output.close();
@@ -1324,6 +1371,25 @@ public class Camera {
                     }
                     if (name.trim().equals("MovieMaxChunkSize")) {
                         this.SetMovieClipMaxChunkSize(Integer.parseInt(value.trim()));
+                    }
+                    if (name.trim().equals("PhotoColorMode")) {
+                        if (value.trim().contentEquals("JP4")) {
+                            this.SetPhotoColorMode(ColorMode.JP4);
+                        }
+                        if (value.trim().contentEquals("RGB")) {
+                            this.SetPhotoColorMode(Colormode.RGB);
+                        }
+                    }
+                    if (name.trim().equals("PhotoResolution")) {
+                        if (value.trim().contentEquals("FULL")) {
+                            this.SetPhotoresolution(PhotoResolution.FULL);
+                        }
+                        if (value.trim().contentEquals("ASVIDEO")) {
+                            this.SetPhotoresolution(PhotoResolution.ASVIDEO);
+                        }
+                    }
+                    if (name.trim().equals("PhotoQuality")) {
+                        this.SetPhotoQuality(Integer.parseInt(value.trim()));
                     }
                 } else {
                     //Empty or invalid line. Unable to process
