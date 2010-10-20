@@ -62,7 +62,7 @@ public class MainLayout extends JPanel {
         ExposureButton.setChecked(true);
         ParameterName.setText("EV");
         ExposureButton.setValue(Parent.Camera.GetExposure());
-        GainButton.setValue(Parent.Camera.GetGain());      
+        GainButton.setValue(Parent.Camera.GetGain());
     }
 
     public javax.swing.JTextPane GetInfoTextPane() {

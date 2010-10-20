@@ -33,7 +33,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import java.util.regex.Pattern;
 import java.util.Scanner;
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -271,7 +270,7 @@ public class Camera {
     private boolean AllowCaptureStillWhileRecording;
     private WhiteBalance ImageWhiteBalance = WhiteBalance.AUTO;
     private MirrorImage ImageFlip = MirrorImage.NONE;
-    private int MovieClipMaxChunkSize; // in Megabytes // Default 4 GB = 4 x 1024 x 1024 x 1024 bytes
+    private int MovieClipMaxChunkSize; 
     private boolean ConnectionEstablished = false;
 
     Camera(ElphelVision parent) {
@@ -295,7 +294,7 @@ public class Camera {
         this.GuideDrawThirds = false;
         this.GuideDrawSafeArea = false;
         this.FrameSizeBytes = 0;
-        this.MovieClipMaxChunkSize = 2048; // Megabytes
+        this.MovieClipMaxChunkSize = 2048; // in Megabytes - Default 2 GB = 2 x 1024 x 1024 x 1024 bytes
         this.VideoFilesList = new ArrayList<VideoFile>();
 
     }
