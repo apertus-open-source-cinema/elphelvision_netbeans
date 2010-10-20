@@ -1125,10 +1125,10 @@ public class Camera {
                 line += "JP4";
             }
             line += "\n";
-            line += "Exposure=" + ExposureTimeEV[this.GetExposureIndex()] + "\n";
+            line += "ExposureIndex=" + Integer.toString(this.GetExposureIndex()) + "\n";
             line += "AutoExposure=" + Boolean.toString(this.GetAutoExposure()) + "\n";
             line += "RecordFormat=" + this.GetRecordFormat() + "\n";
-            line += "Gain=" + Float.toString(Gain[this.GetGainIndex()]) + "\n";
+            line += "GainIndex=" + Integer.toString(this.GetGainIndex()) + "\n";
             line += "WB=";
             if (this.GetWhiteBalance() == WhiteBalance.AUTO) {
                 line += "AUTO";
@@ -1301,8 +1301,8 @@ public class Camera {
                             this.SetColorMode(ColorMode.JP4);
                         }
                     }
-                    if (name.trim().equals("Exposure")) {
-                        this.SetExposure(Float.parseFloat(value.trim()));
+                    if (name.trim().equals("ExposureIndex")) {
+                        this.SetExposureIndex(Integer.parseInt(value.trim()));
                     }
 
                     if ((name.trim()).equals("RecordFormat")) {
@@ -1358,8 +1358,8 @@ public class Camera {
                             this.SetImageFlipMode(MirrorImage.VERTICALHORIZONTAL);
                         }
                     }
-                    if (name.trim().equals("Gain")) {
-                        this.SetGain(Float.parseFloat(value.trim()));
+                    if (name.trim().equals("GainIndex")) {
+                        this.SetGainIndex(Integer.parseInt(value.trim()));
                     }
                     if (name.trim().equals("WB_Factor_R")) {
                         this.WB_Factor_R = (Float.parseFloat(value.trim()));

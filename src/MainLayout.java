@@ -50,18 +50,19 @@ public class MainLayout extends JPanel {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        ExposureButton.setChecked(true);
-        ParameterName.setText("EV");
-        ExposureButton.setValue(Parent.Camera.GetExposure());
-        GainButton.setValue(Parent.Camera.GetGain());
         histogram.SetParent(Parent);
         //guides.SetParent(Parent);
     }
 
     public void Load() {
-        //guides.SetOptions(Parent.Camera.GetGuides());
-        //guides.repaint();
+        //guides.SetOptions(Parent.Camera.GetGuides()); // test
+        //guides.repaint(); // test
         Parent.Player.SetCanvas(vlcoverlay);
+
+        ExposureButton.setChecked(true);
+        ParameterName.setText("EV");
+        ExposureButton.setValue(Parent.Camera.GetExposure());
+        GainButton.setValue(Parent.Camera.GetGain());      
     }
 
     public javax.swing.JTextPane GetInfoTextPane() {
@@ -443,9 +444,6 @@ public class MainLayout extends JPanel {
 
             CaptureStill.setEnabled(true);
         }
-
-
-
     }//GEN-LAST:event_RecordButtonActionPerformed
 
     private void incvalueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incvalueActionPerformed
