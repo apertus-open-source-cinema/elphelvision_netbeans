@@ -61,6 +61,14 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
         }
 
         PhotoQualityField.setText(Parent.Camera.GetPhotoQuality() + "");
+
+        if (Parent.Camera.GetAllowCaptureStillWhileRecording()) {
+            StillsWhileRecDisable.setChecked(false);
+            StillsWhileRecAllow.setChecked(true);
+        } else {
+            StillsWhileRecDisable.setChecked(true);
+            StillsWhileRecAllow.setChecked(false);
+        }
     }
 
     /** This method is called from within the init() method to
@@ -91,6 +99,9 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         ColorModeRGB = new EButton();
         ColorModeJP4 = new EButton();
+        jLabel3 = new javax.swing.JLabel();
+        StillsWhileRecAllow = new EButton();
+        StillsWhileRecDisable = new EButton();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -193,7 +204,7 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
             }
         });
 
-        MovieSplitSizeLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 14)); // NOI18N
+        MovieSplitSizeLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 14));
         MovieSplitSizeLabel.setForeground(new java.awt.Color(255, 255, 255));
         MovieSplitSizeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MovieSplitSizeLabel.setText("Photo Quality");
@@ -231,7 +242,7 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 0, 14));
+        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(254, 254, 254));
         jLabel2.setText("Color Mode");
 
@@ -249,29 +260,55 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel3.setText("<html>\nCapture Stills<br/>\nWhile Recording<br/>\nVideo\n</html>\n");
+
+        StillsWhileRecAllow.setText("Allow");
+        StillsWhileRecAllow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StillsWhileRecAllowActionPerformed(evt);
+            }
+        });
+
+        StillsWhileRecDisable.setText("Disable");
+        StillsWhileRecDisable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StillsWhileRecDisableActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PhotoSettingsLayout = new javax.swing.GroupLayout(PhotoSettings);
         PhotoSettings.setLayout(PhotoSettingsLayout);
         PhotoSettingsLayout.setHorizontalGroup(
             PhotoSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PhotoSettingsLayout.createSequentialGroup()
                 .addGroup(PhotoSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(MovieSplitSizeLabel)
-                    .addComponent(jLabel2))
-                .addGap(22, 22, 22)
-                .addGroup(PhotoSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PhotoSettingsLayout.createSequentialGroup()
+                        .addGroup(PhotoSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(MovieSplitSizeLabel)
+                            .addComponent(jLabel2))
+                        .addGap(22, 22, 22)
+                        .addGroup(PhotoSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PhotoSettingsLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PhotoQualityField, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                .addGap(16, 16, 16))
+                            .addComponent(ColorModeRGB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ResolutionFull, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(PhotoSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ResolutionAsVideo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ColorModeJP4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PhotoQualityType, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PhotoSettingsLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PhotoQualityField, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                        .addGap(16, 16, 16))
-                    .addComponent(ColorModeRGB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ResolutionFull, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PhotoSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ResolutionAsVideo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ColorModeJP4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PhotoQualityType, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(156, 156, 156))
+                        .addComponent(StillsWhileRecAllow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(StillsWhileRecDisable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(168, 168, 168))
         );
         PhotoSettingsLayout.setVerticalGroup(
             PhotoSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,7 +327,13 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
                     .addComponent(MovieSplitSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(PhotoQualityType, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(PhotoQualityField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(PhotoSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(PhotoSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(StillsWhileRecAllow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(StillsWhileRecDisable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
@@ -301,7 +344,7 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PhotoSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                    .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(NavigationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                         .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -311,11 +354,12 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(PhotoSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(230, 230, 230)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NavigationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(PhotoSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(241, 241, 241)
+                        .addComponent(NavigationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -327,7 +371,7 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -403,7 +447,7 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
         if (Integer.parseInt(PhotoQualityField.getText()) < 0) {
             PhotoQualityField.setText("0");
         }
-        
+
         Parent.Camera.SetPhotoQuality(Integer.parseInt(PhotoQualityField.getText()));
 }//GEN-LAST:event_PhotoQualityFieldCaretUpdate
 
@@ -412,6 +456,20 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Numberpanel");
 }//GEN-LAST:event_PhotoQualityTypeActionPerformed
+
+    private void StillsWhileRecAllowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StillsWhileRecAllowActionPerformed
+        StillsWhileRecDisable.setChecked(false);
+        StillsWhileRecAllow.setChecked(true);
+
+        Parent.Camera.SetAllowCaptureStillWhileRecording(true);
+    }//GEN-LAST:event_StillsWhileRecAllowActionPerformed
+
+    private void StillsWhileRecDisableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StillsWhileRecDisableActionPerformed
+        StillsWhileRecDisable.setChecked(true);
+        StillsWhileRecAllow.setChecked(false);
+
+        Parent.Camera.SetAllowCaptureStillWhileRecording(false);
+    }//GEN-LAST:event_StillsWhileRecDisableActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton ColorModeJP4;
     private EButton ColorModeRGB;
@@ -429,8 +487,11 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
     private EButton SettingsMenu1Button1;
     private EButton SettingsMenu2Button1;
     private EButton SettingsMenu3Button;
+    private EButton StillsWhileRecAllow;
+    private EButton StillsWhileRecDisable;
     private javax.swing.JPanel bg;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

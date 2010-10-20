@@ -430,11 +430,22 @@ public class MainLayout extends JPanel {
             Parent.Camera.ExecuteCommand("RECORDSTART");
             RecordButton.setText("Stop");
             RecordButton.setChecked(true);
+
+            if (Parent.Camera.GetAllowCaptureStillWhileRecording()) {
+                CaptureStill.setEnabled(true);
+            } else {
+                CaptureStill.setEnabled(false);
+            }
         } else if (check == CamogmState.RECORDING) {
             Parent.Camera.ExecuteCommand("RECORDSTOP");
             RecordButton.setText("Record");
             RecordButton.setChecked(false);
+
+            CaptureStill.setEnabled(true);
         }
+
+
+
     }//GEN-LAST:event_RecordButtonActionPerformed
 
     private void incvalueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incvalueActionPerformed

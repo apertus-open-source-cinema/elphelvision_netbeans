@@ -229,6 +229,8 @@
                       <Component id="SettingsMenu3Button" min="-2" pref="135" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="GuidesMenuButton1" min="-2" pref="136" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="PhotoSettingsMenu" min="-2" pref="136" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -239,6 +241,7 @@
                       <Component id="SettingsMenu2Button1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="SettingsMenu3Button" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="GuidesMenuButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="PhotoSettingsMenu" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -275,6 +278,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu3ButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="EButton" name="PhotoSettingsMenu">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Photo Settings"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PhotoSettingsMenuActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

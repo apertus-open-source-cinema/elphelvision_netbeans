@@ -268,6 +268,7 @@ public class Camera {
     private ColorMode PhotoColormode = ColorMode.RGB;
     private PhotoResolution Photoresolution = PhotoResolution.FULL;
     private int PhotoQuality = 100;
+    private boolean AllowCaptureStillWhileRecording;
     private WhiteBalance ImageWhiteBalance = WhiteBalance.AUTO;
     private MirrorImage ImageFlip = MirrorImage.NONE;
     private int MovieClipMaxChunkSize; // in Megabytes // Default 4 GB = 4 x 1024 x 1024 x 1024 bytes
@@ -578,6 +579,14 @@ public class Camera {
 
     public PhotoResolution GetPhotoresolution() {
         return this.Photoresolution;
+    }
+
+    public void SetAllowCaptureStillWhileRecording(boolean newsetting) {
+        this.AllowCaptureStillWhileRecording = newsetting;
+    }
+
+    public boolean GetAllowCaptureStillWhileRecording() {
+        return this.AllowCaptureStillWhileRecording;
     }
 
     public void SetPhotoQuality(int newquality) {
@@ -1195,6 +1204,7 @@ public class Camera {
             }
             line += "\n";
             line += "PhotoQuality=" + Integer.toString(this.GetPhotoQuality()) + "\n";
+            line += "AllowCaptureStillWhileRecording=" + Boolean.toString(this.GetAllowCaptureStillWhileRecording()) + "\n";
             output.write(line);
         } finally {
             output.close();
@@ -1390,6 +1400,14 @@ public class Camera {
                     }
                     if (name.trim().equals("PhotoQuality")) {
                         this.SetPhotoQuality(Integer.parseInt(value.trim()));
+                    }
+                    if (name.trim().equals("AllowCaptureStillWhileRecording")) {
+                        if (value.trim().contentEquals("true")) {
+                            this.SetAllowCaptureStillWhileRecording(true);
+                        }
+                        if (value.trim().contentEquals("false")) {
+                            this.SetAllowCaptureStillWhileRecording(false);
+                        }
                     }
                 } else {
                     //Empty or invalid line. Unable to process

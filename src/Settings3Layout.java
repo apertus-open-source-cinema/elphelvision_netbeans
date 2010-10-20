@@ -69,6 +69,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         SettingsMenu2Button1 = new EButton();
         GuidesMenuButton1 = new EButton();
         SettingsMenu3Button = new EButton();
+        PhotoSettingsMenu = new EButton();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -134,8 +135,8 @@ public class Settings3Layout extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("MB");
 
-        MovieSplitSizeType.setText("type");
         MovieSplitSizeType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        MovieSplitSizeType.setText("type");
         MovieSplitSizeType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MovieSplitSizeTypeActionPerformed(evt);
@@ -188,11 +189,18 @@ public class Settings3Layout extends javax.swing.JPanel {
             }
         });
 
-        SettingsMenu3Button.setText("Settings Tab 3");
         SettingsMenu3Button.setChecked(true);
+        SettingsMenu3Button.setText("Settings Tab 3");
         SettingsMenu3Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SettingsMenu3ButtonActionPerformed(evt);
+            }
+        });
+
+        PhotoSettingsMenu.setText("Photo Settings");
+        PhotoSettingsMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PhotoSettingsMenuActionPerformed(evt);
             }
         });
 
@@ -207,7 +215,9 @@ public class Settings3Layout extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SettingsMenu3Button, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(GuidesMenuButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(GuidesMenuButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PhotoSettingsMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         NavigationPanel1Layout.setVerticalGroup(
             NavigationPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +225,8 @@ public class Settings3Layout extends javax.swing.JPanel {
                 .addComponent(SettingsMenu1Button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(SettingsMenu2Button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(SettingsMenu3Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(GuidesMenuButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(GuidesMenuButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PhotoSettingsMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
@@ -307,6 +318,13 @@ public class Settings3Layout extends javax.swing.JPanel {
 
     private void SettingsMenu3ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu3ButtonActionPerformed
 }//GEN-LAST:event_SettingsMenu3ButtonActionPerformed
+
+    private void PhotoSettingsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhotoSettingsMenuActionPerformed
+        Parent.PhotoSettingsCardLayout.Load();
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "PhotoSettings");
+}//GEN-LAST:event_PhotoSettingsMenuActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ConfirmationPanel;
     private EButton GuidesMenuButton1;
@@ -315,6 +333,7 @@ public class Settings3Layout extends javax.swing.JPanel {
     private javax.swing.JLabel MovieSplitSizeLabel;
     private EButton MovieSplitSizeType;
     private javax.swing.JPanel NavigationPanel1;
+    private EButton PhotoSettingsMenu;
     private EButton SettingsCancelButton;
     private EButton SettingsMenu1Button1;
     private EButton SettingsMenu2Button1;
