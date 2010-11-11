@@ -90,6 +90,7 @@ public class ConnectLayout extends javax.swing.JPanel {
         InfoArea1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ConnectionStatus = new javax.swing.JTextArea();
+        ExitBUtton = new EButton();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -153,6 +154,14 @@ public class ConnectLayout extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        ExitBUtton.setForeground(new java.awt.Color(217, 2, 2));
+        ExitBUtton.setText("Exit");
+        ExitBUtton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitBUttonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -164,6 +173,10 @@ public class ConnectLayout extends javax.swing.JPanel {
                 .addContainerGap(342, Short.MAX_VALUE)
                 .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(303, 303, 303))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                .addContainerGap(894, Short.MAX_VALUE)
+                .addComponent(ExitBUtton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +185,9 @@ public class ConnectLayout extends javax.swing.JPanel {
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(119, 119, 119)
                 .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(230, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addComponent(ExitBUtton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -220,11 +235,16 @@ public class ConnectLayout extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_ConnectButtonActionPerformed
+
+    private void ExitBUttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitBUttonActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitBUttonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CameraIP;
     private EButton ConnectButton;
     private javax.swing.JPanel ConnectPanel;
     private javax.swing.JTextArea ConnectionStatus;
+    private EButton ExitBUtton;
     private javax.swing.JLabel InfoArea1;
     private javax.swing.JLabel Title;
     private javax.swing.JPanel bg;
