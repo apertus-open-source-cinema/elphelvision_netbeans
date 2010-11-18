@@ -20,11 +20,13 @@
 //import java.awt.*;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
 
-public class Guides extends JPanel {
+public class Guides extends javax.swing.JPanel {
 
     private ElphelVision Parent = null;
     private boolean DrawCenterX = false;
@@ -105,7 +107,7 @@ public class Guides extends JPanel {
     private void DrawShadowedLine(Graphics2D g2, int StartX, int StartY, int EndX, int EndY) {
         g2.setStroke(new BasicStroke(1));
 
-        g2.setColor(Color.BLACK);
+        g2.setColor(new Color(0, 0, 0, 255));
 
         if (StartY == EndY) {
             // horizontal
@@ -118,7 +120,7 @@ public class Guides extends JPanel {
             g2.drawLine(StartX - 1, StartY, EndX - 1, EndY);
         }
 
-        g2.setColor(Color.WHITE);
+        g2.setColor(new Color(255, 255, 255, 255));
         g2.drawLine(StartX, StartY, EndX, EndY);
     }
 }

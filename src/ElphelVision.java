@@ -22,16 +22,16 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Frame;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -69,6 +69,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     PhotoSettingsLayout PhotoSettingsCardLayout;
     String AppVersion = "0.4";
     static boolean WindowDecorations = false;
+    Utils Utils;
 
     public static void main(String[] args) {
         ProcessArgs(args);
@@ -87,7 +88,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         ElphelVision EV = new ElphelVision();
         EV.start();
         EV.setSize(1024, 600);
-        
+
         f.add(EV);
         if (!WindowDecorations) {
             f.setUndecorated(true);
@@ -111,7 +112,62 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         SetConsoleColor(Color.WHITE);
         System.out.println("=====================================================");
         System.out.println(" ");
-        //super();
+
+        Utils = new Utils();
+        TestGraphicCapability();
+    }
+    private boolean isShapingSupported;
+    private boolean isOpacityControlSupported;
+    private boolean isTranslucencySupported;
+    private GraphicsConfiguration translucencyCapableGC;
+
+    public GraphicsConfiguration GetTranslucencyCapableGC() {
+        return translucencyCapableGC;
+    }
+
+    public void TestGraphicCapability() {
+        isShapingSupported = AWTUtilitiesWrapper.isTranslucencySupported(AWTUtilitiesWrapper.PERPIXEL_TRANSPARENT);
+        isOpacityControlSupported = AWTUtilitiesWrapper.isTranslucencySupported(AWTUtilitiesWrapper.TRANSLUCENT);
+        isTranslucencySupported = AWTUtilitiesWrapper.isTranslucencySupported(AWTUtilitiesWrapper.PERPIXEL_TRANSLUCENT);
+
+        translucencyCapableGC = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+        if (!AWTUtilitiesWrapper.isTranslucencyCapable(translucencyCapableGC)) {
+            translucencyCapableGC = null;
+
+            GraphicsEnvironment env =
+                    GraphicsEnvironment.getLocalGraphicsEnvironment();
+            GraphicsDevice[] devices = env.getScreenDevices();
+
+            for (int i = 0; i < devices.length && translucencyCapableGC == null; i++) {
+                GraphicsConfiguration[] configs = devices[i].getConfigurations();
+                for (int j = 0; j < configs.length && translucencyCapableGC == null; j++) {
+                    if (AWTUtilitiesWrapper.isTranslucencyCapable(configs[j])) {
+                        translucencyCapableGC = configs[j];
+                    }
+                }
+            }
+            if (translucencyCapableGC == null) {
+                isTranslucencySupported = false;
+            }
+        }
+
+        if (!isTranslucencySupported) {
+            WriteWarningtoConsole("Translucency is not supported by current Graphics Environment");
+        } else {
+            WriteLogtoConsole("Translucency is supported by current Graphics Environment");
+        }
+        if (!isOpacityControlSupported) {
+            WriteWarningtoConsole("OpacityControl is not supported by current Graphics Environment");
+        } else {
+            WriteLogtoConsole("OpacityControl is supported by current Graphics Environment");
+        }
+        if (!isShapingSupported) {
+            WriteWarningtoConsole("PERPIXEL_TRANSPARENT is not supported by current Graphics Environment");
+        } else {
+            WriteLogtoConsole("PERPIXEL_TRANSPARENT is supported by current Graphics Environment");
+        }
+
+
     }
 
     public void destroy() {
@@ -120,9 +176,6 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
     static void ProcessArgs(String[] args) {
         for (int i = 0; i < args.length; i++) {
-            /*if (args[i].equals("--cleanscreen")) {
-               WindowDecorations = false;
-            }*/
             WindowDecorations = false;
             if (args[i].equals("--help") || args[i].equals("-h")) {
                 PrintHelp();
@@ -134,7 +187,6 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     static void PrintHelp() {
         System.out.println("ElphelVision Help: ");
         System.out.println("Arguments: ");
-        //System.out.println("\t--cleanscreen\tremove window borders");
         System.out.println("\t-h, --help\tshow this help message.");
 
     }
@@ -278,6 +330,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         add(CardManager);
 
         Player = new VLCPlayer(this);
+
     }
 
     public void PostConnect() {
@@ -476,4 +529,4 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-} 
+}

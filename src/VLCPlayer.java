@@ -51,10 +51,18 @@ public class VLCPlayer {
         mediaPlayer.setVideoSurface(overlayelemt);
     }
 
+    public void ToggleFullscreen() {
+        mediaPlayer.toggleFullScreen();
+    }
+
     public void PlayVideoStream() {
         mediaPlayer.playMedia("rtsp://" + Parent.Camera.GetIP() + ":554");
     }
 
+    /*public void Overlay(Window overlay) {
+    mediaPlayer.setOverlay(overlay);
+    mediaPlayer.enableOverlay(true);
+    }*/
     public void PlayVideoFile(String file) {
         mediaPlayer.playMedia("http://" + Parent.Camera.GetIP() + file);
     }

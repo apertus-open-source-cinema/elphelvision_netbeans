@@ -167,7 +167,7 @@ public class PlaybackLayout extends javax.swing.JPanel {
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void eButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton1ActionPerformed
-        Parent.Player.PlayVideoFile("/hdd/" + FilesList.getSelectedValue());
+        //Parent.Player.PlayVideoFile("/hdd/" + FilesList.getSelectedValue());
     }//GEN-LAST:event_eButton1ActionPerformed
 
     private void UpdateFilesList() {

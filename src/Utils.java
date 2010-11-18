@@ -20,10 +20,20 @@
 
 public class Utils {
 
+    private Audio AudioEngine;
+
+    public void Utils() {
+        AudioEngine = new Audio();
+    }
+
     public static float Round(float Rval, int decimals) {
         float p = (float) Math.pow(10, decimals);
         Rval = Rval * p;
         float tmp = Math.round(Rval);
         return (float) tmp / p;
+    }
+
+    public void PlayAudio(String filename) {
+        AudioEngine.PlaySoundFile(filename);
     }
 }

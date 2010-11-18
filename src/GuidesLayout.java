@@ -263,7 +263,6 @@ public class GuidesLayout extends javax.swing.JPanel {
 
     private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
         Parent.Camera.SetGuides(CenterXButton.getChecked(), OuterXButton.getChecked(), ThirdsButton.getChecked(), SafeAreaButton.getChecked());
-        Parent.MaincardLayout.Load();
 
         try { // Save to config file
             Parent.Camera.WriteConfigFile("autosave.config");

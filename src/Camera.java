@@ -270,7 +270,7 @@ public class Camera {
     private boolean AllowCaptureStillWhileRecording;
     private WhiteBalance ImageWhiteBalance = WhiteBalance.AUTO;
     private MirrorImage ImageFlip = MirrorImage.NONE;
-    private int MovieClipMaxChunkSize; 
+    private int MovieClipMaxChunkSize;
     private boolean ConnectionEstablished = false;
 
     Camera(ElphelVision parent) {
@@ -296,7 +296,6 @@ public class Camera {
         this.FrameSizeBytes = 0;
         this.MovieClipMaxChunkSize = 2048; // in Megabytes - Default 2 GB = 2 x 1024 x 1024 x 1024 bytes
         this.VideoFilesList = new ArrayList<VideoFile>();
-
     }
 
     public void SetIP(String IP) {
@@ -475,6 +474,10 @@ public class Camera {
 
     public RecordFormat GetRecordFormat() {
         return this.RecordFormat;
+    }
+
+    public float GetVideoAspectRatio() {
+        return ((float)this.ImageWidth / (float)this.ImageHeight);
     }
 
     public float GetFreeHDDSpace() {
@@ -752,17 +755,17 @@ public class Camera {
             for (int j = 0; j < 256; j++) {
                 Histogram[0][j] = (int) (Integer.parseInt(x[a++]));
                 //System.out.println(j + " \"" + x[j] + "\"");
-                }
+            }
             // GREEN
             for (int j = 0; j < 256; j++) {
                 Histogram[1][j] = (int) (Integer.parseInt(x[a++]));
                 //System.out.println(j + " \"" + x[j] + "\"");
-                }
+            }
             // BLUE
             for (int j = 0; j < 256; j++) {
                 Histogram[2][j] = (int) (Integer.parseInt(x[a++]));
                 //System.out.println(j + " \"" + x[j] + "\"");
-                }
+            }
             int b = 1;
         } catch (Exception e) {
             Parent.WriteErrortoConsole("Reading histogram data IO Error:" + e.getMessage());
@@ -1749,8 +1752,8 @@ public class Camera {
                 Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
                 doc.getDocumentElement().normalize();
                 NodeList nodeLst = doc.getElementsByTagName("response");
-                for (int s = 0; s <
-                        nodeLst.getLength(); s++) {
+                for (int s = 0; s
+                        < nodeLst.getLength(); s++) {
                     Node fstNode = nodeLst.item(s);
                     if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
                         Element fstElmnt = (Element) fstNode;
@@ -1808,8 +1811,8 @@ public class Camera {
                 Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
                 doc.getDocumentElement().normalize();
                 NodeList nodeLst = doc.getElementsByTagName("elphel_vision_data");
-                for (int s = 0; s <
-                        nodeLst.getLength(); s++) {
+                for (int s = 0; s
+                        < nodeLst.getLength(); s++) {
                     Node fstNode = nodeLst.item(s);
                     if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
                         Element fstElmnt = (Element) fstNode;

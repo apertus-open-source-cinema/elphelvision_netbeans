@@ -19,23 +19,14 @@
 -----------------------------------------------------------------------------**/
 
 import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 public class MainLayout extends JPanel {
 
     ElphelVision Parent;
     CameraParameter EditingParameter = CameraParameter.EXPOSURE;
+    //private GuidesOverlay_old Guidesoverlay = null;
+    private GuidesOverlay Guidesoverlay = null;
 
     public MainLayout(ElphelVision parent) {
         Parent = parent;
@@ -51,18 +42,35 @@ public class MainLayout extends JPanel {
             ex.printStackTrace();
         }
         histogram.SetParent(Parent);
-        //guides.SetParent(Parent);
+
+
     }
 
     public void Load() {
-        //guides.SetOptions(Parent.Camera.GetGuides()); // test
-        //guides.repaint(); // test
+
+        //AWTUtilitiesWrapper.setWindowOpaque(guides, false);
+        //guides.repaint();
+        synchronized (this) {
+            if (Guidesoverlay == null) {
+                Guidesoverlay = new GuidesOverlay(Parent.GetTranslucencyCapableGC(), Parent);
+                AWTUtilitiesWrapper.setWindowOpaque(Guidesoverlay, false);
+            }
+            //Guidesoverlay.setSize(vlcoverlay.getWidth(), vlcoverlay.getHeight());
+            Guidesoverlay.setBounds(vlcoverlay.getBounds());
+            Guidesoverlay.setVisible(true);
+            Guidesoverlay.SetOptions(Parent.Camera.GetGuides());
+        }
+        Guidesoverlay.SetVisibility(true);
         Parent.Player.SetCanvas(vlcoverlay);
 
         ExposureButton.setChecked(true);
         ParameterName.setText("EV");
         ExposureButton.setValue(Parent.Camera.GetExposure());
         GainButton.setValue(Parent.Camera.GetGain());
+    }
+
+    public void UpdateOverlayPosition() {
+        Guidesoverlay.setLocation(vlcoverlay.getLocationOnScreen());
     }
 
     public javax.swing.JTextPane GetInfoTextPane() {
@@ -397,7 +405,7 @@ public class MainLayout extends JPanel {
         vlcoverlay.setBackground(new java.awt.Color(23, 23, 23));
         VideoFrame.add(vlcoverlay);
 
-        bg.add(VideoFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 50, 853, 480));
+        bg.add(VideoFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 50, 760, 480));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -478,6 +486,7 @@ public class MainLayout extends JPanel {
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings1Card");
         Parent.Player.close();
+        Guidesoverlay.SetVisibility(false);
         Parent.Settings1CardLayout.Load();
     }//GEN-LAST:event_SettingsButtonActionPerformed
 
@@ -507,12 +516,15 @@ public class MainLayout extends JPanel {
         String ReturnMessage = Parent.Camera.CaptureStillImage(Command);
         NoticeArea.setText(Message + ReturnMessage);
         Parent.Player.PlayVideoStream();
+
+        Parent.Utils.PlayAudio("capturestill.wav");
     }//GEN-LAST:event_CaptureStillActionPerformed
 
     private void PlaybackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlaybackButtonActionPerformed
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "PlaybackCard");
         Parent.Player.close();
+        Guidesoverlay.SetVisibility(false);
         Parent.PlaybackCardLayout.Load();
     }//GEN-LAST:event_PlaybackButtonActionPerformed
 
