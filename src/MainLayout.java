@@ -197,6 +197,11 @@ public class MainLayout extends JPanel {
         NoticeArea = new javax.swing.JLabel();
         VideoFrame = new javax.swing.JPanel();
         vlcoverlay = new java.awt.Canvas();
+        eButton1 = new EButton();
+        eButton2 = new EButton();
+        eButton3 = new EButton();
+        eButton4 = new EButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -405,7 +410,46 @@ public class MainLayout extends JPanel {
         vlcoverlay.setBackground(new java.awt.Color(23, 23, 23));
         VideoFrame.add(vlcoverlay);
 
-        bg.add(VideoFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 50, 760, 480));
+        bg.add(VideoFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 50, 850, 480));
+
+        eButton1.setText("2:1");
+        eButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eButton1ActionPerformed(evt);
+            }
+        });
+        bg.add(eButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 140, 80, -1));
+
+        eButton2.setText("Full");
+        eButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eButton2ActionPerformed(evt);
+            }
+        });
+        bg.add(eButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 360, 80, -1));
+
+        eButton3.setText("fit");
+        eButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eButton3ActionPerformed(evt);
+            }
+        });
+        bg.add(eButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 260, 80, -1));
+
+        eButton4.setText("1:1");
+        eButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eButton4ActionPerformed(evt);
+            }
+        });
+        bg.add(eButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 200, 80, -1));
+
+        jLabel4.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Scaling");
+        jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 120, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -528,6 +572,22 @@ public class MainLayout extends JPanel {
         Parent.PlaybackCardLayout.Load();
     }//GEN-LAST:event_PlaybackButtonActionPerformed
 
+    private void eButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton2ActionPerformed
+        Parent.Player.ToggleFullscreen();
+    }//GEN-LAST:event_eButton2ActionPerformed
+
+    private void eButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton1ActionPerformed
+        Parent.Player.SetScale(2);
+    }//GEN-LAST:event_eButton1ActionPerformed
+
+    private void eButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton3ActionPerformed
+        Parent.Player.SetScale(0);
+    }//GEN-LAST:event_eButton3ActionPerformed
+
+    private void eButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton4ActionPerformed
+        Parent.Player.SetScale(1);
+    }//GEN-LAST:event_eButton4ActionPerformed
+
     public void EnableRecord(boolean val) {
         this.RecordButton.setEnabled(val);
     }
@@ -551,8 +611,13 @@ public class MainLayout extends JPanel {
     private javax.swing.JPanel VideoFrame;
     private javax.swing.JPanel bg;
     private EButton decvalue;
+    private EButton eButton1;
+    private EButton eButton2;
+    private EButton eButton3;
+    private EButton eButton4;
     private Histogram histogram;
     private EButton incvalue;
+    private javax.swing.JLabel jLabel4;
     private java.awt.Canvas vlcoverlay;
     // End of variables declaration//GEN-END:variables
 }

@@ -212,7 +212,7 @@ public class ConnectLayout extends javax.swing.JPanel {
             if (Parent.Camera.PingCamera()) {
                 Parent.WriteLogtoConsole("Connection to: " + CameraIP.getText() + " established");
                 while (!Parent.Camera.InitCameraServices()) {
-                    Thread.sleep(400);
+                    Thread.sleep(400); // Evil I know
                 }
                 Parent.PostConnect();
                 Parent.WriteLogtoConsole("Loading Main Window");

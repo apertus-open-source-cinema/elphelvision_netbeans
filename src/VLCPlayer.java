@@ -19,6 +19,8 @@
 -----------------------------------------------------------------------------**/
 
 import java.awt.Canvas;
+import java.util.ArrayList;
+import java.util.List;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
@@ -32,14 +34,19 @@ public class VLCPlayer {
 
     VLCPlayer(ElphelVision parent) {
         this.Parent = parent;
-        String vlcArgs = "--rtsp-caching=20 --no-video-title-show";
+        List<String> vlcArgs = new ArrayList<String>();
+
+
+        vlcArgs.add("--no-video-title-show");
+        vlcArgs.add("--rtsp-caching=35");
+        vlcArgs.add("--clock-jitter=0");
 
         // This burns so many people on Windows that I decided to leave it in...
         if (RuntimeUtil.isWindows()) {
-            vlcArgs = "--plugin-path=" + WindowsRuntimeUtil.getVlcInstallDir() + "\\plugins";
+            vlcArgs.add("--plugin-path=" + WindowsRuntimeUtil.getVlcInstallDir() + "\\plugins");
         }
 
-        mediaPlayerFactory = new MediaPlayerFactory(vlcArgs != null ? new String[]{vlcArgs} : new String[]{});
+        mediaPlayerFactory = new MediaPlayerFactory(vlcArgs.toArray(new String[vlcArgs.size()]));
         mediaPlayer = mediaPlayerFactory.newMediaPlayer(null);
     }
 
@@ -49,10 +56,18 @@ public class VLCPlayer {
 
     public void SetCanvas(Canvas overlayelemt) {
         mediaPlayer.setVideoSurface(overlayelemt);
+
     }
 
     public void ToggleFullscreen() {
-        mediaPlayer.toggleFullScreen();
+        //mediaPlayer.toggleFullScreen();
+        //something is wrong here
+        mediaPlayer.setFullScreen(true);
+
+    }
+
+    public void SetScale(float factor) {
+        mediaPlayer.setScale(factor);
     }
 
     public void PlayVideoStream() {

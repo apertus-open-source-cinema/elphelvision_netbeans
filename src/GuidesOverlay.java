@@ -80,6 +80,7 @@ public class GuidesOverlay extends javax.swing.JFrame implements javax.swing.Roo
 
         // Apparently there is no official guideline for the size of the action safe area
         // The BBC suggests 5% per side so I guess that is good for us :)
+        //http://en.wikipedia.org/wiki/Overscan
         int croppercentage = 95;
 
 
