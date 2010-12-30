@@ -398,6 +398,21 @@ public class Camera {
         this.GuideDrawSafeArea = drawSafeArea;
     }
 
+    public void SetGuide(String name, boolean value) {
+        if (name.contentEquals("GuideDrawCenterX")) {
+            this.GuideDrawCenterX = value;
+        }
+        if (name.contentEquals("GuideDrawOuterX")) {
+            this.GuideDrawOuterX = value;
+        }
+        if (name.contentEquals("GuideDrawThirds")) {
+            this.GuideDrawThirds = value;
+        }
+        if (name.contentEquals("GuideDrawSafeArea")) {
+            this.GuideDrawSafeArea = value;
+        }
+    }
+
     public boolean[] GetGuides() {
         boolean[] returnval;
         returnval = new boolean[4];
@@ -477,7 +492,7 @@ public class Camera {
     }
 
     public float GetVideoAspectRatio() {
-        return ((float)this.ImageWidth / (float)this.ImageHeight);
+        return ((float) this.ImageWidth / (float) this.ImageHeight);
     }
 
     public float GetFreeHDDSpace() {
@@ -498,6 +513,10 @@ public class Camera {
 
     public String GetExposure() {
         return this.ExposureTimeEVNames[ExposureIndex];
+    }
+
+    public float GetExposurefromIndex(int Index) {
+        return this.ExposureTimeEV[Index];
     }
 
     public int GetExposureIndex() {
@@ -1207,6 +1226,16 @@ public class Camera {
             line += "\n";
             line += "PhotoQuality=" + Integer.toString(this.GetPhotoQuality()) + "\n";
             line += "AllowCaptureStillWhileRecording=" + Boolean.toString(this.GetAllowCaptureStillWhileRecording()) + "\n";
+
+            // returnval[0] = this.GuideDrawCenterX;
+            // returnval[1] = this.GuideDrawOuterX;
+            // returnval[2] = this.GuideDrawThirds;
+            // returnval[3] = this.GuideDrawSafeArea;
+            line += "GuidesCenterX=" + Boolean.toString(this.GetGuides()[0]) + "\n";
+            line += "GuidesOuterX=" + Boolean.toString(this.GetGuides()[1]) + "\n";
+            line += "GuidesThirds=" + Boolean.toString(this.GetGuides()[2]) + "\n";
+            line += "GuidesSafeArea=" + Boolean.toString(this.GetGuides()[3]) + "\n";
+
             output.write(line);
         } finally {
             output.close();
@@ -1409,6 +1438,38 @@ public class Camera {
                         }
                         if (value.trim().contentEquals("false")) {
                             this.SetAllowCaptureStillWhileRecording(false);
+                        }
+                    }
+                    if (name.trim().equals("GuidesCenterX")) {
+                        if (value.trim().contentEquals("true")) {
+                            this.SetGuide("GuideDrawCenterX", true);
+                        }
+                        if (value.trim().contentEquals("false")) {
+                            this.SetGuide("GuideDrawCenterX", false);
+                        }
+                    }
+                    if (name.trim().equals("GuidesOuterX")) {
+                        if (value.trim().contentEquals("true")) {
+                            this.SetGuide("GuideDrawOuterX", true);
+                        }
+                        if (value.trim().contentEquals("false")) {
+                            this.SetGuide("GuideDrawOuterX", false);
+                        }
+                    }
+                    if (name.trim().equals("GuidesThirds")) {
+                        if (value.trim().contentEquals("true")) {
+                            this.SetGuide("GuideDrawThirds", true);
+                        }
+                        if (value.trim().contentEquals("false")) {
+                            this.SetGuide("GuideDrawThirds", false);
+                        }
+                    }
+                    if (name.trim().equals("GuidesSafeArea")) {
+                        if (value.trim().contentEquals("true")) {
+                            this.SetGuide("GuideDrawSafeArea", true);
+                        }
+                        if (value.trim().contentEquals("false")) {
+                            this.SetGuide("GuideDrawSafeArea", false);
                         }
                     }
                 } else {
@@ -1653,7 +1714,7 @@ public class Camera {
                 break;
 
             case JP4:
-                colormode = 3;
+                colormode = 2;
                 break;
 
         }

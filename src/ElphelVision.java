@@ -47,7 +47,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     //private static final long serialVersionUID = 21L;
     Camera Camera; // class containing all camera specific information
     UserSettings Settings; // class containing user settings
-    VLCPlayer Player; // VLC Video player class dealing with video overlay
+    VLCPlayer VLCPlayer = null; // VLC Video player class dealing with video streaming
+    GstreamerPlayer GstreamerPlayer = null; // Gstreamer Video player class dealing with video streaming
     Thread ReadCameraDataAnimator;
     Thread InfoAreaAnimator;
     Thread HistogramAnimator;
@@ -69,6 +70,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     PhotoSettingsLayout PhotoSettingsCardLayout;
     String AppVersion = "0.4";
     static boolean WindowDecorations = false;
+    static boolean NoCameraParameter = false;
     Utils Utils;
 
     public static void main(String[] args) {
@@ -112,6 +114,10 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         SetConsoleColor(Color.WHITE);
         System.out.println("=====================================================");
         System.out.println(" ");
+        if (NoCameraParameter) {
+            System.out.println("Starting without a connected camera...");
+        }
+
 
         Utils = new Utils();
         TestGraphicCapability();
@@ -166,12 +172,32 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         } else {
             WriteLogtoConsole("PERPIXEL_TRANSPARENT is supported by current Graphics Environment");
         }
-
-
     }
 
     public void destroy() {
-        Player.close();
+        VLCPlayer.close();
+    }
+
+    public void StartVideoPlayer() {
+        if (NoCameraParameter) {
+            VLCPlayer.PlayLocalVideoFile("test.avi");
+        } else {
+            if (Settings.GetVideoPlayer() == VideoPlayer.GSTREAMER) {
+                //GstreamerPlayer.PlayVideoStream();
+            }
+            if (Settings.GetVideoPlayer() == VideoPlayer.VLC) {
+                VLCPlayer.PlayVideoStream();
+            }
+        }
+    }
+
+    public void StopVideoPlayer() {
+        if (Settings.GetVideoPlayer() == VideoPlayer.GSTREAMER) {
+            //GstreamerPlayer.close();
+        }
+        if (Settings.GetVideoPlayer() == VideoPlayer.VLC) {
+            VLCPlayer.close();
+        }
     }
 
     static void ProcessArgs(String[] args) {
@@ -181,14 +207,21 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
                 PrintHelp();
                 System.exit(0);
             }
+            if (args[i].equals("--no-camera")) {
+                NoCameraParameter = true; // TODO: not fully implemented yet
+            }
         }
+    }
+
+    public boolean GetNoCameraParameter() {
+        return NoCameraParameter;
     }
 
     static void PrintHelp() {
         System.out.println("ElphelVision Help: ");
         System.out.println("Arguments: ");
         System.out.println("\t-h, --help\tshow this help message.");
-
+        System.out.println("\t--no-camera\tstart without a connected camera for testing purpose");
     }
 
     public void SetConsoleColor(Color newcolor) {
@@ -241,7 +274,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.S");
         System.out.println("[" + sdf.format(cal.getTime()) + "] ERROR: \033[1m" + log + "\033[22m\033[0m");
-        SetConsoleColor(Color.WHITE);
+        SetConsoleColor(
+                Color.WHITE);
     }
 
     public JPanel GetCardManager() {
@@ -276,10 +310,12 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     public void start() {
         //super.start();
 
-        ReadCameraDataAnimator = new Thread(this);
-        HistogramAnimator = new Thread(this);
-        InfoAreaAnimator = new Thread(this);
+        if (!NoCameraParameter) {
+            ReadCameraDataAnimator = new Thread(this);
+            HistogramAnimator = new Thread(this);
+            InfoAreaAnimator = new Thread(this);
 
+        }
         //Init everything
         Camera = new Camera(this);
         Settings = new UserSettings();
@@ -291,9 +327,11 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             Settings.SetOS(OStype.Linux);
         }
 
+        /* // TODO adapt for other video players
         if (!Settings.CheckMplayerInstallation()) {
-            JOptionPane.showMessageDialog(this, "Mplayer was not detected!");
+        JOptionPane.showMessageDialog(this, "Mplayer was not detected!");
         }
+         */
 
         // global applet settings
         setSize(1024, 600);
@@ -329,8 +367,12 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
         add(CardManager);
 
-        Player = new VLCPlayer(this);
-
+        if (Settings.GetVideoPlayer() == VideoPlayer.GSTREAMER) {
+            //GstreamerPlayer = new GstreamerPlayer(this);
+        }
+        if (Settings.GetVideoPlayer() == VideoPlayer.VLC) {
+            VLCPlayer = new VLCPlayer(this);
+        }
     }
 
     public void PostConnect() {
@@ -349,17 +391,18 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         // turn off autoexposure shutter by default
         // TODO: make chooseable
         Camera.SetAutoExposure(false);
+        if (!NoCameraParameter) {
+            if (!ReadCameraDataAnimator.isAlive()) {
+                ReadCameraDataAnimator.start();
+            }
+            if (!HistogramAnimator.isAlive()) {
+                HistogramAnimator.start();
+            }
 
-        if (!ReadCameraDataAnimator.isAlive()) {
-            ReadCameraDataAnimator.start();
-        }
-        if (!HistogramAnimator.isAlive()) {
-            HistogramAnimator.start();
-        }
-
-        InitInfoArea();
-        if (!InfoAreaAnimator.isAlive()) {
-            InfoAreaAnimator.start();
+            InitInfoArea();
+            if (!InfoAreaAnimator.isAlive()) {
+                InfoAreaAnimator.start();
+            }
         }
         run();
     }
@@ -437,7 +480,6 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         MutableAttributeSet standard = new SimpleAttributeSet();
         StyleConstants.setAlignment(standard, StyleConstants.ALIGN_CENTER);
         doc.setParagraphAttributes(0, 0, standard, true);
-
     }
 
     public void UpdateInfoArea() {

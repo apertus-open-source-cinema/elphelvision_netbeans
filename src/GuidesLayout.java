@@ -44,6 +44,13 @@ public class GuidesLayout extends javax.swing.JPanel {
     }
 
     public void Load() {
+        CenterXButton.setChecked(Parent.Camera.GetGuides()[0]);
+        OuterXButton.setChecked(Parent.Camera.GetGuides()[1]);
+        ThirdsButton.setChecked(Parent.Camera.GetGuides()[2]);
+        SafeAreaButton.setChecked(Parent.Camera.GetGuides()[3]);
+
+        guidespreview1.SetOptions(CenterXButton.getChecked(), OuterXButton.getChecked(), ThirdsButton.getChecked(), SafeAreaButton.getChecked());
+        RedrawPreviewArea();
     }
 
     private void RedrawPreviewArea() {
@@ -59,6 +66,7 @@ public class GuidesLayout extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        PhotoSettingsMenu = new EButton();
         bg = new javax.swing.JPanel();
         ConfirmationPanel = new javax.swing.JPanel();
         SettingsCancelButton = new EButton();
@@ -73,6 +81,14 @@ public class GuidesLayout extends javax.swing.JPanel {
         SettingsMenu2Button1 = new EButton();
         GuidesMenuButton1 = new EButton();
         SettingsMenu3Button = new EButton();
+        PhotoSettingsMenu1 = new EButton();
+
+        PhotoSettingsMenu.setText("Photo Settings");
+        PhotoSettingsMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PhotoSettingsMenuActionPerformed(evt);
+            }
+        });
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -187,6 +203,13 @@ public class GuidesLayout extends javax.swing.JPanel {
             }
         });
 
+        PhotoSettingsMenu1.setText("Photo Settings");
+        PhotoSettingsMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PhotoSettingsMenu1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout NavigationPanel1Layout = new javax.swing.GroupLayout(NavigationPanel1);
         NavigationPanel1.setLayout(NavigationPanel1Layout);
         NavigationPanel1Layout.setHorizontalGroup(
@@ -198,7 +221,9 @@ public class GuidesLayout extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SettingsMenu3Button, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(GuidesMenuButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(GuidesMenuButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PhotoSettingsMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         NavigationPanel1Layout.setVerticalGroup(
             NavigationPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,7 +231,8 @@ public class GuidesLayout extends javax.swing.JPanel {
                 .addComponent(SettingsMenu1Button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(SettingsMenu2Button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(SettingsMenu3Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(GuidesMenuButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(GuidesMenuButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PhotoSettingsMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
@@ -215,25 +241,25 @@ public class GuidesLayout extends javax.swing.JPanel {
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(guidespreview1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NavigationPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                        .addComponent(NavigationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64)
+                        .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(guidespreview1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(guidespreview1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(guidespreview1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(ConfirmationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -265,8 +291,8 @@ public class GuidesLayout extends javax.swing.JPanel {
         Parent.MaincardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.Player.close();
-        Parent.Player.PlayVideoStream();
+        Parent.StopVideoPlayer();
+        Parent.StartVideoPlayer();
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void CenterXButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CenterXButtonActionPerformed
@@ -296,7 +322,7 @@ public class GuidesLayout extends javax.swing.JPanel {
     private void SettingsMenu1Button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1Button1ActionPerformed
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings1Card");
-        Parent.Player.close();
+        Parent.StopVideoPlayer();
 }//GEN-LAST:event_SettingsMenu1Button1ActionPerformed
 
     private void SettingsMenu2Button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu2Button1ActionPerformed
@@ -313,12 +339,26 @@ public class GuidesLayout extends javax.swing.JPanel {
         cl.show(Parent.GetCardManager(), "Settings3Card");
         Parent.Settings3CardLayout.Load();
 }//GEN-LAST:event_SettingsMenu3ButtonActionPerformed
+
+    private void PhotoSettingsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhotoSettingsMenuActionPerformed
+        Parent.PhotoSettingsCardLayout.Load();
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "PhotoSettings");
+}//GEN-LAST:event_PhotoSettingsMenuActionPerformed
+
+    private void PhotoSettingsMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhotoSettingsMenu1ActionPerformed
+        Parent.PhotoSettingsCardLayout.Load();
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "PhotoSettings");
+}//GEN-LAST:event_PhotoSettingsMenu1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton CenterXButton;
     private javax.swing.JPanel ConfirmationPanel;
     private EButton GuidesMenuButton1;
     private javax.swing.JPanel NavigationPanel1;
     private EButton OuterXButton;
+    private EButton PhotoSettingsMenu;
+    private EButton PhotoSettingsMenu1;
     private EButton SafeAreaButton;
     private EButton SettingsCancelButton;
     private EButton SettingsMenu1Button1;

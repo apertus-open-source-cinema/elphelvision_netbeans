@@ -22,49 +22,33 @@ enum OStype {
     Windows, Linux
 }
 
+enum VideoPlayer {
+
+    VLC, GSTREAMER
+}
+
 /**
  *
- * Holds client sided uses settings
+ * Holds client-side user settings
  */
 public class UserSettings {
 
-    private String mplayerPath = null;     // The path to the MPlayer executable
-    private OStype OS = null;      // Detected Operating System
-    private String mplayerParameters = null;     // The path to the MPlayer executable
+    private OStype OS = null;
+    private VideoPlayer Videoplayer = VideoPlayer.VLC;
 
     UserSettings() {
-        mplayerPath = "mplayer";
-        mplayerParameters = "-slave- idle";
     }
 
-    public void SetMplayerPath(String path) {
-        this.mplayerPath = path;
+    public void SetVideoPlayer(VideoPlayer input) {
+        this.Videoplayer = input;
     }
 
-    public void SetMplayerParameters(String parm) {
-        this.mplayerParameters = parm;
-    }
-
-    public String GetMplayerParameters() {
-        return this.mplayerParameters;
-    }
-
-    public boolean CheckMplayerInstallation() {
-        // TODO!!!
-        return true;
-    }
-
-    public String GetMplayerPath() {
-        return this.mplayerPath;
+    public VideoPlayer GetVideoPlayer() {
+        return this.Videoplayer;
     }
 
     public void SetOS(OStype input) {
         this.OS = input;
-        if (this.OS == OStype.Linux) {
-            mplayerPath = "mplayer"; // mplayerPath = "/usr/bin/mplayer";
-        } else {
-            mplayerPath = "C:\\mplayer\\mplayer.exe";
-        }
     }
 
     public OStype GetOS() {

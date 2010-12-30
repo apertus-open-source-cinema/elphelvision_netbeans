@@ -384,14 +384,14 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
 
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.Player.close();
-        Parent.Player.PlayVideoStream();
+        Parent.StopVideoPlayer();
+        Parent.StartVideoPlayer();
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void SettingsMenu1Button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1Button1ActionPerformed
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings1Card");
-        Parent.Player.close();
+        Parent.StopVideoPlayer();
 }//GEN-LAST:event_SettingsMenu1Button1ActionPerformed
 
     private void SettingsMenu2Button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu2Button1ActionPerformed

@@ -45,7 +45,7 @@ public class PlaybackLayout extends javax.swing.JPanel {
     }
 
     public void Load() {
-        Parent.Player.SetCanvas(vlcoverlay);
+        Parent.VLCPlayer.SetCanvas(vlcoverlay);
     }
 
     /** This method is called from within the init() method to
@@ -159,15 +159,16 @@ public class PlaybackLayout extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
-        Parent.Player.close();
+        Parent.StopVideoPlayer();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
         Parent.MaincardLayout.Load();
-        Parent.Player.PlayVideoStream(); // todo: move into load function
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void eButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton1ActionPerformed
-        //Parent.Player.PlayVideoFile("/hdd/" + FilesList.getSelectedValue());
+        if (Parent.Settings.GetVideoPlayer() == VideoPlayer.VLC) {
+            Parent.VLCPlayer.PlayVideoFile("/hdd/" + FilesList.getSelectedValue());
+        }
     }//GEN-LAST:event_eButton1ActionPerformed
 
     private void UpdateFilesList() {

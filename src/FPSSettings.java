@@ -316,13 +316,13 @@ public class FPSSettings extends javax.swing.JPanel {
 
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.Player.PlayVideoStream();
+        Parent.StartVideoPlayer();
     }//GEN-LAST:event_SettingsOKButtonActionPerformed
 
     private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.Player.PlayVideoStream();
+        Parent.StartVideoPlayer();
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void UpdateWidthLabel() {

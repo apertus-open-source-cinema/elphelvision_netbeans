@@ -1123,7 +1123,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
         Parent.MaincardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.Player.PlayVideoStream();
+        Parent.StartVideoPlayer();
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void CustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomActionPerformed
@@ -1293,7 +1293,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
         Parent.Settings3CardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings3Card");
-        Parent.Player.close();
+        Parent.StopVideoPlayer();
 }//GEN-LAST:event_SettingsMenu3Button10ActionPerformed
 
     private void JPEG_MinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JPEG_MinusActionPerformed

@@ -52,8 +52,8 @@ public class Settings2Layout extends javax.swing.JPanel {
         black_level.setValue(String.valueOf(Parent.Camera.GetBlacklevel()));
         gamma.setValue(String.valueOf(Parent.Camera.GetGamma()));
         gammacurve.SetControlPoints(6 + Parent.Camera.GetBlacklevel(), 256, 150, 256, 150, 0, 6 + 256, 0);
-        Parent.Player.SetCanvas(vlcoverlay);
-        Parent.Player.PlayVideoStream();
+        Parent.VLCPlayer.SetCanvas(vlcoverlay);
+        Parent.StartVideoPlayer();
     }
 
     /* public void StartMplayerVideoStream() {
@@ -474,11 +474,10 @@ public class Settings2Layout extends javax.swing.JPanel {
             Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        Parent.Player.close();
+        Parent.StopVideoPlayer();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "MainCard");
         Parent.MaincardLayout.Load();
-        Parent.Player.PlayVideoStream();
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void black_levelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_black_levelActionPerformed
@@ -506,7 +505,7 @@ public class Settings2Layout extends javax.swing.JPanel {
     }//GEN-LAST:event_gamma_decActionPerformed
 
     private void SettingsMenu1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1ButtonActionPerformed
-        Parent.Player.close();
+        Parent.StopVideoPlayer();
         Parent.Settings1CardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings1Card");
@@ -544,14 +543,14 @@ public class Settings2Layout extends javax.swing.JPanel {
     }//GEN-LAST:event_gammapreset_cinesActionPerformed
 
     private void GuidesMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuidesMenuButtonActionPerformed
-        Parent.Player.close();
+        Parent.StopVideoPlayer();
         Parent.GuidesPanel.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "GuidesCard");
 }//GEN-LAST:event_GuidesMenuButtonActionPerformed
 
     private void SettingsMenu3ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu3ButtonActionPerformed
-        Parent.Player.close();
+        Parent.StopVideoPlayer();
         Parent.Settings3CardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings3Card");

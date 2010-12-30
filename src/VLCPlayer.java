@@ -19,10 +19,13 @@
 -----------------------------------------------------------------------------**/
 
 import java.awt.Canvas;
+import java.awt.GraphicsEnvironment;
+import java.awt.Window;
 import java.util.ArrayList;
 import java.util.List;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import uk.co.caprica.vlcj.player.embedded.FullScreenStrategy;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import uk.co.caprica.vlcj.runtime.windows.WindowsRuntimeUtil;
 
@@ -31,14 +34,15 @@ public class VLCPlayer {
     private EmbeddedMediaPlayer mediaPlayer;
     private MediaPlayerFactory mediaPlayerFactory;
     private ElphelVision Parent;
+    private FullScreenStrategy fullScreenStrategy;
+    private Canvas OverlayElement;
 
     VLCPlayer(ElphelVision parent) {
         this.Parent = parent;
         List<String> vlcArgs = new ArrayList<String>();
 
-
         vlcArgs.add("--no-video-title-show");
-        vlcArgs.add("--rtsp-caching=35");
+        vlcArgs.add("--rtsp-caching=40");
         vlcArgs.add("--clock-jitter=0");
 
         // This burns so many people on Windows that I decided to leave it in...
@@ -46,8 +50,11 @@ public class VLCPlayer {
             vlcArgs.add("--plugin-path=" + WindowsRuntimeUtil.getVlcInstallDir() + "\\plugins");
         }
 
+        //fullScreenStrategy = new DefaultFullScreenStrategy(Parent.GetMainframe());
+
         mediaPlayerFactory = new MediaPlayerFactory(vlcArgs.toArray(new String[vlcArgs.size()]));
-        mediaPlayer = mediaPlayerFactory.newMediaPlayer(null);
+        mediaPlayer = mediaPlayerFactory.newMediaPlayer(fullScreenStrategy);
+        //mediaPlayer = mediaPlayerFactory.newMediaPlayer(null);
     }
 
     public void close() {
@@ -55,6 +62,7 @@ public class VLCPlayer {
     }
 
     public void SetCanvas(Canvas overlayelemt) {
+        OverlayElement = overlayelemt;
         mediaPlayer.setVideoSurface(overlayelemt);
 
     }
@@ -63,6 +71,7 @@ public class VLCPlayer {
         //mediaPlayer.toggleFullScreen();
         //something is wrong here
         mediaPlayer.setFullScreen(true);
+        fullScreenStrategy.enterFullScreenMode();
 
     }
 
@@ -71,7 +80,12 @@ public class VLCPlayer {
     }
 
     public void PlayVideoStream() {
-        mediaPlayer.playMedia("rtsp://" + Parent.Camera.GetIP() + ":554");
+        String mediaoptions = "effect-list=none";
+        //String mediaoptions = "effect-list=scope";
+        //magnify-gaussianblur-sigma=<float>
+        //vlc rtsp://192.168.10.141:554 --video-filter magnify
+
+        mediaPlayer.playMedia("rtsp://" + Parent.Camera.GetIP() + ":554", mediaoptions);
     }
 
     /*public void Overlay(Window overlay) {
@@ -80,5 +94,51 @@ public class VLCPlayer {
     }*/
     public void PlayVideoFile(String file) {
         mediaPlayer.playMedia("http://" + Parent.Camera.GetIP() + file);
+    }
+
+    public void PlayLocalVideoFile(String file) {
+        mediaPlayer.playMedia(file);
+    }
+
+    public class DefaultFullScreenStrategy implements FullScreenStrategy {
+
+        /**
+         * The component that will be made full-screen.
+         */
+        private final Window window;
+
+        /**
+         * Create a new full-screen strategy.
+         *
+         * @param window component that will be made full-screen
+         */
+        public DefaultFullScreenStrategy(Window window) {
+            //Logger.debug("DefaultFullScreenStrategy(window={})", window);
+
+            if (window != null) {
+                this.window = window;
+            } else {
+                throw new IllegalArgumentException("Window must not be null");
+            }
+        }
+
+        @Override
+        public void enterFullScreenMode() {
+            //Logger.debug("enterFullScreenMode()");
+            GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(window);
+        }
+
+        @Override
+        public void exitFullScreenMode() {
+            //Logger.debug("exitFullScreenMode()");
+            GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(null);
+        }
+
+        @Override
+        public boolean isFullScreenMode() {
+            //Logger.debug("isFullScreenMode()");
+
+            return GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getFullScreenWindow() != null;
+        }
     }
 }

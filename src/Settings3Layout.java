@@ -268,6 +268,8 @@ public class Settings3Layout extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SettingsOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsOKButtonActionPerformed
+        Parent.StopVideoPlayer();
+
         Parent.Camera.SetMovieClipMaxChunkSize(Integer.parseInt(MovieSplitSizeField.getText()));
 
         try { // Save to config file
@@ -277,16 +279,13 @@ public class Settings3Layout extends javax.swing.JPanel {
         }
 
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.Player.close();
-        Parent.Player.PlayVideoStream();
+        cl.show(Parent.GetCardManager(), "MainCard");        
     }//GEN-LAST:event_SettingsOKButtonActionPerformed
 
     private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
+        Parent.StopVideoPlayer();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.Player.close();
-        Parent.Player.PlayVideoStream();
+        cl.show(Parent.GetCardManager(), "MainCard");     
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void MovieSplitSizeFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_MovieSplitSizeFieldCaretUpdate
@@ -301,7 +300,7 @@ public class Settings3Layout extends javax.swing.JPanel {
     private void SettingsMenu1Button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1Button1ActionPerformed
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "Settings1Card");
-        Parent.Player.close();
+        Parent.StopVideoPlayer();
 }//GEN-LAST:event_SettingsMenu1Button1ActionPerformed
 
     private void SettingsMenu2Button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu2Button1ActionPerformed

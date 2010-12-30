@@ -20,10 +20,7 @@
 
 import java.awt.CardLayout;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -83,13 +80,16 @@ public class ConnectLayout extends javax.swing.JPanel {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
+        Image = new javax.swing.JLabel();
         ConnectPanel = new javax.swing.JPanel();
         ConnectButton = new EButton();
         CameraIP = new javax.swing.JTextField();
         InfoArea1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ConnectionStatus = new javax.swing.JTextArea();
+        VLCButton = new EButton();
+        GstreamerButton = new EButton();
+        jLabel1 = new javax.swing.JLabel();
         ExitBUtton = new EButton();
 
         setBackground(new java.awt.Color(0, 0, 0));
@@ -99,10 +99,33 @@ public class ConnectLayout extends javax.swing.JPanel {
         bg.setForeground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
 
-        Title.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jPanel1.setBackground(new java.awt.Color(1, 1, 1));
+
+        Title.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Title.setForeground(new java.awt.Color(255, 255, 255));
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Title.setText("Elphel Vision Alpha  V0.3");
+        Title.setText("Elphel Vision Alpha  V0.4");
+
+        Image.setBackground(new java.awt.Color(0, 0, 0));
+        Image.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Image.setForeground(new java.awt.Color(255, 255, 255));
+        Image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/apertus.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(Image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(Image)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         ConnectPanel.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -116,19 +139,28 @@ public class ConnectLayout extends javax.swing.JPanel {
 
         CameraIP.setText("192.168.0.9");
 
-        InfoArea1.setFont(new java.awt.Font("Tahoma", 0, 14));
+        InfoArea1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         InfoArea1.setForeground(new java.awt.Color(255, 255, 255));
         InfoArea1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         InfoArea1.setText("Camera IP: ");
 
-        ConnectionStatus.setBackground(new java.awt.Color(102, 102, 102));
-        ConnectionStatus.setColumns(20);
-        ConnectionStatus.setEditable(false);
-        ConnectionStatus.setForeground(new java.awt.Color(255, 255, 255));
-        ConnectionStatus.setRows(5);
-        ConnectionStatus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        ConnectionStatus.setMargin(new java.awt.Insets(10, 10, 10, 10));
-        jScrollPane1.setViewportView(ConnectionStatus);
+        VLCButton.setChecked(true);
+        VLCButton.setText("VLC");
+        VLCButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VLCButtonActionPerformed(evt);
+            }
+        });
+
+        GstreamerButton.setText("Gstreamer");
+        GstreamerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GstreamerButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setText("<- dont use Gstreamer yet");
 
         javax.swing.GroupLayout ConnectPanelLayout = new javax.swing.GroupLayout(ConnectPanel);
         ConnectPanel.setLayout(ConnectPanelLayout);
@@ -140,7 +172,12 @@ public class ConnectLayout extends javax.swing.JPanel {
                 .addComponent(CameraIP, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ConnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+            .addGroup(ConnectPanelLayout.createSequentialGroup()
+                .addComponent(VLCButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GstreamerButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1))
         );
         ConnectPanelLayout.setVerticalGroup(
             ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,9 +186,11 @@ public class ConnectLayout extends javax.swing.JPanel {
                     .addComponent(InfoArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CameraIP, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ConnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(VLCButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(GstreamerButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)))
         );
 
         ExitBUtton.setForeground(new java.awt.Color(217, 2, 2));
@@ -167,34 +206,35 @@ public class ConnectLayout extends javax.swing.JPanel {
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
-                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 1047, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addContainerGap(342, Short.MAX_VALUE)
-                .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(303, 303, 303))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addContainerGap(894, Short.MAX_VALUE)
-                .addComponent(ExitBUtton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                .addContainerGap(337, Short.MAX_VALUE)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(345, 345, 345))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                        .addComponent(ExitBUtton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                        .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(273, 273, 273))))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119)
+                .addGap(28, 28, 28)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(ExitBUtton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,51 +243,74 @@ public class ConnectLayout extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonActionPerformed
-        Parent.WriteLogtoConsole("Trying to connect to: " + CameraIP.getText());
-
-        try {
-            Parent.Camera.SetIP(CameraIP.getText());
-            Parent.Camera.InitCameraConnection();
-
-            if (Parent.Camera.PingCamera()) {
-                Parent.WriteLogtoConsole("Connection to: " + CameraIP.getText() + " established");
-                while (!Parent.Camera.InitCameraServices()) {
-                    Thread.sleep(400); // Evil I know
-                }
-                Parent.PostConnect();
-                Parent.WriteLogtoConsole("Loading Main Window");
-                Parent.MaincardLayout.Load();
-                CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
-                cl.show(Parent.CardManager, "MainCard");
-                Parent.WriteLogtoConsole("Starting Video Stream");
-                Parent.Player.PlayVideoStream();
-                Parent.WriteLogtoConsole("Checking Camera connected HDD");
-                if (Parent.Camera.CheckHDD()) {
-                    Parent.WriteLogtoConsole("HDD detected");
-                } else {
-                    Parent.WriteWarningtoConsole("HDD detection failed");
-                }
-            } else {
-                Parent.WriteErrortoConsole("ConnectButtonActionPerformed() Connecting to: " + CameraIP.getText() + " failed");
-            }
-        } catch (Exception e) {
-            Parent.WriteErrortoConsole("ConnectButtonActionPerformed() Connecting failed: " + e.getMessage());
+        if (!Parent.GetNoCameraParameter()) {
+            Parent.WriteLogtoConsole("Trying to connect to: " + CameraIP.getText());
         }
+
+        if (!Parent.GetNoCameraParameter()) {
+            try {
+                Parent.Camera.SetIP(CameraIP.getText());
+                Parent.Camera.InitCameraConnection();
+
+                if (Parent.Camera.PingCamera()) {
+                    Parent.WriteLogtoConsole("Connection to: " + CameraIP.getText() + " established");
+                    while (!Parent.Camera.InitCameraServices()) {
+                        Thread.sleep(400); // Evil I know
+                    }
+                    Parent.PostConnect();
+                    Parent.WriteLogtoConsole("Checking Camera connected HDD");
+                    if (Parent.Camera.CheckHDD()) {
+                        Parent.WriteLogtoConsole("HDD detected");
+                    } else {
+                        Parent.WriteWarningtoConsole("HDD detection failed");
+                    }
+                    Parent.WriteLogtoConsole("Loading Main Window");
+                    Parent.MaincardLayout.Load();
+                    CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
+                    cl.show(Parent.CardManager, "MainCard");
+                } else {
+                    Parent.WriteErrortoConsole("ConnectButtonActionPerformed() Connecting to: " + CameraIP.getText() + " failed");
+                }
+            } catch (Exception e) {
+                Parent.WriteErrortoConsole("ConnectButtonActionPerformed() Connecting failed: " + e.getMessage());
+            }
+        } else {
+            Parent.WriteLogtoConsole("Loading Main Window");
+            Parent.MaincardLayout.Load();
+            CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
+            cl.show(Parent.CardManager, "MainCard");
+        }
+
 
     }//GEN-LAST:event_ConnectButtonActionPerformed
 
     private void ExitBUttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitBUttonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_ExitBUttonActionPerformed
+
+    private void GstreamerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GstreamerButtonActionPerformed
+        VLCButton.setChecked(false);
+        GstreamerButton.setChecked(true);
+        Parent.Settings.SetVideoPlayer(VideoPlayer.GSTREAMER);
+    }//GEN-LAST:event_GstreamerButtonActionPerformed
+
+    private void VLCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VLCButtonActionPerformed
+        VLCButton.setChecked(true);
+        GstreamerButton.setChecked(false);
+        Parent.Settings.SetVideoPlayer(VideoPlayer.VLC);
+    }//GEN-LAST:event_VLCButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CameraIP;
     private EButton ConnectButton;
     private javax.swing.JPanel ConnectPanel;
-    private javax.swing.JTextArea ConnectionStatus;
     private EButton ExitBUtton;
+    private EButton GstreamerButton;
+    private javax.swing.JLabel Image;
     private javax.swing.JLabel InfoArea1;
     private javax.swing.JLabel Title;
+    private EButton VLCButton;
     private javax.swing.JPanel bg;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
