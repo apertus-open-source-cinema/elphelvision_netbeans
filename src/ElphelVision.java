@@ -72,6 +72,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     static boolean WindowDecorations = false;
     static boolean NoCameraParameter = false;
     Utils Utils;
+    static int Debuglevel;
 
     public static void main(String[] args) {
         ProcessArgs(args);
@@ -178,6 +179,10 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         VLCPlayer.close();
     }
 
+    public int GetDebuglevel () {
+        return Debuglevel;
+    }
+
     public void StartVideoPlayer() {
         if (NoCameraParameter) {
             VLCPlayer.PlayLocalVideoFile("test.avi");
@@ -201,6 +206,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     }
 
     static void ProcessArgs(String[] args) {
+        Debuglevel = 2; // DEFAULT value
+        
         for (int i = 0; i < args.length; i++) {
             WindowDecorations = false;
             if (args[i].equals("--help") || args[i].equals("-h")) {
@@ -209,6 +216,22 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             }
             if (args[i].equals("--no-camera")) {
                 NoCameraParameter = true; // TODO: not fully implemented yet
+            }
+            // Default
+            
+            if (args[i].equals("--debuglevel")) {
+                if (args[i + 1].equals("0")) {
+                    Debuglevel = 0;
+                }
+                if (args[i + 1].equals("1")) {
+                    Debuglevel = 1;
+                }
+                if (args[i + 1].equals("2")) {
+                    Debuglevel = 2;
+                }
+                if (args[i + 1].equals("3")) {
+                    Debuglevel = 3;
+                }
             }
         }
     }
@@ -222,6 +245,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         System.out.println("Arguments: ");
         System.out.println("\t-h, --help\tshow this help message.");
         System.out.println("\t--no-camera\tstart without a connected camera for testing purpose");
+        System.out.println("\t--debuglevel N\t0 - none, 1 - only errors, 2 - errors and warnings (default), 3 - everything");
     }
 
     public void SetConsoleColor(Color newcolor) {
@@ -256,26 +280,31 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     }
 
     public void WriteLogtoConsole(String log) {
-        SetConsoleColor(Color.WHITE);
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.S");
-        System.out.println("[" + sdf.format(cal.getTime()) + "] LOG:\033[1m " + log + "\033[22m\033[0m");
+        if (Debuglevel > 2) {
+            SetConsoleColor(Color.WHITE);
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.S");
+            System.out.println("[" + sdf.format(cal.getTime()) + "] LOG:\033[1m " + log + "\033[22m\033[0m");
+        }
     }
 
     public void WriteWarningtoConsole(String log) {
-        SetConsoleColor(Color.YELLOW);
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.S");
-        System.out.println("[" + sdf.format(cal.getTime()) + "] WARNING: \033[1m" + log + "\033[22m\033[0m");
+        if (Debuglevel > 1) {
+            SetConsoleColor(Color.YELLOW);
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.S");
+            System.out.println("[" + sdf.format(cal.getTime()) + "] WARNING: \033[1m" + log + "\033[22m\033[0m");
+        }
     }
 
     public void WriteErrortoConsole(String log) {
-        SetConsoleColor(Color.RED);
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.S");
-        System.out.println("[" + sdf.format(cal.getTime()) + "] ERROR: \033[1m" + log + "\033[22m\033[0m");
-        SetConsoleColor(
-                Color.WHITE);
+        if (Debuglevel > 0) {
+            SetConsoleColor(Color.RED);
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.S");
+            System.out.println("[" + sdf.format(cal.getTime()) + "] ERROR: \033[1m" + log + "\033[22m\033[0m");
+            SetConsoleColor(Color.WHITE);
+        }
     }
 
     public JPanel GetCardManager() {

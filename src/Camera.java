@@ -114,6 +114,7 @@ public class Camera {
     private CameraPreset Preset = CameraPreset.FULLHD;
     private int[][] Histogram;
     private float Gamma;
+    private int CoringIndex;
     private int[] GammaCurve;
     private int Blacklevel;
     private int FrameSizeBytes;
@@ -540,6 +541,16 @@ public class Camera {
         SendParametertoCamera("framedelay=1&GAINR=" + (int) GainR + "&GAING=" + (int) GainG + "&GAINB=" + (int) GainB + "&GAINGB=" + (int) GainGB);
     }
 
+    public void SetCoringIndex(int newcore) {
+        Parent.WriteLogtoConsole("Setting CORING_INDEX to " + newcore);
+        SendParametertoCamera("framedelay=1&CORING_INDEX=" + (int) newcore);
+        CoringIndex = newcore;
+    }
+
+    public int GetCoringIndex() {
+        return CoringIndex;
+    }
+
     public void SetGainIndex(int newindex) {
         if (newindex > Gain.length - 1) {
             newindex = Gain.length - 1;
@@ -548,6 +559,8 @@ public class Camera {
             newindex = 0;
         }
         this.GainIndex = newindex;
+
+        Parent.WriteLogtoConsole("Setting GAIN_INDEX to " + newindex);
 
         float GainR, GainB, GainG, GainGB;
         GainR = this.Gain[GainIndex] * 65536 * WB_Factor_R;
@@ -595,6 +608,7 @@ public class Camera {
     }
 
     public void SetPhotoresolution(PhotoResolution Res) {
+        Parent.WriteLogtoConsole("Setting Photoresolution to " + Res);
         this.Photoresolution = Res;
     }
 
@@ -603,6 +617,7 @@ public class Camera {
     }
 
     public void SetAllowCaptureStillWhileRecording(boolean newsetting) {
+        Parent.WriteLogtoConsole("Setting AllowCaptureStillWhileRecording to " + newsetting);
         this.AllowCaptureStillWhileRecording = newsetting;
     }
 
@@ -611,6 +626,7 @@ public class Camera {
     }
 
     public void SetPhotoQuality(int newquality) {
+        Parent.WriteLogtoConsole("Setting PhotoQuality to " + newquality);
         this.PhotoQuality = newquality;
     }
 
@@ -619,6 +635,7 @@ public class Camera {
     }
 
     public void SetPhotoColorMode(ColorMode Mode) {
+        Parent.WriteLogtoConsole("Setting PhotoColorMode to " + Mode);
         this.PhotoColormode = Mode;
     }
 
@@ -946,30 +963,39 @@ public class Camera {
     public void SetParameter(CameraParameter par, float value) {
         switch (par) {
             case EXPOSURE:
+                Parent.WriteLogtoConsole("Setting EXPOSURE to " + value);
                 this.SendParameter(CameraParameter.EXPOSURE, value);
                 break;
             case GAIN:
+                Parent.WriteLogtoConsole("Setting GAIN to " + value);
                 this.SendParameter(CameraParameter.GAIN, value);
                 break;
             case AUTOEXP:
+                Parent.WriteLogtoConsole("Setting AUTOEXPOSURE to " + value);
                 this.SendParameter(CameraParameter.AUTOEXP, value);
                 break;
             case JPEGQUAL:
+                Parent.WriteLogtoConsole("Setting QUALITY to " + value);
                 this.SendParameter(CameraParameter.JPEGQUAL, value);
                 break;
             case COLORMODE:
+                Parent.WriteLogtoConsole("Setting COLORMODE to " + value);
                 this.SendParameter(CameraParameter.COLORMODE, value);
                 break;
             case FPS:
+                Parent.WriteLogtoConsole("Setting FPS to " + value);
                 this.SendParameter(CameraParameter.FPS, value);
                 break;
             case SENSORWIDTH:
+                Parent.WriteLogtoConsole("Setting SENSORWIDTH to " + value);
                 this.SendParameter(CameraParameter.SENSORWIDTH, value);
                 break;
             case SENSORHEIGHT:
+                Parent.WriteLogtoConsole("Setting SENSORWIDTH to " + value);
                 this.SendParameter(CameraParameter.SENSORHEIGHT, value);
                 break;
             case RECORDFORMAT:
+                Parent.WriteLogtoConsole("Setting RECORDFORMAT to " + value);
                 this.SendParameter(CameraParameter.RECORDFORMAT, value);
                 break;
         }
@@ -1235,6 +1261,7 @@ public class Camera {
             line += "GuidesOuterX=" + Boolean.toString(this.GetGuides()[1]) + "\n";
             line += "GuidesThirds=" + Boolean.toString(this.GetGuides()[2]) + "\n";
             line += "GuidesSafeArea=" + Boolean.toString(this.GetGuides()[3]) + "\n";
+            line += "CoringIndex=" + this.GetCoringIndex() + "\n";
 
             output.write(line);
         } finally {
@@ -1471,6 +1498,9 @@ public class Camera {
                         if (value.trim().contentEquals("false")) {
                             this.SetGuide("GuideDrawSafeArea", false);
                         }
+                    }
+                    if (name.trim().equals("CoringIndex")) {
+                        this.SetCoringIndex(Integer.parseInt(value.trim()));
                     }
                 } else {
                     //Empty or invalid line. Unable to process
@@ -2062,6 +2092,13 @@ public class Camera {
                             } else {
                                 this.AutoExposure = false;
                             }
+                        }
+
+                        NodeList NmElmntLstCoring = fstElmnt.getElementsByTagName("coringindex");
+                        Element NmElmntCoring = (Element) NmElmntLstCoring.item(0);
+                        NodeList ElmntCoring = NmElmntCoring.getChildNodes();
+                        if (((Node) ElmntCoring.item(0)) != null) {
+                            this.CoringIndex = Integer.parseInt(((Node) ElmntCoring.item(0)).getNodeValue());
                         }
 
                         NodeList NmElmntLstFlipH = fstElmnt.getElementsByTagName("fliph");
