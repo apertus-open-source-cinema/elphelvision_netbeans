@@ -179,7 +179,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         VLCPlayer.close();
     }
 
-    public int GetDebuglevel () {
+    public int GetDebuglevel() {
         return Debuglevel;
     }
 
@@ -207,7 +207,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
     static void ProcessArgs(String[] args) {
         Debuglevel = 2; // DEFAULT value
-        
+
         for (int i = 0; i < args.length; i++) {
             WindowDecorations = false;
             if (args[i].equals("--help") || args[i].equals("-h")) {
@@ -218,7 +218,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
                 NoCameraParameter = true; // TODO: not fully implemented yet
             }
             // Default
-            
+
             if (args[i].equals("--debuglevel")) {
                 if (args[i + 1].equals("0")) {
                     Debuglevel = 0;
@@ -528,7 +528,15 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
         CameraInfo += "(" + Camera.GetImageWidth() + "x" + Camera.GetImageHeight() + ")";
         CameraInfo += "    ";
-        CameraInfo += Camera.GetFPS() + "fps";
+
+        if (Camera.GetFPSSkipFrames() != 0) {
+            CameraInfo += Utils.Round(Camera.GetFPS() / (1.0f + Camera.GetFPSSkipFrames()), 3) + "fps (FS)";
+        } else if (Camera.GetFPSSkipSeconds() != 0) {
+            CameraInfo += Utils.Round((1.0f / Camera.GetFPSSkipSeconds()), 3) + "fps (SS)";
+        } else {
+            CameraInfo += Camera.GetFPS() + "fps";
+        }
+
         CameraInfo += "    ";
         CameraInfo += "JPEG: " + Camera.GetImageJPEGQuality() + "%";
         CameraInfo += "    ";

@@ -114,9 +114,11 @@ public class Camera {
     private CameraPreset Preset = CameraPreset.FULLHD;
     private int[][] Histogram;
     private float Gamma;
-    private int CoringIndex;
     private int[] GammaCurve;
     private int Blacklevel;
+    private int CoringIndex;
+    private int FPSSkipSeconds;
+    private int FPSSkipFrames;
     private int FrameSizeBytes;
     private boolean AutoExposure = false;
     private boolean GuideDrawCenterX = false;
@@ -294,6 +296,8 @@ public class Camera {
         this.GuideDrawOuterX = false;
         this.GuideDrawThirds = false;
         this.GuideDrawSafeArea = false;
+        this.FPSSkipFrames = 0;
+        this.FPSSkipSeconds = 0;
         this.FrameSizeBytes = 0;
         this.MovieClipMaxChunkSize = 2048; // in Megabytes - Default 2 GB = 2 x 1024 x 1024 x 1024 bytes
         this.VideoFilesList = new ArrayList<VideoFile>();
@@ -393,23 +397,31 @@ public class Camera {
     }
 
     public void SetGuides(boolean drawCenterX, boolean drawOuterX, boolean drawThirds, boolean drawSafeArea) {
+        Parent.WriteLogtoConsole("Setting GuideDrawCenterX to " + drawCenterX);
         this.GuideDrawCenterX = drawCenterX;
+        Parent.WriteLogtoConsole("Setting GuideDrawOuterX to " + drawOuterX);
         this.GuideDrawOuterX = drawOuterX;
+        Parent.WriteLogtoConsole("Setting GuideDrawThirds to " + drawThirds);
         this.GuideDrawThirds = drawThirds;
+        Parent.WriteLogtoConsole("Setting GuideDrawSafeArea to " + drawSafeArea);
         this.GuideDrawSafeArea = drawSafeArea;
     }
 
     public void SetGuide(String name, boolean value) {
         if (name.contentEquals("GuideDrawCenterX")) {
+            Parent.WriteLogtoConsole("Setting GuideDrawCenterX to " + value);
             this.GuideDrawCenterX = value;
         }
         if (name.contentEquals("GuideDrawOuterX")) {
+            Parent.WriteLogtoConsole("Setting GuideDrawOuterX to " + value);
             this.GuideDrawOuterX = value;
         }
         if (name.contentEquals("GuideDrawThirds")) {
+            Parent.WriteLogtoConsole("Setting GuideDrawThirds to " + value);
             this.GuideDrawThirds = value;
         }
         if (name.contentEquals("GuideDrawSafeArea")) {
+            Parent.WriteLogtoConsole("Setting GuideDrawSafeArea to " + value);
             this.GuideDrawSafeArea = value;
         }
     }
@@ -428,15 +440,19 @@ public class Camera {
         this.ImageFlip = newmode;
 
         if (newmode == MirrorImage.NONE) {
+            Parent.WriteLogtoConsole("Setting FlipMode to NONE");
             SendParametertoCamera("FLIPH=0&FLIPV=0");
         }
         if (newmode == MirrorImage.HORIZONTAL) {
+            Parent.WriteLogtoConsole("Setting FlipMode to HORIZONTAL");
             SendParametertoCamera("FLIPH=1&FLIPV=0");
         }
         if (newmode == MirrorImage.VERTICAL) {
+            Parent.WriteLogtoConsole("Setting FlipMode to VERTICAL");
             SendParametertoCamera("FLIPH=0&FLIPV=1");
         }
         if (newmode == MirrorImage.VERTICALHORIZONTAL) {
+            Parent.WriteLogtoConsole("Setting FlipMode to VERTICALHORIZONTAL");
             SendParametertoCamera("FLIPH=1&FLIPV=1");
         }
     }
@@ -457,6 +473,26 @@ public class Camera {
         return this.GammaPreset;
     }
 
+    public void SetFPSSkipSeconds(int newseconds) {
+        Parent.WriteLogtoConsole("Setting SecondsSkip to " + newseconds);
+        this.FPSSkipSeconds = newseconds;
+        this.ExecuteCommand("SETSKIPSECONDS", newseconds + "");
+    }
+
+    public int GetFPSSkipSeconds() {
+        return this.FPSSkipSeconds;
+    }
+
+    public void SetFPSSkipFrames(int newSkipFrames) {
+        Parent.WriteLogtoConsole("Setting FramesSkip to " + newSkipFrames);
+        this.FPSSkipFrames = newSkipFrames;
+        this.ExecuteCommand("SETSKIPFRAMES", newSkipFrames + "");
+    }
+
+    public int GetFPSSkipFrames() {
+        return this.FPSSkipFrames;
+    }
+
     public void SetGammaPreset(GammaPreset newpreset) {
         this.GammaPreset = newpreset;
     }
@@ -473,6 +509,9 @@ public class Camera {
             newblacklevel = 0;
         }
         this.Blacklevel = newblacklevel;
+
+        Parent.WriteLogtoConsole("Setting Blacklevel to " + newblacklevel);
+
         this.SendCamVCParameters("set=0/gam:" + this.Gamma + "/pxl:" + this.Blacklevel + "/");
     }
 
@@ -1262,6 +1301,8 @@ public class Camera {
             line += "GuidesThirds=" + Boolean.toString(this.GetGuides()[2]) + "\n";
             line += "GuidesSafeArea=" + Boolean.toString(this.GetGuides()[3]) + "\n";
             line += "CoringIndex=" + this.GetCoringIndex() + "\n";
+            line += "FrameSkip=" + this.GetFPSSkipFrames() + "\n";
+            line += "SecondsSkip=" + this.GetFPSSkipSeconds() + "\n";
 
             output.write(line);
         } finally {
@@ -1501,6 +1542,12 @@ public class Camera {
                     }
                     if (name.trim().equals("CoringIndex")) {
                         this.SetCoringIndex(Integer.parseInt(value.trim()));
+                    }
+                    if (name.trim().equals("FrameSkip")) {
+                        this.SetFPSSkipFrames(Integer.parseInt(value.trim()));
+                    }
+                    if (name.trim().equals("SecondsSkip")) {
+                        this.SetFPSSkipSeconds(Integer.parseInt(value.trim()));
                     }
                 } else {
                     //Empty or invalid line. Unable to process
@@ -1752,6 +1799,10 @@ public class Camera {
     }
 
     public void ExecuteCommand(String Command) {
+        ExecuteCommand(Command, "");
+    }
+
+    public void ExecuteCommand(String Command, String parameter) {
         URLConnection conn = null;
         BufferedReader data = null;
         String line;
@@ -1778,6 +1829,10 @@ public class Camera {
             command_name = "setmov";
         } else if (Command.equals("SETCONTAINERFORMATJPEG")) {
             command_name = "setjpeg";
+        } else if (Command.equals("SETSKIPFRAMES")) {
+            command_name = "set_frameskip&frameskip=" + parameter;
+        } else if (Command.equals("SETSKIPSECONDS")) {
+            command_name = "set_timelapse&timelapse=" + parameter;
         } else {
             command_name = Command;
         }
@@ -2099,6 +2154,20 @@ public class Camera {
                         NodeList ElmntCoring = NmElmntCoring.getChildNodes();
                         if (((Node) ElmntCoring.item(0)) != null) {
                             this.CoringIndex = Integer.parseInt(((Node) ElmntCoring.item(0)).getNodeValue());
+                        }
+
+                        NodeList NmElmntLstFrameSkip = fstElmnt.getElementsByTagName("camogm_frameskip");
+                        Element NmElmntFrameSkip = (Element) NmElmntLstFrameSkip.item(0);
+                        NodeList ElmntFrameSkip = NmElmntFrameSkip.getChildNodes();
+                        if (((Node) ElmntFrameSkip.item(0)) != null) {
+                            this.FPSSkipFrames = Integer.parseInt(((Node) ElmntFrameSkip.item(0)).getNodeValue());
+                        }
+
+                        NodeList NmElmntLstSecondsSkip = fstElmnt.getElementsByTagName("camogm_secondsskip");
+                        Element NmElmntSecondsSkip = (Element) NmElmntLstSecondsSkip.item(0);
+                        NodeList ElmntSecondsSkip = NmElmntSecondsSkip.getChildNodes();
+                        if (((Node) ElmntSecondsSkip.item(0)) != null) {
+                            this.FPSSkipSeconds = Integer.parseInt(((Node) ElmntSecondsSkip.item(0)).getNodeValue());
                         }
 
                         NodeList NmElmntLstFlipH = fstElmnt.getElementsByTagName("fliph");

@@ -48,6 +48,13 @@ public class NumericalInputPanel extends javax.swing.JPanel {
         this.NumberField.setText(String.valueOf(value));
     }
 
+    public void Load(String Varname, float value, JTextField parent, String targetCard) {
+        this.FieldParent = parent;
+        this.VarName.setText(Varname);
+        this.TargetCard = targetCard;
+        this.NumberField.setText(String.valueOf(value));
+    }
+
     /** This method is called from within the init() method to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -70,14 +77,15 @@ public class NumericalInputPanel extends javax.swing.JPanel {
         Number9 = new EButton();
         NumberClear = new EButton();
         Number0 = new EButton();
-        Number12 = new EButton();
-        Number13 = new EButton();
+        DelButton = new EButton();
+        BackspaceButton = new EButton();
         NumberPlusOne = new EButton();
-        Number15 = new EButton();
-        Number16 = new EButton();
-        Number17 = new EButton();
+        Pos1Button = new EButton();
+        EndButton = new EButton();
+        NumberPlusTen = new EButton();
         NumberMinusOne = new EButton();
-        Number19 = new EButton();
+        NumberMinus10 = new EButton();
+        NumberComma = new EButton();
         ConfirmationPanel = new javax.swing.JPanel();
         SettingsCancelButton = new EButton();
         SettingsOKButton = new EButton();
@@ -200,23 +208,23 @@ public class NumericalInputPanel extends javax.swing.JPanel {
             }
         });
 
-        Number12.setClickFeedback(true);
-        Number12.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
-        Number12.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number12.setText("DEL");
-        Number12.addActionListener(new java.awt.event.ActionListener() {
+        DelButton.setClickFeedback(true);
+        DelButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
+        DelButton.setPreferredSize(new java.awt.Dimension(100, 60));
+        DelButton.setText("Del");
+        DelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Number12ActionPerformed(evt);
+                DelButtonActionPerformed(evt);
             }
         });
 
-        Number13.setClickFeedback(true);
-        Number13.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
-        Number13.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number13.setText("<-");
-        Number13.addActionListener(new java.awt.event.ActionListener() {
+        BackspaceButton.setClickFeedback(true);
+        BackspaceButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
+        BackspaceButton.setPreferredSize(new java.awt.Dimension(100, 60));
+        BackspaceButton.setText("<-");
+        BackspaceButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Number13ActionPerformed(evt);
+                BackspaceButtonActionPerformed(evt);
             }
         });
 
@@ -230,33 +238,33 @@ public class NumericalInputPanel extends javax.swing.JPanel {
             }
         });
 
-        Number15.setClickFeedback(true);
-        Number15.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
-        Number15.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number15.setText("Pos1");
-        Number15.addActionListener(new java.awt.event.ActionListener() {
+        Pos1Button.setClickFeedback(true);
+        Pos1Button.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
+        Pos1Button.setPreferredSize(new java.awt.Dimension(100, 60));
+        Pos1Button.setText("Pos1");
+        Pos1Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Number15ActionPerformed(evt);
+                Pos1ButtonActionPerformed(evt);
             }
         });
 
-        Number16.setClickFeedback(true);
-        Number16.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
-        Number16.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number16.setText("End");
-        Number16.addActionListener(new java.awt.event.ActionListener() {
+        EndButton.setClickFeedback(true);
+        EndButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
+        EndButton.setPreferredSize(new java.awt.Dimension(100, 60));
+        EndButton.setText("End");
+        EndButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Number16ActionPerformed(evt);
+                EndButtonActionPerformed(evt);
             }
         });
 
-        Number17.setClickFeedback(true);
-        Number17.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
-        Number17.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number17.setText("+10");
-        Number17.addActionListener(new java.awt.event.ActionListener() {
+        NumberPlusTen.setClickFeedback(true);
+        NumberPlusTen.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
+        NumberPlusTen.setPreferredSize(new java.awt.Dimension(100, 60));
+        NumberPlusTen.setText("+10");
+        NumberPlusTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Number17ActionPerformed(evt);
+                NumberPlusTenActionPerformed(evt);
             }
         });
 
@@ -270,13 +278,23 @@ public class NumericalInputPanel extends javax.swing.JPanel {
             }
         });
 
-        Number19.setClickFeedback(true);
-        Number19.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
-        Number19.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number19.setText("-10");
-        Number19.addActionListener(new java.awt.event.ActionListener() {
+        NumberMinus10.setClickFeedback(true);
+        NumberMinus10.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
+        NumberMinus10.setPreferredSize(new java.awt.Dimension(100, 60));
+        NumberMinus10.setText("-10");
+        NumberMinus10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Number19ActionPerformed(evt);
+                NumberMinus10ActionPerformed(evt);
+            }
+        });
+
+        NumberComma.setClickFeedback(true);
+        NumberComma.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
+        NumberComma.setPreferredSize(new java.awt.Dimension(100, 60));
+        NumberComma.setText(".");
+        NumberComma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NumberCommaActionPerformed(evt);
             }
         });
 
@@ -300,12 +318,13 @@ public class NumericalInputPanel extends javax.swing.JPanel {
                             .addGap(18, 18, 18)
                             .addComponent(Number6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(KeypadLayout.createSequentialGroup()
+                        .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Number0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Number7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Number0, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(KeypadLayout.createSequentialGroup()
-                                .addComponent(Number7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(Number8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(NumberComma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Number8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(NumberClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -315,21 +334,18 @@ public class NumericalInputPanel extends javax.swing.JPanel {
                     .addGroup(KeypadLayout.createSequentialGroup()
                         .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(NumberPlusOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Number17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(NumberMinusOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(NumberPlusTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(213, 213, 213)
+                        .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(DelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BackspaceButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(KeypadLayout.createSequentialGroup()
-                                .addGap(313, 313, 313)
-                                .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(Number16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Number15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(Number13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(KeypadLayout.createSequentialGroup()
-                        .addComponent(Number19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
-                        .addComponent(Number12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(EndButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Pos1Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(NumberMinusOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NumberMinus10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         KeypadLayout.setVerticalGroup(
             KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -338,28 +354,30 @@ public class NumericalInputPanel extends javax.swing.JPanel {
                     .addComponent(Number2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Number3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Number1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Number15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Number17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Pos1Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NumberPlusTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BackspaceButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Number5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Number6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Number4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Number16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NumberPlusOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EndButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NumberPlusOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Number8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Number9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Number7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Number13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NumberMinusOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Number0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NumberClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Number19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Number12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Number0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(NumberClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(NumberMinus10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(NumberComma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         ConfirmationPanel.setBackground(java.awt.Color.black);
@@ -396,7 +414,7 @@ public class NumericalInputPanel extends javax.swing.JPanel {
 
         NumberPanel.setBackground(java.awt.Color.black);
 
-        VarName.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
+        VarName.setFont(new java.awt.Font("DejaVu Sans", 1, 18));
         VarName.setForeground(new java.awt.Color(255, 255, 255));
         VarName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         VarName.setText("Name");
@@ -450,7 +468,7 @@ public class NumericalInputPanel extends javax.swing.JPanel {
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Keypad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(NumberPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -462,8 +480,8 @@ public class NumericalInputPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(NumberPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(Keypad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addComponent(Keypad, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -540,13 +558,13 @@ public class NumericalInputPanel extends javax.swing.JPanel {
         NumberField.setText(NumberField.getText() + "0");
     }//GEN-LAST:event_Number0ActionPerformed
 
-    private void Number12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Number12ActionPerformed
+    private void DelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DelButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Number12ActionPerformed
+    }//GEN-LAST:event_DelButtonActionPerformed
 
-    private void Number13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Number13ActionPerformed
+    private void BackspaceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackspaceButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Number13ActionPerformed
+    }//GEN-LAST:event_BackspaceButtonActionPerformed
 
     private void NumberPlusOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumberPlusOneActionPerformed
         int temp = Integer.parseInt(NumberField.getText()) + 1;
@@ -556,21 +574,21 @@ public class NumericalInputPanel extends javax.swing.JPanel {
         NumberField.setText(String.valueOf(temp));
     }//GEN-LAST:event_NumberPlusOneActionPerformed
 
-    private void Number15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Number15ActionPerformed
+    private void Pos1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pos1ButtonActionPerformed
         NumberField.setCaretPosition(0);
-    }//GEN-LAST:event_Number15ActionPerformed
+    }//GEN-LAST:event_Pos1ButtonActionPerformed
 
-    private void Number16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Number16ActionPerformed
+    private void EndButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EndButtonActionPerformed
         NumberField.setCaretPosition(NumberField.getText().length());
-    }//GEN-LAST:event_Number16ActionPerformed
+    }//GEN-LAST:event_EndButtonActionPerformed
 
-    private void Number17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Number17ActionPerformed
+    private void NumberPlusTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumberPlusTenActionPerformed
         int temp = Integer.parseInt(NumberField.getText()) + 10;
         if (temp < 0) {
             temp = 0;
         }
         NumberField.setText(String.valueOf(temp));        // TODO add your handling code here:
-    }//GEN-LAST:event_Number17ActionPerformed
+    }//GEN-LAST:event_NumberPlusTenActionPerformed
 
     private void NumberMinusOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumberMinusOneActionPerformed
         int temp = Integer.parseInt(NumberField.getText()) - 1;
@@ -580,24 +598,25 @@ public class NumericalInputPanel extends javax.swing.JPanel {
         NumberField.setText(String.valueOf(temp));
     }//GEN-LAST:event_NumberMinusOneActionPerformed
 
-    private void Number19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Number19ActionPerformed
+    private void NumberMinus10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumberMinus10ActionPerformed
         int temp = Integer.parseInt(NumberField.getText()) - 10;
         if (temp < 0) {
             temp = 0;
         }
-        NumberField.setText(String.valueOf(temp));        // TODO add your handling code here:
-    }//GEN-LAST:event_Number19ActionPerformed
+        NumberField.setText(String.valueOf(temp));
+    }//GEN-LAST:event_NumberMinus10ActionPerformed
+
+    private void NumberCommaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumberCommaActionPerformed
+        NumberField.setText(NumberField.getText() + ".");
+    }//GEN-LAST:event_NumberCommaActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private EButton BackspaceButton;
     private javax.swing.JPanel ConfirmationPanel;
+    private EButton DelButton;
+    private EButton EndButton;
     private javax.swing.JPanel Keypad;
     private EButton Number0;
     private EButton Number1;
-    private EButton Number12;
-    private EButton Number13;
-    private EButton Number15;
-    private EButton Number16;
-    private EButton Number17;
-    private EButton Number19;
     private EButton Number2;
     private EButton Number3;
     private EButton Number4;
@@ -607,10 +626,14 @@ public class NumericalInputPanel extends javax.swing.JPanel {
     private EButton Number8;
     private EButton Number9;
     private EButton NumberClear;
+    private EButton NumberComma;
     private javax.swing.JTextField NumberField;
+    private EButton NumberMinus10;
     private EButton NumberMinusOne;
     private javax.swing.JPanel NumberPanel;
     private EButton NumberPlusOne;
+    private EButton NumberPlusTen;
+    private EButton Pos1Button;
     private EButton SettingsCancelButton;
     private EButton SettingsOKButton;
     private javax.swing.JLabel VarName;

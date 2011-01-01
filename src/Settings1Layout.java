@@ -57,7 +57,15 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
         while (Thread.currentThread() == SettingsOVerviewUpdater) {
 
             Overview_Resolution.setText(Parent.Camera.GetImageWidth() + " x " + Parent.Camera.GetImageHeight());
-            Overview_FPS.setText(Parent.Camera.GetFPS() + "");
+
+            if (Parent.Camera.GetFPSSkipFrames() != 0) {
+                Overview_FPS.setText(Utils.Round(Parent.Camera.GetFPS() / (1.0f + Parent.Camera.GetFPSSkipFrames()), 3) + " (FS)");
+            } else if (Parent.Camera.GetFPSSkipSeconds() != 0) {
+                Overview_FPS.setText(Utils.Round((1.0f / Parent.Camera.GetFPSSkipSeconds()), 3) + " (SS)");
+            } else {
+                Overview_FPS.setText(Parent.Camera.GetFPS() + "");
+            }
+
             Overview_JPEGQ.setText(Parent.Camera.GetJPEGQuality() + " %");
             if (Parent.Camera.GetColorMode() == ColorMode.JP4) {
                 Overview_ColorMode.setText("JP4 RAW");
@@ -145,7 +153,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
             FormatJPEGs.setChecked(true);
         }
 
-        switch ((int) Parent.Camera.GetFPS()) {
+        switch ((int) Utils.Round(Parent.Camera.GetFPS(), 1)) {
             case 24:
                 fps24.setChecked(true);
                 fps25.setChecked(false);
@@ -199,6 +207,15 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
                 fps60.setChecked(false);
                 fpscustom.setChecked(true);
                 break;
+        }
+        // override if Frameskip or Secondsskip is set
+        if ((Parent.Camera.GetFPSSkipFrames() != 0) || (Parent.Camera.GetFPSSkipSeconds() != 0)) {
+            fps24.setChecked(false);
+            fps25.setChecked(false);
+            fps30.setChecked(false);
+            fps50.setChecked(false);
+            fps60.setChecked(false);
+            fpscustom.setChecked(true);
         }
 
         JPEGQualityButton.setValue("" + Parent.Camera.GetJPEGQuality());
