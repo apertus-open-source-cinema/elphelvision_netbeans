@@ -19,8 +19,17 @@
 -----------------------------------------------------------------------------**/
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.jws.soap.SOAPBinding.Style;
 import javax.swing.JPanel;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import org.gstreamer.Element;
 import org.gstreamer.ElementFactory;
 import org.gstreamer.Gst;
@@ -102,6 +111,24 @@ public class MainLayout extends JPanel {
         ParameterName.setText("EV");
         ExposureButton.setValue(Parent.Camera.GetExposure());
         GainButton.setValue(Parent.Camera.GetGain());
+
+        if (Parent.NoCameraParameter) {
+            StyledDocument doc = (StyledDocument) GetInfoTextPane().getDocument();
+            javax.swing.text.Style StyleNormal = doc.addStyle("NormalText", null);
+            StyleConstants.setForeground(StyleNormal, Color.white);
+            StyleConstants.setBold(StyleNormal, true);
+
+            MutableAttributeSet standard = new SimpleAttributeSet();
+            StyleConstants.setAlignment(standard, StyleConstants.ALIGN_CENTER);
+            doc.setParagraphAttributes(0, 0, standard, true);
+
+            String CameraInfo = "Running with --no-camera Parameter - Most live content is now in Demo mode.";
+            try {
+                doc.insertString(doc.getLength(), CameraInfo, StyleNormal);
+            } catch (BadLocationException ex) {
+                Logger.getLogger(MainLayout.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public void UpdateOverlayPosition() {
@@ -335,7 +362,6 @@ public class MainLayout extends JPanel {
 
         NoticeArea.setForeground(new java.awt.Color(255, 255, 255));
         NoticeArea.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        NoticeArea.setText("loading...");
 
         javax.swing.GroupLayout InfoPanelLayout = new javax.swing.GroupLayout(InfoPanel);
         InfoPanel.setLayout(InfoPanelLayout);
@@ -392,13 +418,13 @@ public class MainLayout extends JPanel {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Scaling");
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel5.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Color-Mode");

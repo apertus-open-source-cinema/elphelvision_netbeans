@@ -292,9 +292,9 @@ public class Settings3Layout extends javax.swing.JPanel {
 }//GEN-LAST:event_MovieSplitSizeFieldCaretUpdate
 
     private void MovieSplitSizeTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MovieSplitSizeTypeActionPerformed
-        Parent.NumberPanel.Load("Movie Split Size", Integer.parseInt(MovieSplitSizeField.getText()), MovieSplitSizeField, "Settings3Card");
+        Parent.NumberPanelInteger.Load("Movie Split Size", Integer.parseInt(MovieSplitSizeField.getText()), MovieSplitSizeField, "Settings3Card");
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "Numberpanel");
+        cl.show(Parent.GetCardManager(), "NumberpanelInteger");
 }//GEN-LAST:event_MovieSplitSizeTypeActionPerformed
 
     private void SettingsMenu1Button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1Button1ActionPerformed

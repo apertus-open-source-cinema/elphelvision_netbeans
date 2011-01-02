@@ -452,9 +452,9 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
 }//GEN-LAST:event_PhotoQualityFieldCaretUpdate
 
     private void PhotoQualityTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhotoQualityTypeActionPerformed
-        Parent.NumberPanel.Load("Photo Quality", Integer.parseInt(PhotoQualityField.getText()), PhotoQualityField, "PhotoSettings");
+        Parent.NumberPanelInteger.Load("Photo Quality", Integer.parseInt(PhotoQualityField.getText()), PhotoQualityField, "PhotoSettings");
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "Numberpanel");
+        cl.show(Parent.GetCardManager(), "NumberpanelInteger");
 }//GEN-LAST:event_PhotoQualityTypeActionPerformed
 
     private void StillsWhileRecAllowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StillsWhileRecAllowActionPerformed

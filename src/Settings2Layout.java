@@ -48,7 +48,9 @@ public class Settings2Layout extends javax.swing.JPanel {
     }
 
     public void Load() {
-        Parent.Camera.ReadGammaCurve();
+        if (!Parent.NoCameraParameter) {
+            Parent.Camera.ReadGammaCurve();
+        }
         black_level.setValue(String.valueOf(Parent.Camera.GetBlacklevel()));
         gamma.setValue(String.valueOf(Parent.Camera.GetGamma()));
         gammacurve.SetControlPoints(6 + Parent.Camera.GetBlacklevel(), 256, 150, 256, 150, 0, 6 + 256, 0);
@@ -67,7 +69,6 @@ public class Settings2Layout extends javax.swing.JPanel {
     public void RedrawGammacurve() {
         gammacurve.repaint();
     }
-   
 
     /** This method is called from within the init() method to
      * initialize the form.
@@ -454,17 +455,20 @@ public class Settings2Layout extends javax.swing.JPanel {
     private void gamma_incActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gamma_incActionPerformed
         Parent.Camera.SetGamma(Parent.Camera.GetGamma() + 0.05f);
         gamma.setValue(String.valueOf(Utils.Round(Parent.Camera.GetGamma(), 2)));
+        if (!Parent.NoCameraParameter) {
+            Parent.Camera.ReadGammaCurve();
+            RedrawGammacurve();
+        }
 
-        Parent.Camera.ReadGammaCurve();
-        RedrawGammacurve();
     }//GEN-LAST:event_gamma_incActionPerformed
 
     private void black_decActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_black_decActionPerformed
         Parent.Camera.SetBlacklevel(Parent.Camera.GetBlacklevel() - 1);
         black_level.setValue(String.valueOf(Parent.Camera.GetBlacklevel()));
-
-        Parent.Camera.ReadGammaCurve();
-        RedrawGammacurve();
+        if (!Parent.NoCameraParameter) {
+            Parent.Camera.ReadGammaCurve();
+            RedrawGammacurve();
+        }
     }//GEN-LAST:event_black_decActionPerformed
 
     private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
@@ -491,17 +495,19 @@ public class Settings2Layout extends javax.swing.JPanel {
         black_level.setValue(String.valueOf(Parent.Camera.GetBlacklevel()));
 
         gammacurve.SetControlPoints(6 + Parent.Camera.GetBlacklevel(), 256, 150, 256, 150, 0, 6 + 256, 0);
-
-        Parent.Camera.ReadGammaCurve();
-        RedrawGammacurve();
+        if (!Parent.NoCameraParameter) {
+            Parent.Camera.ReadGammaCurve();
+            RedrawGammacurve();
+        }
     }//GEN-LAST:event_black_incActionPerformed
 
     private void gamma_decActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gamma_decActionPerformed
         Parent.Camera.SetGamma(Parent.Camera.GetGamma() - 0.05f);
         gamma.setValue(String.valueOf(Utils.Round(Parent.Camera.GetGamma(), 2)));
-
-        Parent.Camera.ReadGammaCurve();
-        RedrawGammacurve();
+        if (!Parent.NoCameraParameter) {
+            Parent.Camera.ReadGammaCurve();
+            RedrawGammacurve();
+        }
     }//GEN-LAST:event_gamma_decActionPerformed
 
     private void SettingsMenu1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1ButtonActionPerformed
@@ -561,7 +567,6 @@ public class Settings2Layout extends javax.swing.JPanel {
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "PhotoSettings");
 }//GEN-LAST:event_PhotoSettingsMenuActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Blacklevel;
     private javax.swing.JPanel ConfirmationPanel;

@@ -53,41 +53,42 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
     }
 
     public void run() {
+        if (!Parent.GetNoCameraParameter()) {
+            while (Thread.currentThread() == SettingsOVerviewUpdater) {
 
-        while (Thread.currentThread() == SettingsOVerviewUpdater) {
+                Overview_Resolution.setText(Parent.Camera.GetImageWidth() + " x " + Parent.Camera.GetImageHeight());
 
-            Overview_Resolution.setText(Parent.Camera.GetImageWidth() + " x " + Parent.Camera.GetImageHeight());
+                if (Parent.Camera.GetFPSSkipFrames() != 0) {
+                    Overview_FPS.setText(Utils.Round(Parent.Camera.GetFPS() / (1.0f + Parent.Camera.GetFPSSkipFrames()), 3) + " (FS)");
+                } else if (Parent.Camera.GetFPSSkipSeconds() != 0) {
+                    Overview_FPS.setText(Utils.Round((1.0f / Parent.Camera.GetFPSSkipSeconds()), 3) + " (SS)");
+                } else {
+                    Overview_FPS.setText(Parent.Camera.GetFPS() + "");
+                }
 
-            if (Parent.Camera.GetFPSSkipFrames() != 0) {
-                Overview_FPS.setText(Utils.Round(Parent.Camera.GetFPS() / (1.0f + Parent.Camera.GetFPSSkipFrames()), 3) + " (FS)");
-            } else if (Parent.Camera.GetFPSSkipSeconds() != 0) {
-                Overview_FPS.setText(Utils.Round((1.0f / Parent.Camera.GetFPSSkipSeconds()), 3) + " (SS)");
-            } else {
-                Overview_FPS.setText(Parent.Camera.GetFPS() + "");
-            }
+                Overview_JPEGQ.setText(Parent.Camera.GetJPEGQuality() + " %");
+                if (Parent.Camera.GetColorMode() == ColorMode.JP4) {
+                    Overview_ColorMode.setText("JP4 RAW");
+                } else {
+                    Overview_ColorMode.setText("RGB");
+                }
+                if (Parent.Camera.GetRecordFormat() == RecordFormat.MOV) {
+                    Overview_Format.setText("Quicktime MOV");
+                } else {
+                    Overview_Format.setText("Image Sequence");
+                }
+                Overview_FreeSpace.setText(Utils.Round(Parent.Camera.GetFreeHDDSpace() / 1024.0f, 2) + " GB");
+                float capacity = Parent.Camera.GetFreeHDDSpace() / ((float) (Parent.Camera.GetFrameSizeBytes()) / 1024.0f / 1024.0f * (float) (Parent.Camera.GetFPS()) * 3600.0f);
+                Overview_RecCapacity.setText(Utils.Round(capacity, 2) + " h");
+                Overview_CoringIndex.setText(Parent.Camera.GetCoringIndex() + "");
 
-            Overview_JPEGQ.setText(Parent.Camera.GetJPEGQuality() + " %");
-            if (Parent.Camera.GetColorMode() == ColorMode.JP4) {
-                Overview_ColorMode.setText("JP4 RAW");
-            } else {
-                Overview_ColorMode.setText("RGB");
-            }
-            if (Parent.Camera.GetRecordFormat() == RecordFormat.MOV) {
-                Overview_Format.setText("Quicktime MOV");
-            } else {
-                Overview_Format.setText("Image Sequence");
-            }
-            Overview_FreeSpace.setText(Utils.Round(Parent.Camera.GetFreeHDDSpace() / 1024.0f, 2) + " GB");
-            float capacity = Parent.Camera.GetFreeHDDSpace() / ((float) (Parent.Camera.GetFrameSizeBytes()) / 1024.0f / 1024.0f * (float) (Parent.Camera.GetFPS()) * 3600.0f);
-            Overview_RecCapacity.setText(Utils.Round(capacity, 2) + " h");
-            Overview_CoringIndex.setText(Parent.Camera.GetCoringIndex() + "");
+                repaint();
 
-            repaint();
-
-            try {
-                Thread.sleep(1 / UpdaterFPS * 1000);
-            } catch (InterruptedException e) {
-                break;
+                try {
+                    Thread.sleep(1 / UpdaterFPS * 1000);
+                } catch (InterruptedException e) {
+                    break;
+                }
             }
         }
     }
@@ -304,6 +305,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
         jLabel17 = new javax.swing.JLabel();
         CoringValueTextField = new javax.swing.JTextField();
         CoringSet = new EButton();
+        CoringType = new EButton();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -1016,7 +1018,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
         Experimental.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(44, 44, 44), 1, true));
         Experimental.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel16.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
+        jLabel16.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("Experimental");
@@ -1035,18 +1037,30 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        CoringType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        CoringType.setText("type");
+        CoringType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CoringTypeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ExperimentalLayout = new javax.swing.GroupLayout(Experimental);
         Experimental.setLayout(ExperimentalLayout);
         ExperimentalLayout.setHorizontalGroup(
             ExperimentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
             .addGroup(ExperimentalLayout.createSequentialGroup()
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CoringValueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CoringSet, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(ExperimentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                    .addGroup(ExperimentalLayout.createSequentialGroup()
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CoringValueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CoringType, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CoringSet, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         ExperimentalLayout.setVerticalGroup(
             ExperimentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1056,6 +1070,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
                 .addGroup(ExperimentalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CoringValueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CoringType, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CoringSet, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1097,25 +1112,21 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(SettingsOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ColorModePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ResolutionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                                .addComponent(Experimental, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addComponent(WBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(bgLayout.createSequentialGroup()
+                            .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(SettingsOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ColorModePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(bgLayout.createSequentialGroup()
+                            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ResolutionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                            .addComponent(Experimental, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(WBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(NavigationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1412,11 +1423,18 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
     private void CoringSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CoringSetActionPerformed
         Parent.Camera.SetCoringIndex(Integer.parseInt(CoringValueTextField.getText()));
     }//GEN-LAST:event_CoringSetActionPerformed
+
+    private void CoringTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CoringTypeActionPerformed
+        Parent.NumberPanelInteger.Load("Coring", Integer.parseInt(CoringValueTextField.getText()), CoringValueTextField, "Settings1Card");
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "NumberpanelInteger");
+}//GEN-LAST:event_CoringTypeActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton Amax;
     private EButton Cimax;
     private javax.swing.JPanel ColorModePanel;
     private EButton CoringSet;
+    private EButton CoringType;
     private javax.swing.JTextField CoringValueTextField;
     private EButton Custom;
     private javax.swing.JPanel Experimental;

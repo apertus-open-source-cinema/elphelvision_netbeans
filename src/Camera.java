@@ -378,7 +378,7 @@ public class Camera {
             this.FrameSizeBytes = Integer.parseInt(result);
 
         } catch (Exception e) {
-            Parent.WriteErrortoConsole("Reading histogram data IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("Reading FRAME_SIZE data IO Error:" + e.getMessage());
         }
         return this.FrameSizeBytes;
     }
@@ -1561,6 +1561,9 @@ public class Camera {
     }
 
     private void SendParameter(CameraParameter par, float value) {
+        if (Parent.GetNoCameraParameter()) {
+            return;
+        }
         String param_url = "";
         try {
             URLConnection conn = null;
@@ -1635,6 +1638,9 @@ public class Camera {
     }
 
     private void SendCamVCParameters(String UrlParameter) {
+        if (Parent.GetNoCameraParameter()) {
+            return;
+        }
         try {
             String param_url = "";
             URLConnection conn = null;
@@ -1674,6 +1680,10 @@ public class Camera {
     }
 
     private void SendParametertoCamera(String UrlParameter) {
+        if (!Parent.GetNoCameraParameter()) {
+            return;
+        }
+
         try {
             String param_url = "";
             URLConnection conn = null;
@@ -1713,6 +1723,9 @@ public class Camera {
     }
 
     public String CaptureStillImage(String UrlParameter) {
+        if (Parent.GetNoCameraParameter()) {
+            return "";
+        }
         String ReturnValue = "";
 
         try {
@@ -1799,10 +1812,16 @@ public class Camera {
     }
 
     public void ExecuteCommand(String Command) {
+        if (Parent.GetNoCameraParameter()) {
+            return;
+        }
         ExecuteCommand(Command, "");
     }
 
     public void ExecuteCommand(String Command, String parameter) {
+        if (Parent.GetNoCameraParameter()) {
+            return;
+        }
         URLConnection conn = null;
         BufferedReader data = null;
         String line;
@@ -1864,6 +1883,9 @@ public class Camera {
     }
 
     public boolean PingCamera() {
+        if (Parent.GetNoCameraParameter()) {
+            return true;
+        }
         URLConnection conn = null;
         BufferedReader data = null;
         String line;
@@ -1926,6 +1948,9 @@ public class Camera {
     }
 
     public void UpdateCameraData() throws Exception {
+        if (Parent.GetNoCameraParameter()) {
+            return;
+        }
         URLConnection conn = null;
         BufferedReader data = null;
         String line;
@@ -2208,6 +2233,9 @@ public class Camera {
     }
 
     public void ReadCameraFileList() throws Exception {
+        if (Parent.GetNoCameraParameter()) {
+            return;
+        }
         URLConnection conn = null;
         BufferedReader data = null;
         String line;

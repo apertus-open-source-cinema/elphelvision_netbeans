@@ -64,7 +64,7 @@ public class FPSSettings extends javax.swing.JPanel {
 
             SkipSecondsType.setEnabled(false);
             SkipFramesType.setEnabled(true);
-        }       
+        }
     }
 
     private void UpdateResultingFPS() {
@@ -395,9 +395,9 @@ public class FPSSettings extends javax.swing.JPanel {
     }//GEN-LAST:event_SkipFramesFieldCaretUpdate
 
     private void FPSTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FPSTypeActionPerformed
-        Parent.NumberPanel.Load("FPS", Float.parseFloat(FPSField.getText()), FPSField, "FPSSettings");
+        Parent.NumberPanelFloat.Load("FPS", Float.parseFloat(FPSField.getText()), FPSField, "CustomFPSCard");
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "Numberpanel");
+        cl.show(Parent.GetCardManager(), "NumberpanelFloat");
 }//GEN-LAST:event_FPSTypeActionPerformed
 
     private void FPSFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_FPSFieldCaretUpdate
@@ -409,15 +409,15 @@ public class FPSSettings extends javax.swing.JPanel {
     }//GEN-LAST:event_SkipSecondsFieldCaretUpdate
 
     private void SkipSecondsTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SkipSecondsTypeActionPerformed
-        Parent.NumberPanel.Load("Skip Seconds", Integer.parseInt(SkipSecondsField.getText()), SkipSecondsField, "FPSSettings");
+        Parent.NumberPanelInteger.Load("Skip Seconds", Integer.parseInt(SkipSecondsField.getText()), SkipSecondsField, "CustomFPSCard");
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "Numberpanel");
+        cl.show(Parent.GetCardManager(), "NumberpanelInteger");
     }//GEN-LAST:event_SkipSecondsTypeActionPerformed
 
     private void SkipFramesTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SkipFramesTypeActionPerformed
-        Parent.NumberPanel.Load("Skip Frames", Integer.parseInt(SkipFramesField.getText()), SkipFramesField, "FPSSettings");
+        Parent.NumberPanelInteger.Load("Skip Frames", Integer.parseInt(SkipFramesField.getText()), SkipFramesField, "CustomFPSCard");
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "Numberpanel");
+        cl.show(Parent.GetCardManager(), "NumberpanelInteger");
     }//GEN-LAST:event_SkipFramesTypeActionPerformed
 
     private void SkipFramesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SkipFramesButtonActionPerformed

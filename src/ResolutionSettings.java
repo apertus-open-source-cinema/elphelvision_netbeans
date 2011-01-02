@@ -123,7 +123,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
 
         FlipHorizontal.setText("horizontal");
         FlipHorizontal.setAlignmentY(0.0F);
-        FlipHorizontal.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        FlipHorizontal.setHorizontalTextPosition(2);
         FlipHorizontal.setIconTextGap(20);
         FlipHorizontal.setMargin(new java.awt.Insets(0, 5, 0, 0));
         FlipHorizontal.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +134,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
 
         FlipVertical.setText("vertical");
         FlipVertical.setAlignmentY(0.0F);
-        FlipVertical.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        FlipVertical.setHorizontalTextPosition(2);
         FlipVertical.setIconTextGap(20);
         FlipVertical.setMargin(new java.awt.Insets(0, 5, 0, 0));
         FlipVertical.addActionListener(new java.awt.event.ActionListener() {
@@ -172,7 +172,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
 
         OrientationLandscape.setText("Landscape");
         OrientationLandscape.setAlignmentY(0.0F);
-        OrientationLandscape.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        OrientationLandscape.setHorizontalTextPosition(2);
         OrientationLandscape.setIconTextGap(20);
         OrientationLandscape.setMargin(new java.awt.Insets(0, 5, 0, 0));
         OrientationLandscape.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +183,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
 
         OrientationPortrait.setText("Portrait");
         OrientationPortrait.setAlignmentY(0.0F);
-        OrientationPortrait.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        OrientationPortrait.setHorizontalTextPosition(2);
         OrientationPortrait.setIconTextGap(20);
         OrientationPortrait.setMargin(new java.awt.Insets(0, 5, 0, 0));
         OrientationPortrait.addActionListener(new java.awt.event.ActionListener() {
@@ -319,8 +319,8 @@ public class ResolutionSettings extends javax.swing.JPanel {
             }
         });
 
-        WidthType.setText("type");
         WidthType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        WidthType.setText("type");
         WidthType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WidthTypeActionPerformed(evt);
@@ -333,24 +333,24 @@ public class ResolutionSettings extends javax.swing.JPanel {
             DimensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DimensionsPanelLayout.createSequentialGroup()
                 .addGroup(DimensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DimensionsPanelLayout.createSequentialGroup()
-                        .addGroup(DimensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
-                        .addGroup(DimensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(WidthField)
-                            .addComponent(HeightField, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(DimensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(WidthType, 0, 60, Short.MAX_VALUE)
-                            .addComponent(HeightType, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(DimensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CalculatedHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CalculatedWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(DimensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(WidthField)
+                    .addComponent(HeightField, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DimensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(WidthType, 0, 60, Short.MAX_VALUE)
+                    .addComponent(HeightType, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DimensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CalculatedHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CalculatedWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(73, 73, 73))
+            .addGroup(DimensionsPanelLayout.createSequentialGroup()
+                .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         DimensionsPanelLayout.setVerticalGroup(
             DimensionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +397,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
                     .addComponent(RotationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(DimensionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 396, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, Short.MAX_VALUE)
                         .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -529,15 +529,15 @@ public class ResolutionSettings extends javax.swing.JPanel {
     }//GEN-LAST:event_FlipVerticalActionPerformed
 
     private void HeightTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HeightTypeActionPerformed
-        Parent.NumberPanel.Load("Height", Integer.parseInt(HeightField.getText()), HeightField, "CustomResolutionCard");
+        Parent.NumberPanelInteger.Load("Height", Integer.parseInt(HeightField.getText()), HeightField, "CustomResolutionCard");
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "Numberpanel");
+        cl.show(Parent.GetCardManager(), "NumberpanelInteger");
     }//GEN-LAST:event_HeightTypeActionPerformed
 
     private void WidthTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WidthTypeActionPerformed
-        Parent.NumberPanel.Load("Width", Integer.parseInt(WidthField.getText()), WidthField, "CustomResolutionCard");
+        Parent.NumberPanelInteger.Load("Width", Integer.parseInt(WidthField.getText()), WidthField, "CustomResolutionCard");
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "Numberpanel");
+        cl.show(Parent.GetCardManager(), "NumberpanelInteger");
     }//GEN-LAST:event_WidthTypeActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CalculatedHeight;

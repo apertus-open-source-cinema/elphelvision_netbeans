@@ -64,7 +64,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     Settings3Layout Settings3CardLayout;
     ResolutionSettings ResolutionSettingsCardLayout;
     FPSSettings FPSSettingsCardLayout;
-    NumericalInputPanel NumberPanel;
+    NumericalInputPanelFloat NumberPanelFloat;
+    NumericalInputPanelInteger NumberPanelInteger;
     GuidesLayout GuidesPanel;
     PlaybackLayout PlaybackCardLayout;
     PhotoSettingsLayout PhotoSettingsCardLayout;
@@ -377,7 +378,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         Settings3CardLayout = new Settings3Layout(this);
         ResolutionSettingsCardLayout = new ResolutionSettings(this);
         FPSSettingsCardLayout = new FPSSettings(this);
-        NumberPanel = new NumericalInputPanel(this);
+        NumberPanelInteger = new NumericalInputPanelInteger(this);
+        NumberPanelFloat = new NumericalInputPanelFloat(this);
         GuidesPanel = new GuidesLayout(this);
         PlaybackCardLayout = new PlaybackLayout(this);
         PhotoSettingsCardLayout = new PhotoSettingsLayout(this);
@@ -390,7 +392,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         CardManager.add(ResolutionSettingsCardLayout, "CustomResolutionCard");
         CardManager.add(FPSSettingsCardLayout, "CustomFPSCard");
         CardManager.add(GuidesPanel, "GuidesCard");
-        CardManager.add(NumberPanel, "Numberpanel");
+        CardManager.add(NumberPanelFloat, "NumberpanelFloat");
+        CardManager.add(NumberPanelInteger, "NumberpanelInteger");
         CardManager.add(PlaybackCardLayout, "PlaybackCard");
         CardManager.add(PhotoSettingsCardLayout, "PhotoSettings");
 
@@ -451,38 +454,40 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     }
 
     public void run() {
-        if (Camera.GetCameraConnectionEstablished()) {
-            while (Thread.currentThread() == ReadCameraDataAnimator) {
-                ReadCameraData();
-                try {
-                    Thread.sleep((int) (1.0f / ReadCameradataFPS * 1000.0f));
-                } catch (InterruptedException e) {
-                    break;
-                }
-            }
-
-            while (Thread.currentThread() == HistogramAnimator) {
-                if (Camera != null) {
-                    Camera.ReadHistogram();
-                    if (MaincardLayout != null) {
-                        MaincardLayout.RedrawHistogram();
+        if (!this.GetNoCameraParameter()) {
+            if (Camera.GetCameraConnectionEstablished()) {
+                while (Thread.currentThread() == ReadCameraDataAnimator) {
+                    ReadCameraData();
+                    try {
+                        Thread.sleep((int) (1.0f / ReadCameradataFPS * 1000.0f));
+                    } catch (InterruptedException e) {
+                        break;
                     }
                 }
-                try {
-                    Thread.sleep((int) (1.0f / HistogramFPS * 1000.0f));
-                } catch (InterruptedException e) {
-                    break;
-                }
-            }
 
-            while (Thread.currentThread() == InfoAreaAnimator) {
-                if (Camera != null) {
-                    UpdateInfoArea();
+                while (Thread.currentThread() == HistogramAnimator) {
+                    if (Camera != null) {
+                        Camera.ReadHistogram();
+                        if (MaincardLayout != null) {
+                            MaincardLayout.RedrawHistogram();
+                        }
+                    }
+                    try {
+                        Thread.sleep((int) (1.0f / HistogramFPS * 1000.0f));
+                    } catch (InterruptedException e) {
+                        break;
+                    }
                 }
-                try {
-                    Thread.sleep((int) (1.0f / InfoAreaFPS * 1000.0f));
-                } catch (InterruptedException e) {
-                    break;
+
+                while (Thread.currentThread() == InfoAreaAnimator) {
+                    if (Camera != null) {
+                        UpdateInfoArea();
+                    }
+                    try {
+                        Thread.sleep((int) (1.0f / InfoAreaFPS * 1000.0f));
+                    } catch (InterruptedException e) {
+                        break;
+                    }
                 }
             }
         }

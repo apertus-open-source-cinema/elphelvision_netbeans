@@ -18,15 +18,17 @@
 -----------------------------------------------------------------------------**/
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.text.Caret;
 
-public class NumericalInputPanel extends javax.swing.JPanel {
+public class NumericalInputPanelFloat extends javax.swing.JPanel {
 
     JTextField FieldParent;
     String TargetCard;
     ElphelVision Parent;
 
-    public NumericalInputPanel(ElphelVision parent) {
+    public NumericalInputPanelFloat(ElphelVision parent) {
         this.Parent = parent;
 
         try {
@@ -385,7 +387,7 @@ public class NumericalInputPanel extends javax.swing.JPanel {
         VarName.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         NumberField.setBackground(new java.awt.Color(0, 0, 0));
-        NumberField.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 18)); // NOI18N
+        NumberField.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 18));
         NumberField.setForeground(new java.awt.Color(255, 255, 255));
         NumberField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         NumberField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(148, 148, 148)));
@@ -637,9 +639,9 @@ public class NumericalInputPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_BackspaceButtonActionPerformed
 
     private void NumberPlusOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumberPlusOneActionPerformed
-        int temp = Integer.parseInt(NumberField.getText()) + 1;
+        Float temp = Float.parseFloat(NumberField.getText()) + 1.0f;
         if (temp < 0) {
-            temp = 0;
+            temp = 0.0f;
         }
         NumberField.setText(String.valueOf(temp));
     }//GEN-LAST:event_NumberPlusOneActionPerformed
@@ -655,25 +657,25 @@ public class NumericalInputPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_EndButtonActionPerformed
 
     private void NumberPlusTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumberPlusTenActionPerformed
-        int temp = Integer.parseInt(NumberField.getText()) + 10;
+        Float temp = Float.parseFloat(NumberField.getText()) + 10.0f;
         if (temp < 0) {
-            temp = 0;
+            temp = 0.0f;
         }
-        NumberField.setText(String.valueOf(temp));        // TODO add your handling code here:
+        NumberField.setText(String.valueOf(temp));
     }//GEN-LAST:event_NumberPlusTenActionPerformed
 
     private void NumberMinusOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumberMinusOneActionPerformed
-        int temp = Integer.parseInt(NumberField.getText()) - 1;
+        Float temp = Float.parseFloat(NumberField.getText()) - 1;
         if (temp < 0) {
-            temp = 0;
+            temp = 0.0f;
         }
         NumberField.setText(String.valueOf(temp));
     }//GEN-LAST:event_NumberMinusOneActionPerformed
 
     private void NumberMinus10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumberMinus10ActionPerformed
-        int temp = Integer.parseInt(NumberField.getText()) - 10;
+        Float temp = Float.parseFloat(NumberField.getText()) - 10.0f;
         if (temp < 0) {
-            temp = 0;
+            temp = 0.0f;
         }
         NumberField.setText(String.valueOf(temp));
     }//GEN-LAST:event_NumberMinus10ActionPerformed

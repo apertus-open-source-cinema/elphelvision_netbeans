@@ -51,17 +51,16 @@ public class DatarateMonitor extends JPanel implements Runnable, java.io.Seriali
     }
 
     public void run() {
+        if (!Parent.GetNoCameraParameter()) {
+            while (Thread.currentThread() == animator) {
+                framesize = Parent.Camera.GetFrameSizeBytes();
+                repaint();
 
-        while (Thread.currentThread() == animator) {
-
-            framesize = Parent.Camera.GetFrameSizeBytes();
-
-            repaint();
-
-            try {
-                Thread.sleep(1 / fps * 1000);
-            } catch (InterruptedException e) {
-                break;
+                try {
+                    Thread.sleep(1 / fps * 1000);
+                } catch (InterruptedException e) {
+                    break;
+                }
             }
         }
     }
