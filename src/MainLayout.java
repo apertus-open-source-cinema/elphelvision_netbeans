@@ -66,6 +66,25 @@ public class MainLayout extends JPanel {
             ex.printStackTrace();
         }
         histogram.SetParent(Parent);
+
+        if (Parent.NoCameraParameter) {
+
+            StyledDocument doc = (StyledDocument) GetInfoTextPane().getDocument();
+            javax.swing.text.Style StyleNormal = doc.addStyle("NormalText", null);
+            StyleConstants.setForeground(StyleNormal, Color.white);
+            StyleConstants.setBold(StyleNormal, true);
+
+            MutableAttributeSet standard = new SimpleAttributeSet();
+            StyleConstants.setAlignment(standard, StyleConstants.ALIGN_CENTER);
+            doc.setParagraphAttributes(0, 0, standard, true);
+
+            String CameraInfo = "Running with --no-camera Parameter - Most live content is now in Demo mode.";
+            try {
+                doc.insertString(doc.getLength(), CameraInfo, StyleNormal);
+            } catch (BadLocationException ex) {
+                Logger.getLogger(MainLayout.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     private Pipeline pipe;
 
@@ -112,23 +131,7 @@ public class MainLayout extends JPanel {
         ExposureButton.setValue(Parent.Camera.GetExposure());
         GainButton.setValue(Parent.Camera.GetGain());
 
-        if (Parent.NoCameraParameter) {
-            StyledDocument doc = (StyledDocument) GetInfoTextPane().getDocument();
-            javax.swing.text.Style StyleNormal = doc.addStyle("NormalText", null);
-            StyleConstants.setForeground(StyleNormal, Color.white);
-            StyleConstants.setBold(StyleNormal, true);
 
-            MutableAttributeSet standard = new SimpleAttributeSet();
-            StyleConstants.setAlignment(standard, StyleConstants.ALIGN_CENTER);
-            doc.setParagraphAttributes(0, 0, standard, true);
-
-            String CameraInfo = "Running with --no-camera Parameter - Most live content is now in Demo mode.";
-            try {
-                doc.insertString(doc.getLength(), CameraInfo, StyleNormal);
-            } catch (BadLocationException ex) {
-                Logger.getLogger(MainLayout.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
     }
 
     public void UpdateOverlayPosition() {
@@ -600,23 +603,18 @@ public class MainLayout extends JPanel {
         Guidesoverlay.SetVisibility(false);
         Parent.PlaybackCardLayout.Load();
     }//GEN-LAST:event_PlaybackButtonActionPerformed
-
     private void eButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton1ActionPerformed
         Parent.VLCPlayer.SetScale(2);
     }//GEN-LAST:event_eButton1ActionPerformed
-
     private void eButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton3ActionPerformed
         Parent.VLCPlayer.SetScale(0);
     }//GEN-LAST:event_eButton3ActionPerformed
-
     private void eButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton4ActionPerformed
         Parent.VLCPlayer.SetScale(1);
     }//GEN-LAST:event_eButton4ActionPerformed
-
     private void eButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton6ActionPerformed
         Parent.Camera.SetColorMode(ColorMode.RGB);
     }//GEN-LAST:event_eButton6ActionPerformed
-
     private void eButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton8ActionPerformed
         Parent.Camera.SetColorMode(ColorMode.JP4);
     }//GEN-LAST:event_eButton8ActionPerformed

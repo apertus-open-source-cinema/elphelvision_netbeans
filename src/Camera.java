@@ -638,6 +638,12 @@ public class Camera {
     }
 
     public void SetColorMode(ColorMode Mode) {
+        if (Mode == ColorMode.JP4) {
+            Parent.WriteLogtoConsole("Setting COLORMODE to JP4 RAW");
+        }
+        if (Mode == ColorMode.RGB) {
+            Parent.WriteLogtoConsole("Setting COLORMODE to RGB");
+        }
         this.SetParameter(CameraParameter.COLORMODE, ColorModeTranslate(Mode));
         this.Colormode = Mode;
     }
@@ -683,6 +689,8 @@ public class Camera {
     }
 
     public void SetWhiteBalance(WhiteBalance newbalance) {
+        Parent.WriteLogtoConsole("Setting WhiteBalance to " + newbalance);
+
         this.ImageWhiteBalance = newbalance;
         float GainR, GainB, GainG, GainGB;
         String Parameters = "";
@@ -759,14 +767,19 @@ public class Camera {
             newgamma = 1;
         }
         this.Gamma = newgamma;
+
+        Parent.WriteLogtoConsole("Setting Gamma to " + newgamma);
+
         this.SendCamVCParameters("set=0/gam:" + this.Gamma + "/pxl:" + this.Blacklevel + "/");
     }
 
     public void SetRecordFormat(RecordFormat newformat) {
         if (newformat == RecordFormat.JPEG) {
+            Parent.WriteLogtoConsole("Setting RecordFormat to " + newformat);
             this.ExecuteCommand("SETCONTAINERFORMATJPEG");
         }
         if (newformat == RecordFormat.MOV) {
+            Parent.WriteLogtoConsole("Setting RecordFormat to " + newformat);
             this.ExecuteCommand("SETCONTAINERFORMATQUICKTIME");
         }
 
@@ -1018,7 +1031,6 @@ public class Camera {
                 this.SendParameter(CameraParameter.JPEGQUAL, value);
                 break;
             case COLORMODE:
-                Parent.WriteLogtoConsole("Setting COLORMODE to " + value);
                 this.SendParameter(CameraParameter.COLORMODE, value);
                 break;
             case FPS:
@@ -1045,13 +1057,17 @@ public class Camera {
     }
 
     public void SetPreset(CameraPreset preset) {
+        Parent.WriteLogtoConsole("Setting ResolutionPreset to " + preset);
+
+        if (Parent.GetNoCameraParameter()) {
+            return;
+        }
         this.Preset = preset;
 
         // Dont apply any settings if its a custom preset
         if (preset == CameraPreset.CUSTOM) {
             return;
         }
-
         String param_url = "";
         try {
 
@@ -1680,7 +1696,7 @@ public class Camera {
     }
 
     private void SendParametertoCamera(String UrlParameter) {
-        if (!Parent.GetNoCameraParameter()) {
+        if (Parent.GetNoCameraParameter()) {
             return;
         }
 
