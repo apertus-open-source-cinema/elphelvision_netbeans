@@ -52,14 +52,6 @@ public class NumericalInputPanelInteger extends javax.swing.JPanel {
         NumberField.getCaret().setVisible(true);
     }
 
-    public void Load(String Varname, float value, JTextField parent, String targetCard) {
-        this.FieldParent = parent;
-        this.VarName.setText(Varname);
-        this.TargetCard = targetCard;
-        this.NumberField.setText(String.valueOf(value));
-
-        NumberField.getCaret().setVisible(true);
-    }
 
     /** This method is called from within the init() method to
      * initialize the form.
@@ -87,7 +79,6 @@ public class NumericalInputPanelInteger extends javax.swing.JPanel {
         NumberPlusTen = new EButton();
         NumberMinusOne = new EButton();
         NumberMinus10 = new EButton();
-        NumberComma = new EButton();
         BackspaceButton = new EButton();
         DelButton = new EButton();
         NumberPanel = new javax.swing.JPanel();
@@ -257,16 +248,6 @@ public class NumericalInputPanelInteger extends javax.swing.JPanel {
             }
         });
 
-        NumberComma.setClickFeedback(true);
-        NumberComma.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
-        NumberComma.setPreferredSize(new java.awt.Dimension(100, 60));
-        NumberComma.setText(".");
-        NumberComma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NumberCommaActionPerformed(evt);
-            }
-        });
-
         BackspaceButton.setClickFeedback(true);
         BackspaceButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         BackspaceButton.setPreferredSize(new java.awt.Dimension(100, 60));
@@ -313,9 +294,7 @@ public class NumericalInputPanelInteger extends javax.swing.JPanel {
                                 .addContainerGap()
                                 .addComponent(Number7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
-                        .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(NumberComma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Number8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Number8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(NumberClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -362,12 +341,10 @@ public class NumericalInputPanelInteger extends javax.swing.JPanel {
                     .addComponent(NumberMinusOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Number7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Number0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(NumberClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(NumberMinus10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(NumberComma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(KeypadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Number0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NumberClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NumberMinus10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -680,10 +657,6 @@ public class NumericalInputPanelInteger extends javax.swing.JPanel {
         NumberField.setText(String.valueOf(temp));
     }//GEN-LAST:event_NumberMinus10ActionPerformed
 
-    private void NumberCommaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumberCommaActionPerformed
-        NumberField.setText(NumberField.getText() + ".");
-    }//GEN-LAST:event_NumberCommaActionPerformed
-
     private void LeftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LeftButtonActionPerformed
         NumberField.setCaretPosition(NumberField.getCaretPosition() - 1);
         NumberField.getCaret().setVisible(true);
@@ -711,7 +684,6 @@ public class NumericalInputPanelInteger extends javax.swing.JPanel {
     private EButton Number8;
     private EButton Number9;
     private EButton NumberClear;
-    private EButton NumberComma;
     private javax.swing.JTextField NumberField;
     private EButton NumberMinus10;
     private EButton NumberMinusOne;

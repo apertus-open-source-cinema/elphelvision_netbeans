@@ -43,15 +43,6 @@ public class NumericalInputPanelFloat extends javax.swing.JPanel {
         }
     }
 
-    public void Load(String Varname, int value, JTextField parent, String targetCard) {
-        this.FieldParent = parent;
-        this.VarName.setText(Varname);
-        this.TargetCard = targetCard;
-        this.NumberField.setText(String.valueOf(value));
-
-        NumberField.getCaret().setVisible(true);
-    }
-
     public void Load(String Varname, float value, JTextField parent, String targetCard) {
         this.FieldParent = parent;
         this.VarName.setText(Varname);
