@@ -85,12 +85,11 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="Gamma" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="Blacklevel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="Blacklevel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Gamma" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                                   <Component id="gammacurve" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
@@ -101,7 +100,7 @@
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="53" max="32767" attributes="0"/>
+                          <EmptySpace pref="41" max="32767" attributes="0"/>
                           <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -429,9 +428,9 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="black_inc" alignment="0" max="32767" attributes="1"/>
-                  <Component id="black_dec" alignment="0" max="32767" attributes="1"/>
-                  <Component id="black_level" alignment="0" max="32767" attributes="1"/>
+                  <Component id="black_inc" alignment="0" pref="127" max="32767" attributes="1"/>
+                  <Component id="black_level" alignment="0" pref="127" max="32767" attributes="1"/>
+                  <Component id="black_dec" alignment="0" pref="127" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -442,6 +441,7 @@
                       <Component id="black_level" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="black_dec" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
