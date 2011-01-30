@@ -46,7 +46,6 @@ public class EButton extends JButton implements java.io.Serializable {
     public static final Color DefaultBackgroundColorGradientEnd = new Color(0, 0, 0);
     public static final Color DefaultBackgroundColorCheckedGradientStart = new Color(200, 200, 200);
     public static final Color DefaultBackgroundColorCheckedGradientEnd = new Color(255, 255, 255);
-    private Color TextColor;
     private Color BorderColor;
     private int CornerRadius = 12;
     private boolean Checked = false;
@@ -54,7 +53,7 @@ public class EButton extends JButton implements java.io.Serializable {
     private String AdditionalValue;
     private boolean ClickFeedback = false;
     private Timer ClickFeedbacktimer;
-    private static final int BLINKING_RATE = 1000; // in ms
+    private static final int BLINKING_RATE = 100; // in ms
 
     public EButton() {
         this.setBorderPainted(false);
@@ -90,18 +89,10 @@ public class EButton extends JButton implements java.io.Serializable {
         return this.BorderColor;
     }
 
-    public void setTextColor(Color newcolor) {
-        this.TextColor = newcolor;
-    }
-
-    public Color getTextColor() {
-        return this.TextColor;
-    }
-
     private void ClickactionPerformed(ActionEvent e) {
         if (ClickFeedback) {
             ClickFeedbacktimer = new Timer(BLINKING_RATE, new TimerListener(this));
-            ClickFeedbacktimer.setInitialDelay(200);
+            ClickFeedbacktimer.setInitialDelay(100);
 
             setChecked(true);
             this.repaint();
@@ -142,20 +133,13 @@ public class EButton extends JButton implements java.io.Serializable {
         return this.AdditionalValue;
     }
 
-    public void setColor(Color newcolor) {
-        //this.ButtonColor = newcolor;
-        this.repaint();
-    }
-
     public void setCornerRadius(int newradius) {
         this.CornerRadius = newradius;
         this.repaint();
     }
-    Color SavedButtonColor = Color.WHITE;
 
     public void setChecked(boolean checked) {
         this.Checked = checked;
-
         this.repaint();
     }
 
@@ -164,8 +148,13 @@ public class EButton extends JButton implements java.io.Serializable {
     }
 
     @Override
-    public void paintComponents(Graphics g) {
-        super.paintComponents(g);
+    public void setForeground(java.awt.Color newcolor) {
+        if (newcolor != null) { // Evil hack to override default colors but maintain custom color settings
+            if ((newcolor.getRed() == 51) && (newcolor.getBlue() == 51) && (newcolor.getGreen() == 51)) {
+                newcolor = DefaultTextColor;
+            }
+        }
+        super.setForeground(newcolor);
     }
 
     @Override
@@ -190,11 +179,11 @@ public class EButton extends JButton implements java.io.Serializable {
 
         // Gradients
         GradientPaint DarkGradient = new GradientPaint(0, 0, DefaultBackgroundColorGradientStart, 0, 25, DefaultBackgroundColorGradientEnd, false);
-        GradientPaint BrightGradient = new GradientPaint(0, 0, DefaultBackgroundColorCheckedGradientStart, 0, 25, DefaultBackgroundColorCheckedGradientEnd, true);
+        GradientPaint CheckedGradient = new GradientPaint(0, 0, DefaultBackgroundColorCheckedGradientStart, 0, 25, DefaultBackgroundColorCheckedGradientEnd, true);
 
         if (this.Checked) {
             // Button Fill
-            g2.setPaint(BrightGradient);
+            g2.setPaint(CheckedGradient);
             g2.fillRoundRect(4, 4, x - 8, y - 8, this.CornerRadius - 4, this.CornerRadius - 4);
             // Button Border
             g2.setPaint(DefaultBorderColorChecked);
@@ -210,23 +199,35 @@ public class EButton extends JButton implements java.io.Serializable {
 
         // Button Text
         if (Checked) {
-            this.setForeground(DefaultTextColorChecked);
             g2.setPaint(DefaultTextColorChecked);
         } else {
-            this.setForeground(TextColor);
-            this.setForeground(Color.WHITE);
-            g2.setPaint(Color.WHITE);
+            g2.setPaint(this.getForeground());
         }
-        //java.awt.Dimension rect = this.getSize();
 
+        //Draw Text
+        FontMetrics fm = g2.getFontMetrics();
+        Rectangle2D area = fm.getStringBounds(this.getText(), g2);
+        int textx = 0, texty = 0;
+        if (this.getHorizontalAlignment() == 0) { // center
+            textx = (int) (getWidth() / 2 - area.getWidth() / 2);
+            texty = (int) (getHeight() / 2 + area.getHeight() / 2 - 2);
+        } else if (this.getHorizontalAlignment() == 2) { // left
+            textx = this.getMargin().left;
+            texty = (int) (getHeight() / 2 + area.getHeight() / 2 - 2);
+        }
+        g2.drawString(this.getText(), textx, texty);
+
+        // Draw the Icon Image
+        if (this.getIcon() != null) {
+            this.getIcon().paintIcon(this, g2, (int) (getWidth() / 2 - this.getIcon().getIconWidth() / 2), (int) (getHeight() / 2 - this.getIcon().getIconHeight() / 2));
+        }
+        //Draw Additional Value
         if (this.AdditionalValue != null) {
-            FontMetrics fm = g.getFontMetrics();
-            Rectangle2D area = fm.getStringBounds(this.AdditionalValue, g2);
-            //g.drawString(str, (int)(getWidth() - area.getWidth())/2,(int)(getHeight() + area.getHeight())/2);
-            //g2.drawString(this.AdditionalValue,  (int)(getWidth() - area.getWidth()), (int)(getHeight() + area.getHeight()));
-            g2.drawString(this.AdditionalValue, (int) (getWidth() - area.getWidth() - 6), 31);
+            Rectangle2D area2 = fm.getStringBounds(this.AdditionalValue, g2);
+            g2.drawString(this.AdditionalValue, (int) (getWidth() - area2.getWidth() - 6), (int) (getHeight() / 2 + area2.getHeight() / 2 - 2));
         }
 
-        super.paint(g);
+        // We do this all ourselves now
+        //super.paint(g);
     }
 }
