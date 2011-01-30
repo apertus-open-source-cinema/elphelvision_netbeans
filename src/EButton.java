@@ -183,7 +183,6 @@ public class EButton extends JButton implements java.io.Serializable {
 
         int border_width = 2;
 
-
         if (this.Checked) {
             // Button Fill
             g2.setPaint(CheckedGradient);
