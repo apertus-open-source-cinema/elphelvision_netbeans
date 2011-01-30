@@ -59,7 +59,7 @@ public class EButton extends JButton implements java.io.Serializable {
         this.setBorderPainted(false);
         this.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
         this.setRolloverEnabled(false);
-        this.setPreferredSize(new Dimension(100, 50));
+        this.setPreferredSize(new Dimension(80, 30));
         this.setContentAreaFilled(false);
         this.setFocusPainted(false);
         this.setMargin(new Insets(0, 0, 0, 0));
@@ -181,20 +181,26 @@ public class EButton extends JButton implements java.io.Serializable {
         GradientPaint DarkGradient = new GradientPaint(0, 0, DefaultBackgroundColorGradientStart, 0, 25, DefaultBackgroundColorGradientEnd, false);
         GradientPaint CheckedGradient = new GradientPaint(0, 0, DefaultBackgroundColorCheckedGradientStart, 0, 25, DefaultBackgroundColorCheckedGradientEnd, true);
 
+        int border_width = 2;
+
+
         if (this.Checked) {
             // Button Fill
             g2.setPaint(CheckedGradient);
             g2.fillRoundRect(4, 4, x - 8, y - 8, this.CornerRadius - 4, this.CornerRadius - 4);
             // Button Border
             g2.setPaint(DefaultBorderColorChecked);
-            g2.drawRoundRect(1, 1, x - 2, y - 2, this.CornerRadius, this.CornerRadius);
+            g2.setStroke(new BasicStroke(2));
+            g2.drawRoundRect(border_width, border_width, x - 2 * border_width, y - 2 * border_width, this.CornerRadius, this.CornerRadius);
+            //g2.drawRoundRect(border_width - 1, border_width - 1, x - 2 * (border_width - 1), y - 2 * (border_width - 1), this.CornerRadius, this.CornerRadius);
         } else {
             // Button Fill
             g2.setPaint(DarkGradient);
             g2.fillRoundRect(0, 0, x, y, this.CornerRadius, this.CornerRadius);
             // Button Border
             g2.setPaint(DefaultBorderColor);
-            g2.drawRoundRect(1, 1, x - 2, y - 2, this.CornerRadius, this.CornerRadius);
+            g2.setStroke(new BasicStroke(0.5f));
+            g2.drawRoundRect(border_width - 1, border_width - 1, x - 2 * (border_width - 1), y - 2 * (border_width - 1), this.CornerRadius, this.CornerRadius);
         }
 
         // Button Text
