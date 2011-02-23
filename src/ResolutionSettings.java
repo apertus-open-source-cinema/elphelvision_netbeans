@@ -30,7 +30,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
         Parent = parent;
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable() {
+            java.awt.EventQueue.invokeAndWait(new Runnable()  {
 
                 public void run() {
                     initComponents();
@@ -42,7 +42,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
     }
 
     public void Load() {
-       
+
         WidthField.setText(Integer.toString(Parent.Camera.GetImageWidth()));
         HeightField.setText(Integer.toString(Parent.Camera.GetImageHeight()));
 
@@ -446,15 +446,11 @@ public class ResolutionSettings extends javax.swing.JPanel {
             Logger.getLogger(ResolutionSettings.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.StartVideoPlayer();
+        Parent.LoadMainCard();
     }//GEN-LAST:event_SettingsOKButtonActionPerformed
 
     private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
-        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.StartVideoPlayer();
+        Parent.LoadMainCard();
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void UpdateWidthLabel() {

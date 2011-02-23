@@ -58,7 +58,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     int HistogramFPS = 15;
     JPanel CardManager;
     ConnectLayout ConnectCardLayout;
-    MainLayout MaincardLayout;
+    MainLayoutGST MaincardLayoutGST;
+    MainLayoutVLC MaincardLayoutVLC;
     Settings1Layout Settings1CardLayout;
     Settings2Layout Settings2CardLayout;
     Settings3Layout Settings3CardLayout;
@@ -69,7 +70,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     GuidesLayout GuidesPanel;
     PlaybackLayout PlaybackCardLayout;
     PhotoSettingsLayout PhotoSettingsCardLayout;
-    String AppVersion = "0.4";
+    String AppVersion = "0.5";
     static boolean WindowDecorations = false;
     static boolean NoCameraParameter = false;
     Utils Utils;
@@ -79,14 +80,13 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         ProcessArgs(args);
 
         Frame f = new Frame();
-        f.addWindowListener(new java.awt.event.WindowAdapter() {
+        f.addWindowListener(new java.awt.event.WindowAdapter()                           {
 
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 System.exit(0);
             }
-
-            ;
+        ;
         });
 
         ElphelVision EV = new ElphelVision();
@@ -111,7 +111,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         System.out.println("=====================================================");
         SetConsoleColor(Color.CYAN);
         System.out.println(" ElphelVision - Apertus Viewfinder Software");
-        System.out.println(" http://apertus.org");
+        System.out.println(" http://www.apertus.org");
         System.out.println(" Version: " + this.GetAppVersion());
         SetConsoleColor(Color.WHITE);
         System.out.println("=====================================================");
@@ -119,7 +119,6 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         if (NoCameraParameter) {
             System.out.println("Starting without a connected camera...");
         }
-
 
         Utils = new Utils();
         TestGraphicCapability();
@@ -188,20 +187,20 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         if (NoCameraParameter) {
             VLCPlayer.PlayLocalVideoFile("test.avi");
         } else {
-            if (Settings.GetVideoPlayer() == VideoPlayer.GSTREAMER) {
-                //GstreamerPlayer.PlayVideoStream();
+            if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
+                GstreamerPlayer.PlayVideoStream();
             }
-            if (Settings.GetVideoPlayer() == VideoPlayer.VLC) {
+            if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
                 VLCPlayer.PlayVideoStream();
             }
         }
     }
 
     public void StopVideoPlayer() {
-        if (Settings.GetVideoPlayer() == VideoPlayer.GSTREAMER) {
-            //GstreamerPlayer.close();
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
+            GstreamerPlayer.close();
         }
-        if (Settings.GetVideoPlayer() == VideoPlayer.VLC) {
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
             VLCPlayer.close();
         }
     }
@@ -311,41 +310,20 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     public JPanel GetCardManager() {
         return this.CardManager;
     }
-    /*
-    public void StartMplayerVideoStream() {
-    try {
-    String mplayerOptions = null;
-    if (Settings.GetOS() == OStype.Linux) {
-    //mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo x11:ck-method=auto -colorkey 0x404040 -wid " + MaincardLayout.getWinID();
-    mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo xv -zoom -colorkey 0x404040";
-    Settings.SetMplayerParameters(mplayerOptions);
-    }
-    if (Settings.GetOS() == OStype.Windows) {
-    mplayerOptions = " -slave -idle -lavdopts skipframe=nonref:skiploopfilter=all -benchmark -vo directx -colorkey 0x404040";
-    Settings.SetMplayerParameters(mplayerOptions);
-    MaincardLayout.getWinID();
-    }
-    Player.open("rtsp://" + Camera.GetIP() + ":554", Settings.GetMplayerParameters() + " -wid " + MaincardLayout.getWinID(), Settings.GetMplayerPath());
-    } catch (IOException e) {
-    // TODO Auto-generated catch block
-    e.printStackTrace();
-    }
-    }
-     * */
 
     public String GetAppVersion() {
         return AppVersion;
     }
 
     public void start() {
-        //super.start();
 
         if (!NoCameraParameter) {
+            // Start Threads if we are not running with nocamera parameter
             ReadCameraDataAnimator = new Thread(this);
             HistogramAnimator = new Thread(this);
             InfoAreaAnimator = new Thread(this);
-
         }
+
         //Init everything
         Camera = new Camera(this);
         Settings = new UserSettings();
@@ -357,22 +335,22 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             Settings.SetOS(OStype.Linux);
         }
 
-        /* // TODO adapt for other video players
-        if (!Settings.CheckMplayerInstallation()) {
-        JOptionPane.showMessageDialog(this, "Mplayer was not detected!");
-        }
-         */
+        //TODO check if video players are installed and at proper version
 
         // global applet settings
         setSize(1024, 600);
         setBackground(Color.black);
         setLayout(new BorderLayout());
 
+        GstreamerPlayer = new GstreamerPlayer(this);
+        VLCPlayer = new VLCPlayer(this);
+
         //Create the panel that contains the "cards".
         CardManager = new JPanel(new CardLayout());
 
         ConnectCardLayout = new ConnectLayout(this);
-        MaincardLayout = new MainLayout(this);
+        MaincardLayoutGST = new MainLayoutGST(this);
+        MaincardLayoutVLC = new MainLayoutVLC(this);
         Settings1CardLayout = new Settings1Layout(this);
         Settings2CardLayout = new Settings2Layout(this);
         Settings3CardLayout = new Settings3Layout(this);
@@ -385,7 +363,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         PhotoSettingsCardLayout = new PhotoSettingsLayout(this);
 
         CardManager.add(ConnectCardLayout, "ConnectCard");
-        CardManager.add(MaincardLayout, "MainCard");
+        CardManager.add(MaincardLayoutGST, "MainCardGST");
+        CardManager.add(MaincardLayoutVLC, "MainCardVLC");
         CardManager.add(Settings1CardLayout, "Settings1Card");
         CardManager.add(Settings2CardLayout, "Settings2Card");
         CardManager.add(Settings3CardLayout, "Settings3Card");
@@ -398,12 +377,27 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         CardManager.add(PhotoSettingsCardLayout, "PhotoSettings");
 
         add(CardManager);
+    }
 
-        if (Settings.GetVideoPlayer() == VideoPlayer.GSTREAMER) {
-            //GstreamerPlayer = new GstreamerPlayer(this);
+    public void LoadMainCard() {
+        CardLayout cl = (CardLayout) (GetCardManager().getLayout());
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
+            MaincardLayoutGST.Load();
+            cl.show(GetCardManager(), "MainCardGST");
         }
-        if (Settings.GetVideoPlayer() == VideoPlayer.VLC) {
-            VLCPlayer = new VLCPlayer(this);
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+            MaincardLayoutVLC.Load();
+            cl.show(GetCardManager(), "MainCardVLC");
+        }
+        StartVideoPlayer();
+    }
+
+    public void UpdateOverlayPosition() {
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
+            MaincardLayoutGST.UpdateOverlayPosition();
+        }
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+            MaincardLayoutVLC.UpdateOverlayPosition();
         }
     }
 
@@ -468,8 +462,15 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
                 while (Thread.currentThread() == HistogramAnimator) {
                     if (Camera != null) {
                         Camera.ReadHistogram();
-                        if (MaincardLayout != null) {
-                            MaincardLayout.RedrawHistogram();
+                        if (MaincardLayoutGST != null) {
+                            if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
+                                MaincardLayoutGST.RedrawHistogram();
+                            }
+                        }
+                        if (MaincardLayoutVLC != null) {
+                            if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+                                MaincardLayoutVLC.RedrawHistogram();
+                            }
                         }
                     }
                     try {
@@ -503,7 +504,13 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     Style StyleNormal = null;
 
     public void InitInfoArea() {
-        StyledDocument doc = (StyledDocument) MaincardLayout.GetInfoTextPane().getDocument();
+        StyledDocument doc = null;
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
+            doc = (StyledDocument) MaincardLayoutGST.GetInfoTextPane().getDocument();
+        }
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+            doc = (StyledDocument) MaincardLayoutVLC.GetInfoTextPane().getDocument();
+        }
         StyleRed = doc.addStyle("RedNotice", null);
         StyleConstants.setForeground(StyleRed, Color.red);
         StyleConstants.setBold(StyleRed, true);
@@ -517,10 +524,17 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     }
 
     public void UpdateInfoArea() {
-        StyledDocument doc = (StyledDocument) MaincardLayout.GetInfoTextPane().getDocument();
-
-        // Clear content
-        MaincardLayout.GetInfoTextPane().setText("");
+        StyledDocument doc = null;
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
+            doc = (StyledDocument) MaincardLayoutGST.GetInfoTextPane().getDocument();
+            // Clear content
+            MaincardLayoutGST.GetInfoTextPane().setText("");
+        }
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+            doc = (StyledDocument) MaincardLayoutVLC.GetInfoTextPane().getDocument();
+            // Clear content
+            MaincardLayoutVLC.GetInfoTextPane().setText("");
+        }
 
         String CameraInfo = "";
         if ((Camera.GetImageWidth() == 1920) && (Camera.GetImageHeight() == 1088)) {
@@ -530,7 +544,6 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         if ((Camera.GetImageWidth() == 1280) && (Camera.GetImageHeight() == 720)) {
             CameraInfo = "720p ";
         }
-
         CameraInfo += "(" + Camera.GetImageWidth() + "x" + Camera.GetImageHeight() + ")";
         CameraInfo += "    ";
 
@@ -541,11 +554,9 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         } else {
             CameraInfo += Camera.GetFPS() + "fps";
         }
-
         CameraInfo += "    ";
         CameraInfo += "JPEG: " + Camera.GetImageJPEGQuality() + "%";
         CameraInfo += "    ";
-
         CameraInfo += "WB: " + Camera.GetWhiteBalance().toString();
         CameraInfo += "    ";
 
@@ -567,9 +578,17 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         }
         CameraInfo = "";
         CameraInfo += "    ";
+
+
         if (Camera.GetFreeHDDSpace() == -1) {
             CameraInfo += "HDD: not found"; // No HDD attached/detected
-            MaincardLayout.EnableRecord(false); // disable Rec Button
+            if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
+                MaincardLayoutGST.EnableRecord(false); // disable Rec Button
+            }
+            if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+                MaincardLayoutVLC.EnableRecord(false); // disable Rec Button
+            }
+
             try {
                 doc.insertString(doc.getLength(), CameraInfo, StyleRed);
             } catch (BadLocationException ex) {
@@ -577,9 +596,6 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             }
         } else {
             CameraInfo += "HDD: " + Camera.GetFreeHDDRatio() + "% free";
-            if (!MaincardLayout.GetRecordEnabled()) {
-                MaincardLayout.EnableRecord(true);
-            }
             try {
                 doc.insertString(doc.getLength(), CameraInfo, StyleNormal);
             } catch (BadLocationException ex) {
@@ -588,7 +604,10 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         }
         CameraInfo = "";
         CameraInfo += "    ";
-        if (Camera.GetCamogmState() == CamogmState.RECORDING) {
+
+
+        if (Camera.GetCamogmState()
+                == CamogmState.RECORDING) {
             CameraInfo += "Recording (frame#): " + Camera.GetRecordedFramesCount();
             CameraInfo += "    ";
             CameraInfo += "Datarate: " + Camera.GetDatarate() + " MBit/s";
@@ -602,6 +621,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         } else {
             CameraInfo += "STOPPED";
         }
+
+
 
         try {
             doc.insertString(doc.getLength(), CameraInfo, StyleNormal);

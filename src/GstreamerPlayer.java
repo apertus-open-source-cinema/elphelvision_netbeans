@@ -18,41 +18,54 @@
  *!
 -----------------------------------------------------------------------------**/
 
-import java.awt.Canvas;
-import java.io.File;
-import javax.swing.JFrame;
-import org.gstreamer.Caps;
+import java.awt.Dimension;
+import org.gstreamer.elements.PlayBin;
+import org.gstreamer.swing.VideoComponent;
 import org.gstreamer.Element;
-import org.gstreamer.ElementFactory;
 import org.gstreamer.Gst;
 import org.gstreamer.Pipeline;
 import org.gstreamer.State;
-import org.gstreamer.elements.PlayBin;
-import org.gstreamer.swing.VideoComponent;
 
 public class GstreamerPlayer {
 
     private ElphelVision Parent;
-    private PlayBin playbin;
-    private Pipeline pipe;
-    private Element videosrc;
-    private Element videofilter;
-    private Element videosink;
     private String[] args;
     private VideoComponent videoComponent;
+    private Pipeline pipe;
+    //private VideoPlayer GSTPlayer;
 
     GstreamerPlayer(ElphelVision parent) {
         this.Parent = parent;
 
+
+        args = new String[2];
+        args[1] = "";
+        args[0] = "";/*
+        //args[0] = "rtsp://127.0.0.1:554";
+        args[0] = "rtsp://192.168.10.141:554";
+        //args[0] = "rtsp://" + Parent.Camera.GetIP() + ":554";
+        args[1] = "";
+         */
+        args = Gst.init("Test Player", args);
+
+        videoComponent = new VideoComponent();
+        videoComponent.setPreferredSize(new Dimension(850, 480));
+
+        //GSTPlayer = new VideoPlayer(args[0]);
+
+        /*
+        
         args = new String[2];
         args[0] = "";
         args[1] = "";
-
-        //args = Gst.init("GstreamerVideoPlayer", args);
+        
+        args = Gst.init("GstreamerVideoPlayer", args);
+         * 
+         */
     }
 
-    public void close() {
-        //mediaPlayer.stop();
+    public VideoComponent GetGSTVideoComponent() {
+        return videoComponent;
     }
 
     public void SetVideocomponent(VideoComponent newcomponent) {
@@ -66,25 +79,79 @@ public class GstreamerPlayer {
         //mediaPlayer.setScale(factor);
     }
 
-    public void PlayVideoStream() {
+    public void close() {
+        Parent.WriteLogtoConsole("Stopping Gstreamer Video Player");
+        pipe.setState(State.NULL);
+        pipe = null;
+    }
 
-        String rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP() + ":554 latency=30 ! rtpjpegdepay ! jpegdec name=elphelstream";
+    public void PlayVideoStream() {
+        /*
+        final List<URI> playList = new LinkedList<URI>();
+        for (String arg : args) {
+        playList.add(new File(arg).toURI());
+        }
+        
+        GSTPlayer.setPreferredSize(new Dimension(640, 480));
+        GSTPlayer.setControlsVisible(false);
+        //player.setKeepAspect(true);
+        GSTPlayer.getMediaPlayer().setPlaylist(playList);
+        GSTPlayer.getMediaPlayer().play();
+        
+         */
+
+        //GstreamerPlayer.SetVideocomponent(GstreamerVideoComponent);
+        String rtspsource = "";
+        if (Parent.Camera.GetColorMode() == ColorMode.RGB) {
+            rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP() + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec name=elphelstream";
+        } else if (Parent.Camera.GetColorMode() == ColorMode.JP46) {
+            rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP() + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! jp462bayer ! queue ! bayer2rgb2 method=0 name=elphelstream";
+        } else {
+            //TODO in this mode we dont see anything from the non-jpeg compliant stream so the jp46 filter wont help, but what else should we show?
+            rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP() + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! jp462bayer ! queue ! bayer2rgb2 method=0 name=elphelstream";
+        }
+        
+        //LUT
+        //gst-launch rtspsrc location=rtsp://192.168.10.141:554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! ffmpegcolorspace ! videorate ! coloreffects preset=heat ! ffmpegcolorspace ! autovideosink -v
+        
+        //edge detection: 
+        //gst-launch rtspsrc location=rtsp://192.168.10.141:554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! ffmpegcolorspace ! videorate ! edgetv ! ffmpegcolorspace ! autovideosink -v
+
+        // kind of scopes
+//        gst-launch rtspsrc location=rtsp://192.168.10.141:554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! ffmpegcolorspace ! videorate ! revtv ! ffmpegcolorspace ! autovideosink -v
+
+
         pipe = Pipeline.launch(rtspsource);
 
-        //pipe = new Pipeline("GstreamerViewer");
+        videoComponent.setKeepAspect(true);
+        Element videosink = videoComponent.getElement();
+        pipe.add(videosink);
+        pipe.getElementByName("elphelstream").link(videosink);
 
+        pipe.setState(State.PLAYING);
+
+
+        //Gst.main();
+        //pipe.setState(State.NULL);
+    /*
+        
+        String rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP() + ":554 latency=30 ! rtpjpegdepay ! jpegdec name=elphelstream";
+        pipe = Pipeline.launch(rtspsource);
+        
+        //pipe = new Pipeline("GstreamerViewer");
+        
         //videosrc = ElementFactory.make("videotestsrc", "source");
         //videosrc = ElementFactory.make("rtspsource ", "source");
         ///videosrc.setCaps(Caps.fromString("location=rtsp://192.168.10.141:554 latency=30"));
         //Element rtpjpegdepay = ElementFactory.make("rtpjpegdepay", "rtpjpegdepay");
         //Element jpegdec = ElementFactory.make("jpegdec", "jpegdec");
-
-        //videosink = ElementFactory.make("xvimagesink", "sink");
-
-        Element videosink = videoComponent.getElement();
+        
+        Element videosink = ElementFactory.make("xvimagesink", "sink");
+        
+        //Element videosink = videoComponent.getElement();
         pipe.add(videosink);
         pipe.getElementByName("elphelstream").link(videosink);
-
+        
         //playbin.setInputFile(new File(args[0]));
         //pipe.addMany(videosrc, rtpjpegdepay, jpegdec, videosink);
         //videosrc.link(videosink);
@@ -92,17 +159,16 @@ public class GstreamerPlayer {
         pipe.setState(State.PLAYING);
         Gst.main();
         pipe.setState(State.NULL);
-
-
+        
+        
         //gst-launch rtspsrc location=rtsp://192.168.10.141:554 latency=30 ! rtpjpegdepay ! jpegdec ! xvimagesink
-
+        
         //VideoComponent videoComponent = new VideoComponent();
         //videosink = videoComponent.getElement();
         //playbin.setVideoSink(videosink);
-
-
-        //Element.linkMany(videosrc, videosink);
-
+        
+        
+        //Element.linkMany(videosrc, videosink);*/
     }
 
     /*public void Overlay(Window overlay) {

@@ -58,6 +58,7 @@ public class VLCPlayer {
     }
 
     public void close() {
+        Parent.WriteLogtoConsole("Stopping VLC Player");
         mediaPlayer.stop();
     }
 

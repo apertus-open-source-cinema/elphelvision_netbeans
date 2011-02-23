@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
@@ -42,10 +42,10 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="PhotoSettings" min="-2" max="-2" attributes="0"/>
+                      <Component id="PhotoSettings" alignment="0" min="-2" pref="477" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="NavigationPanel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="132" max="32767" attributes="0"/>
+                          <EmptySpace pref="330" max="32767" attributes="0"/>
                           <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -57,13 +57,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="ConfirmationPanel" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="PhotoSettings" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="241" max="-2" attributes="0"/>
-                          <Component id="NavigationPanel1" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Component id="PhotoSettings" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="306" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="ConfirmationPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="NavigationPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -115,15 +113,15 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="SettingsMenu1Button1" min="-2" pref="135" max="-2" attributes="0"/>
+                      <Component id="SettingsMenu1Button1" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="SettingsMenu2Button1" min="-2" pref="136" max="-2" attributes="0"/>
+                      <Component id="SettingsMenu2Button1" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="SettingsMenu3Button" min="-2" pref="135" max="-2" attributes="0"/>
+                      <Component id="SettingsMenu3Button" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="GuidesMenuButton1" min="-2" pref="136" max="-2" attributes="0"/>
+                      <Component id="GuidesMenuButton1" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="PhotoSettingsMenu" min="-2" pref="136" max="-2" attributes="0"/>
+                      <Component id="PhotoSettingsMenu" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -174,8 +172,8 @@
             </Component>
             <Component class="EButton" name="PhotoSettingsMenu">
               <Properties>
-                <Property name="checked" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Photo Settings"/>
+                <Property name="checked" type="boolean" value="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PhotoSettingsMenuActionPerformed"/>
@@ -203,30 +201,33 @@
                               </Group>
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="PhotoQualityField" pref="100" max="32767" attributes="1"/>
-                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="ResolutionFull" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="ResolutionAsVideo" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="ColorModeRGB" min="-2" max="-2" attributes="1"/>
-                                  <Component id="ResolutionFull" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="ResolutionAsVideo" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ColorModeJP4" min="-2" max="-2" attributes="0"/>
-                                  <Component id="PhotoQualityType" min="-2" pref="60" max="-2" attributes="1"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="PhotoQualityField" alignment="1" max="32767" attributes="1"/>
+                                          <Component id="ColorModeRGB" alignment="1" max="32767" attributes="1"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="PhotoQualityType" min="-2" max="-2" attributes="1"/>
+                                          <Component id="ColorModeJP4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="StillsWhileRecAllow" min="-2" max="-2" attributes="1"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="StillsWhileRecDisable" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -234,21 +235,21 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="ResolutionAsVideo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ResolutionFull" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ResolutionAsVideo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="ColorModeJP4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ColorModeRGB" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ColorModeJP4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="MovieSplitSizeLabel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="PhotoQualityType" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="PhotoQualityField" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="PhotoQualityType" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -258,7 +259,7 @@
                               <Component id="StillsWhileRecDisable" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="46" max="32767" attributes="0"/>
+                      <EmptySpace pref="47" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -326,10 +327,10 @@
             </Component>
             <Component class="EButton" name="PhotoQualityType">
               <Properties>
+                <Property name="text" type="java.lang.String" value="type"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="DejaVu Sans" size="10" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="type"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PhotoQualityTypeActionPerformed"/>
@@ -383,9 +384,6 @@
             </Component>
             <Component class="EButton" name="StillsWhileRecAllow">
               <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="default"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Allow"/>
               </Properties>
               <Events>
@@ -394,9 +392,6 @@
             </Component>
             <Component class="EButton" name="StillsWhileRecDisable">
               <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="default"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Disable"/>
               </Properties>
               <Events>

@@ -22,7 +22,7 @@ enum OStype {
     Windows, Linux
 }
 
-enum VideoPlayer {
+enum streamVideoPlayer {
 
     VLC, GSTREAMER
 }
@@ -34,17 +34,17 @@ enum VideoPlayer {
 public class UserSettings {
 
     private OStype OS = null;
-    private VideoPlayer Videoplayer = VideoPlayer.VLC;
+    private streamVideoPlayer StreamVideoPlayer = streamVideoPlayer.VLC;
 
     UserSettings() {
     }
 
-    public void SetVideoPlayer(VideoPlayer input) {
-        this.Videoplayer = input;
+    public void SetVideoPlayer(streamVideoPlayer input) {
+        this.StreamVideoPlayer = input;
     }
 
-    public VideoPlayer GetVideoPlayer() {
-        return this.Videoplayer;
+    public streamVideoPlayer GetVideoPlayer() {
+        return this.StreamVideoPlayer;
     }
 
     public void SetOS(OStype input) {

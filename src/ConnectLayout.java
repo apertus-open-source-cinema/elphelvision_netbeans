@@ -18,33 +18,56 @@
  *!
 -----------------------------------------------------------------------------**/
 
+import com.sun.opengl.util.Animator;
 import java.awt.CardLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.media.opengl.GLCapabilities;
+import javax.media.opengl.GLJPanel;
 
 public class ConnectLayout extends javax.swing.JPanel {
 
-    ElphelVision Parent;
+    private ElphelVision Parent;
+    private Animator IntroAnimator;
 
     public ConnectLayout(ElphelVision parent) {
+
         Parent = parent;
 
-        //Title.setText("Elphel Vision Alpha V" + Parent.GetAppVersion());
+
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable() {
+            java.awt.EventQueue.invokeAndWait(new Runnable()         {
 
                 public void run() {
                     initComponents();
+
+                    Title.setText("Elphel Vision Alpha");
+                    if (Parent.Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+                        VLCButton.setChecked(true);
+                        GstreamerButton.setChecked(false);
+                    }
+                    if (Parent.Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
+                        VLCButton.setChecked(false);
+                        GstreamerButton.setChecked(true);
+                    }
+
+                    //Title.setText("Elphel Vision Alpha V" + Parent.GetAppVersion());
+//                    AnimationPanel.addGLEventListener(new JoglIntroAnimation());
+                    //                  IntroAnimator = new Animator(AnimationPanel);
+                    //                IntroAnimator.start();
                 }
             });
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
         Parent.WriteLogtoConsole("Looking for autosave.config to read IP");
         File AutoSaveFile = new File("autosave.config");
+
+
         if (AutoSaveFile.exists()) {
             try {
                 CameraIP.setText(Parent.Camera.ReadConfigFileIP("autosave.config"));
@@ -68,6 +91,29 @@ public class ConnectLayout extends javax.swing.JPanel {
             }
 
         }
+    }
+
+    /*    @Override
+    public void setVisible(boolean show) {
+    if (!show) {
+    IntroAnimator.stop();
+    }
+    super.setVisible(show);
+    if (show) {
+    IntroAnimator.start();
+    }
+    }
+     */
+    private GLCapabilities createGLCapabilites() {
+
+        GLCapabilities capabilities = new GLCapabilities();
+        capabilities.setHardwareAccelerated(true);
+
+        // try to enable 2x anti aliasing - should be supported on most hardware
+        capabilities.setNumSamples(2);
+        capabilities.setSampleBuffers(true);
+
+        return capabilities;
     }
 
     /** This method is called from within the init() method to
@@ -98,16 +144,17 @@ public class ConnectLayout extends javax.swing.JPanel {
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setForeground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
+        bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(1, 1, 1));
 
-        Title.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Title.setFont(new java.awt.Font("Tahoma", 0, 14));
         Title.setForeground(new java.awt.Color(255, 255, 255));
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Title.setText("Elphel Vision Alpha  V0.4");
 
         Image.setBackground(new java.awt.Color(0, 0, 0));
-        Image.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Image.setFont(new java.awt.Font("Tahoma", 0, 14));
         Image.setForeground(new java.awt.Color(255, 255, 255));
         Image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/apertus.png"))); // NOI18N
@@ -116,16 +163,23 @@ public class ConnectLayout extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-            .addComponent(Image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(345, 345, 345)
+                .addComponent(Image)
+                .addContainerGap(353, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(Image)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        bg.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, -1, 260));
 
         ConnectPanel.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -139,7 +193,7 @@ public class ConnectLayout extends javax.swing.JPanel {
 
         CameraIP.setText("192.168.0.9");
 
-        InfoArea1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        InfoArea1.setFont(new java.awt.Font("Tahoma", 0, 14));
         InfoArea1.setForeground(new java.awt.Color(255, 255, 255));
         InfoArea1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         InfoArea1.setText("Camera IP: ");
@@ -160,7 +214,7 @@ public class ConnectLayout extends javax.swing.JPanel {
         });
 
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("<- dont use Gstreamer yet");
+        jLabel1.setText("Gstreamer is experimental");
 
         javax.swing.GroupLayout ConnectPanelLayout = new javax.swing.GroupLayout(ConnectPanel);
         ConnectPanel.setLayout(ConnectPanelLayout);
@@ -193,6 +247,8 @@ public class ConnectLayout extends javax.swing.JPanel {
                     .addComponent(jLabel1)))
         );
 
+        bg.add(ConnectPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, -1, -1));
+
         ExitBUtton.setForeground(new java.awt.Color(217, 2, 2));
         ExitBUtton.setText("Exit");
         ExitBUtton.addActionListener(new java.awt.event.ActionListener() {
@@ -200,41 +256,13 @@ public class ConnectLayout extends javax.swing.JPanel {
                 ExitBUttonActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
-        bg.setLayout(bgLayout);
-        bgLayout.setHorizontalGroup(
-            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bgLayout.createSequentialGroup()
-                .addContainerGap(337, Short.MAX_VALUE)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(345, 345, 345))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addComponent(ExitBUtton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(273, 273, 273))))
-        );
-        bgLayout.setVerticalGroup(
-            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bgLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(ConnectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addComponent(ExitBUtton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        bg.add(ExitBUtton, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 540, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,10 +292,18 @@ public class ConnectLayout extends javax.swing.JPanel {
                     } else {
                         Parent.WriteWarningtoConsole("HDD detection failed");
                     }
-                    Parent.WriteLogtoConsole("Loading Main Window");
-                    Parent.MaincardLayout.Load();
-                    CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
-                    cl.show(Parent.CardManager, "MainCard");
+                    if (VLCButton.getChecked()) {
+                        Parent.WriteLogtoConsole("Loading Main Window with VLC Player");
+                        Parent.MaincardLayoutVLC.Load();
+                        CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
+                        cl.show(Parent.CardManager, "MainCardVLC");
+                    }
+                    if (GstreamerButton.getChecked()) {
+                        Parent.WriteLogtoConsole("Loading Main Window with Gstreamer");
+                        Parent.MaincardLayoutGST.Load();
+                        CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
+                        cl.show(Parent.CardManager, "MainCardGST");
+                    }
                 } else {
                     Parent.WriteErrortoConsole("ConnectButtonActionPerformed() Connecting to: " + CameraIP.getText() + " failed");
                 }
@@ -275,10 +311,11 @@ public class ConnectLayout extends javax.swing.JPanel {
                 Parent.WriteErrortoConsole("ConnectButtonActionPerformed() Connecting failed: " + e.getMessage());
             }
         } else {
-            Parent.WriteLogtoConsole("Loading Main Window");
-            Parent.MaincardLayout.Load();
+            // no camera connected
+            Parent.WriteLogtoConsole("Loading Main Window without connected camera");
+            Parent.MaincardLayoutVLC.Load();
             CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
-            cl.show(Parent.CardManager, "MainCard");
+            cl.show(Parent.CardManager, "MainCardVLC");
         }
 
 
@@ -291,13 +328,13 @@ public class ConnectLayout extends javax.swing.JPanel {
     private void GstreamerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GstreamerButtonActionPerformed
         VLCButton.setChecked(false);
         GstreamerButton.setChecked(true);
-        Parent.Settings.SetVideoPlayer(VideoPlayer.GSTREAMER);
+        Parent.Settings.SetVideoPlayer(streamVideoPlayer.GSTREAMER);
     }//GEN-LAST:event_GstreamerButtonActionPerformed
 
     private void VLCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VLCButtonActionPerformed
         VLCButton.setChecked(true);
         GstreamerButton.setChecked(false);
-        Parent.Settings.SetVideoPlayer(VideoPlayer.VLC);
+        Parent.Settings.SetVideoPlayer(streamVideoPlayer.VLC);
     }//GEN-LAST:event_VLCButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CameraIP;

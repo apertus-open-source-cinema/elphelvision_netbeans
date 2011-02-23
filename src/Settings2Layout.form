@@ -43,28 +43,31 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Component id="Gamma" min="-2" max="-2" attributes="1"/>
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Component id="Blacklevel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="gammacurve" alignment="0" min="-2" pref="274" max="-2" attributes="1"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="gammacurve" min="-2" pref="274" max="-2" attributes="1"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="GammaPresets" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                                   <Component id="VideoFrame" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="56" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="NavigationPanel" min="-2" pref="726" max="-2" attributes="0"/>
+                          <EmptySpace pref="76" max="32767" attributes="0"/>
                           <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -77,32 +80,27 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="VideoFrame" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="254" max="32767" attributes="0"/>
-                          <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="Blacklevel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="Gamma" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                  <Component id="gammacurve" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="GammaPresets" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                      <Component id="VideoFrame" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="Blacklevel" min="0" pref="114" max="32767" attributes="1"/>
+                              <Component id="Gamma" alignment="0" max="32767" attributes="1"/>
                           </Group>
-                          <EmptySpace pref="41" max="32767" attributes="0"/>
-                          <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="gammacurve" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="GammaPresets" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="158" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
+                      <Component id="NavigationPanel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -121,15 +119,15 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="SettingsMenu1Button" min="-2" pref="135" max="-2" attributes="0"/>
+                      <Component id="SettingsMenu1Button" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="SettingsMenu2Button" min="-2" pref="136" max="-2" attributes="0"/>
+                      <Component id="SettingsMenu2Button" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="SettingsMenu3Button" min="-2" pref="135" max="-2" attributes="0"/>
+                      <Component id="SettingsMenu3Button" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="GuidesMenuButton" min="-2" pref="136" max="-2" attributes="0"/>
+                      <Component id="GuidesMenuButton" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="PhotoSettingsMenu" min="-2" pref="136" max="-2" attributes="0"/>
+                      <Component id="PhotoSettingsMenu" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -156,8 +154,8 @@
             </Component>
             <Component class="EButton" name="SettingsMenu2Button">
               <Properties>
-                <Property name="checked" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Settings Tab 2"/>
+                <Property name="checked" type="boolean" value="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu2ButtonActionPerformed"/>
@@ -296,13 +294,13 @@
             </Component>
             <Component class="EButton" name="gamma">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Gamma"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="horizontalTextPosition" type="int" value="2"/>
                 <Property name="iconTextGap" type="int" value="0"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 5, 0, 0]"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Gamma"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gammaActionPerformed"/>
@@ -328,11 +326,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" alignment="0" pref="100" max="32767" attributes="1"/>
-                  <Component id="gammapreset_cine1" alignment="0" max="32767" attributes="1"/>
-                  <Component id="gammapreset_linear" alignment="0" max="32767" attributes="1"/>
-                  <Component id="gammapreset_cine2" alignment="0" max="32767" attributes="1"/>
-                  <Component id="gammapreset_cines" alignment="0" max="32767" attributes="1"/>
+                  <Component id="jLabel1" alignment="0" pref="71" max="32767" attributes="1"/>
+                  <Component id="gammapreset_cine1" alignment="0" pref="71" max="32767" attributes="1"/>
+                  <Component id="gammapreset_linear" alignment="0" pref="71" max="32767" attributes="1"/>
+                  <Component id="gammapreset_cine2" alignment="0" pref="71" max="32767" attributes="1"/>
+                  <Component id="gammapreset_cines" alignment="0" pref="71" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -428,9 +426,9 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="black_inc" alignment="0" pref="127" max="32767" attributes="1"/>
-                  <Component id="black_level" alignment="0" pref="127" max="32767" attributes="1"/>
-                  <Component id="black_dec" alignment="0" pref="127" max="32767" attributes="1"/>
+                  <Component id="black_inc" alignment="0" max="32767" attributes="1"/>
+                  <Component id="black_level" alignment="0" max="32767" attributes="1"/>
+                  <Component id="black_dec" alignment="0" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -457,13 +455,13 @@
             </Component>
             <Component class="EButton" name="black_level">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Black Level"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="horizontalTextPosition" type="int" value="2"/>
                 <Property name="iconTextGap" type="int" value="0"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 5, 0, 0]"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Black Level"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="black_levelActionPerformed"/>

@@ -54,17 +54,16 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="NavigationPanel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                          <EmptySpace pref="262" max="32767" attributes="0"/>
                           <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="guidespreview1" min="-2" pref="712" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace pref="60" max="32767" attributes="0"/>
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -76,10 +75,10 @@
                       <Component id="guidespreview1" min="-2" pref="399" max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="127" max="32767" attributes="0"/>
+                  <EmptySpace pref="147" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="ConfirmationPanel" max="32767" attributes="1"/>
-                      <Component id="NavigationPanel1" alignment="1" max="32767" attributes="1"/>
+                      <Component id="NavigationPanel1" max="32767" attributes="1"/>
+                      <Component id="ConfirmationPanel" alignment="1" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -130,15 +129,20 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="CenterXButton" min="-2" pref="130" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="ThirdsButton" min="-2" pref="130" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="OuterXButton" min="-2" pref="130" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="SafeAreaButton" min="-2" pref="130" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="CenterXButton" min="-2" pref="90" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="ThirdsButton" min="-2" pref="90" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="OuterXButton" min="-2" pref="90" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="SafeAreaButton" min="-2" pref="90" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -146,14 +150,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="CenterXButton" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
-                          <Component id="ThirdsButton" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
+                          <Component id="CenterXButton" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="ThirdsButton" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="OuterXButton" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
-                          <Component id="SafeAreaButton" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
+                          <Component id="OuterXButton" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="SafeAreaButton" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -211,15 +216,15 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="SettingsMenu1Button1" min="-2" pref="135" max="-2" attributes="0"/>
+                      <Component id="SettingsMenu1Button1" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="SettingsMenu2Button1" min="-2" pref="136" max="-2" attributes="0"/>
+                      <Component id="SettingsMenu2Button1" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="SettingsMenu3Button" min="-2" pref="135" max="-2" attributes="0"/>
+                      <Component id="SettingsMenu3Button" min="-2" pref="100" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="GuidesMenuButton1" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="GuidesMenuButton1" min="-2" pref="136" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="PhotoSettingsMenu1" min="-2" pref="136" max="-2" attributes="0"/>
+                      <Component id="PhotoSettingsMenu1" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -229,8 +234,8 @@
                       <Component id="SettingsMenu1Button1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="SettingsMenu2Button1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="SettingsMenu3Button" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="GuidesMenuButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="PhotoSettingsMenu1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="GuidesMenuButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -252,15 +257,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsMenu2Button1ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="EButton" name="GuidesMenuButton1">
-              <Properties>
-                <Property name="checked" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Guides"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GuidesMenuButton1ActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="EButton" name="SettingsMenu3Button">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Settings Tab 3"/>
@@ -275,6 +271,15 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PhotoSettingsMenu1ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="EButton" name="GuidesMenuButton1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Guides"/>
+                <Property name="checked" type="boolean" value="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GuidesMenuButton1ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

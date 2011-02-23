@@ -25,6 +25,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -68,7 +70,7 @@ enum CameraPreset {
 
 enum ColorMode {
 
-    RGB, JP4
+    RGB, JP4, JP46
 }
 
 enum WhiteBalance {
@@ -641,9 +643,13 @@ public class Camera {
         if (Mode == ColorMode.JP4) {
             Parent.WriteLogtoConsole("Setting COLORMODE to JP4 RAW");
         }
+        if (Mode == ColorMode.JP46) {
+            Parent.WriteLogtoConsole("Setting COLORMODE to JP46 RAW");
+        }
         if (Mode == ColorMode.RGB) {
             Parent.WriteLogtoConsole("Setting COLORMODE to RGB");
         }
+
         this.SetParameter(CameraParameter.COLORMODE, ColorModeTranslate(Mode));
         this.Colormode = Mode;
     }
@@ -1177,6 +1183,12 @@ public class Camera {
     }
 
     public boolean CheckHDD() {
+        try {
+            UpdateCameraData();
+        } catch (Exception ex) {
+            Logger.getLogger(Camera.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         if (this.HDDSpaceFree == -1) {
             String message = "No HDD detected, video recording disabled";
             JOptionPane.showMessageDialog(new JFrame(), message, "Dialog", JOptionPane.ERROR_MESSAGE);
@@ -1820,8 +1832,12 @@ public class Camera {
                 break;
 
             case JP4:
-                colormode = 2;
+                colormode = 5;
                 break;
+
+            case JP46:
+                colormode = 2;
+                break;                
 
         }
         return colormode;
@@ -2076,16 +2092,21 @@ public class Camera {
 
                         NodeList NmElmntLstHDD = fstElmnt.getElementsByTagName("hdd_freespace");
                         Element NmElmntHDD = (Element) NmElmntLstHDD.item(0);
-                        NodeList ElmntHDD = NmElmntHDD.getChildNodes();
-                        if (((Node) Elmnt6.item(0)).getNodeValue().startsWith("unmounted")) {
+
+                        if (NmElmntHDD == null) { // if we get nothing returned
                             this.HDDSpaceFree = -1;
                         } else {
-                            try {
-                                this.HDDSpaceFree = Float.parseFloat(((Node) ElmntHDD.item(0)).getNodeValue());
-                            } catch (Exception e) {
+                            NodeList ElmntHDD = NmElmntHDD.getChildNodes();
+                            if (((Node) Elmnt6.item(0)).getNodeValue().startsWith("unmounted")) {
                                 this.HDDSpaceFree = -1;
-                            }
+                            } else {
+                                try {
+                                    this.HDDSpaceFree = Float.parseFloat(((Node) ElmntHDD.item(0)).getNodeValue());
+                                } catch (Exception e) {
+                                    this.HDDSpaceFree = -1;
+                                }
 
+                            }
                         }
 
                         NodeList NmElmntLst7 = fstElmnt.getElementsByTagName("camogm_fileframeduration");

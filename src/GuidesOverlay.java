@@ -65,7 +65,8 @@ public class GuidesOverlay extends javax.swing.JFrame implements javax.swing.Roo
     }
 
     private void paintoverlay(Graphics g) {
-        Parent.MaincardLayout.UpdateOverlayPosition();
+        Parent.UpdateOverlayPosition();
+
         Graphics2D g2 = (Graphics2D) g;
         g.setPaintMode();
 

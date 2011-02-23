@@ -29,7 +29,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="bg" alignment="0" pref="604" max="32767" attributes="0"/>
+          <Component id="bg" alignment="0" pref="602" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -63,19 +63,19 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="ParameterName" alignment="1" pref="51" max="32767" attributes="1"/>
                   <Component id="incvalue" alignment="0" pref="51" max="32767" attributes="1"/>
                   <Component id="decvalue" alignment="1" pref="51" max="32767" attributes="1"/>
-                  <Component id="ParameterName" alignment="1" pref="51" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="incvalue" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="186" max="-2" attributes="0"/>
+                      <Component id="incvalue" min="-2" pref="51" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
                       <Component id="ParameterName" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="187" max="32767" attributes="0"/>
-                      <Component id="decvalue" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="168" max="32767" attributes="0"/>
+                      <Component id="decvalue" min="-2" pref="49" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -119,52 +119,49 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="alignmentX" type="float" value="0.0"/>
-            <Property name="alignmentY" type="float" value="0.0"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="3" y="532" width="1020" height="-1"/>
+              <AbsoluteConstraints x="10" y="540" width="980" height="-1"/>
             </Constraint>
           </Constraints>
 
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" max="-2" attributes="0">
-                      <Component id="SettingsButton" min="-2" pref="68" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="ExposureButton" min="-2" max="-2" attributes="0"/>
-                          <Component id="GainButton" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="SettingsButton" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="ExposureButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="GainButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Component id="PlaybackButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="271" max="-2" attributes="0"/>
+                      <EmptySpace pref="163" max="32767" attributes="0"/>
                       <Component id="histogram" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="CaptureStill" min="-2" pref="64" max="-2" attributes="0"/>
+                      <Component id="CaptureStill" min="-2" pref="52" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="RecordButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" max="-2" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="ExposureButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="PlaybackButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="ExposureButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="GainButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="PlaybackButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="histogram" alignment="0" pref="52" max="32767" attributes="1"/>
+                          <Component id="RecordButton" alignment="0" pref="52" max="32767" attributes="1"/>
+                          <Component id="SettingsButton" alignment="0" max="32767" attributes="1"/>
+                          <Component id="CaptureStill" alignment="0" max="32767" attributes="1"/>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="GainButton" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="histogram" alignment="0" min="-2" pref="66" max="-2" attributes="1"/>
-                  <Component id="SettingsButton" alignment="0" pref="66" max="32767" attributes="2"/>
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="CaptureStill" alignment="3" pref="66" max="32767" attributes="1"/>
-                      <Component id="RecordButton" alignment="3" pref="66" max="32767" attributes="1"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -235,7 +232,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="66" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -246,7 +243,6 @@
                   <Color blue="0" green="0" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Still"/>
-                <Property name="toolTipText" type="java.lang.String" value="Capture Still"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="doubleBuffered" type="boolean" value="true"/>
@@ -301,7 +297,6 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="NoticeArea" alignment="1" pref="939" max="32767" attributes="1"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="InfoTextPane" pref="927" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -312,8 +307,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="InfoTextPane" min="-2" pref="19" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="NoticeArea" min="-2" pref="16" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -331,14 +325,6 @@
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="NoticeArea">
-              <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-              </Properties>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="VideoFrame">
@@ -354,8 +340,6 @@
             <Property name="opaque" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="//VideoFrame.add(GstreamerVideoComponent);&#xa;//GstreamerVideoComponent.setPreferredSize(new Dimension(320, 240));"/>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="//GstreamerVideoComponent = new VideoComponent();"/>
             <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="private org.gstreamer.swing.VideoComponent GstreamerVideoComponent;"/>
           </AuxValues>
           <Constraints>
@@ -366,7 +350,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
           <SubComponents>
-            <Component class="java.awt.Canvas" name="vlcoverlay">
+            <Component class="java.awt.Canvas" name="gstcanvas">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -375,6 +359,9 @@
                   <Color id="Default Cursor"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="//VideoFrame.add(Parent.GstreamerPlayer.GetGSTPlayer());&#xa;VideoFrame.add(Parent.GstreamerPlayer.GetGSTVideoComponent());"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -386,7 +373,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="930" y="50" width="70" height="-1"/>
+              <AbsoluteConstraints x="940" y="50" width="70" height="-1"/>
             </Constraint>
           </Constraints>
 
@@ -400,6 +387,7 @@
                   <Component id="eButton6" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
                   <Component id="eButton1" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
                   <Component id="eButton8" alignment="0" pref="70" max="32767" attributes="1"/>
+                  <Component id="eButton9" alignment="0" pref="70" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -418,6 +406,9 @@
                       <Component id="eButton6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="eButton8" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="eButton9" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="27" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -483,10 +474,18 @@
             </Component>
             <Component class="EButton" name="eButton8">
               <Properties>
-                <Property name="text" type="java.lang.String" value="JP4 RAW"/>
+                <Property name="text" type="java.lang.String" value="JP46 RAW"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eButton8ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="EButton" name="eButton9">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="JP4 RAW"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eButton9ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

@@ -1,5 +1,3 @@
-
-
 /*! Copyright (C) 2009 Apertus, All Rights Reserved
  *! Author : Apertus Team
 -----------------------------------------------------------------------------**

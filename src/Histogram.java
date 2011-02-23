@@ -255,8 +255,16 @@ public class Histogram extends JPanel implements Runnable, java.io.Serializable 
                 Color WhiteGradient = new Color(helper, helper, helper);
                 g2.setColor(WhiteGradient);
                 g2.drawLine(j, height - 6, j, height - 6 - lowest);
-
             }
+        }else {
+            // draw something so the area in the GUI designer isnt just black
+            Graphics2D g2 = (Graphics2D) g;
+            g.setPaintMode();
+
+            //range background
+            //10%
+            g.setColor(new Color(5, 5, 5));
+            g.fillRect(0, 0, width, height);
         }
     }
 

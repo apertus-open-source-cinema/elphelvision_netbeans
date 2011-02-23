@@ -32,7 +32,7 @@ public class PlaybackLayout extends javax.swing.JPanel {
         VideoFileListModel = new DefaultListModel();
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable() {
+            java.awt.EventQueue.invokeAndWait(new Runnable()   {
 
                 public void run() {
                     initComponents();
@@ -160,13 +160,11 @@ public class PlaybackLayout extends javax.swing.JPanel {
 
     private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
         Parent.StopVideoPlayer();
-        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "MainCard");
-        Parent.MaincardLayout.Load();
+        Parent.LoadMainCard();
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void eButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton1ActionPerformed
-        if (Parent.Settings.GetVideoPlayer() == VideoPlayer.VLC) {
+        if (Parent.Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
             Parent.VLCPlayer.PlayVideoFile("/hdd/" + FilesList.getSelectedValue());
         }
     }//GEN-LAST:event_eButton1ActionPerformed
