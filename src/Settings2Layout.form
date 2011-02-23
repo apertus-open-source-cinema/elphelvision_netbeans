@@ -48,7 +48,7 @@
                                   <Component id="Gamma" min="-2" max="-2" attributes="1"/>
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Component id="Blacklevel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="gammacurve" min="-2" pref="274" max="-2" attributes="1"/>
@@ -82,9 +82,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="VideoFrame" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="Blacklevel" min="0" pref="114" max="32767" attributes="1"/>
-                              <Component id="Gamma" alignment="0" max="32767" attributes="1"/>
+                              <Component id="Gamma" alignment="0" min="-2" max="-2" attributes="1"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="gammacurve" min="-2" max="-2" attributes="0"/>
@@ -426,9 +426,9 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="black_inc" alignment="0" max="32767" attributes="1"/>
-                  <Component id="black_level" alignment="0" max="32767" attributes="1"/>
-                  <Component id="black_dec" alignment="0" max="32767" attributes="1"/>
+                  <Component id="black_inc" alignment="0" pref="100" max="32767" attributes="1"/>
+                  <Component id="black_level" alignment="0" pref="100" max="32767" attributes="1"/>
+                  <Component id="black_dec" alignment="0" pref="100" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
