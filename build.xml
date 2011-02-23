@@ -105,7 +105,7 @@
 	     <echo>Bundling: Creating Windows ZIP Archive</echo>
 	     <mkdir  dir="${release.dir}/${standalone.jar.name}-win" />
 	     <echo  file="${release.dir}/${standalone.jar.name}-win/${standalone.jar.name}.bat">
-	     java -jar -Xmx256m ${standalone.jar.name}-dist.jar
+	     java -jar -Xmx256m ${standalone.jar.name}-dist.jar --debuglevel 3
 	     </echo>
 	     <copy todir="${release.dir}/${standalone.jar.name}-win" file="${dist.jar.dir}/default.config" />
 	     <copy todir="${release.dir}/${standalone.jar.name}-win/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" />
@@ -114,7 +114,7 @@
 	     <echo>Bundling: Creating Linux ZIP Archive</echo>
 	     <mkdir  dir="${release.dir}/${standalone.jar.name}-linux" />
 	     <echo  file="${release.dir}/${standalone.jar.name}-linux/${standalone.jar.name}.sh">
-	     java -jar -Xmx256m ${standalone.jar.name}-dist.jar
+	     java -jar -Xmx256m ${standalone.jar.name}-dist.jar --debuglevel 3
 	     </echo>
 	     <copy todir="${release.dir}/${standalone.jar.name}-linux/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" />
 	     <copy todir="${release.dir}/${standalone.jar.name}-linux" file="${dist.jar.dir}/default.config" />
