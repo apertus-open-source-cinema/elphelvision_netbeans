@@ -21,7 +21,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="bg" min="-2" max="-2" attributes="0"/>
+          <Component id="bg" min="-2" pref="600" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -89,22 +89,19 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="ResolutionPanel" alignment="0" pref="260" max="32767" attributes="1"/>
-                                      <Component id="FPSPanel" alignment="0" pref="260" max="32767" attributes="1"/>
-                                      <Component id="ColorModePanel" alignment="0" pref="260" max="32767" attributes="1"/>
-                                      <Component id="JPEGQualityPanel" alignment="0" pref="260" max="32767" attributes="1"/>
-                                      <Component id="WBPanel" alignment="0" min="0" pref="260" max="32767" attributes="1"/>
+                                      <Component id="ResolutionPanel" alignment="0" pref="291" max="32767" attributes="1"/>
+                                      <Component id="FPSPanel" alignment="0" pref="291" max="32767" attributes="1"/>
+                                      <Component id="ColorModePanel" alignment="0" pref="291" max="32767" attributes="1"/>
+                                      <Component id="JPEGQualityPanel" alignment="0" pref="291" max="32767" attributes="1"/>
+                                      <Component id="WBPanel" alignment="0" min="-2" pref="291" max="-2" attributes="1"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
                                   <Component id="Experimental" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="RecordFormatPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="RecordFormatPanel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
@@ -663,7 +660,10 @@
             </Component>
             <Component class="EButton" name="color_rbg">
               <Properties>
-                <Property name="text" type="java.lang.String" value="RBG"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/media/rgb.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="RGB 24bit color mode"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="color_rbgActionPerformed"/>
@@ -671,7 +671,10 @@
             </Component>
             <Component class="EButton" name="color_jp4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="JP4 RAW"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/media/jp4.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="higher fps but no live preview atm"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="color_jp4ActionPerformed"/>
@@ -679,7 +682,10 @@
             </Component>
             <Component class="EButton" name="color_jp46">
               <Properties>
-                <Property name="text" type="java.lang.String" value="JP46 RAW"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/media/jp46.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="same fps as RGB but with bw live preview"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="color_jp46ActionPerformed"/>
@@ -720,7 +726,7 @@
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Component id="fps30" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                      <Component id="fps50" max="32767" attributes="0"/>
+                      <Component id="fps50" pref="36" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="fps60" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>

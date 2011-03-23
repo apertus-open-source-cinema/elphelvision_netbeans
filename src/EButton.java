@@ -59,7 +59,7 @@ public class EButton extends JButton implements java.io.Serializable {
         this.setBorderPainted(false);
         this.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
         this.setRolloverEnabled(false);
-        this.setPreferredSize(new Dimension(80, 30));
+        this.setPreferredSize(new Dimension(80, 35));
         this.setContentAreaFilled(false);
         this.setFocusPainted(false);
         this.setMargin(new Insets(0, 0, 0, 0));

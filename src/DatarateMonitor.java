@@ -31,13 +31,13 @@ public class DatarateMonitor extends JPanel implements Runnable, java.io.Seriali
     ElphelVision Parent = null;
 
     public DatarateMonitor() {
-        width = 100 + 2;
+        width = 80 + 2;
         height = 40;
     }
 
     public DatarateMonitor(ElphelVision parent) {
         this.Parent = parent;
-        width = 100 + 2;
+        width = 80 + 2;
         height = 40;
     }
 
@@ -76,7 +76,7 @@ public class DatarateMonitor extends JPanel implements Runnable, java.io.Seriali
             Graphics2D g2 = (Graphics2D) g;
             g.setPaintMode();
 
-            // coordinate system
+            // rate bar
             g2.setStroke(new BasicStroke(1));
             g2.setColor(Color.darkGray);
             g2.drawLine(0, height - 6, width, height - 6);

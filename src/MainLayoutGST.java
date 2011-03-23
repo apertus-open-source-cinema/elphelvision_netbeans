@@ -51,6 +51,7 @@ public class MainLayoutGST extends JPanel {
             ex.printStackTrace();
         }
         histogram.SetParent(Parent);
+        datarateMonitor.SetParent(Parent);
 
         if (Parent.NoCameraParameter) {
 
@@ -94,6 +95,8 @@ public class MainLayoutGST extends JPanel {
         ParameterName.setText("EV");
         ExposureButton.setValue(Parent.Camera.GetExposure());
         GainButton.setValue(Parent.Camera.GetGain());
+        
+        datarateMonitor.startAnimator();
     }
 
     public void UpdateOverlayPosition() {
@@ -143,6 +146,7 @@ public class MainLayoutGST extends JPanel {
         eButton6 = new EButton();
         eButton8 = new EButton();
         eButton9 = new EButton();
+        datarateMonitor = new DatarateMonitor();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -352,6 +356,7 @@ public class MainLayoutGST extends JPanel {
         QuickPanel.setBackground(new java.awt.Color(0, 0, 0));
 
         eButton1.setText("2:1");
+        eButton1.setClickFeedback(true);
         eButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton1ActionPerformed(evt);
@@ -359,6 +364,7 @@ public class MainLayoutGST extends JPanel {
         });
 
         eButton3.setText("fit");
+        eButton3.setClickFeedback(true);
         eButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton3ActionPerformed(evt);
@@ -366,6 +372,7 @@ public class MainLayoutGST extends JPanel {
         });
 
         eButton4.setText("1:1");
+        eButton4.setClickFeedback(true);
         eButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton4ActionPerformed(evt);
@@ -385,6 +392,8 @@ public class MainLayoutGST extends JPanel {
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         eButton6.setText("RGB");
+        eButton6.setToolTipText("RGB 24bit color mode");
+        eButton6.setClickFeedback(true);
         eButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton6ActionPerformed(evt);
@@ -392,6 +401,7 @@ public class MainLayoutGST extends JPanel {
         });
 
         eButton8.setText("JP46 RAW");
+        eButton8.setClickFeedback(true);
         eButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton8ActionPerformed(evt);
@@ -399,11 +409,26 @@ public class MainLayoutGST extends JPanel {
         });
 
         eButton9.setText("JP4 RAW");
+        eButton9.setClickFeedback(true);
         eButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton9ActionPerformed(evt);
             }
         });
+
+        datarateMonitor.setBackground(new java.awt.Color(0, 0, 0));
+        datarateMonitor.setPreferredSize(new java.awt.Dimension(90, 40));
+
+        javax.swing.GroupLayout datarateMonitorLayout = new javax.swing.GroupLayout(datarateMonitor);
+        datarateMonitor.setLayout(datarateMonitorLayout);
+        datarateMonitorLayout.setHorizontalGroup(
+            datarateMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 90, Short.MAX_VALUE)
+        );
+        datarateMonitorLayout.setVerticalGroup(
+            datarateMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout QuickPanelLayout = new javax.swing.GroupLayout(QuickPanel);
         QuickPanel.setLayout(QuickPanelLayout);
@@ -411,12 +436,13 @@ public class MainLayoutGST extends JPanel {
             QuickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(eButton4, 0, 0, Short.MAX_VALUE)
             .addComponent(eButton3, 0, 0, Short.MAX_VALUE)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
             .addComponent(eButton6, 0, 0, Short.MAX_VALUE)
             .addComponent(eButton1, 0, 0, Short.MAX_VALUE)
-            .addComponent(eButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-            .addComponent(eButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(eButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+            .addComponent(eButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+            .addComponent(datarateMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         QuickPanelLayout.setVerticalGroup(
             QuickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,7 +454,9 @@ public class MainLayoutGST extends JPanel {
                 .addComponent(eButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(eButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94)
+                .addGap(18, 18, 18)
+                .addComponent(datarateMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(eButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -439,7 +467,7 @@ public class MainLayoutGST extends JPanel {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        bg.add(QuickPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 50, 70, -1));
+        bg.add(QuickPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 50, 90, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -609,6 +637,7 @@ public class MainLayoutGST extends JPanel {
     private javax.swing.JPanel VideoFrame;
     private org.gstreamer.swing.VideoComponent GstreamerVideoComponent;
     private javax.swing.JPanel bg;
+    private DatarateMonitor datarateMonitor;
     private EButton decvalue;
     private EButton eButton1;
     private EButton eButton3;
