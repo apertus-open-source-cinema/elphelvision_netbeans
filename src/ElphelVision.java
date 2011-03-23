@@ -80,7 +80,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         ProcessArgs(args);
 
         Frame f = new Frame();
-        f.addWindowListener(new java.awt.event.WindowAdapter()                           {
+        f.addWindowListener(new java.awt.event.WindowAdapter() {
 
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
@@ -521,6 +521,22 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         MutableAttributeSet standard = new SimpleAttributeSet();
         StyleConstants.setAlignment(standard, StyleConstants.ALIGN_CENTER);
         doc.setParagraphAttributes(0, 0, standard, true);
+
+        //Notice Area
+        StyledDocument docNotice = null;
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
+            //docNotice = (StyledDocument) MaincardLayoutGST.GetNoticeTextPane().getDocument();
+        }
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+            docNotice = (StyledDocument) MaincardLayoutVLC.GetNoticeTextPane().getDocument();
+        }
+        Style NoticeStyleRed = docNotice.addStyle("RedNotice", null);
+        StyleConstants.setForeground(NoticeStyleRed, Color.red);
+        StyleConstants.setBold(NoticeStyleRed, true);
+
+        MutableAttributeSet standardNotice = new SimpleAttributeSet();
+        StyleConstants.setAlignment(standardNotice, StyleConstants.ALIGN_CENTER);
+        docNotice.setParagraphAttributes(0, 0, standardNotice, true);
     }
 
     public void UpdateInfoArea() {
@@ -537,6 +553,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         }
 
         String CameraInfo = "";
+
         if ((Camera.GetImageWidth() == 1920) && (Camera.GetImageHeight() == 1088)) {
             CameraInfo = "1080p ";
         }

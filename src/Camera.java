@@ -122,6 +122,7 @@ public class Camera {
     private int FPSSkipSeconds;
     private int FPSSkipFrames;
     private int FrameSizeBytes;
+    private int BufferOverruns;
     private boolean AutoExposure = false;
     private boolean GuideDrawCenterX = false;
     private boolean GuideDrawOuterX = false;
@@ -1837,7 +1838,7 @@ public class Camera {
 
             case JP46:
                 colormode = 2;
-                break;                
+                break;
 
         }
         return colormode;
@@ -2100,12 +2101,13 @@ public class Camera {
                             if (((Node) Elmnt6.item(0)).getNodeValue().startsWith("unmounted")) {
                                 this.HDDSpaceFree = -1;
                             } else {
-                                try {
-                                    this.HDDSpaceFree = Float.parseFloat(((Node) ElmntHDD.item(0)).getNodeValue());
-                                } catch (Exception e) {
-                                    this.HDDSpaceFree = -1;
+                                if ((((Node) ElmntHDD.item(0)).getNodeValue() != "") && (((Node) ElmntHDD.item(0)).getNodeValue() != "0")) {
+                                    try {
+                                        this.HDDSpaceFree = Float.parseFloat(((Node) ElmntHDD.item(0)).getNodeValue());
+                                    } catch (Exception e) {
+                                        this.HDDSpaceFree = -1;
+                                    }
                                 }
-
                             }
                         }
 
@@ -2256,7 +2258,16 @@ public class Camera {
                             if ((flipv == 0) && (fliph == 0)) {
                                 this.ImageFlip = MirrorImage.NONE;
                             }
-
+                        }
+                        NodeList NmElmntLstBufferOverFlow = fstElmnt.getElementsByTagName("bufferoverruns");
+                        Element NmElmntBufferOverFlow = (Element) NmElmntLstBufferOverFlow.item(0);
+                        NodeList ElmntBufferOverFlow = NmElmntBufferOverFlow.getChildNodes();
+                        if (((Node) ElmntBufferOverFlow.item(0)) != null) {
+                            int tempvalue = Integer.parseInt(((Node) ElmntBufferOverFlow.item(0)).getNodeValue());
+                            if ((tempvalue != 0) && (tempvalue != -1)) {
+                                this.AlertBufferOverrun("" + tempvalue);
+                            }
+                            this.BufferOverruns = tempvalue;
                         }
                     }
                 }
@@ -2349,6 +2360,16 @@ public class Camera {
             }
         } catch (IOException e) {
             Parent.WriteErrortoConsole("UpdateCameraData() IO Error:" + e.getMessage());
+        }
+    }
+
+    private void AlertBufferOverrun(String value) {
+        Parent.WriteErrortoConsole("Buffer Overrun - likely had to drop frames!");
+        if (Parent.Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
+            Parent.MaincardLayoutGST.AddNoticeMessage("Buffer Overrun - likely had to drop frames!");
+        }
+        if (Parent.Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+            Parent.MaincardLayoutVLC.AddNoticeMessage("Buffer Overrun - likely had to drop frames!");
         }
     }
 }

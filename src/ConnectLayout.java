@@ -18,19 +18,19 @@
  *!
 -----------------------------------------------------------------------------**/
 
-import com.sun.opengl.util.Animator;
+//import com.sun.opengl.util.Animator;
 import java.awt.CardLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.media.opengl.GLCapabilities;
-import javax.media.opengl.GLJPanel;
+//import javax.media.opengl.GLCapabilities;
+//import javax.media.opengl.GLJPanel;
 
 public class ConnectLayout extends javax.swing.JPanel {
 
     private ElphelVision Parent;
-    private Animator IntroAnimator;
+   // private Animator IntroAnimator;
 
     public ConnectLayout(ElphelVision parent) {
 
@@ -103,7 +103,7 @@ public class ConnectLayout extends javax.swing.JPanel {
     IntroAnimator.start();
     }
     }
-     */
+     
     private GLCapabilities createGLCapabilites() {
 
         GLCapabilities capabilities = new GLCapabilities();
@@ -115,7 +115,7 @@ public class ConnectLayout extends javax.swing.JPanel {
 
         return capabilities;
     }
-
+*/
     /** This method is called from within the init() method to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

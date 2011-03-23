@@ -137,7 +137,9 @@
                       <Component id="GainButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Component id="PlaybackButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="163" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="PlaybackButton1" min="-2" pref="39" max="-2" attributes="0"/>
+                      <EmptySpace pref="118" max="32767" attributes="0"/>
                       <Component id="histogram" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="CaptureStill" min="-2" pref="52" max="-2" attributes="0"/>
@@ -156,12 +158,13 @@
                               <Component id="ExposureButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="GainButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="PlaybackButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="PlaybackButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="histogram" alignment="0" pref="52" max="32767" attributes="1"/>
                           <Component id="CaptureStill" alignment="0" max="32767" attributes="1"/>
                           <Component id="SettingsButton" alignment="0" max="32767" attributes="1"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="14" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -280,6 +283,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PlaybackButtonActionPerformed"/>
               </Events>
             </Component>
+            <Component class="EButton" name="PlaybackButton1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="test"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PlaybackButton1ActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="InfoPanel">
@@ -297,17 +308,16 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="InfoTextPane" pref="927" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="InfoTextPane" alignment="0" pref="939" max="32767" attributes="0"/>
+                  <Component id="NoticeArea" alignment="1" pref="939" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="InfoTextPane" min="-2" pref="19" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="NoticeArea" min="-2" pref="19" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -321,6 +331,19 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+                <Property name="doubleBuffered" type="boolean" value="true"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextPane" name="NoticeArea">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="36" green="36" red="fe" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="loading..."/>
                 <Property name="doubleBuffered" type="boolean" value="true"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>

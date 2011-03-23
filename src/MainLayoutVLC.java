@@ -20,12 +20,15 @@
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
@@ -39,7 +42,7 @@ public class MainLayoutVLC extends JPanel {
         Parent = parent;
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable()                {
+            java.awt.EventQueue.invokeAndWait(new Runnable() {
 
                 public void run() {
                     initComponents();
@@ -95,7 +98,7 @@ public class MainLayoutVLC extends JPanel {
         ParameterName.setText("EV");
         ExposureButton.setValue(Parent.Camera.GetExposure());
         GainButton.setValue(Parent.Camera.GetGain());
-        
+
         datarateMonitor.startAnimator();
     }
 
@@ -109,8 +112,27 @@ public class MainLayoutVLC extends JPanel {
         return this.InfoTextPane;
     }
 
+    public javax.swing.JTextPane GetNoticeTextPane() {
+        return this.NoticeArea;
+    }
+
     public void RedrawHistogram() {
         histogram.repaint();
+    }
+
+    public void AddNoticeMessage(String Message) {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.S");
+
+        StyledDocument doc = null;
+        doc = (StyledDocument) NoticeArea.getDocument();
+        String text = sdf.format(cal.getTime()) + " : " + Message;
+        NoticeArea.setText("");
+        try {
+            doc.insertString(doc.getLength(), text, doc.getStyle("RedNotice"));
+        } catch (BadLocationException ex) {
+            Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** This method is called from within the init() method to
@@ -135,8 +157,10 @@ public class MainLayoutVLC extends JPanel {
         CaptureStill = new EButton();
         RecordButton = new EButton();
         PlaybackButton = new EButton();
+        PlaybackButton1 = new EButton();
         InfoPanel = new javax.swing.JPanel();
         InfoTextPane = new javax.swing.JTextPane();
+        NoticeArea = new javax.swing.JTextPane();
         VideoFrame = new javax.swing.JPanel();
         vlcoverlay = new java.awt.Canvas();
         QuickPanel = new javax.swing.JPanel();
@@ -281,6 +305,13 @@ public class MainLayoutVLC extends JPanel {
             }
         });
 
+        PlaybackButton1.setText("test");
+        PlaybackButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PlaybackButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ParameterPanelLayout = new javax.swing.GroupLayout(ParameterPanel);
         ParameterPanel.setLayout(ParameterPanelLayout);
         ParameterPanelLayout.setHorizontalGroup(
@@ -293,7 +324,9 @@ public class MainLayoutVLC extends JPanel {
                 .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(PlaybackButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PlaybackButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addComponent(histogram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CaptureStill, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,11 +342,12 @@ public class MainLayoutVLC extends JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(PlaybackButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(PlaybackButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(PlaybackButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(histogram, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                     .addComponent(CaptureStill, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(SettingsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         bg.add(ParameterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 980, -1));
@@ -325,19 +359,25 @@ public class MainLayoutVLC extends JPanel {
         InfoTextPane.setDoubleBuffered(true);
         InfoTextPane.setFocusable(false);
 
+        NoticeArea.setBackground(new java.awt.Color(0, 0, 0));
+        NoticeArea.setForeground(new java.awt.Color(254, 54, 54));
+        NoticeArea.setText("loading...");
+        NoticeArea.setDoubleBuffered(true);
+        NoticeArea.setFocusable(false);
+
         javax.swing.GroupLayout InfoPanelLayout = new javax.swing.GroupLayout(InfoPanel);
         InfoPanel.setLayout(InfoPanelLayout);
         InfoPanelLayout.setHorizontalGroup(
             InfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InfoPanelLayout.createSequentialGroup()
-                .addComponent(InfoTextPane, javax.swing.GroupLayout.DEFAULT_SIZE, 927, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(InfoTextPane, javax.swing.GroupLayout.DEFAULT_SIZE, 939, Short.MAX_VALUE)
+            .addComponent(NoticeArea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 939, Short.MAX_VALUE)
         );
         InfoPanelLayout.setVerticalGroup(
             InfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InfoPanelLayout.createSequentialGroup()
                 .addComponent(InfoTextPane, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(NoticeArea, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         bg.add(InfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, -1, -1));
@@ -385,7 +425,7 @@ public class MainLayoutVLC extends JPanel {
         jLabel4.setText("Scaling");
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel5.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Color-Mode");
@@ -613,6 +653,10 @@ public class MainLayoutVLC extends JPanel {
         Parent.Camera.SetColorMode(ColorMode.JP4);
     }//GEN-LAST:event_eButton9ActionPerformed
 
+    private void PlaybackButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlaybackButton1ActionPerformed
+        AddNoticeMessage("test");
+    }//GEN-LAST:event_PlaybackButton1ActionPerformed
+
     public void EnableRecord(boolean val) {
         this.RecordButton.setEnabled(val);
     }
@@ -626,9 +670,11 @@ public class MainLayoutVLC extends JPanel {
     private EButton GainButton;
     private javax.swing.JPanel InfoPanel;
     private javax.swing.JTextPane InfoTextPane;
+    private javax.swing.JTextPane NoticeArea;
     private javax.swing.JLabel ParameterName;
     private javax.swing.JPanel ParameterPanel;
     private EButton PlaybackButton;
+    private EButton PlaybackButton1;
     private javax.swing.JPanel QuickPanel;
     private EButton RecordButton;
     private EButton SettingsButton;

@@ -22,6 +22,8 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -41,7 +43,7 @@ public class MainLayoutGST extends JPanel {
         Parent = parent;
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable()                   {
+            java.awt.EventQueue.invokeAndWait(new Runnable() {
 
                 public void run() {
                     initComponents();
@@ -95,7 +97,7 @@ public class MainLayoutGST extends JPanel {
         ParameterName.setText("EV");
         ExposureButton.setValue(Parent.Camera.GetExposure());
         GainButton.setValue(Parent.Camera.GetGain());
-        
+
         datarateMonitor.startAnimator();
     }
 
@@ -107,8 +109,27 @@ public class MainLayoutGST extends JPanel {
         return this.InfoTextPane;
     }
 
+    public javax.swing.JTextPane GetNoticeTextPane() {
+        return this.NoticeArea;
+    }
+
     public void RedrawHistogram() {
         histogram.repaint();
+    }
+
+    public void AddNoticeMessage(String Message) {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.S");
+
+        StyledDocument doc = null;
+        doc = (StyledDocument) NoticeArea.getDocument();
+        String text = sdf.format(cal.getTime()) + " : " + Message;
+        NoticeArea.setText("");
+        try {
+            doc.insertString(doc.getLength(), text, doc.getStyle("RedNotice"));
+        } catch (BadLocationException ex) {
+            Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** This method is called from within the init() method to
@@ -135,6 +156,7 @@ public class MainLayoutGST extends JPanel {
         PlaybackButton = new EButton();
         InfoPanel = new javax.swing.JPanel();
         InfoTextPane = new javax.swing.JTextPane();
+        NoticeArea = new javax.swing.JTextPane();
         VideoFrame = new javax.swing.JPanel();
         gstcanvas = new java.awt.Canvas();
         QuickPanel = new javax.swing.JPanel();
@@ -323,6 +345,12 @@ public class MainLayoutGST extends JPanel {
         InfoTextPane.setDoubleBuffered(true);
         InfoTextPane.setFocusable(false);
 
+        NoticeArea.setBackground(new java.awt.Color(0, 0, 0));
+        NoticeArea.setForeground(new java.awt.Color(254, 54, 54));
+        NoticeArea.setText("loading...");
+        NoticeArea.setDoubleBuffered(true);
+        NoticeArea.setFocusable(false);
+
         javax.swing.GroupLayout InfoPanelLayout = new javax.swing.GroupLayout(InfoPanel);
         InfoPanel.setLayout(InfoPanelLayout);
         InfoPanelLayout.setHorizontalGroup(
@@ -330,12 +358,14 @@ public class MainLayoutGST extends JPanel {
             .addGroup(InfoPanelLayout.createSequentialGroup()
                 .addComponent(InfoTextPane, javax.swing.GroupLayout.DEFAULT_SIZE, 927, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(NoticeArea, javax.swing.GroupLayout.DEFAULT_SIZE, 939, Short.MAX_VALUE)
         );
         InfoPanelLayout.setVerticalGroup(
             InfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InfoPanelLayout.createSequentialGroup()
                 .addComponent(InfoTextPane, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(NoticeArea, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         bg.add(InfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, -1, -1));
@@ -627,6 +657,7 @@ public class MainLayoutGST extends JPanel {
     private EButton GainButton;
     private javax.swing.JPanel InfoPanel;
     private javax.swing.JTextPane InfoTextPane;
+    private javax.swing.JTextPane NoticeArea;
     private javax.swing.JLabel ParameterName;
     private javax.swing.JPanel ParameterPanel;
     private EButton PlaybackButton;
