@@ -208,141 +208,150 @@ public class Histogram extends JPanel implements Runnable, java.io.Serializable 
             g2.drawLine(0, 0, 0, height - 9);
 
 
+            //draw actual histogram bars
             // Why does this not work in a single loop? weird behaviour...
             g2.setStroke(new BasicStroke(width / hist_value[2].length));
+            if (Parent.Camera.GetHistogramColorMode() == HistogramColorMode.RGB) {
+                for (int i = 0; i < hist_value[2].length / 2; i++) {
+                    int helper = 127 + i / 2;
+                    // RED
+                    Color RedGradient = new Color(helper, 0, 0);
+                    g2.setColor(RedGradient);
+                    g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[0][i] * (height - 9) / hist_value[2].length));
 
-            for (int i = 0; i < hist_value[2].length / 2; i++) {
-                int helper = 127 + i / 2;
-                // RED
-                Color RedGradient = new Color(helper, 0, 0);
-                g2.setColor(RedGradient);
-                g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[0][i] * (height - 9) / hist_value[2].length));
+                    // GREEN
+                    Color GreenGradient = new Color(0, helper, 0);
+                    g2.setColor(GreenGradient);
+                    g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[1][i] * (height - 9) / hist_value[2].length));
 
-                // GREEN
-                Color GreenGradient = new Color(0, helper, 0);
-                g2.setColor(GreenGradient);
-                g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[1][i] * (height - 9) / hist_value[2].length));
+                    // BLUE
+                    Color BlueGradient = new Color(0, 0, helper);
+                    g2.setColor(BlueGradient);
+                    g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[2][i] * (height - 9) / hist_value[2].length));
 
-                // BLUE
-                Color BlueGradient = new Color(0, 0, helper);
-                g2.setColor(BlueGradient);
-                g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[2][i] * (height - 9) / hist_value[2].length));
-
-                //YELLOW
-                if ((hist_value[1][i] > hist_value[2][i]) && (hist_value[0][i] > hist_value[2][i])) {
-                    Color YellowGradient = new Color(helper, helper, 0);
-                    g2.setColor(YellowGradient);
-                    if (hist_value[1][i] > hist_value[0][i]) {
-                        int valueheight = hist_value[0][i] * height / 256;
-                        g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (valueheight * (height - 9) / hist_value[2].length));
-                    } else {
-                        int valueheight = hist_value[1][i] * height / 256;
-                        g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (valueheight * (height - 9) / hist_value[2].length));
+                    //YELLOW
+                    if ((hist_value[1][i] > hist_value[2][i]) && (hist_value[0][i] > hist_value[2][i])) {
+                        Color YellowGradient = new Color(helper, helper, 0);
+                        g2.setColor(YellowGradient);
+                        if (hist_value[1][i] > hist_value[0][i]) {
+                            int valueheight = hist_value[0][i] * height / 256;
+                            g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (valueheight * (height - 9) / hist_value[2].length));
+                        } else {
+                            int valueheight = hist_value[1][i] * height / 256;
+                            g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (valueheight * (height - 9) / hist_value[2].length));
+                        }
                     }
-                }
 
-                //PINK
-                if ((hist_value[2][i] > hist_value[1][i]) && (hist_value[0][i] > hist_value[1][i])) {
-                    Color PinkGradient = new Color(helper, 0, helper);
-                    g2.setColor(PinkGradient);
-                    if (hist_value[2][i] > hist_value[0][i]) {
-                        g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[0][i] * (height - 9) / hist_value[2].length));
-                    } else {
-                        g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[2][i] * (height - 9) / hist_value[2].length));
+                    //PINK
+                    if ((hist_value[2][i] > hist_value[1][i]) && (hist_value[0][i] > hist_value[1][i])) {
+                        Color PinkGradient = new Color(helper, 0, helper);
+                        g2.setColor(PinkGradient);
+                        if (hist_value[2][i] > hist_value[0][i]) {
+                            g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[0][i] * (height - 9) / hist_value[2].length));
+                        } else {
+                            g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[2][i] * (height - 9) / hist_value[2].length));
+                        }
                     }
-                }
 
-                //CYAN
-                if ((hist_value[2][i] > hist_value[0][i]) && (hist_value[1][i] > hist_value[0][i])) {
-                    Color CyanGradient = new Color(0, helper, helper);
-                    g2.setColor(CyanGradient);
-                    if (hist_value[2][i] > hist_value[1][i]) {
-                        g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[1][i] * (height - 9) / hist_value[2].length));
-                    } else {
-                        g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[2][i] * (height - 9) / hist_value[2].length));
+                    //CYAN
+                    if ((hist_value[2][i] > hist_value[0][i]) && (hist_value[1][i] > hist_value[0][i])) {
+                        Color CyanGradient = new Color(0, helper, helper);
+                        g2.setColor(CyanGradient);
+                        if (hist_value[2][i] > hist_value[1][i]) {
+                            g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[1][i] * (height - 9) / hist_value[2].length));
+                        } else {
+                            g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[2][i] * (height - 9) / hist_value[2].length));
+                        }
                     }
-                }
 
-                // WHITE
-                int lowest = 999999999;
-                if ((hist_value[0][i] * (height - 9) / width) < lowest) {
-                    lowest = hist_value[0][i] * (height - 9) / hist_value[2].length;
-                }
-                if ((hist_value[1][i] * (height - 9) / width) < lowest) {
-                    lowest = hist_value[1][i] * (height - 9) / hist_value[2].length;
-                }
-                if ((hist_value[2][i] * (height - 9) / width) < lowest) {
-                    lowest = hist_value[2][i] * (height - 9) / hist_value[2].length;
-                }
-                Color WhiteGradient = new Color(helper, helper, helper);
-                g2.setColor(WhiteGradient);
-                g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - lowest);
-            }
-            for (int j = 128; j < hist_value[2].length; j++) {
-                int helper = 127 + j / 2;
-                // RED
-                Color RedGradient = new Color(helper, 0, 0);
-                g2.setColor(RedGradient);
-                g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[0][j] * (height - 9) / hist_value[2].length));
-
-                // GREEN
-                Color GreenGradient = new Color(0, helper, 0);
-                g2.setColor(GreenGradient);
-                g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[1][j] * (height - 9) / hist_value[2].length));
-
-                // BLUE
-                Color BlueGradient = new Color(0, 0, helper);
-                g2.setColor(BlueGradient);
-                g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[2][j] * (height - 9) / hist_value[2].length));
-
-                //YELLOW
-                if ((hist_value[1][j] > hist_value[2][j]) && (hist_value[0][j] > hist_value[2][j])) {
-                    Color YellowGradient = new Color(helper, helper, 0);
-                    g2.setColor(YellowGradient);
-                    if (hist_value[1][j] > hist_value[0][j]) {
-                        g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[0][j] * (height - 9) / hist_value[2].length));
-                    } else {
-                        g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[1][j] * (height - 9) / hist_value[2].length));
+                    // WHITE
+                    int lowest = 999999999;
+                    if ((hist_value[0][i] * (height - 9) / width) < lowest) {
+                        lowest = hist_value[0][i] * (height - 9) / hist_value[2].length;
                     }
-                }
-
-
-                //PINK
-                if ((hist_value[2][j] > hist_value[1][j]) && (hist_value[0][j] > hist_value[1][j])) {
-                    Color PinkGradient = new Color(helper, 0, helper);
-                    g2.setColor(PinkGradient);
-                    if (hist_value[2][j] > hist_value[0][j]) {
-                        g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[0][j] * (height - 9) / hist_value[2].length));
-                    } else {
-                        g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[2][j] * (height - 9) / hist_value[2].length));
+                    if ((hist_value[1][i] * (height - 9) / width) < lowest) {
+                        lowest = hist_value[1][i] * (height - 9) / hist_value[2].length;
                     }
-                }
-
-                //CYAN
-                if ((hist_value[2][j] > hist_value[0][j]) && (hist_value[1][j] > hist_value[0][j])) {
-                    Color CyanGradient = new Color(0, helper, helper);
-                    g2.setColor(CyanGradient);
-                    if (hist_value[2][j] > hist_value[1][j]) {
-                        g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[1][j] * (height - 9) / hist_value[2].length));
-                    } else {
-                        g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[2][j] * (height - 9) / hist_value[2].length));
+                    if ((hist_value[2][i] * (height - 9) / width) < lowest) {
+                        lowest = hist_value[2][i] * (height - 9) / hist_value[2].length;
                     }
+                    Color WhiteGradient = new Color(helper, helper, helper);
+                    g2.setColor(WhiteGradient);
+                    g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - lowest);
                 }
+                for (int j = 128; j < hist_value[2].length; j++) {
+                    int helper = 127 + j / 2;
+                    // RED
+                    Color RedGradient = new Color(helper, 0, 0);
+                    g2.setColor(RedGradient);
+                    g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[0][j] * (height - 9) / hist_value[2].length));
 
-                // WHITE
-                int lowest = 999999999;
-                if ((hist_value[0][j] * (height - 9) / width) < lowest) {
-                    lowest = hist_value[0][j] * (height - 9) / hist_value[2].length;
+                    // GREEN
+                    Color GreenGradient = new Color(0, helper, 0);
+                    g2.setColor(GreenGradient);
+                    g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[1][j] * (height - 9) / hist_value[2].length));
+
+                    // BLUE
+                    Color BlueGradient = new Color(0, 0, helper);
+                    g2.setColor(BlueGradient);
+                    g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[2][j] * (height - 9) / hist_value[2].length));
+
+                    //YELLOW
+                    if ((hist_value[1][j] > hist_value[2][j]) && (hist_value[0][j] > hist_value[2][j])) {
+                        Color YellowGradient = new Color(helper, helper, 0);
+                        g2.setColor(YellowGradient);
+                        if (hist_value[1][j] > hist_value[0][j]) {
+                            g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[0][j] * (height - 9) / hist_value[2].length));
+                        } else {
+                            g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[1][j] * (height - 9) / hist_value[2].length));
+                        }
+                    }
+
+
+                    //PINK
+                    if ((hist_value[2][j] > hist_value[1][j]) && (hist_value[0][j] > hist_value[1][j])) {
+                        Color PinkGradient = new Color(helper, 0, helper);
+                        g2.setColor(PinkGradient);
+                        if (hist_value[2][j] > hist_value[0][j]) {
+                            g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[0][j] * (height - 9) / hist_value[2].length));
+                        } else {
+                            g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[2][j] * (height - 9) / hist_value[2].length));
+                        }
+                    }
+
+                    //CYAN
+                    if ((hist_value[2][j] > hist_value[0][j]) && (hist_value[1][j] > hist_value[0][j])) {
+                        Color CyanGradient = new Color(0, helper, helper);
+                        g2.setColor(CyanGradient);
+                        if (hist_value[2][j] > hist_value[1][j]) {
+                            g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[1][j] * (height - 9) / hist_value[2].length));
+                        } else {
+                            g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - (hist_value[2][j] * (height - 9) / hist_value[2].length));
+                        }
+                    }
+
+                    // WHITE
+                    int lowest = 999999999;
+                    if ((hist_value[0][j] * (height - 9) / width) < lowest) {
+                        lowest = hist_value[0][j] * (height - 9) / hist_value[2].length;
+                    }
+                    if ((hist_value[1][j] * (height - 9) / width) < lowest) {
+                        lowest = hist_value[1][j] * (height - 9) / hist_value[2].length;
+                    }
+                    if ((hist_value[2][j] * (height - 9) / width) < lowest) {
+                        lowest = hist_value[2][j] * (height - 9) / hist_value[2].length;
+                    }
+                    Color WhiteGradient = new Color(helper, helper, helper);
+                    g2.setColor(WhiteGradient);
+                    g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - lowest);
                 }
-                if ((hist_value[1][j] * (height - 9) / width) < lowest) {
-                    lowest = hist_value[1][j] * (height - 9) / hist_value[2].length;
+            } else if (Parent.Camera.GetHistogramColorMode() == HistogramColorMode.LUMINOSITY) {
+                for (int i = 0; i < hist_value[2].length; i++) {
+                    int helper = 127 + i / 2;
+                    Color WhiteGradient = new Color(helper, helper, helper);
+                    g2.setColor(WhiteGradient);
+                    g2.drawLine(i * width / hist_value[2].length, height - 9, i * width / hist_value[2].length, height - 9 - (hist_value[0][i] * (height - 9) / hist_value[2].length));
                 }
-                if ((hist_value[2][j] * (height - 9) / width) < lowest) {
-                    lowest = hist_value[2][j] * (height - 9) / hist_value[2].length;
-                }
-                Color WhiteGradient = new Color(helper, helper, helper);
-                g2.setColor(WhiteGradient);
-                g2.drawLine(j * width / hist_value[2].length, height - 9, j * width / hist_value[2].length, height - 9 - lowest);
             }
         } else {
             // draw something so the area in the GUI designer isnt just black

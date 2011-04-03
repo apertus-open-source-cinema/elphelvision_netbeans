@@ -32,7 +32,7 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
         Parent = parent;
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable()                    {
+            java.awt.EventQueue.invokeAndWait(new Runnable() {
 
                 public void run() {
                     initComponents();
@@ -77,12 +77,19 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
     }
 
     public void Load() {
-        if (Parent.Camera.GetHistogramMode() == HistogramMode.LINEAR) {
+        if (Parent.Camera.GetHistogramScaleMode() == HistogramScaleMode.LINEAR) {
             mode_linear.setChecked(true);
             mode_log.setChecked(false);
-        } else if (Parent.Camera.GetHistogramMode() == HistogramMode.LOG) {
+        } else if (Parent.Camera.GetHistogramScaleMode() == HistogramScaleMode.LOG) {
             mode_linear.setChecked(false);
             mode_log.setChecked(true);
+        }
+        if (Parent.Camera.GetHistogramColorMode() == HistogramColorMode.LUMINOSITY) {
+            mode_luma.setChecked(true);
+            mode_rgb.setChecked(false);
+        } else if (Parent.Camera.GetHistogramColorMode() == HistogramColorMode.RGB) {
+            mode_luma.setChecked(false);
+            mode_rgb.setChecked(true);
         }
         histogram.startAnimator();
 
@@ -118,6 +125,9 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
         MaxLabelGreen = new javax.swing.JLabel();
         MaxLabelBlue = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        mode_luma = new EButton();
+        mode_rgb = new EButton();
+        jLabel3 = new javax.swing.JLabel();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -147,7 +157,7 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Image.setBackground(new java.awt.Color(0, 0, 0));
-        Image.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Image.setFont(new java.awt.Font("Tahoma", 0, 14));
         Image.setForeground(new java.awt.Color(255, 255, 255));
         Image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/top.png"))); // NOI18N
@@ -174,46 +184,65 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
 
         jPanel1.add(histogram, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 32, 768, 256));
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 12));
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("RGB Min / Max Indicators");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, -1, -1));
 
-        MinLabelGreen.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        MinLabelGreen.setFont(new java.awt.Font("Ubuntu", 0, 12));
         MinLabelGreen.setForeground(new java.awt.Color(155, 255, 155));
         MinLabelGreen.setText("Green Min.: ");
         jPanel1.add(MinLabelGreen, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 303, 100, -1));
 
-        MinLabelRed.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        MinLabelRed.setFont(new java.awt.Font("Ubuntu", 0, 12));
         MinLabelRed.setForeground(new java.awt.Color(255, 155, 155));
         MinLabelRed.setText("Red Min.: ");
         jPanel1.add(MinLabelRed, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 290, 100, -1));
 
-        MinLabelBlue.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        MinLabelBlue.setFont(new java.awt.Font("Ubuntu", 0, 12));
         MinLabelBlue.setForeground(new java.awt.Color(155, 155, 255));
         MinLabelBlue.setText("Blue Min.: ");
         jPanel1.add(MinLabelBlue, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 316, 100, -1));
 
-        MaxLabelRed.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        MaxLabelRed.setFont(new java.awt.Font("Ubuntu", 0, 12));
         MaxLabelRed.setForeground(new java.awt.Color(255, 155, 155));
         MaxLabelRed.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         MaxLabelRed.setText("Red Min.: ");
         jPanel1.add(MaxLabelRed, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 290, 100, -1));
 
-        MaxLabelGreen.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        MaxLabelGreen.setFont(new java.awt.Font("Ubuntu", 0, 12));
         MaxLabelGreen.setForeground(new java.awt.Color(155, 255, 155));
         MaxLabelGreen.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         MaxLabelGreen.setText("Green Min.: ");
         jPanel1.add(MaxLabelGreen, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 303, 100, -1));
 
-        MaxLabelBlue.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        MaxLabelBlue.setFont(new java.awt.Font("Ubuntu", 0, 12));
         MaxLabelBlue.setForeground(new java.awt.Color(155, 155, 255));
         MaxLabelBlue.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         MaxLabelBlue.setText("Blue Min.: ");
         jPanel1.add(MaxLabelBlue, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 316, 100, -1));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Scale");
+
+        mode_luma.setText("Luminosity");
+        mode_luma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mode_lumaActionPerformed(evt);
+            }
+        });
+
+        mode_rgb.setText("RGB");
+        mode_rgb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mode_rgbActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Type");
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -224,14 +253,18 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(bgLayout.createSequentialGroup()
+                                    .addComponent(mode_linear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(mode_log, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(bgLayout.createSequentialGroup()
-                                .addGap(67, 67, 67)
-                                .addComponent(jLabel2))
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(mode_linear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(mode_luma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(mode_log, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addComponent(mode_rgb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(SettingsCloseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -246,7 +279,13 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(mode_linear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(mode_log, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(mode_log, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mode_luma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mode_rgb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
                 .addComponent(SettingsCloseButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -289,14 +328,26 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
     private void mode_logActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mode_logActionPerformed
         mode_linear.setChecked(false);
         mode_log.setChecked(true);
-        Parent.Camera.SetHistogramMode(HistogramMode.LOG);
+        Parent.Camera.SetHistogramScaleMode(HistogramScaleMode.LOG);
 }//GEN-LAST:event_mode_logActionPerformed
 
     private void mode_linearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mode_linearActionPerformed
         mode_linear.setChecked(true);
         mode_log.setChecked(false);
-        Parent.Camera.SetHistogramMode(HistogramMode.LINEAR);
+        Parent.Camera.SetHistogramScaleMode(HistogramScaleMode.LINEAR);
 }//GEN-LAST:event_mode_linearActionPerformed
+
+    private void mode_lumaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mode_lumaActionPerformed
+        mode_luma.setChecked(true);
+        mode_rgb.setChecked(false);
+        Parent.Camera.SetHistogramColorMode(HistogramColorMode.LUMINOSITY);
+    }//GEN-LAST:event_mode_lumaActionPerformed
+
+    private void mode_rgbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mode_rgbActionPerformed
+        mode_luma.setChecked(false);
+        mode_rgb.setChecked(true);
+        Parent.Camera.SetHistogramColorMode(HistogramColorMode.RGB);
+    }//GEN-LAST:event_mode_rgbActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Image;
     private javax.swing.JLabel MaxLabelBlue;
@@ -310,8 +361,11 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
     private Histogram histogram;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private EButton mode_linear;
     private EButton mode_log;
+    private EButton mode_luma;
+    private EButton mode_rgb;
     // End of variables declaration//GEN-END:variables
 }

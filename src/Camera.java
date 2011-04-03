@@ -73,9 +73,14 @@ enum ColorMode {
     RGB, JP4, JP46
 }
 
-enum HistogramMode {
+enum HistogramScaleMode {
 
     LINEAR, LOG
+}
+
+enum HistogramColorMode {
+
+    LUMINOSITY, RGB
 }
 
 enum WhiteBalance {
@@ -123,7 +128,8 @@ public class Camera {
     private float Gamma;
     private int[] GammaCurve;
     private int Blacklevel;
-    private HistogramMode HistogramMode;
+    private HistogramScaleMode HistogramScaleMode;
+    private HistogramColorMode HistogramColorMode;
     private int CoringIndex;
     private int FPSSkipSeconds;
     private int FPSSkipFrames;
@@ -310,7 +316,8 @@ public class Camera {
         this.FrameSizeBytes = 0;
         this.MovieClipMaxChunkSize = 2048; // in Megabytes - Default 2 GB = 2 x 1024 x 1024 x 1024 bytes
         this.VideoFilesList = new ArrayList<VideoFile>();
-        this.HistogramMode = HistogramMode.LOG;
+        this.HistogramScaleMode = HistogramScaleMode.LOG;
+        this.HistogramColorMode = HistogramColorMode.RGB;
     }
 
     public void SetIP(String IP) {
@@ -825,9 +832,9 @@ public class Camera {
         URL HistURL = null;
         int parameter = 0;
         String camera = null;
-        if (Parent.Camera.GetHistogramMode() == HistogramMode.LINEAR) {
+        if (Parent.Camera.GetHistogramScaleMode() == HistogramScaleMode.LINEAR) {
             camera = "http://" + this.IP + "/ElphelVision/histogram.php?mode=linear&" + (int) (Math.random() * 32000); // to prevent reading a cached result we add a random number to the URL
-        } else if (Parent.Camera.GetHistogramMode() == HistogramMode.LOG) {
+        } else if (Parent.Camera.GetHistogramScaleMode() == HistogramScaleMode.LOG) {
             camera = "http://" + this.IP + "/ElphelVision/histogram.php?mode=log&" + (int) (Math.random() * 32000); // to prevent reading a cached result we add a random number to the URL
         }
 
@@ -879,12 +886,20 @@ public class Camera {
         }
     }
 
-    public void SetHistogramMode(HistogramMode newmode) {
-        HistogramMode = newmode;
+    public void SetHistogramScaleMode(HistogramScaleMode newmode) {
+        HistogramScaleMode = newmode;
     }
 
-    public HistogramMode GetHistogramMode() {
-        return this.HistogramMode;
+    public HistogramScaleMode GetHistogramScaleMode() {
+        return this.HistogramScaleMode;
+    }
+
+    public void SetHistogramColorMode(HistogramColorMode newmode) {
+        HistogramColorMode = newmode;
+    }
+
+    public HistogramColorMode GetHistogramColorMode() {
+        return this.HistogramColorMode;
     }
 
     public void ReadGammaCurve() {
