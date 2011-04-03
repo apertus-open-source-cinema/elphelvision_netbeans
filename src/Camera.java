@@ -73,6 +73,11 @@ enum ColorMode {
     RGB, JP4, JP46
 }
 
+enum HistogramMode {
+
+    LINEAR, LOG
+}
+
 enum WhiteBalance {
 
     AUTO, DAYLIGHT, TUNGSTEN, CLOUDY, CUSTOM, FLOURESCENT
@@ -118,6 +123,7 @@ public class Camera {
     private float Gamma;
     private int[] GammaCurve;
     private int Blacklevel;
+    private HistogramMode HistogramMode;
     private int CoringIndex;
     private int FPSSkipSeconds;
     private int FPSSkipFrames;
@@ -304,6 +310,7 @@ public class Camera {
         this.FrameSizeBytes = 0;
         this.MovieClipMaxChunkSize = 2048; // in Megabytes - Default 2 GB = 2 x 1024 x 1024 x 1024 bytes
         this.VideoFilesList = new ArrayList<VideoFile>();
+        this.HistogramMode = HistogramMode.LOG;
     }
 
     public void SetIP(String IP) {
@@ -817,8 +824,13 @@ public class Camera {
         StringBuffer buf = new StringBuffer();
         URL HistURL = null;
         int parameter = 0;
+        String camera = null;
+        if (Parent.Camera.GetHistogramMode() == HistogramMode.LINEAR) {
+            camera = "http://" + this.IP + "/ElphelVision/histogram.php?mode=linear&" + (int) (Math.random() * 32000); // to prevent reading a cached result we add a random number to the URL
+        } else if (Parent.Camera.GetHistogramMode() == HistogramMode.LOG) {
+            camera = "http://" + this.IP + "/ElphelVision/histogram.php?mode=log&" + (int) (Math.random() * 32000); // to prevent reading a cached result we add a random number to the URL
+        }
 
-        String camera = "http://" + this.IP + "/ElphelVision/histogram.php?" + (int) (Math.random() * 32000);
         try {
             HistURL = new URL(camera);
         } catch (MalformedURLException e) {
@@ -865,6 +877,14 @@ public class Camera {
         } catch (Exception e) {
             Parent.WriteErrortoConsole("Reading histogram data IO Error:" + e.getMessage());
         }
+    }
+
+    public void SetHistogramMode(HistogramMode newmode) {
+        HistogramMode = newmode;
+    }
+
+    public HistogramMode GetHistogramMode() {
+        return this.HistogramMode;
     }
 
     public void ReadGammaCurve() {

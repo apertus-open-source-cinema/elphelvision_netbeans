@@ -122,52 +122,12 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="540" width="980" height="-1"/>
+              <AbsoluteConstraints x="0" y="530" width="990" height="71"/>
             </Constraint>
           </Constraints>
 
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="SettingsButton" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="ExposureButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="GainButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                      <Component id="PlaybackButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="PlaybackButton1" min="-2" pref="39" max="-2" attributes="0"/>
-                      <EmptySpace pref="118" max="32767" attributes="0"/>
-                      <Component id="histogram" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="CaptureStill" min="-2" pref="52" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="RecordButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="RecordButton" alignment="0" max="32767" attributes="1"/>
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="ExposureButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="GainButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="PlaybackButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="PlaybackButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="histogram" alignment="0" pref="52" max="32767" attributes="1"/>
-                          <Component id="CaptureStill" alignment="0" max="32767" attributes="1"/>
-                          <Component id="SettingsButton" alignment="0" max="32767" attributes="1"/>
-                      </Group>
-                      <EmptySpace pref="14" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+            <Property name="useNullLayout" type="boolean" value="false"/>
           </Layout>
           <SubComponents>
             <Component class="EButton" name="ExposureButton">
@@ -184,6 +144,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ExposureButtonActionPerformed"/>
               </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="75" y="0" width="-1" height="-1"/>
+                </Constraint>
+              </Constraints>
             </Component>
             <Component class="EButton" name="GainButton">
               <Properties>
@@ -199,6 +164,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GainButtonActionPerformed"/>
               </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="75" y="36" width="-1" height="34"/>
+                </Constraint>
+              </Constraints>
             </Component>
             <Component class="EButton" name="SettingsButton">
               <Properties>
@@ -216,6 +186,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsButtonActionPerformed"/>
               </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="0" y="0" width="70" height="70"/>
+                </Constraint>
+              </Constraints>
             </Component>
             <Container class="Histogram" name="histogram">
               <Properties>
@@ -226,6 +201,14 @@
                   <Dimension value="[256, 50]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="histogramMouseClicked"/>
+              </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="517" y="1" width="-1" height="68"/>
+                </Constraint>
+              </Constraints>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -235,7 +218,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="68" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -263,6 +246,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CaptureStillActionPerformed"/>
               </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="790" y="0" width="52" height="50"/>
+                </Constraint>
+              </Constraints>
             </Component>
             <Component class="EButton" name="RecordButton">
               <Properties>
@@ -274,6 +262,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RecordButtonActionPerformed"/>
               </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="846" y="0" width="80" height="50"/>
+                </Constraint>
+              </Constraints>
             </Component>
             <Component class="EButton" name="PlaybackButton">
               <Properties>
@@ -282,6 +275,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PlaybackButtonActionPerformed"/>
               </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="156" y="0" width="-1" height="-1"/>
+                </Constraint>
+              </Constraints>
             </Component>
             <Component class="EButton" name="PlaybackButton1">
               <Properties>

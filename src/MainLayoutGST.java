@@ -33,6 +33,9 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+//TODO also apply changes made in VLC mainlayout here
+
+
 public class MainLayoutGST extends JPanel {
 
     ElphelVision Parent;

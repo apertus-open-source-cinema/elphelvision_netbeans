@@ -42,7 +42,7 @@ public class MainLayoutVLC extends JPanel {
         Parent = parent;
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable() {
+            java.awt.EventQueue.invokeAndWait(new Runnable()                 {
 
                 public void run() {
                     initComponents();
@@ -224,6 +224,7 @@ public class MainLayoutVLC extends JPanel {
         bg.add(SliderPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         ParameterPanel.setBackground(new java.awt.Color(0, 0, 0));
+        ParameterPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ExposureButton.setText("Shutter");
         ExposureButton.setAlignmentY(0.0F);
@@ -236,6 +237,7 @@ public class MainLayoutVLC extends JPanel {
                 ExposureButtonActionPerformed(evt);
             }
         });
+        ParameterPanel.add(ExposureButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 0, -1, -1));
 
         GainButton.setText("Gain");
         GainButton.setAlignmentY(0.0F);
@@ -248,6 +250,7 @@ public class MainLayoutVLC extends JPanel {
                 GainButtonActionPerformed(evt);
             }
         });
+        ParameterPanel.add(GainButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 36, -1, 34));
 
         SettingsButton.setBackground(new java.awt.Color(255, 255, 255));
         SettingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/settings.png"))); // NOI18N
@@ -260,9 +263,15 @@ public class MainLayoutVLC extends JPanel {
                 SettingsButtonActionPerformed(evt);
             }
         });
+        ParameterPanel.add(SettingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 70));
 
         histogram.setBackground(new java.awt.Color(0, 0, 0));
         histogram.setPreferredSize(new java.awt.Dimension(256, 50));
+        histogram.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                histogramMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout histogramLayout = new javax.swing.GroupLayout(histogram);
         histogram.setLayout(histogramLayout);
@@ -272,8 +281,10 @@ public class MainLayoutVLC extends JPanel {
         );
         histogramLayout.setVerticalGroup(
             histogramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 52, Short.MAX_VALUE)
+            .addGap(0, 68, Short.MAX_VALUE)
         );
+
+        ParameterPanel.add(histogram, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 1, -1, 68));
 
         CaptureStill.setForeground(new java.awt.Color(255, 0, 0));
         CaptureStill.setText("Still");
@@ -289,6 +300,7 @@ public class MainLayoutVLC extends JPanel {
                 CaptureStillActionPerformed(evt);
             }
         });
+        ParameterPanel.add(CaptureStill, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 0, 52, 50));
 
         RecordButton.setForeground(new java.awt.Color(255, 0, 0));
         RecordButton.setText("Record");
@@ -297,6 +309,7 @@ public class MainLayoutVLC extends JPanel {
                 RecordButtonActionPerformed(evt);
             }
         });
+        ParameterPanel.add(RecordButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(846, 0, 80, 50));
 
         PlaybackButton.setText("Playback");
         PlaybackButton.addActionListener(new java.awt.event.ActionListener() {
@@ -304,53 +317,9 @@ public class MainLayoutVLC extends JPanel {
                 PlaybackButtonActionPerformed(evt);
             }
         });
+        ParameterPanel.add(PlaybackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 0, -1, -1));
 
-        PlaybackButton1.setText("test");
-        PlaybackButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PlaybackButton1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout ParameterPanelLayout = new javax.swing.GroupLayout(ParameterPanel);
-        ParameterPanel.setLayout(ParameterPanelLayout);
-        ParameterPanelLayout.setHorizontalGroup(
-            ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ParameterPanelLayout.createSequentialGroup()
-                .addComponent(SettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(PlaybackButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PlaybackButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                .addComponent(histogram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CaptureStill, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RecordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
-        );
-        ParameterPanelLayout.setVerticalGroup(
-            ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ParameterPanelLayout.createSequentialGroup()
-                .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(RecordButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(PlaybackButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(PlaybackButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(histogram, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                    .addComponent(CaptureStill, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SettingsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-
-        bg.add(ParameterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 980, -1));
+        bg.add(ParameterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 990, 71));
 
         InfoPanel.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -653,9 +622,13 @@ public class MainLayoutVLC extends JPanel {
         Parent.Camera.SetColorMode(ColorMode.JP4);
     }//GEN-LAST:event_eButton9ActionPerformed
 
-    private void PlaybackButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlaybackButton1ActionPerformed
-        AddNoticeMessage("test");
-    }//GEN-LAST:event_PlaybackButton1ActionPerformed
+    private void histogramMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_histogramMouseClicked
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "HistogramSettings");
+        Parent.StopVideoPlayer();
+        Guidesoverlay.SetVisibility(false);
+        Parent.HistogramSettingsCardLayout.Load();
+    }//GEN-LAST:event_histogramMouseClicked
 
     public void EnableRecord(boolean val) {
         this.RecordButton.setEnabled(val);

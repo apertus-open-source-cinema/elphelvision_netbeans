@@ -65,6 +65,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     Settings3Layout Settings3CardLayout;
     ResolutionSettings ResolutionSettingsCardLayout;
     FPSSettings FPSSettingsCardLayout;
+    HistogramSettingsLayout HistogramSettingsCardLayout;
     NumericalInputPanelFloat NumberPanelFloat;
     NumericalInputPanelInteger NumberPanelInteger;
     GuidesLayout GuidesPanel;
@@ -355,6 +356,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         Settings2CardLayout = new Settings2Layout(this);
         Settings3CardLayout = new Settings3Layout(this);
         ResolutionSettingsCardLayout = new ResolutionSettings(this);
+        HistogramSettingsCardLayout = new HistogramSettingsLayout(this);
         FPSSettingsCardLayout = new FPSSettings(this);
         NumberPanelInteger = new NumericalInputPanelInteger(this);
         NumberPanelFloat = new NumericalInputPanelFloat(this);
@@ -375,6 +377,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         CardManager.add(NumberPanelInteger, "NumberpanelInteger");
         CardManager.add(PlaybackCardLayout, "PlaybackCard");
         CardManager.add(PhotoSettingsCardLayout, "PhotoSettings");
+        CardManager.add(HistogramSettingsCardLayout, "HistogramSettings");
 
         add(CardManager);
     }
