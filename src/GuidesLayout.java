@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+//TODO apply new settings when another button than close is pressed
+
 public class GuidesLayout extends javax.swing.JPanel {
 
     ElphelVision Parent;
