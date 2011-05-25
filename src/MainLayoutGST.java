@@ -34,8 +34,6 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 //TODO also apply changes made in VLC mainlayout here
-
-
 public class MainLayoutGST extends JPanel {
 
     ElphelVision Parent;
@@ -46,7 +44,7 @@ public class MainLayoutGST extends JPanel {
         Parent = parent;
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable() {
+            java.awt.EventQueue.invokeAndWait(new Runnable()   {
 
                 public void run() {
                     initComponents();
@@ -531,22 +529,25 @@ public class MainLayoutGST extends JPanel {
 
     private void RecordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordButtonActionPerformed
         CamogmState check = Parent.Camera.GetCamogmState();
-        if (check == CamogmState.STOPPED) {
-            Parent.Camera.ExecuteCommand("RECORDSTART");
-            RecordButton.setText("Stop");
-            RecordButton.setChecked(true);
 
-            if (Parent.Camera.GetAllowCaptureStillWhileRecording()) {
+        for (int i = 0; i < Parent.Camera.GetIP().length; i++) {
+            if (check == CamogmState.STOPPED) {
+                Parent.Camera.ExecuteCommand(i, "RECORDSTART");
+                RecordButton.setText("Stop");
+                RecordButton.setChecked(true);
+
+                if (Parent.Camera.GetAllowCaptureStillWhileRecording()) {
+                    CaptureStill.setEnabled(true);
+                } else {
+                    CaptureStill.setEnabled(false);
+                }
+            } else if (check == CamogmState.RECORDING) {
+                Parent.Camera.ExecuteCommand(i, "RECORDSTOP");
+                RecordButton.setText("Record");
+                RecordButton.setChecked(false);
+
                 CaptureStill.setEnabled(true);
-            } else {
-                CaptureStill.setEnabled(false);
             }
-        } else if (check == CamogmState.RECORDING) {
-            Parent.Camera.ExecuteCommand("RECORDSTOP");
-            RecordButton.setText("Record");
-            RecordButton.setChecked(false);
-
-            CaptureStill.setEnabled(true);
         }
     }//GEN-LAST:event_RecordButtonActionPerformed
 

@@ -68,7 +68,7 @@ public class EButton extends JButton implements java.io.Serializable {
     public void setClickFeedback(boolean setting) {
         this.ClickFeedback = setting;
         if (setting) {
-            addActionListener(new java.awt.event.ActionListener() {
+            addActionListener(new java.awt.event.ActionListener()  {
 
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     ClickactionPerformed(evt);
@@ -98,6 +98,15 @@ public class EButton extends JButton implements java.io.Serializable {
             this.repaint();
             ClickFeedbacktimer.start();
         }
+    }
+
+    public void ToggleChecked() {
+        if (this.Checked) {
+            setChecked(false);
+        } else {
+            setChecked(true);
+        }
+        this.repaint();
     }
 
     private class TimerListener implements ActionListener {
@@ -195,7 +204,7 @@ public class EButton extends JButton implements java.io.Serializable {
         } else {
             // Button Fill
             g2.setPaint(DarkGradient);
-            g2.fillRoundRect(1, 1, x-2, y-2, this.CornerRadius-2, this.CornerRadius-2);
+            g2.fillRoundRect(1, 1, x - 2, y - 2, this.CornerRadius - 2, this.CornerRadius - 2);
             // Button Border
             g2.setPaint(DefaultBorderColor);
             g2.setStroke(new BasicStroke(1));

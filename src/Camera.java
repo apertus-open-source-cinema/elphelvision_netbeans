@@ -108,9 +108,9 @@ enum PhotoResolution {
  */
 public class Camera {
 
-    private String IP = null;
-    private URL CameraUrl = null;
-    private URL CameraPingUrl = null;
+    private String IP[] = null;
+    private URL[] CameraUrl = null;
+    private URL[] CameraPingUrl = null;
     private float FPS;
     private RecordFormat RecordFormat = null;
     private float HDDSpaceFree;
@@ -297,7 +297,7 @@ public class Camera {
         this.ImageWidth = 0;
         this.FPS = 0;
         this.JPEGQuality = 0;
-        this.IP = "192.168.0.9";
+        this.IP = new String[]{"192.168.0.9"};
         this.ExposureIndex = 20;
         this.GainIndex = 4;
         this.JPEGQual = 80;
@@ -320,12 +320,11 @@ public class Camera {
         this.HistogramColorMode = HistogramColorMode.RGB;
     }
 
-    public void SetIP(String IP) {
+    public void SetIP(String[] IP) {
         this.IP = IP;
-        this.InitCameraConnection();
     }
 
-    public String GetIP() {
+    public String[] GetIP() {
         return this.IP;
     }
 
@@ -335,7 +334,7 @@ public class Camera {
 
     public void SetMovieClipMaxChunkSize(int newchunksize) {
         long newsize = (long) newchunksize * 1024 * 1024;  // Megabytes
-        this.ExecuteCommand("set_size&size=" + newsize);
+        this.ExecuteCommand(0, "set_size&size=" + newsize);
     }
 
     public int GetMovieClipMaxChunkSize() {
@@ -456,21 +455,23 @@ public class Camera {
     public void SetImageFlipMode(MirrorImage newmode) {
         this.ImageFlip = newmode;
 
-        if (newmode == MirrorImage.NONE) {
-            Parent.WriteLogtoConsole("Setting FlipMode to NONE");
-            SendParametertoCamera("FLIPH=0&FLIPV=0");
-        }
-        if (newmode == MirrorImage.HORIZONTAL) {
-            Parent.WriteLogtoConsole("Setting FlipMode to HORIZONTAL");
-            SendParametertoCamera("FLIPH=1&FLIPV=0");
-        }
-        if (newmode == MirrorImage.VERTICAL) {
-            Parent.WriteLogtoConsole("Setting FlipMode to VERTICAL");
-            SendParametertoCamera("FLIPH=0&FLIPV=1");
-        }
-        if (newmode == MirrorImage.VERTICALHORIZONTAL) {
-            Parent.WriteLogtoConsole("Setting FlipMode to VERTICALHORIZONTAL");
-            SendParametertoCamera("FLIPH=1&FLIPV=1");
+        for (int i = 0; i < this.IP.length; i++) {
+            if (newmode == MirrorImage.NONE) {
+                Parent.WriteLogtoConsole("Setting FlipMode to NONE");
+                SendParametertoCamera(i, "FLIPH=0&FLIPV=0");
+            }
+            if (newmode == MirrorImage.HORIZONTAL) {
+                Parent.WriteLogtoConsole("Setting FlipMode to HORIZONTAL");
+                SendParametertoCamera(i, "FLIPH=1&FLIPV=0");
+            }
+            if (newmode == MirrorImage.VERTICAL) {
+                Parent.WriteLogtoConsole("Setting FlipMode to VERTICAL");
+                SendParametertoCamera(i, "FLIPH=0&FLIPV=1");
+            }
+            if (newmode == MirrorImage.VERTICALHORIZONTAL) {
+                Parent.WriteLogtoConsole("Setting FlipMode to VERTICALHORIZONTAL");
+                SendParametertoCamera(i, "FLIPH=1&FLIPV=1");
+            }
         }
     }
 
@@ -491,9 +492,11 @@ public class Camera {
     }
 
     public void SetFPSSkipSeconds(int newseconds) {
-        Parent.WriteLogtoConsole("Setting SecondsSkip to " + newseconds);
-        this.FPSSkipSeconds = newseconds;
-        this.ExecuteCommand("SETSKIPSECONDS", newseconds + "");
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting SecondsSkip to " + newseconds);
+            this.FPSSkipSeconds = newseconds;
+            this.ExecuteCommand(i, "SETSKIPSECONDS", newseconds + "");
+        }
     }
 
     public int GetFPSSkipSeconds() {
@@ -501,9 +504,11 @@ public class Camera {
     }
 
     public void SetFPSSkipFrames(int newSkipFrames) {
-        Parent.WriteLogtoConsole("Setting FramesSkip to " + newSkipFrames);
-        this.FPSSkipFrames = newSkipFrames;
-        this.ExecuteCommand("SETSKIPFRAMES", newSkipFrames + "");
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting FramesSkip to " + newSkipFrames);
+            this.FPSSkipFrames = newSkipFrames;
+            this.ExecuteCommand(i, "SETSKIPFRAMES", newSkipFrames + "");
+        }
     }
 
     public int GetFPSSkipFrames() {
@@ -511,6 +516,7 @@ public class Camera {
     }
 
     public void SetGammaPreset(GammaPreset newpreset) {
+        // TODO for all IPs
         this.GammaPreset = newpreset;
     }
 
@@ -519,6 +525,7 @@ public class Camera {
     }
 
     public void SetBlacklevel(int newblacklevel) {
+        // TODO for all IPs
         if (newblacklevel > 255) {
             newblacklevel = 255;
         }
@@ -527,9 +534,10 @@ public class Camera {
         }
         this.Blacklevel = newblacklevel;
 
-        Parent.WriteLogtoConsole("Setting Blacklevel to " + newblacklevel);
-
-        this.SendCamVCParameters("set=0/gam:" + this.Gamma + "/pxl:" + this.Blacklevel + "/");
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(this.IP[i] + ": Setting Blacklevel to " + newblacklevel);
+            this.SendCamVCParameters(i, "set=0/gam:" + this.Gamma + "/pxl:" + this.Blacklevel + "/");
+        }
     }
 
     public double GetRecordstartTime() {
@@ -589,18 +597,23 @@ public class Camera {
     }
 
     public void SetGain(float newgain) {
-        float GainR, GainB, GainG, GainGB;
-        GainR = newgain * 65536 * WB_Factor_R;
-        GainG = newgain * 65536 * WB_Factor_G;
-        GainB = newgain * 65536 * WB_Factor_B;
-        GainGB = newgain * 65536 * WB_Factor_GB;
-        SendParametertoCamera("framedelay=1&GAINR=" + (int) GainR + "&GAING=" + (int) GainG + "&GAINB=" + (int) GainB + "&GAINGB=" + (int) GainGB);
+        for (int i = 0; i < this.IP.length; i++) {
+            float GainR, GainB, GainG, GainGB;
+            GainR = newgain * 65536 * WB_Factor_R;
+            GainG = newgain * 65536 * WB_Factor_G;
+            GainB = newgain * 65536 * WB_Factor_B;
+            GainGB = newgain * 65536 * WB_Factor_GB;
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting GAIN to " + newgain);
+            SendParametertoCamera(i, "framedelay=1&GAINR=" + (int) GainR + "&GAING=" + (int) GainG + "&GAINB=" + (int) GainB + "&GAINGB=" + (int) GainGB);
+        }
     }
 
     public void SetCoringIndex(int newcore) {
-        Parent.WriteLogtoConsole("Setting CORING_INDEX to " + newcore);
-        SendParametertoCamera("framedelay=1&CORING_INDEX=" + (int) newcore);
         CoringIndex = newcore;
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting CORING_INDEX to " + newcore);
+            SendParametertoCamera(i, "framedelay=1&CORING_INDEX=" + (int) newcore);
+        }
     }
 
     public int GetCoringIndex() {
@@ -616,14 +629,16 @@ public class Camera {
         }
         this.GainIndex = newindex;
 
-        Parent.WriteLogtoConsole("Setting GAIN_INDEX to " + newindex);
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting GAIN_INDEX to " + newindex);
 
-        float GainR, GainB, GainG, GainGB;
-        GainR = this.Gain[GainIndex] * 65536 * WB_Factor_R;
-        GainG = this.Gain[GainIndex] * 65536 * WB_Factor_G;
-        GainB = this.Gain[GainIndex] * 65536 * WB_Factor_B;
-        GainGB = this.Gain[GainIndex] * 65536 * WB_Factor_GB;
-        SendParametertoCamera("framedelay=3&GAINR=" + (int) GainR + "&GAING=" + (int) GainG + "&GAINB=" + (int) GainB + "&GAINGB=" + (int) GainGB);
+            float GainR, GainB, GainG, GainGB;
+            GainR = this.Gain[GainIndex] * 65536 * WB_Factor_R;
+            GainG = this.Gain[GainIndex] * 65536 * WB_Factor_G;
+            GainB = this.Gain[GainIndex] * 65536 * WB_Factor_B;
+            GainGB = this.Gain[GainIndex] * 65536 * WB_Factor_GB;
+            SendParametertoCamera(i, "framedelay=3&GAINR=" + (int) GainR + "&GAING=" + (int) GainG + "&GAINB=" + (int) GainB + "&GAINGB=" + (int) GainGB);
+        }
     }
 
     public void SetExposure(float newexposure) {
@@ -710,65 +725,67 @@ public class Camera {
     }
 
     public void SetWhiteBalance(WhiteBalance newbalance) {
-        Parent.WriteLogtoConsole("Setting WhiteBalance to " + newbalance);
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting WhiteBalance to " + newbalance);
 
-        this.ImageWhiteBalance = newbalance;
-        float GainR, GainB, GainG, GainGB;
-        String Parameters = "";
-        switch (newbalance) {
-            case AUTO:
-                Parameters = "WB_EN=1&framedelay=3";
-                break;
-            case DAYLIGHT:
-                WB_Factor_R = 1.5f; // TODO just estimated badly
-                WB_Factor_G = 1.0f;
-                WB_Factor_B = 1.6f; // TODO just estimated badly
-                WB_Factor_GB = 1.0f;
-                GainR = this.Gain[GainIndex] * 65536 * WB_Factor_R;
-                GainG = this.Gain[GainIndex] * 65536 * WB_Factor_G;
-                GainB = this.Gain[GainIndex] * 65536 * WB_Factor_B;
-                GainGB = this.Gain[GainIndex] * 65536 * WB_Factor_GB;
-                Parameters = "WB_EN=0&framedelay=3&GAINR=" + (int) GainR + "&GAING=" + (int) GainG + "&GAINB=" + (int) GainB + "&GAINGB=" + (int) GainGB;
-                break;
-            case CLOUDY:
-                WB_Factor_R = 1.4f; // TODO just estimated badly
-                WB_Factor_G = 1.0f;
-                WB_Factor_B = 1.4f; // TODO just estimated badly
-                WB_Factor_GB = 1.0f;
-                GainR = this.Gain[GainIndex] * 65536 * WB_Factor_R;
-                GainG = this.Gain[GainIndex] * 65536 * WB_Factor_G;
-                GainB = this.Gain[GainIndex] * 65536 * WB_Factor_B;
-                GainGB = this.Gain[GainIndex] * 65536 * WB_Factor_GB;
-                Parameters = "WB_EN=0&framedelay=3&GAINR=" + (int) GainR + "&GAING=" + (int) GainG + "&GAINB=" + (int) GainB + "&GAINGB=" + (int) GainGB;
-                break;
-            case TUNGSTEN:
-                WB_Factor_R = 1.1286f; // TODO just estimated badly
-                WB_Factor_G = 1.0f;
-                WB_Factor_B = 2.3317f; // TODO just estimated badly
-                WB_Factor_GB = 1.0f;
-                GainR = this.Gain[GainIndex] * 65536 * WB_Factor_R;
-                GainG = this.Gain[GainIndex] * 65536 * WB_Factor_G;
-                GainB = this.Gain[GainIndex] * 65536 * WB_Factor_B;
-                GainGB = this.Gain[GainIndex] * 65536 * WB_Factor_GB;
-                Parameters = "WB_EN=0&framedelay=3&GAINR=" + (int) GainR + "&GAING=" + (int) GainG + "&GAINB=" + (int) GainB + "&GAINGB=" + (int) GainGB;
-                break;
-            case FLOURESCENT:
-                WB_Factor_R = 1.2f; // TODO just estimated badly
-                WB_Factor_G = 1.0f;
-                WB_Factor_B = 1.5f; // TODO just estimated badly
-                WB_Factor_GB = 1.0f;
-                GainR = this.Gain[GainIndex] * 65536 * WB_Factor_R;
-                GainG = this.Gain[GainIndex] * 65536 * WB_Factor_G;
-                GainB = this.Gain[GainIndex] * 65536 * WB_Factor_B;
-                GainGB = this.Gain[GainIndex] * 65536 * WB_Factor_GB;
-                Parameters = "WB_EN=0&framedelay=3&GAINR=" + (int) GainR + "&GAING=" + (int) GainG + "&GAINB=" + (int) GainB + "&GAINGB=" + (int) GainGB;
-                break;
-            case CUSTOM:
-                //TODO
-                //SendParametertoCamera("WB_EN=0");
-                break;
+            this.ImageWhiteBalance = newbalance;
+            float GainR, GainB, GainG, GainGB;
+            String Parameters = "";
+            switch (newbalance) {
+                case AUTO:
+                    Parameters = "WB_EN=1&framedelay=3";
+                    break;
+                case DAYLIGHT:
+                    WB_Factor_R = 1.5f; // TODO just estimated badly
+                    WB_Factor_G = 1.0f;
+                    WB_Factor_B = 1.6f; // TODO just estimated badly
+                    WB_Factor_GB = 1.0f;
+                    GainR = this.Gain[GainIndex] * 65536 * WB_Factor_R;
+                    GainG = this.Gain[GainIndex] * 65536 * WB_Factor_G;
+                    GainB = this.Gain[GainIndex] * 65536 * WB_Factor_B;
+                    GainGB = this.Gain[GainIndex] * 65536 * WB_Factor_GB;
+                    Parameters = "WB_EN=0&framedelay=3&GAINR=" + (int) GainR + "&GAING=" + (int) GainG + "&GAINB=" + (int) GainB + "&GAINGB=" + (int) GainGB;
+                    break;
+                case CLOUDY:
+                    WB_Factor_R = 1.4f; // TODO just estimated badly
+                    WB_Factor_G = 1.0f;
+                    WB_Factor_B = 1.4f; // TODO just estimated badly
+                    WB_Factor_GB = 1.0f;
+                    GainR = this.Gain[GainIndex] * 65536 * WB_Factor_R;
+                    GainG = this.Gain[GainIndex] * 65536 * WB_Factor_G;
+                    GainB = this.Gain[GainIndex] * 65536 * WB_Factor_B;
+                    GainGB = this.Gain[GainIndex] * 65536 * WB_Factor_GB;
+                    Parameters = "WB_EN=0&framedelay=3&GAINR=" + (int) GainR + "&GAING=" + (int) GainG + "&GAINB=" + (int) GainB + "&GAINGB=" + (int) GainGB;
+                    break;
+                case TUNGSTEN:
+                    WB_Factor_R = 1.1286f; // TODO just estimated badly
+                    WB_Factor_G = 1.0f;
+                    WB_Factor_B = 2.3317f; // TODO just estimated badly
+                    WB_Factor_GB = 1.0f;
+                    GainR = this.Gain[GainIndex] * 65536 * WB_Factor_R;
+                    GainG = this.Gain[GainIndex] * 65536 * WB_Factor_G;
+                    GainB = this.Gain[GainIndex] * 65536 * WB_Factor_B;
+                    GainGB = this.Gain[GainIndex] * 65536 * WB_Factor_GB;
+                    Parameters = "WB_EN=0&framedelay=3&GAINR=" + (int) GainR + "&GAING=" + (int) GainG + "&GAINB=" + (int) GainB + "&GAINGB=" + (int) GainGB;
+                    break;
+                case FLOURESCENT:
+                    WB_Factor_R = 1.2f; // TODO just estimated badly
+                    WB_Factor_G = 1.0f;
+                    WB_Factor_B = 1.5f; // TODO just estimated badly
+                    WB_Factor_GB = 1.0f;
+                    GainR = this.Gain[GainIndex] * 65536 * WB_Factor_R;
+                    GainG = this.Gain[GainIndex] * 65536 * WB_Factor_G;
+                    GainB = this.Gain[GainIndex] * 65536 * WB_Factor_B;
+                    GainGB = this.Gain[GainIndex] * 65536 * WB_Factor_GB;
+                    Parameters = "WB_EN=0&framedelay=3&GAINR=" + (int) GainR + "&GAING=" + (int) GainG + "&GAINB=" + (int) GainB + "&GAINGB=" + (int) GainGB;
+                    break;
+                case CUSTOM:
+                    //TODO
+                    //SendParametertoCamera("WB_EN=0");
+                    break;
+            }
+            SendParametertoCamera(i, Parameters);
         }
-        SendParametertoCamera(Parameters);
     }
 
     public WhiteBalance GetWhiteBalance() {
@@ -789,22 +806,25 @@ public class Camera {
         }
         this.Gamma = newgamma;
 
-        Parent.WriteLogtoConsole("Setting Gamma to " + newgamma);
-
-        this.SendCamVCParameters("set=0/gam:" + this.Gamma + "/pxl:" + this.Blacklevel + "/");
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(this.IP[i] + ": Setting Gamma to " + newgamma);
+            this.SendCamVCParameters(i, "set=0/gam:" + this.Gamma + "/pxl:" + this.Blacklevel + "/");
+        }
     }
 
     public void SetRecordFormat(RecordFormat newformat) {
-        if (newformat == RecordFormat.JPEG) {
-            Parent.WriteLogtoConsole("Setting RecordFormat to " + newformat);
-            this.ExecuteCommand("SETCONTAINERFORMATJPEG");
-        }
-        if (newformat == RecordFormat.MOV) {
-            Parent.WriteLogtoConsole("Setting RecordFormat to " + newformat);
-            this.ExecuteCommand("SETCONTAINERFORMATQUICKTIME");
-        }
+        for (int i = 0; i < this.IP.length; i++) {
+            if (newformat == RecordFormat.JPEG) {
+                Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting RecordFormat to " + newformat);
+                this.ExecuteCommand(i, "SETCONTAINERFORMATJPEG");
+            }
+            if (newformat == RecordFormat.MOV) {
+                Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting RecordFormat to " + newformat);
+                this.ExecuteCommand(i, "SETCONTAINERFORMATQUICKTIME");
+            }
 
-        this.RecordFormat = newformat;
+            this.RecordFormat = newformat;
+        }
     }
 
     public float GetFPS() {
@@ -824,6 +844,11 @@ public class Camera {
     }
 
     public void ReadHistogram() {
+        // TODO 
+        // currently we are reading always from IP with Index 0
+        // but how to deal with multiple histograms?
+        // maybe make the one displayed switchable to select which camera the data should come from?
+
         URLConnection conn = null;
         BufferedReader data = null;
         String line;
@@ -833,9 +858,9 @@ public class Camera {
         int parameter = 0;
         String camera = null;
         if (Parent.Camera.GetHistogramScaleMode() == HistogramScaleMode.LINEAR) {
-            camera = "http://" + this.IP + "/ElphelVision/histogram.php?mode=linear&" + (int) (Math.random() * 32000); // to prevent reading a cached result we add a random number to the URL
+            camera = "http://" + this.IP[0] + "/ElphelVision/histogram.php?mode=linear&" + (int) (Math.random() * 32000); // to prevent reading a cached result we add a random number to the URL
         } else if (Parent.Camera.GetHistogramScaleMode() == HistogramScaleMode.LOG) {
-            camera = "http://" + this.IP + "/ElphelVision/histogram.php?mode=log&" + (int) (Math.random() * 32000); // to prevent reading a cached result we add a random number to the URL
+            camera = "http://" + this.IP[0] + "/ElphelVision/histogram.php?mode=log&" + (int) (Math.random() * 32000); // to prevent reading a cached result we add a random number to the URL
         }
 
         try {
@@ -903,6 +928,10 @@ public class Camera {
     }
 
     public void ReadGammaCurve() {
+        // TODO 
+        // currently we are reading always from IP with Index 0
+        // but how to deal with multiple gamma curves?
+        // maybe make the one displayed switchable to select which camera the data should come from?
 
         URLConnection conn = null;
         BufferedReader data = null;
@@ -912,7 +941,7 @@ public class Camera {
         URL GammaURL = null;
         int parameter = 0;
 
-        String camera = "http://" + this.IP + "/ElphelVision/gamma.php?" + (int) (Math.random() * 32000);
+        String camera = "http://" + this.IP[0] + "/ElphelVision/gamma.php?" + (int) (Math.random() * 32000);
         try {
             GammaURL = new URL(camera);
         } catch (MalformedURLException e) {
@@ -933,7 +962,7 @@ public class Camera {
             result = buf.toString();
             data.close();
         } catch (IOException e) {
-            Parent.WriteErrortoConsole("Reading gamma curve data failed IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("Reading gamma curve data failed IO error:" + e.getMessage());
         }
         String[] x = Pattern.compile(";").split(result);
         int a = 0;
@@ -946,26 +975,31 @@ public class Camera {
 
     public boolean InitCameraConnection() {
         boolean error = false;
+        this.CameraUrl = new URL[this.IP.length];
+        this.CameraPingUrl = new URL[this.IP.length];
 
-        String camera_url = "http://" + this.IP + "/ElphelVision/elphelvision_interface.php";
-        try {
-            this.CameraUrl = new URL(camera_url);
-            error = true;
-        } catch (MalformedURLException e) {
-            System.out.println("Bad URL: " + this.CameraUrl);
-            error = false;
-        }
+        for (int i = 0; i < this.IP.length; i++) {
 
-        String Camera_Ping_Url = "http://" + this.IP + "/ElphelVision/ping.php";
-        try {
-            this.CameraPingUrl = new URL(Camera_Ping_Url);
-            error = true;
-        } catch (MalformedURLException e) {
-            System.out.println("Bad URL: " + this.CameraPingUrl);
-            error = false;
-        }
-        if (error) {
-            this.ConnectionEstablished = true;
+            String camera_url = "http://" + this.IP[i] + "/ElphelVision/elphelvision_interface.php";
+            try {
+                this.CameraUrl[i] = new URL(camera_url);
+                error = true;
+            } catch (MalformedURLException e) {
+                System.out.println("Bad URL: " + this.CameraUrl);
+                error = false;
+            }
+
+            String Camera_Ping_Url = "http://" + this.IP[i] + "/ElphelVision/ping.php";
+            try {
+                this.CameraPingUrl[i] = new URL(Camera_Ping_Url);
+                error = true;
+            } catch (MalformedURLException e) {
+                System.out.println("Bad URL: " + this.CameraPingUrl);
+                error = false;
+            }
+            if (error) {
+                this.ConnectionEstablished = true;
+            }
         }
         return error;
     }
@@ -976,121 +1010,132 @@ public class Camera {
         String line;
         String result;
         StringBuffer buf = new StringBuffer();
+        boolean ReturnValue = false;
 
         // try to connect
-        try {
-            conn = this.CameraUrl.openConnection();
-            conn.connect();
+        for (int i = 0; i < this.IP.length; i++) {
 
-            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            buf.delete(0, buf.length());
-            while ((line = data.readLine()) != null) {
-                buf.append(line + "\n");
-            }
-
-            result = buf.toString();
-            data.close();
-
-            // try to extract data from XML structure
             try {
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder db = dbf.newDocumentBuilder();
+                conn = this.CameraUrl[i].openConnection();
+                conn.connect();
 
-                Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
-                doc.getDocumentElement().normalize();
-                NodeList nodeLst = doc.getElementsByTagName("elphel_vision_data");
-                for (int s = 0; s < nodeLst.getLength(); s++) {
-                    Node fstNode = nodeLst.item(s);
-                    if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
-                        Element fstElmnt = (Element) fstNode;
-                        NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("camogm");
+                data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-                        Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
-                        NodeList fstNm = fstNmElmnt.getChildNodes();
-                        if ((((Node) fstNm.item(0)).getNodeValue().compareTo("not running")) == 0) {
-                            this.CAMOGMState = CamogmState.NOTRUNNING;
-                        } else {
-                            NodeList NmElmntLst5 = fstElmnt.getElementsByTagName("camogm_state");
-                            Element NmElmnt5 = (Element) NmElmntLst5.item(0);
-                            NodeList Elmnt5 = NmElmnt5.getChildNodes();
-                            if (((Node) Elmnt5.item(0)) != null) {
-                                if (((Node) Elmnt5.item(0)).getNodeValue().compareTo("stopped") != 0) {
-                                    this.CAMOGMState = CamogmState.STOPPED;
-                                }
-                                if (((Node) Elmnt5.item(0)).getNodeValue().compareTo("running") != 0) {
-                                    this.CAMOGMState = CamogmState.RECORDING;
-                                }
-                                NodeList NmElmntLst6 = fstElmnt.getElementsByTagName("hdd_freespaceratio");
-                                Element NmElmnt6 = (Element) NmElmntLst6.item(0);
-                                NodeList Elmnt6 = NmElmnt6.getChildNodes();
-                                if (((Node) Elmnt6.item(0)).getNodeValue().compareTo("unmounted") == 0) {
-                                    this.HDDState = HDDState.UNMOUNTED;
-                                } else {
-                                    this.HDDState = HDDState.MOUNTED;
+                buf.delete(0, buf.length());
+                while ((line = data.readLine()) != null) {
+                    buf.append(line + "\n");
+                }
+
+                result = buf.toString();
+                data.close();
+
+                // try to extract data from XML structure
+                try {
+                    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder db = dbf.newDocumentBuilder();
+
+                    Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
+                    doc.getDocumentElement().normalize();
+                    NodeList nodeLst = doc.getElementsByTagName("elphel_vision_data");
+                    for (int s = 0; s < nodeLst.getLength(); s++) {
+                        Node fstNode = nodeLst.item(s);
+                        if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element fstElmnt = (Element) fstNode;
+                            NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("camogm");
+
+                            Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+                            NodeList fstNm = fstNmElmnt.getChildNodes();
+                            if ((((Node) fstNm.item(0)).getNodeValue().compareTo("not running")) == 0) {
+                                this.CAMOGMState = CamogmState.NOTRUNNING;
+                            } else {
+                                NodeList NmElmntLst5 = fstElmnt.getElementsByTagName("camogm_state");
+                                Element NmElmnt5 = (Element) NmElmntLst5.item(0);
+                                NodeList Elmnt5 = NmElmnt5.getChildNodes();
+                                if (((Node) Elmnt5.item(0)) != null) {
+                                    if (((Node) Elmnt5.item(0)).getNodeValue().compareTo("stopped") != 0) {
+                                        this.CAMOGMState = CamogmState.STOPPED;
+                                    }
+                                    if (((Node) Elmnt5.item(0)).getNodeValue().compareTo("running") != 0) {
+                                        this.CAMOGMState = CamogmState.RECORDING;
+                                    }
+                                    NodeList NmElmntLst6 = fstElmnt.getElementsByTagName("hdd_freespaceratio");
+                                    Element NmElmnt6 = (Element) NmElmntLst6.item(0);
+                                    NodeList Elmnt6 = NmElmnt6.getChildNodes();
+                                    if (((Node) Elmnt6.item(0)).getNodeValue().compareTo("unmounted") == 0) {
+                                        this.HDDState = HDDState.UNMOUNTED;
+                                    } else {
+                                        this.HDDState = HDDState.MOUNTED;
+                                    }
                                 }
                             }
                         }
                     }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (IOException e) {
+                Parent.WriteErrortoConsole("InitCameraServices: " + e.getMessage());
             }
-        } catch (IOException e) {
-            Parent.WriteErrortoConsole("InitCameraServices: " + e.getMessage());
+
+            if (this.CAMOGMState == CamogmState.NOTRUNNING) {
+                this.ExecuteCommand(i, "CAMOGMSTART");
+                ReturnValue = false;
+            }
+            if (this.HDDState == HDDState.UNMOUNTED) {
+                this.ExecuteCommand(i, "MOUNTHDD");
+                this.ExecuteCommand(i, "SETRECDIR");
+                this.ExecuteCommand(i, "SETCONTAINERFORMATQUICKTIME");
+                ReturnValue = true; // ElphelVision should also work with cameras without HDD
+            } else {
+                ReturnValue = true;
+            }
+
         }
 
-        if (this.CAMOGMState == CamogmState.NOTRUNNING) {
-            this.ExecuteCommand("CAMOGMSTART");
-            return false;
-        }
-        if (this.HDDState == HDDState.UNMOUNTED) {
-            this.ExecuteCommand("MOUNTHDD");
-            this.ExecuteCommand("SETRECDIR");
-            this.ExecuteCommand("SETCONTAINERFORMATQUICKTIME");
-            return true; // ElphelVision should also work with cameras without HDD
-        } else {
-            return true;
-        }
+        return ReturnValue;
     }
 
     public void SetParameter(CameraParameter par, float value) {
-        switch (par) {
-            case EXPOSURE:
-                Parent.WriteLogtoConsole("Setting EXPOSURE to " + value);
-                this.SendParameter(CameraParameter.EXPOSURE, value);
-                break;
-            case GAIN:
-                Parent.WriteLogtoConsole("Setting GAIN to " + value);
-                this.SendParameter(CameraParameter.GAIN, value);
-                break;
-            case AUTOEXP:
-                Parent.WriteLogtoConsole("Setting AUTOEXPOSURE to " + value);
-                this.SendParameter(CameraParameter.AUTOEXP, value);
-                break;
-            case JPEGQUAL:
-                Parent.WriteLogtoConsole("Setting QUALITY to " + value);
-                this.SendParameter(CameraParameter.JPEGQUAL, value);
-                break;
-            case COLORMODE:
-                this.SendParameter(CameraParameter.COLORMODE, value);
-                break;
-            case FPS:
-                Parent.WriteLogtoConsole("Setting FPS to " + value);
-                this.SendParameter(CameraParameter.FPS, value);
-                break;
-            case SENSORWIDTH:
-                Parent.WriteLogtoConsole("Setting SENSORWIDTH to " + value);
-                this.SendParameter(CameraParameter.SENSORWIDTH, value);
-                break;
-            case SENSORHEIGHT:
-                Parent.WriteLogtoConsole("Setting SENSORWIDTH to " + value);
-                this.SendParameter(CameraParameter.SENSORHEIGHT, value);
-                break;
-            case RECORDFORMAT:
-                Parent.WriteLogtoConsole("Setting RECORDFORMAT to " + value);
-                this.SendParameter(CameraParameter.RECORDFORMAT, value);
-                break;
+        for (int i = 0; i < this.IP.length; i++) {
+            switch (par) {
+                case EXPOSURE:
+                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting EXPOSURE to " + value);
+                    this.SendParameter(i, CameraParameter.EXPOSURE, value);
+                    break;
+                case GAIN:
+                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting GAIN to " + value);
+                    this.SendParameter(i, CameraParameter.GAIN, value);
+                    break;
+                case AUTOEXP:
+                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting AUTOEXPOSURE to " + value);
+                    this.SendParameter(i, CameraParameter.AUTOEXP, value);
+                    break;
+                case JPEGQUAL:
+                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting QUALITY to " + value);
+                    this.SendParameter(i, CameraParameter.JPEGQUAL, value);
+                    break;
+                case COLORMODE:
+                    // Log Message is in the SetColorMode Function
+                    this.SendParameter(i, CameraParameter.COLORMODE, value);
+                    break;
+                case FPS:
+                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting FPS to " + value);
+                    this.SendParameter(i, CameraParameter.FPS, value);
+                    break;
+                case SENSORWIDTH:
+                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting SENSORWIDTH to " + value);
+                    this.SendParameter(i, CameraParameter.SENSORWIDTH, value);
+                    break;
+                case SENSORHEIGHT:
+                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting SENSORWIDTH to " + value);
+                    this.SendParameter(i, CameraParameter.SENSORHEIGHT, value);
+                    break;
+                case RECORDFORMAT:
+                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting RECORDFORMAT to " + value);
+                    this.SendParameter(i, CameraParameter.RECORDFORMAT, value);
+                    break;
+            }
         }
     }
 
@@ -1099,11 +1144,6 @@ public class Camera {
     }
 
     public void SetPreset(CameraPreset preset) {
-        Parent.WriteLogtoConsole("Setting ResolutionPreset to " + preset);
-
-        if (Parent.GetNoCameraParameter()) {
-            return;
-        }
         this.Preset = preset;
 
         // Dont apply any settings if its a custom preset
@@ -1129,90 +1169,98 @@ public class Camera {
             int fps = 0;
             int binning = 0;
 
-            switch (preset) {
-                case FULL:
-                    // 2592x1936
-                    woi_left = 0;
-                    woi_top = 0;
-                    width = 2592;
-                    height = 1936;
-                    binning = 1;
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
-                    param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
-                    param_url += "&framedelay=3";
-                    break;
-                case AMAX:
-                    // 2224x1251
-                    woi_left = 184;
-                    woi_top = 340;
-                    width = 2224;
-                    height = 1264;
-                    binning = 1;
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
-                    param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
-                    param_url += "&framedelay=3";
-                    break;
-                case CIMAX:
-                    // 2592x1120
-                    woi_left = 0;
-                    woi_top = 416;
-                    width = 2592;
-                    height = 1120;
-                    binning = 1;
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
-                    param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
-                    param_url += "&framedelay=3";
-                    break;
-                case FULLHD:
-                    woi_left = 336;
-                    woi_top = 442;
-                    width = 1920;
-                    height = 1088;
-                    binning = 1;
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
-                    param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
-                    param_url += "&framedelay=3";
-                    break;
-                case SMALLHD:
-                    woi_left = 656;
-                    woi_top = 612;
-                    width = 1280;
-                    height = 720;
-                    binning = 1;
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
-                    param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
-                    param_url += "&framedelay=3";
-                    break;
-                case CUSTOM:
-                    woi_left = 16;
-                    woi_top = 252;
-                    width = 2560;
-                    height = 1440;
-                    binning = 1;
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
-                    param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
-                    param_url += "&framedelay=3";
-                    break;
+            for (int i = 0; i < this.IP.length; i++) {
+                Parent.WriteLogtoConsole(this.IP[i] + ": Setting ResolutionPreset to " + preset);
+
+                if (Parent.GetNoCameraParameter()) {
+                    return;
+                }
+
+                switch (preset) {
+                    case FULL:
+                        // 2592x1936
+                        woi_left = 0;
+                        woi_top = 0;
+                        width = 2592;
+                        height = 1936;
+                        binning = 1;
+                        param_url = "http://" + this.IP[i] + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
+                        param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
+                        param_url += "&framedelay=3";
+                        break;
+                    case AMAX:
+                        // 2224x1251
+                        woi_left = 184;
+                        woi_top = 340;
+                        width = 2224;
+                        height = 1264;
+                        binning = 1;
+                        param_url = "http://" + this.IP[i] + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
+                        param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
+                        param_url += "&framedelay=3";
+                        break;
+                    case CIMAX:
+                        // 2592x1120
+                        woi_left = 0;
+                        woi_top = 416;
+                        width = 2592;
+                        height = 1120;
+                        binning = 1;
+                        param_url = "http://" + this.IP[i] + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
+                        param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
+                        param_url += "&framedelay=3";
+                        break;
+                    case FULLHD:
+                        woi_left = 336;
+                        woi_top = 442;
+                        width = 1920;
+                        height = 1088;
+                        binning = 1;
+                        param_url = "http://" + this.IP[i] + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
+                        param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
+                        param_url += "&framedelay=3";
+                        break;
+                    case SMALLHD:
+                        woi_left = 656;
+                        woi_top = 612;
+                        width = 1280;
+                        height = 720;
+                        binning = 1;
+                        param_url = "http://" + this.IP[i] + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
+                        param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
+                        param_url += "&framedelay=3";
+                        break;
+                    case CUSTOM:
+                        woi_left = 16;
+                        woi_top = 252;
+                        width = 2560;
+                        height = 1440;
+                        binning = 1;
+                        param_url = "http://" + this.IP[i] + "/ElphelVision/setparam.php?WOI_LEFT=" + woi_left + "&WOI_TOP=" + woi_top + "&WOI_WIDTH=" + width;
+                        param_url += "&WOI_HEIGHT=" + height + "&DCM_HOR=" + binning + "&DCM_VERT=" + binning + "&BIN_HOR=" + binning + "&BIN_VERT=" + binning;
+                        param_url += "&framedelay=3";
+                        break;
+                }
+
+                try {
+                    ParamURL = new URL(param_url);
+                } catch (MalformedURLException e) {
+                    Parent.WriteErrortoConsole("SetPreset(" + param_url + ") Error: Bad URL: " + param_url);
+                }
+
+                conn = ParamURL.openConnection();
+                conn.connect();
+
+                data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                buf.delete(0, buf.length());
+                while ((line = data.readLine()) != null) {
+                    buf.append(line + "\n");
+                }
+
+                result = buf.toString();
+                data.close();
             }
-
-            try {
-                ParamURL = new URL(param_url);
-            } catch (MalformedURLException e) {
-                Parent.WriteErrortoConsole("SetPreset(" + param_url + ") Error: Bad URL: " + param_url);
-            }
-
-            conn = ParamURL.openConnection();
-            conn.connect();
-
-            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            buf.delete(0, buf.length());
-            while ((line = data.readLine()) != null) {
-                buf.append(line + "\n");
-            }
-
-            result = buf.toString();
-            data.close();
         } catch (IOException e) {
             Parent.WriteErrortoConsole("SetPreset(" + param_url + ") Error: " + e.getMessage());
         }
@@ -1221,6 +1269,12 @@ public class Camera {
     public boolean CheckHDD() {
         try {
             UpdateCameraData();
+
+
+
+
+
+
         } catch (Exception ex) {
             Logger.getLogger(Camera.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1246,7 +1300,7 @@ public class Camera {
         try {
             //FileWriter always assumes default encoding is OK!
             String line = "";
-            line += "IP=" + this.GetIP() + "\n";
+            line += "IP=" + this.GetIP()[0] + "\n";
             line += "ImageWidth=" + Integer.toString(this.GetImageWidth()) + "\n";
             line += "ImageHeight=" + Integer.toString(this.GetImageHeight()) + "\n";
             line += "Preset=";
@@ -1624,7 +1678,7 @@ public class Camera {
         }
     }
 
-    private void SendParameter(CameraParameter par, float value) {
+    private void SendParameter(int CameraIPIndex, CameraParameter par, float value) {
         if (Parent.GetNoCameraParameter()) {
             return;
         }
@@ -1644,82 +1698,39 @@ public class Camera {
             switch (par) {
                 case EXPOSURE:
                     parameter = (int) (value * 1000000);
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?framedelay=1&EXPOS=" + parameter;
+                    param_url = "http://" + this.IP[CameraIPIndex] + "/ElphelVision/setparam.php?framedelay=1&EXPOS=" + parameter;
                     break;
 
                 case AUTOEXP:
                     parameter = (int) value;
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?framedelay=1&AUTOEXP_ON=" + parameter;
+                    param_url = "http://" + this.IP[CameraIPIndex] + "/ElphelVision/setparam.php?framedelay=1&AUTOEXP_ON=" + parameter;
                     break;
 
                 case JPEGQUAL:
                     parameter = (int) value;
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?framedelay=3&QUALITY=" + parameter;
+                    param_url = "http://" + this.IP[CameraIPIndex] + "/ElphelVision/setparam.php?framedelay=3&QUALITY=" + parameter;
                     break;
 
                 case COLORMODE:
                     parameter = (int) value;
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?framedelay=3&COLOR=" + parameter;
+                    param_url = "http://" + this.IP[CameraIPIndex] + "/ElphelVision/setparam.php?framedelay=3&COLOR=" + parameter;
                     break;
 
                 case FPS:
                     float fps_parameter = value * 1000;
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?framedelay=3&FPSFLAGS=1&FP1000SLIM=" + fps_parameter;
+                    param_url = "http://" + this.IP[CameraIPIndex] + "/ElphelVision/setparam.php?framedelay=3&FPSFLAGS=1&FP1000SLIM=" + fps_parameter;
                     break;
 
                 case SENSORHEIGHT:
                     margin = Math.round(1936 / 2 - value / 2);
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?WOI_HEIGHT=" + value + "WOI_TOP=" + margin;
+                    param_url = "http://" + this.IP[CameraIPIndex] + "/ElphelVision/setparam.php?WOI_HEIGHT=" + value + "WOI_TOP=" + margin;
                     break;
 
                 case SENSORWIDTH:
                     margin = Math.round(2592 / 2 - value / 2);
-                    param_url = "http://" + this.IP + "/ElphelVision/setparam.php?WOI_WIDTH=" + value + "WOI_LEFT=" + margin;
+                    param_url = "http://" + this.IP[CameraIPIndex] + "/ElphelVision/setparam.php?WOI_WIDTH=" + value + "WOI_LEFT=" + margin;
                     break;
             }
-            try {
-                ParamURL = new URL(param_url);
-            } catch (MalformedURLException e) {
-                System.out.println("Bad URL: " + param_url);
-            }
-
-            conn = ParamURL.openConnection();
-            conn.connect();
-
-            data =
-                    new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            buf.delete(0, buf.length());
-            while ((line = data.readLine()) != null) {
-                buf.append(line + "\n");
-            }
-
-            result = buf.toString();
-            data.close();
-        } catch (IOException e) {
-            Parent.WriteErrortoConsole("SendParameter(" + param_url + ") IO Error: " + e.getMessage());
-        }
-    }
-
-    private void SendCamVCParameters(String UrlParameter) {
-        if (Parent.GetNoCameraParameter()) {
-            return;
-        }
-        try {
-            String param_url = "";
-            URLConnection conn = null;
-            BufferedReader data = null;
-            String line;
-
-            String result;
-
-            StringBuffer buf = new StringBuffer();
-            URL ParamURL = null;
-            int parameter = 0;
-            int margin = 0;
-
-            param_url = "http://" + this.IP + "/camvc.php?" + UrlParameter;
-
             try {
                 ParamURL = new URL(param_url);
             } catch (MalformedURLException e) {
@@ -1739,11 +1750,54 @@ public class Camera {
             result = buf.toString();
             data.close();
         } catch (IOException e) {
+            Parent.WriteErrortoConsole("SendParameter(" + param_url + ") IO Error: " + e.getMessage());
+        }
+    }
+
+    private void SendCamVCParameters(int CameraIPIndex, String UrlParameter) {
+        if (Parent.GetNoCameraParameter()) {
+            return;
+        }
+        try {
+            String param_url = "";
+            URLConnection conn = null;
+            BufferedReader data = null;
+            String line;
+
+            String result;
+
+            StringBuffer buf = new StringBuffer();
+            URL ParamURL = null;
+            int parameter = 0;
+            int margin = 0;
+
+            param_url = "http://" + this.IP[CameraIPIndex] + "/camvc.php?" + UrlParameter;
+
+            try {
+                ParamURL = new URL(param_url);
+            } catch (MalformedURLException e) {
+                System.out.println("Bad URL: " + param_url);
+            }
+
+            conn = ParamURL.openConnection();
+            conn.connect();
+
+            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            buf.delete(0, buf.length());
+            while ((line = data.readLine()) != null) {
+                buf.append(line + "\n");
+
+
+                result = buf.toString();
+                data.close();
+            }
+        } catch (IOException e) {
             Parent.WriteErrortoConsole("SendCamVCParameters(" + UrlParameter + ") IO Error:" + e.getMessage());
         }
     }
 
-    private void SendParametertoCamera(String UrlParameter) {
+    private void SendParametertoCamera(int CameraIPIndex, String UrlParameter) {
         if (Parent.GetNoCameraParameter()) {
             return;
         }
@@ -1761,7 +1815,7 @@ public class Camera {
             int parameter = 0;
             int margin = 0;
 
-            param_url = "http://" + this.IP + "/ElphelVision/setparam.php?" + UrlParameter;
+            param_url = "http://" + this.IP[CameraIPIndex] + "/ElphelVision/setparam.php?" + UrlParameter;
 
             try {
                 ParamURL = new URL(param_url);
@@ -1879,17 +1933,19 @@ public class Camera {
         return colormode;
     }
 
-    public void ExecuteCommand(String Command) {
+    public void ExecuteCommand(int CameraIPIndex, String Command) {
         if (Parent.GetNoCameraParameter()) {
             return;
         }
-        ExecuteCommand(Command, "");
+
+        ExecuteCommand(CameraIPIndex, Command, "");
     }
 
-    public void ExecuteCommand(String Command, String parameter) {
+    public void ExecuteCommand(int CameraIPIndex, String Command, String parameter) {
         if (Parent.GetNoCameraParameter()) {
             return;
         }
+
         URLConnection conn = null;
         BufferedReader data = null;
         String line;
@@ -1903,10 +1959,12 @@ public class Camera {
         if (Command.equals("CAMOGMSTART")) {
             command_name = "run_camogm";
         } else if (Command.equals("RECORDSTART")) {
+            Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording Started");
             command_name = "start";
             Calendar now = Calendar.getInstance();
             RecordstartTime = now.getTimeInMillis();
         } else if (Command.equals("RECORDSTOP")) {
+            Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording Stopped");
             command_name = "stop";
         } else if (Command.equals("MOUNTHDD")) {
             command_name = "mount";
@@ -1926,7 +1984,7 @@ public class Camera {
 
         // try to connect
         try {
-            String command_url = "http://" + this.IP + "/camogmgui/camogm_interface.php?cmd=" + command_name;
+            String command_url = "http://" + this.IP[CameraIPIndex] + "/camogmgui/camogm_interface.php?cmd=" + command_name;
             try {
                 CommandURL = new URL(command_url);
             } catch (MalformedURLException e) {
@@ -1950,7 +2008,7 @@ public class Camera {
         }
     }
 
-    public boolean PingCamera() {
+    public boolean PingCamera(int Index) {
         if (Parent.GetNoCameraParameter()) {
             return true;
         }
@@ -1964,13 +2022,12 @@ public class Camera {
 
         // try to connect
         try {
-            conn = this.CameraPingUrl.openConnection();
+            conn = this.CameraPingUrl[Index].openConnection();
             conn.setConnectTimeout(3000);
             conn.setReadTimeout(3000);
             conn.connect();
 
-            data =
-                    new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             buf.delete(0, buf.length());
             while ((line = data.readLine()) != null) {
@@ -2001,7 +2058,6 @@ public class Camera {
                         if (response.compareTo("\"pong\"") != 0) {
                             return true;
                         }
-
                     }
                 }
             } catch (Exception e) {
@@ -2028,290 +2084,292 @@ public class Camera {
         StringBuffer buf = new StringBuffer();
 
         // try to connect
-        try {
-            conn = CameraUrl.openConnection();
-            conn.connect();
-
-            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            buf.delete(0, buf.length());
-            while ((line = data.readLine()) != null) {
-                buf.append(line + "\n");
-            }
-
-            result = buf.toString();
-            data.close();
-
-            // try to extract data from XML structure
+        for (int i = 0; i < this.IP.length; i++) {
             try {
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder db = dbf.newDocumentBuilder();
+                conn = CameraUrl[i].openConnection();
+                conn.connect();
 
-                Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
-                doc.getDocumentElement().normalize();
-                NodeList nodeLst = doc.getElementsByTagName("elphel_vision_data");
-                for (int s = 0; s
-                        < nodeLst.getLength(); s++) {
-                    Node fstNode = nodeLst.item(s);
-                    if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
-                        Element fstElmnt = (Element) fstNode;
-                        NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("image_width");
+                data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-                        Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
-                        NodeList fstNm = fstNmElmnt.getChildNodes();
-                        this.ImageWidth = Integer.parseInt(((Node) fstNm.item(0)).getNodeValue());
+                buf.delete(0, buf.length());
+                while ((line = data.readLine()) != null) {
+                    buf.append(line + "\n");
+                }
 
-                        NodeList lstNmElmntLst = fstElmnt.getElementsByTagName("image_height");
-                        Element lstNmElmnt = (Element) lstNmElmntLst.item(0);
-                        NodeList lstNm = lstNmElmnt.getChildNodes();
-                        this.ImageHeight = Integer.parseInt(((Node) lstNm.item(0)).getNodeValue());
+                result = buf.toString();
+                data.close();
 
-                        NodeList nxtNmElmntLst = fstElmnt.getElementsByTagName("fps");
-                        Element nxtNmElmnt = (Element) nxtNmElmntLst.item(0);
-                        NodeList nxtNm = nxtNmElmnt.getChildNodes();
-                        this.FPS = Float.parseFloat(((Node) nxtNm.item(0)).getNodeValue()) / 1000.0f;
+                // try to extract data from XML structure
+                try {
+                    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder db = dbf.newDocumentBuilder();
 
-                        NodeList NmElmntLst4 = fstElmnt.getElementsByTagName("jpeg_quality");
-                        Element NmElmnt4 = (Element) NmElmntLst4.item(0);
-                        NodeList Elmnt4 = NmElmnt4.getChildNodes();
-                        this.JPEGQuality = Integer.parseInt(((Node) Elmnt4.item(0)).getNodeValue());
+                    Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
+                    doc.getDocumentElement().normalize();
+                    NodeList nodeLst = doc.getElementsByTagName("elphel_vision_data");
+                    for (int s = 0; s
+                            < nodeLst.getLength(); s++) {
+                        Node fstNode = nodeLst.item(s);
+                        if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element fstElmnt = (Element) fstNode;
+                            NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("image_width");
 
-                        NodeList fstNmElmntLst1 = fstElmnt.getElementsByTagName("camogm");
-                        Element fstNmElmnt1 = (Element) fstNmElmntLst1.item(0);
-                        NodeList fstNm1 = fstNmElmnt1.getChildNodes();
-                        if ((((Node) fstNm.item(0)).getNodeValue().compareTo("not running")) == 0) {
-                            this.CAMOGMState = CamogmState.NOTRUNNING;
-                        } else {
-                            NodeList NmElmntLst11 = fstElmnt.getElementsByTagName("camogm_state");
-                            Element NmElmnt11 = (Element) NmElmntLst11.item(0);
-                            NodeList Elmnt11 = NmElmnt11.getChildNodes();
-                            if (((Node) Elmnt11.item(0)) != null) {
-                                if (((Node) Elmnt11.item(0)).getNodeValue().startsWith("stopped")) {
-                                    this.CAMOGMState = CamogmState.STOPPED;
+                            Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+                            NodeList fstNm = fstNmElmnt.getChildNodes();
+                            this.ImageWidth = Integer.parseInt(((Node) fstNm.item(0)).getNodeValue());
+
+                            NodeList lstNmElmntLst = fstElmnt.getElementsByTagName("image_height");
+                            Element lstNmElmnt = (Element) lstNmElmntLst.item(0);
+                            NodeList lstNm = lstNmElmnt.getChildNodes();
+                            this.ImageHeight = Integer.parseInt(((Node) lstNm.item(0)).getNodeValue());
+
+                            NodeList nxtNmElmntLst = fstElmnt.getElementsByTagName("fps");
+                            Element nxtNmElmnt = (Element) nxtNmElmntLst.item(0);
+                            NodeList nxtNm = nxtNmElmnt.getChildNodes();
+                            this.FPS = Float.parseFloat(((Node) nxtNm.item(0)).getNodeValue()) / 1000.0f;
+
+                            NodeList NmElmntLst4 = fstElmnt.getElementsByTagName("jpeg_quality");
+                            Element NmElmnt4 = (Element) NmElmntLst4.item(0);
+                            NodeList Elmnt4 = NmElmnt4.getChildNodes();
+                            this.JPEGQuality = Integer.parseInt(((Node) Elmnt4.item(0)).getNodeValue());
+
+                            NodeList fstNmElmntLst1 = fstElmnt.getElementsByTagName("camogm");
+                            Element fstNmElmnt1 = (Element) fstNmElmntLst1.item(0);
+                            NodeList fstNm1 = fstNmElmnt1.getChildNodes();
+                            if ((((Node) fstNm.item(0)).getNodeValue().compareTo("not running")) == 0) {
+                                this.CAMOGMState = CamogmState.NOTRUNNING;
+                            } else {
+                                NodeList NmElmntLst11 = fstElmnt.getElementsByTagName("camogm_state");
+                                Element NmElmnt11 = (Element) NmElmntLst11.item(0);
+                                NodeList Elmnt11 = NmElmnt11.getChildNodes();
+                                if (((Node) Elmnt11.item(0)) != null) {
+                                    if (((Node) Elmnt11.item(0)).getNodeValue().startsWith("stopped")) {
+                                        this.CAMOGMState = CamogmState.STOPPED;
+                                    }
+
+                                    if (((Node) Elmnt11.item(0)).getNodeValue().startsWith("running")) {
+                                        this.CAMOGMState = CamogmState.RECORDING;
+                                    }
+
+                                }
+                            }
+
+                            NodeList NmElmntLst5 = fstElmnt.getElementsByTagName("camogm_format");
+                            Element NmElmnt5 = (Element) NmElmntLst5.item(0);
+                            NodeList Elmnt5 = NmElmnt5.getChildNodes();
+                            if (((Node) Elmnt5.item(0)) != null) {
+                                String formatname = ((Node) Elmnt5.item(0)).getNodeValue();
+                                if (formatname.startsWith("mov")) {
+                                    this.RecordFormat = RecordFormat.MOV;
+                                } else if (formatname.startsWith("ogm")) {
+                                    this.RecordFormat = RecordFormat.OGM;
+                                } else if (formatname.startsWith("jpeg")) {
+                                    this.RecordFormat = RecordFormat.JPEG;
                                 }
 
-                                if (((Node) Elmnt11.item(0)).getNodeValue().startsWith("running")) {
-                                    this.CAMOGMState = CamogmState.RECORDING;
-                                }
-
-                            }
-                        }
-
-                        NodeList NmElmntLst5 = fstElmnt.getElementsByTagName("camogm_format");
-                        Element NmElmnt5 = (Element) NmElmntLst5.item(0);
-                        NodeList Elmnt5 = NmElmnt5.getChildNodes();
-                        if (((Node) Elmnt5.item(0)) != null) {
-                            String formatname = ((Node) Elmnt5.item(0)).getNodeValue();
-                            if (formatname.startsWith("mov")) {
-                                this.RecordFormat = RecordFormat.MOV;
-                            } else if (formatname.startsWith("ogm")) {
-                                this.RecordFormat = RecordFormat.OGM;
-                            } else if (formatname.startsWith("jpeg")) {
-                                this.RecordFormat = RecordFormat.JPEG;
                             }
 
-                        }
-
-                        NodeList NmElmntLst6 = fstElmnt.getElementsByTagName("hdd_freespaceratio");
-                        Element NmElmnt6 = (Element) NmElmntLst6.item(0);
-                        NodeList Elmnt6 = NmElmnt6.getChildNodes();
-                        if (((Node) Elmnt6.item(0)).getNodeValue().startsWith("unmounted")) {
-                            this.HDDSpaceFreeRatio = -1;
-                        } else {
-                            try {
-                                this.HDDSpaceFreeRatio = Float.parseFloat(((Node) Elmnt6.item(0)).getNodeValue());
-                            } catch (Exception e) {
-                                this.HDDSpaceFreeRatio = -1;
-                            }
-
-                        }
-
-                        NodeList NmElmntLstHDD = fstElmnt.getElementsByTagName("hdd_freespace");
-                        Element NmElmntHDD = (Element) NmElmntLstHDD.item(0);
-
-                        if (NmElmntHDD == null) { // if we get nothing returned
-                            this.HDDSpaceFree = -1;
-                        } else {
-                            NodeList ElmntHDD = NmElmntHDD.getChildNodes();
+                            NodeList NmElmntLst6 = fstElmnt.getElementsByTagName("hdd_freespaceratio");
+                            Element NmElmnt6 = (Element) NmElmntLst6.item(0);
+                            NodeList Elmnt6 = NmElmnt6.getChildNodes();
                             if (((Node) Elmnt6.item(0)).getNodeValue().startsWith("unmounted")) {
+                                this.HDDSpaceFreeRatio = -1;
+                            } else {
+                                try {
+                                    this.HDDSpaceFreeRatio = Float.parseFloat(((Node) Elmnt6.item(0)).getNodeValue());
+                                } catch (Exception e) {
+                                    this.HDDSpaceFreeRatio = -1;
+                                }
+
+                            }
+
+                            NodeList NmElmntLstHDD = fstElmnt.getElementsByTagName("hdd_freespace");
+                            Element NmElmntHDD = (Element) NmElmntLstHDD.item(0);
+
+                            if (NmElmntHDD == null) { // if we get nothing returned
                                 this.HDDSpaceFree = -1;
                             } else {
-                                if ((((Node) ElmntHDD.item(0)).getNodeValue() != "") && (((Node) ElmntHDD.item(0)).getNodeValue() != "0")) {
-                                    try {
-                                        this.HDDSpaceFree = Float.parseFloat(((Node) ElmntHDD.item(0)).getNodeValue());
-                                    } catch (Exception e) {
-                                        this.HDDSpaceFree = -1;
+                                NodeList ElmntHDD = NmElmntHDD.getChildNodes();
+                                if (((Node) Elmnt6.item(0)).getNodeValue().startsWith("unmounted")) {
+                                    this.HDDSpaceFree = -1;
+                                } else {
+                                    if ((((Node) ElmntHDD.item(0)).getNodeValue() != "") && (((Node) ElmntHDD.item(0)).getNodeValue() != "0")) {
+                                        try {
+                                            this.HDDSpaceFree = Float.parseFloat(((Node) ElmntHDD.item(0)).getNodeValue());
+                                        } catch (Exception e) {
+                                            this.HDDSpaceFree = -1;
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        NodeList NmElmntLst7 = fstElmnt.getElementsByTagName("camogm_fileframeduration");
-                        Element NmElmnt7 = (Element) NmElmntLst7.item(0);
-                        NodeList Elmnt7 = NmElmnt7.getChildNodes();
-                        if (((Node) Elmnt7.item(0)) != null) {
-                            this.RecordedFrames = Integer.parseInt(((Node) Elmnt7.item(0)).getNodeValue());
-                        }
-
-                        NodeList NmElmntLstDatarate = fstElmnt.getElementsByTagName("camogm_datarate");
-                        Element NmElmntDatarate = (Element) NmElmntLstDatarate.item(0);
-                        NodeList ElmntDatarate = NmElmntDatarate.getChildNodes();
-                        if (((Node) ElmntDatarate.item(0)) != null) {
-                            this.Datarate = Float.parseFloat(((Node) ElmntDatarate.item(0)).getNodeValue());
-                        }
-
-                        NodeList NmElmntLstGainR = fstElmnt.getElementsByTagName("gain_r");
-                        Element NmElmntGainR = (Element) NmElmntLstGainR.item(0);
-                        NodeList ElmntGainR = NmElmntGainR.getChildNodes();
-                        if (((Node) ElmntGainR.item(0)) != null) {
-                            this.Gain_R = Integer.parseInt(((Node) ElmntGainR.item(0)).getNodeValue()) / 65536.0f;
-                        }
-
-                        NodeList NmElmntLstGainB = fstElmnt.getElementsByTagName("gain_b");
-                        Element NmElmntGainB = (Element) NmElmntLstGainB.item(0);
-                        NodeList ElmntGainB = NmElmntGainB.getChildNodes();
-                        if (((Node) ElmntGainB.item(0)) != null) {
-                            this.Gain_B = Integer.parseInt(((Node) ElmntGainB.item(0)).getNodeValue()) / 65536.0f;
-                        }
-
-                        NodeList NmElmntLstGainG = fstElmnt.getElementsByTagName("gain_g");
-                        Element NmElmntGainG = (Element) NmElmntLstGainG.item(0);
-                        NodeList ElmntGainG = NmElmntGainG.getChildNodes();
-                        if (((Node) ElmntGainG.item(0)) != null) {
-                            this.Gain_G = Integer.parseInt(((Node) ElmntGainG.item(0)).getNodeValue()) / 65536.0f;
-                            if (this.Gain_G == 1.0f) {
-                                this.GainIndex = 4;
+                            NodeList NmElmntLst7 = fstElmnt.getElementsByTagName("camogm_fileframeduration");
+                            Element NmElmnt7 = (Element) NmElmntLst7.item(0);
+                            NodeList Elmnt7 = NmElmnt7.getChildNodes();
+                            if (((Node) Elmnt7.item(0)) != null) {
+                                this.RecordedFrames = Integer.parseInt(((Node) Elmnt7.item(0)).getNodeValue());
                             }
 
-                            if (this.Gain_G == 2.0f) {
-                                this.GainIndex = 3;
+                            NodeList NmElmntLstDatarate = fstElmnt.getElementsByTagName("camogm_datarate");
+                            Element NmElmntDatarate = (Element) NmElmntLstDatarate.item(0);
+                            NodeList ElmntDatarate = NmElmntDatarate.getChildNodes();
+                            if (((Node) ElmntDatarate.item(0)) != null) {
+                                this.Datarate = Float.parseFloat(((Node) ElmntDatarate.item(0)).getNodeValue());
                             }
 
-                            if (this.Gain_G == 4.0f) {
-                                this.GainIndex = 2;
+                            NodeList NmElmntLstGainR = fstElmnt.getElementsByTagName("gain_r");
+                            Element NmElmntGainR = (Element) NmElmntLstGainR.item(0);
+                            NodeList ElmntGainR = NmElmntGainR.getChildNodes();
+                            if (((Node) ElmntGainR.item(0)) != null) {
+                                this.Gain_R = Integer.parseInt(((Node) ElmntGainR.item(0)).getNodeValue()) / 65536.0f;
                             }
 
-                            if (this.Gain_G == 8.0f) {
-                                this.GainIndex = 1;
+                            NodeList NmElmntLstGainB = fstElmnt.getElementsByTagName("gain_b");
+                            Element NmElmntGainB = (Element) NmElmntLstGainB.item(0);
+                            NodeList ElmntGainB = NmElmntGainB.getChildNodes();
+                            if (((Node) ElmntGainB.item(0)) != null) {
+                                this.Gain_B = Integer.parseInt(((Node) ElmntGainB.item(0)).getNodeValue()) / 65536.0f;
                             }
 
-                            if (this.Gain_G == 16.0f) {
-                                this.GainIndex = 0;
+                            NodeList NmElmntLstGainG = fstElmnt.getElementsByTagName("gain_g");
+                            Element NmElmntGainG = (Element) NmElmntLstGainG.item(0);
+                            NodeList ElmntGainG = NmElmntGainG.getChildNodes();
+                            if (((Node) ElmntGainG.item(0)) != null) {
+                                this.Gain_G = Integer.parseInt(((Node) ElmntGainG.item(0)).getNodeValue()) / 65536.0f;
+                                if (this.Gain_G == 1.0f) {
+                                    this.GainIndex = 4;
+                                }
+
+                                if (this.Gain_G == 2.0f) {
+                                    this.GainIndex = 3;
+                                }
+
+                                if (this.Gain_G == 4.0f) {
+                                    this.GainIndex = 2;
+                                }
+
+                                if (this.Gain_G == 8.0f) {
+                                    this.GainIndex = 1;
+                                }
+
+                                if (this.Gain_G == 16.0f) {
+                                    this.GainIndex = 0;
+                                }
+
                             }
 
-                        }
-
-                        NodeList NmElmntLstGainGB = fstElmnt.getElementsByTagName("gain_gb");
-                        Element NmElmntGainGB = (Element) NmElmntLstGainGB.item(0);
-                        NodeList ElmntGainGB = NmElmntGainGB.getChildNodes();
-                        if (((Node) ElmntGainGB.item(0)) != null) {
-                            this.Gain_GB = Integer.parseInt(((Node) ElmntGainGB.item(0)).getNodeValue()) / 65536.0f;
-                        }
-
-                        NodeList NmElmntLstCamOGMMaxDuration = fstElmnt.getElementsByTagName("camogm_max_duration"); // seconds
-                        Element NmElmntCamOGMMaxDuration = (Element) NmElmntLstCamOGMMaxDuration.item(0);
-                        NodeList ElmntCamOGMMaxDuration = NmElmntCamOGMMaxDuration.getChildNodes();
-                        if (((Node) ElmntCamOGMMaxDuration.item(0)) != null) {
-                            // TODO
-                        }
-
-                        NodeList NmElmntLstCamOGMMaxLength = fstElmnt.getElementsByTagName("camogm_max_length"); // bytes
-                        Element NmElmntCamOGMMaxLength = (Element) NmElmntLstCamOGMMaxLength.item(0);
-                        NodeList ElmntCamOGMMaxLength = NmElmntCamOGMMaxLength.getChildNodes();
-                        if (((Node) ElmntCamOGMMaxLength.item(0)) != null) {
-                            this.MovieClipMaxChunkSize = Integer.parseInt(((Node) ElmntCamOGMMaxLength.item(0)).getNodeValue()) / 1024 / 1024;
-                        }
-
-                        NodeList NmElmntLstCamOGMMaxFrames = fstElmnt.getElementsByTagName("camogm_max_frames"); // frames
-                        Element NmElmntCamOGMMaxFrames = (Element) NmElmntLstCamOGMMaxFrames.item(0);
-                        NodeList ElmntCamOGMMaxFrames = NmElmntCamOGMMaxFrames.getChildNodes();
-                        if (((Node) ElmntCamOGMMaxFrames.item(0)) != null) {
-                            // TODO
-                        }
-
-                        NodeList NmElmntLst9 = fstElmnt.getElementsByTagName("exposure");
-                        Element NmElmnt9 = (Element) NmElmntLst9.item(0);
-                        NodeList Elmnt9 = NmElmnt9.getChildNodes();
-                        if (((Node) Elmnt9.item(0)) != null) {
-                            // Todo
-                            //Integer.parseInt(((Node) Elmnt9.item(0)).getNodeValue());
-                        }
-
-                        NodeList NmElmntLstauto_exposure = fstElmnt.getElementsByTagName("auto_exposure");
-                        Element NmElmntauto_exposure = (Element) NmElmntLstauto_exposure.item(0);
-                        NodeList Elmntauto_exposure = NmElmntauto_exposure.getChildNodes();
-                        if (((Node) Elmntauto_exposure.item(0)) != null) {
-                            if (((Node) Elmntauto_exposure.item(0)).getNodeValue().equals("1")) {
-                                this.AutoExposure = true;
-                            } else {
-                                this.AutoExposure = false;
-                            }
-                        }
-
-                        NodeList NmElmntLstCoring = fstElmnt.getElementsByTagName("coringindex");
-                        Element NmElmntCoring = (Element) NmElmntLstCoring.item(0);
-                        NodeList ElmntCoring = NmElmntCoring.getChildNodes();
-                        if (((Node) ElmntCoring.item(0)) != null) {
-                            this.CoringIndex = Integer.parseInt(((Node) ElmntCoring.item(0)).getNodeValue());
-                        }
-
-                        NodeList NmElmntLstFrameSkip = fstElmnt.getElementsByTagName("camogm_frameskip");
-                        Element NmElmntFrameSkip = (Element) NmElmntLstFrameSkip.item(0);
-                        NodeList ElmntFrameSkip = NmElmntFrameSkip.getChildNodes();
-                        if (((Node) ElmntFrameSkip.item(0)) != null) {
-                            this.FPSSkipFrames = Integer.parseInt(((Node) ElmntFrameSkip.item(0)).getNodeValue());
-                        }
-
-                        NodeList NmElmntLstSecondsSkip = fstElmnt.getElementsByTagName("camogm_secondsskip");
-                        Element NmElmntSecondsSkip = (Element) NmElmntLstSecondsSkip.item(0);
-                        NodeList ElmntSecondsSkip = NmElmntSecondsSkip.getChildNodes();
-                        if (((Node) ElmntSecondsSkip.item(0)) != null) {
-                            this.FPSSkipSeconds = Integer.parseInt(((Node) ElmntSecondsSkip.item(0)).getNodeValue());
-                        }
-
-                        NodeList NmElmntLstFlipH = fstElmnt.getElementsByTagName("fliph");
-                        Element NmElmntFlipH = (Element) NmElmntLstFlipH.item(0);
-                        NodeList ElmntFlipH = NmElmntFlipH.getChildNodes();
-                        NodeList NmElmntLstFlipV = fstElmnt.getElementsByTagName("flipv");
-                        Element NmElmntFlipV = (Element) NmElmntLstFlipV.item(0);
-                        NodeList ElmntFlipV = NmElmntFlipV.getChildNodes();
-                        if (((Node) ElmntFlipV.item(0)) != null) {
-                            int flipv = Integer.parseInt(((Node) ElmntFlipV.item(0)).getNodeValue());
-                            int fliph = Integer.parseInt(((Node) ElmntFlipH.item(0)).getNodeValue());
-                            if ((flipv == 1) && (fliph == 1)) {
-                                this.ImageFlip = MirrorImage.VERTICALHORIZONTAL;
+                            NodeList NmElmntLstGainGB = fstElmnt.getElementsByTagName("gain_gb");
+                            Element NmElmntGainGB = (Element) NmElmntLstGainGB.item(0);
+                            NodeList ElmntGainGB = NmElmntGainGB.getChildNodes();
+                            if (((Node) ElmntGainGB.item(0)) != null) {
+                                this.Gain_GB = Integer.parseInt(((Node) ElmntGainGB.item(0)).getNodeValue()) / 65536.0f;
                             }
 
-                            if ((flipv == 1) && (fliph == 0)) {
-                                this.ImageFlip = MirrorImage.VERTICAL;
+                            NodeList NmElmntLstCamOGMMaxDuration = fstElmnt.getElementsByTagName("camogm_max_duration"); // seconds
+                            Element NmElmntCamOGMMaxDuration = (Element) NmElmntLstCamOGMMaxDuration.item(0);
+                            NodeList ElmntCamOGMMaxDuration = NmElmntCamOGMMaxDuration.getChildNodes();
+                            if (((Node) ElmntCamOGMMaxDuration.item(0)) != null) {
+                                // TODO
                             }
 
-                            if ((flipv == 0) && (fliph == 1)) {
-                                this.ImageFlip = MirrorImage.HORIZONTAL;
+                            NodeList NmElmntLstCamOGMMaxLength = fstElmnt.getElementsByTagName("camogm_max_length"); // bytes
+                            Element NmElmntCamOGMMaxLength = (Element) NmElmntLstCamOGMMaxLength.item(0);
+                            NodeList ElmntCamOGMMaxLength = NmElmntCamOGMMaxLength.getChildNodes();
+                            if (((Node) ElmntCamOGMMaxLength.item(0)) != null) {
+                                this.MovieClipMaxChunkSize = Integer.parseInt(((Node) ElmntCamOGMMaxLength.item(0)).getNodeValue()) / 1024 / 1024;
                             }
 
-                            if ((flipv == 0) && (fliph == 0)) {
-                                this.ImageFlip = MirrorImage.NONE;
+                            NodeList NmElmntLstCamOGMMaxFrames = fstElmnt.getElementsByTagName("camogm_max_frames"); // frames
+                            Element NmElmntCamOGMMaxFrames = (Element) NmElmntLstCamOGMMaxFrames.item(0);
+                            NodeList ElmntCamOGMMaxFrames = NmElmntCamOGMMaxFrames.getChildNodes();
+                            if (((Node) ElmntCamOGMMaxFrames.item(0)) != null) {
+                                // TODO
                             }
-                        }
-                        NodeList NmElmntLstBufferOverFlow = fstElmnt.getElementsByTagName("bufferoverruns");
-                        Element NmElmntBufferOverFlow = (Element) NmElmntLstBufferOverFlow.item(0);
-                        NodeList ElmntBufferOverFlow = NmElmntBufferOverFlow.getChildNodes();
-                        if (((Node) ElmntBufferOverFlow.item(0)) != null) {
-                            int tempvalue = Integer.parseInt(((Node) ElmntBufferOverFlow.item(0)).getNodeValue());
-                            if ((tempvalue != 0) && (tempvalue != -1)) {
-                                this.AlertBufferOverrun("" + tempvalue);
+
+                            NodeList NmElmntLst9 = fstElmnt.getElementsByTagName("exposure");
+                            Element NmElmnt9 = (Element) NmElmntLst9.item(0);
+                            NodeList Elmnt9 = NmElmnt9.getChildNodes();
+                            if (((Node) Elmnt9.item(0)) != null) {
+                                // Todo
+                                //Integer.parseInt(((Node) Elmnt9.item(0)).getNodeValue());
                             }
-                            this.BufferOverruns = tempvalue;
+
+                            NodeList NmElmntLstauto_exposure = fstElmnt.getElementsByTagName("auto_exposure");
+                            Element NmElmntauto_exposure = (Element) NmElmntLstauto_exposure.item(0);
+                            NodeList Elmntauto_exposure = NmElmntauto_exposure.getChildNodes();
+                            if (((Node) Elmntauto_exposure.item(0)) != null) {
+                                if (((Node) Elmntauto_exposure.item(0)).getNodeValue().equals("1")) {
+                                    this.AutoExposure = true;
+                                } else {
+                                    this.AutoExposure = false;
+                                }
+                            }
+
+                            NodeList NmElmntLstCoring = fstElmnt.getElementsByTagName("coringindex");
+                            Element NmElmntCoring = (Element) NmElmntLstCoring.item(0);
+                            NodeList ElmntCoring = NmElmntCoring.getChildNodes();
+                            if (((Node) ElmntCoring.item(0)) != null) {
+                                this.CoringIndex = Integer.parseInt(((Node) ElmntCoring.item(0)).getNodeValue());
+                            }
+
+                            NodeList NmElmntLstFrameSkip = fstElmnt.getElementsByTagName("camogm_frameskip");
+                            Element NmElmntFrameSkip = (Element) NmElmntLstFrameSkip.item(0);
+                            NodeList ElmntFrameSkip = NmElmntFrameSkip.getChildNodes();
+                            if (((Node) ElmntFrameSkip.item(0)) != null) {
+                                this.FPSSkipFrames = Integer.parseInt(((Node) ElmntFrameSkip.item(0)).getNodeValue());
+                            }
+
+                            NodeList NmElmntLstSecondsSkip = fstElmnt.getElementsByTagName("camogm_secondsskip");
+                            Element NmElmntSecondsSkip = (Element) NmElmntLstSecondsSkip.item(0);
+                            NodeList ElmntSecondsSkip = NmElmntSecondsSkip.getChildNodes();
+                            if (((Node) ElmntSecondsSkip.item(0)) != null) {
+                                this.FPSSkipSeconds = Integer.parseInt(((Node) ElmntSecondsSkip.item(0)).getNodeValue());
+                            }
+
+                            NodeList NmElmntLstFlipH = fstElmnt.getElementsByTagName("fliph");
+                            Element NmElmntFlipH = (Element) NmElmntLstFlipH.item(0);
+                            NodeList ElmntFlipH = NmElmntFlipH.getChildNodes();
+                            NodeList NmElmntLstFlipV = fstElmnt.getElementsByTagName("flipv");
+                            Element NmElmntFlipV = (Element) NmElmntLstFlipV.item(0);
+                            NodeList ElmntFlipV = NmElmntFlipV.getChildNodes();
+                            if (((Node) ElmntFlipV.item(0)) != null) {
+                                int flipv = Integer.parseInt(((Node) ElmntFlipV.item(0)).getNodeValue());
+                                int fliph = Integer.parseInt(((Node) ElmntFlipH.item(0)).getNodeValue());
+                                if ((flipv == 1) && (fliph == 1)) {
+                                    this.ImageFlip = MirrorImage.VERTICALHORIZONTAL;
+                                }
+
+                                if ((flipv == 1) && (fliph == 0)) {
+                                    this.ImageFlip = MirrorImage.VERTICAL;
+                                }
+
+                                if ((flipv == 0) && (fliph == 1)) {
+                                    this.ImageFlip = MirrorImage.HORIZONTAL;
+                                }
+
+                                if ((flipv == 0) && (fliph == 0)) {
+                                    this.ImageFlip = MirrorImage.NONE;
+                                }
+                            }
+                            NodeList NmElmntLstBufferOverFlow = fstElmnt.getElementsByTagName("bufferoverruns");
+                            Element NmElmntBufferOverFlow = (Element) NmElmntLstBufferOverFlow.item(0);
+                            NodeList ElmntBufferOverFlow = NmElmntBufferOverFlow.getChildNodes();
+                            if (((Node) ElmntBufferOverFlow.item(0)) != null) {
+                                int tempvalue = Integer.parseInt(((Node) ElmntBufferOverFlow.item(0)).getNodeValue());
+                                if ((tempvalue != 0) && (tempvalue != -1)) {
+                                    this.AlertBufferOverrun("" + tempvalue);
+                                }
+                                this.BufferOverruns = tempvalue;
+                            }
                         }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
-        } catch (IOException e) {
-            Parent.WriteErrortoConsole("UpdateCameraData() IO Error:" + e.getMessage());
+            } catch (IOException e) {
+                Parent.WriteErrortoConsole("UpdateCameraData() IO Error:" + e.getMessage());
+            }
         }
     }
 

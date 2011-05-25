@@ -71,7 +71,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     GuidesLayout GuidesPanel;
     PlaybackLayout PlaybackCardLayout;
     PhotoSettingsLayout PhotoSettingsCardLayout;
-    String AppVersion = "0.5";
+    String AppVersion = "0.51";
     static boolean WindowDecorations = false;
     static boolean NoCameraParameter = false;
     Utils Utils;
@@ -417,7 +417,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             }
         }
 
-        // turn off autoexposure shutter by default
+        // turn off autoexposure by default
         // TODO: make chooseable
         Camera.SetAutoExposure(false);
         if (!NoCameraParameter) {
@@ -433,7 +433,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
                 InfoAreaAnimator.start();
             }
         }
-        run();
+        //run();
     }
 
     private boolean LoadConfigFile(String Filename) {
@@ -528,7 +528,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         //Notice Area
         StyledDocument docNotice = null;
         if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
-            //docNotice = (StyledDocument) MaincardLayoutGST.GetNoticeTextPane().getDocument();
+            docNotice = (StyledDocument) MaincardLayoutGST.GetNoticeTextPane().getDocument();
         }
         if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
             docNotice = (StyledDocument) MaincardLayoutVLC.GetNoticeTextPane().getDocument();

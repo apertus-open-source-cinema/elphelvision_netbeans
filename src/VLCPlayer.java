@@ -85,8 +85,12 @@ public class VLCPlayer {
         //String mediaoptions = "effect-list=scope";
         //magnify-gaussianblur-sigma=<float>
         //vlc rtsp://192.168.10.141:554 --video-filter magnify
+        
+        
+        // TODO
+        // Currently this always displays the stream from camera with Index 0
 
-        mediaPlayer.playMedia("rtsp://" + Parent.Camera.GetIP() + ":554", mediaoptions);
+        mediaPlayer.playMedia("rtsp://" + Parent.Camera.GetIP()[0] + ":554", mediaoptions);
     }
 
     /*public void Overlay(Window overlay) {
