@@ -401,10 +401,13 @@ public class Camera {
 
     public void SetAutoExposure(boolean OnOff) {
         this.AutoExposure = OnOff;
-        if (this.AutoExposure) {
-            SetParameter(CameraParameter.AUTOEXP, 1);
-        } else {
-            SetParameter(CameraParameter.AUTOEXP, 0);
+        for (int i = 0; i < this.IP.length; i++) {
+            if (this.AutoExposure) {
+                SetParameter(i, CameraParameter.AUTOEXP, 1);
+            } else {
+                SetParameter(i, CameraParameter.AUTOEXP, 0);
+            }
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting AUTOEXPOSURE to " + OnOff);
         }
     }
 
@@ -457,19 +460,19 @@ public class Camera {
 
         for (int i = 0; i < this.IP.length; i++) {
             if (newmode == MirrorImage.NONE) {
-                Parent.WriteLogtoConsole("Setting FlipMode to NONE");
+                Parent.WriteLogtoConsole(this.IP[i] + ": Setting FlipMode to NONE");
                 SendParametertoCamera(i, "FLIPH=0&FLIPV=0");
             }
             if (newmode == MirrorImage.HORIZONTAL) {
-                Parent.WriteLogtoConsole("Setting FlipMode to HORIZONTAL");
+                Parent.WriteLogtoConsole(this.IP[i] + ": Setting FlipMode to HORIZONTAL");
                 SendParametertoCamera(i, "FLIPH=1&FLIPV=0");
             }
             if (newmode == MirrorImage.VERTICAL) {
-                Parent.WriteLogtoConsole("Setting FlipMode to VERTICAL");
+                Parent.WriteLogtoConsole(this.IP[i] + ": Setting FlipMode to VERTICAL");
                 SendParametertoCamera(i, "FLIPH=0&FLIPV=1");
             }
             if (newmode == MirrorImage.VERTICALHORIZONTAL) {
-                Parent.WriteLogtoConsole("Setting FlipMode to VERTICALHORIZONTAL");
+                Parent.WriteLogtoConsole(this.IP[i] + ": Setting FlipMode to VERTICALHORIZONTAL");
                 SendParametertoCamera(i, "FLIPH=1&FLIPV=1");
             }
         }
@@ -642,7 +645,10 @@ public class Camera {
     }
 
     public void SetExposure(float newexposure) {
-        this.SetParameter(CameraParameter.EXPOSURE, newexposure);
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting EXPOSURE to " + newexposure);
+            this.SetParameter(i, CameraParameter.EXPOSURE, newexposure);
+        }
     }
 
     public void SetExposureIndex(int newindex) {
@@ -652,36 +658,46 @@ public class Camera {
         if (newindex < 0) {
             newindex = 0;
         }
+
         this.ExposureIndex = newindex;
 
-        this.SetParameter(CameraParameter.EXPOSURE, ExposureTimeEV[ExposureIndex]);
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting EXPOSUREINDEX to " + newindex + " value = " + ExposureTimeEV[ExposureIndex]);
+            this.SetParameter(i, CameraParameter.EXPOSURE, ExposureTimeEV[ExposureIndex]);
+        }
     }
 
     public void SetJPEGQuality(int newquality) {
-        if (newquality > 100) {
-            newquality = 100;
-        }
-        if (newquality < 0) {
-            newquality = 0;
-        }
+        newquality = Utils.MinMaxRange(newquality, 0, 100);
 
-        this.SetParameter(CameraParameter.JPEGQUAL, newquality);
         this.JPEGQual = newquality;
+
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting JPEGQuality to " + newquality);
+            this.SetParameter(i, CameraParameter.JPEGQUAL, newquality);
+        }
     }
 
-    public void SetColorMode(ColorMode Mode) {
-        if (Mode == ColorMode.JP4) {
-            Parent.WriteLogtoConsole("Setting COLORMODE to JP4 RAW");
-        }
-        if (Mode == ColorMode.JP46) {
-            Parent.WriteLogtoConsole("Setting COLORMODE to JP46 RAW");
-        }
-        if (Mode == ColorMode.RGB) {
-            Parent.WriteLogtoConsole("Setting COLORMODE to RGB");
-        }
+    public void SetColorMode(final ColorMode Mode) {
+        for (int i = 0; i < this.IP.length; i++) {
+            if (Mode == ColorMode.JP4) {
+                Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting COLORMODE to JP4 RAW");
+            }
+            if (Mode == ColorMode.JP46) {
+                Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting COLORMODE to JP46 RAW");
+            }
+            if (Mode == ColorMode.RGB) {
+                Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting COLORMODE to RGB");
+            }
+            this.Colormode = Mode;
+            final int index = i;
+            new Thread() {
 
-        this.SetParameter(CameraParameter.COLORMODE, ColorModeTranslate(Mode));
-        this.Colormode = Mode;
+                public void run() {
+                    Parent.Camera.SetParameter(index, CameraParameter.COLORMODE, ColorModeTranslate(Mode));
+                }
+            };
+        }
     }
 
     public ColorMode GetColorMode() {
@@ -689,6 +705,8 @@ public class Camera {
     }
 
     public void SetPhotoresolution(PhotoResolution Res) {
+        // This is not a parameter we need to send to the cameras as it 
+        // only comes in effect when actually sending the command to shoot a photo
         Parent.WriteLogtoConsole("Setting Photoresolution to " + Res);
         this.Photoresolution = Res;
     }
@@ -698,6 +716,8 @@ public class Camera {
     }
 
     public void SetAllowCaptureStillWhileRecording(boolean newsetting) {
+        // This is not a parameter we need to send to the cameras as it 
+        // only comes in effect when actually sending the command to shoot a photo
         Parent.WriteLogtoConsole("Setting AllowCaptureStillWhileRecording to " + newsetting);
         this.AllowCaptureStillWhileRecording = newsetting;
     }
@@ -707,6 +727,8 @@ public class Camera {
     }
 
     public void SetPhotoQuality(int newquality) {
+        // This is not a parameter we need to send to the cameras as it 
+        // only comes in effect when actually sending the command to shoot a photo
         Parent.WriteLogtoConsole("Setting PhotoQuality to " + newquality);
         this.PhotoQuality = newquality;
     }
@@ -716,6 +738,8 @@ public class Camera {
     }
 
     public void SetPhotoColorMode(ColorMode Mode) {
+        // This is not a parameter we need to send to the cameras as it 
+        // only comes in effect when actually sending the command to shoot a photo
         Parent.WriteLogtoConsole("Setting PhotoColorMode to " + Mode);
         this.PhotoColormode = Mode;
     }
@@ -793,8 +817,11 @@ public class Camera {
     }
 
     public void SetFPS(float fps) {
-        this.SetParameter(CameraParameter.FPS, fps);
         this.FPS = fps;
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting FPS to " + fps);
+            this.SetParameter(i, CameraParameter.FPS, fps);
+        }
     }
 
     public void SetGamma(float newgamma) {
@@ -1096,46 +1123,35 @@ public class Camera {
         return ReturnValue;
     }
 
-    public void SetParameter(CameraParameter par, float value) {
-        for (int i = 0; i < this.IP.length; i++) {
-            switch (par) {
-                case EXPOSURE:
-                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting EXPOSURE to " + value);
-                    this.SendParameter(i, CameraParameter.EXPOSURE, value);
-                    break;
-                case GAIN:
-                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting GAIN to " + value);
-                    this.SendParameter(i, CameraParameter.GAIN, value);
-                    break;
-                case AUTOEXP:
-                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting AUTOEXPOSURE to " + value);
-                    this.SendParameter(i, CameraParameter.AUTOEXP, value);
-                    break;
-                case JPEGQUAL:
-                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting QUALITY to " + value);
-                    this.SendParameter(i, CameraParameter.JPEGQUAL, value);
-                    break;
-                case COLORMODE:
-                    // Log Message is in the SetColorMode Function
-                    this.SendParameter(i, CameraParameter.COLORMODE, value);
-                    break;
-                case FPS:
-                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting FPS to " + value);
-                    this.SendParameter(i, CameraParameter.FPS, value);
-                    break;
-                case SENSORWIDTH:
-                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting SENSORWIDTH to " + value);
-                    this.SendParameter(i, CameraParameter.SENSORWIDTH, value);
-                    break;
-                case SENSORHEIGHT:
-                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting SENSORWIDTH to " + value);
-                    this.SendParameter(i, CameraParameter.SENSORHEIGHT, value);
-                    break;
-                case RECORDFORMAT:
-                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting RECORDFORMAT to " + value);
-                    this.SendParameter(i, CameraParameter.RECORDFORMAT, value);
-                    break;
-            }
+    public void SetParameter(int CameraIPIndex, CameraParameter par, float value) {
+        switch (par) {
+            case EXPOSURE:
+                this.SendParameter(CameraIPIndex, CameraParameter.EXPOSURE, value);
+                break;
+            case GAIN:
+                this.SendParameter(CameraIPIndex, CameraParameter.GAIN, value);
+                break;
+            case AUTOEXP:
+                this.SendParameter(CameraIPIndex, CameraParameter.AUTOEXP, value);
+                break;
+            case JPEGQUAL:
+                this.SendParameter(CameraIPIndex, CameraParameter.JPEGQUAL, value);
+                break;
+            case COLORMODE:
+                this.SendParameter(CameraIPIndex, CameraParameter.COLORMODE, value);
+                break;
+            case FPS:
+                this.SendParameter(CameraIPIndex, CameraParameter.FPS, value);
+                break;
+            case SENSORWIDTH:
+                this.SendParameter(CameraIPIndex, CameraParameter.SENSORWIDTH, value);
+                break;
+            case SENSORHEIGHT:
+                this.SendParameter(CameraIPIndex, CameraParameter.SENSORHEIGHT, value);
+                break;
+            case RECORDFORMAT:
+                this.SendParameter(CameraIPIndex, CameraParameter.RECORDFORMAT, value);
+                break;
         }
     }
 
@@ -1758,8 +1774,9 @@ public class Camera {
         if (Parent.GetNoCameraParameter()) {
             return;
         }
+        String param_url = "";
         try {
-            String param_url = "";
+
             URLConnection conn = null;
             BufferedReader data = null;
             String line;
@@ -1787,13 +1804,12 @@ public class Camera {
             buf.delete(0, buf.length());
             while ((line = data.readLine()) != null) {
                 buf.append(line + "\n");
-
-
-                result = buf.toString();
-                data.close();
             }
+            result = buf.toString();
+            data.close();
+
         } catch (IOException e) {
-            Parent.WriteErrortoConsole("SendCamVCParameters(" + UrlParameter + ") IO Error:" + e.getMessage());
+            Parent.WriteErrortoConsole("SendCamVCParameters(" + param_url + ") IO Error:" + e.getMessage());
         }
     }
 

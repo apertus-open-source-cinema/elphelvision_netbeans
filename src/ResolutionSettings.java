@@ -30,7 +30,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
         Parent = parent;
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable()  {
+            java.awt.EventQueue.invokeAndWait(new Runnable() {
 
                 public void run() {
                     initComponents();
@@ -415,9 +415,15 @@ public class ResolutionSettings extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SettingsOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsOKButtonActionPerformed
-        Parent.Camera.SetParameter(CameraParameter.SENSORWIDTH, Integer.parseInt(CalculatedWidth.getText()));
-        Parent.Camera.SetParameter(CameraParameter.SENSORHEIGHT, Integer.parseInt(CalculatedHeight.getText()));
+        for (int i = 0; i < Parent.Camera.GetIP().length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting SENSORWIDTH to " + Integer.parseInt(CalculatedWidth.getText()));
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting SENSORHEIGHT to " + Integer.parseInt(CalculatedHeight.getText()));
 
+            // TODO: GUI shouldnt need to call Setparameter() method, it would be better if the Camera Class would provide a SetResolution() method.
+            Parent.Camera.SetParameter(i, CameraParameter.SENSORWIDTH, Integer.parseInt(CalculatedWidth.getText()));
+            Parent.Camera.SetParameter(i, CameraParameter.SENSORHEIGHT, Integer.parseInt(CalculatedHeight.getText()));
+        }
+        
         Parent.Camera.SetPreset(CameraPreset.CUSTOM);
 
         if (OrientationPortrait.getChecked()) {

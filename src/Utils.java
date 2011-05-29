@@ -20,12 +20,7 @@
 
 public class Utils {
 
-    private Audio AudioEngine;
-
-    public void Utils() {
-        AudioEngine = new Audio();
-    }
-
+    // round a float value to a certain number of decimals
     public static float Round(float Rval, int decimals) {
         float p = (float) Math.pow(10, decimals);
         Rval = Rval * p;
@@ -33,6 +28,23 @@ public class Utils {
         return (float) tmp / p;
     }
 
+    // makes sure the input is within the min/max range
+    public static int MinMaxRange(int input, int min, int max) {
+        if (input > max) {
+            input = max;
+        }
+        if (input < min) {
+            input = min;
+
+        }
+        return input;
+    }
+    // Experimental = not working way to play audio files within ElphelVision
+    private Audio AudioEngine;
+
+    public void Utils() {
+        AudioEngine = new Audio();
+    }
     public void PlayAudio(String filename) {
         AudioEngine.PlaySoundFile(filename);
     }
