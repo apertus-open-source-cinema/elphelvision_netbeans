@@ -678,7 +678,7 @@ public class Camera {
         }
     }
 
-    public void SetColorMode(final ColorMode Mode) {
+    public void SetColorMode(ColorMode Mode) {
         for (int i = 0; i < this.IP.length; i++) {
             if (Mode == ColorMode.JP4) {
                 Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting COLORMODE to JP4 RAW");
@@ -690,13 +690,14 @@ public class Camera {
                 Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting COLORMODE to RGB");
             }
             this.Colormode = Mode;
-            final int index = i;
+            final int Tindex = i;
+            final ColorMode TMode = Mode;
             new Thread() {
 
                 public void run() {
-                    Parent.Camera.SetParameter(index, CameraParameter.COLORMODE, ColorModeTranslate(Mode));
+                    Parent.Camera.SetParameter(Tindex, CameraParameter.COLORMODE, ColorModeTranslate(TMode));
                 }
-            };
+            }.start();
         }
     }
 
@@ -1285,12 +1286,6 @@ public class Camera {
     public boolean CheckHDD() {
         try {
             UpdateCameraData();
-
-
-
-
-
-
         } catch (Exception ex) {
             Logger.getLogger(Camera.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1975,24 +1970,36 @@ public class Camera {
         if (Command.equals("CAMOGMSTART")) {
             command_name = "run_camogm";
         } else if (Command.equals("RECORDSTART")) {
-            Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording Started");
+            Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording started");
             command_name = "start";
             Calendar now = Calendar.getInstance();
             RecordstartTime = now.getTimeInMillis();
-        } else if (Command.equals("RECORDSTOP")) {
+        } else if (Command.equals("RECORDSTARTTIMESTAMP")) {
+            Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording will start in: " + parameter + " seconds");
+            command_name = "set_start_after_timestamp&start_after_timestamp=p" + parameter;
+            Calendar now = Calendar.getInstance();
+            RecordstartTime = now.getTimeInMillis();
+        } else if (Command.equals(
+                "RECORDSTOP")) {
             Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording Stopped");
             command_name = "stop";
-        } else if (Command.equals("MOUNTHDD")) {
+        } else if (Command.equals(
+                "MOUNTHDD")) {
             command_name = "mount";
-        } else if (Command.equals("SETRECDIR")) {
+        } else if (Command.equals(
+                "SETRECDIR")) {
             command_name = "set_prefix&prefix=/var/hdd/";
-        } else if (Command.equals("SETCONTAINERFORMATQUICKTIME")) {
+        } else if (Command.equals(
+                "SETCONTAINERFORMATQUICKTIME")) {
             command_name = "setmov";
-        } else if (Command.equals("SETCONTAINERFORMATJPEG")) {
+        } else if (Command.equals(
+                "SETCONTAINERFORMATJPEG")) {
             command_name = "setjpeg";
-        } else if (Command.equals("SETSKIPFRAMES")) {
+        } else if (Command.equals(
+                "SETSKIPFRAMES")) {
             command_name = "set_frameskip&frameskip=" + parameter;
-        } else if (Command.equals("SETSKIPSECONDS")) {
+        } else if (Command.equals(
+                "SETSKIPSECONDS")) {
             command_name = "set_timelapse&timelapse=" + parameter;
         } else {
             command_name = Command;
