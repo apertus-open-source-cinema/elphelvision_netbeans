@@ -157,7 +157,7 @@ public class MainLayoutVLC extends JPanel {
         CaptureStill = new EButton();
         RecordButton = new EButton();
         PlaybackButton = new EButton();
-        RecordButton1 = new EButton();
+        RecordTestButton = new EButton();
         InfoPanel = new javax.swing.JPanel();
         InfoTextPane = new javax.swing.JTextPane();
         NoticeArea = new javax.swing.JTextPane();
@@ -217,7 +217,7 @@ public class MainLayoutVLC extends JPanel {
                 .addComponent(incvalue, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(169, 169, 169)
                 .addComponent(ParameterName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
                 .addComponent(decvalue, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -310,11 +310,11 @@ public class MainLayoutVLC extends JPanel {
             }
         });
 
-        RecordButton1.setForeground(new java.awt.Color(255, 0, 0));
-        RecordButton1.setText("Rec Test");
-        RecordButton1.addActionListener(new java.awt.event.ActionListener() {
+        RecordTestButton.setForeground(new java.awt.Color(255, 0, 0));
+        RecordTestButton.setText("Rec Test");
+        RecordTestButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RecordButton1ActionPerformed(evt);
+                RecordTestButtonActionPerformed(evt);
             }
         });
 
@@ -337,7 +337,7 @@ public class MainLayoutVLC extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(RecordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(RecordButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(RecordTestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         ParameterPanelLayout.setVerticalGroup(
@@ -345,7 +345,7 @@ public class MainLayoutVLC extends JPanel {
             .addGroup(ParameterPanelLayout.createSequentialGroup()
                 .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(RecordButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                        .addComponent(RecordTestButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PlaybackButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -670,18 +670,46 @@ public class MainLayoutVLC extends JPanel {
         Parent.HistogramSettingsCardLayout.Load();
     }//GEN-LAST:event_histogramMouseClicked
 
-    private void RecordButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordButton1ActionPerformed
+    private void RecordTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordTestButtonActionPerformed
+        CamogmState check = Parent.Camera.GetCamogmState();
         for (int i = 0; i < Parent.Camera.GetIP().length; i++) {
-            final int index = i;
-            new Thread() {
+            if (check == CamogmState.STOPPED) {
+                for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
+                    final int index = j;
+                    new Thread() {
 
-                @Override
-                public void run() {
-                    Parent.Camera.ExecuteCommand(index, "RECORDSTARTTIMESTAMP", "1");
+                        @Override
+                        public void run() {
+                            Parent.Camera.ExecuteCommand(index, "RECORDSTARTTIMESTAMP", "1");
+                            Parent.Camera.ExecuteCommand(index, "RECORDSTART");
+                        }
+                    }.start();
                 }
-            }.start();
+                RecordTestButton.setText("Stop");
+                RecordTestButton.setChecked(true);
+                if (Parent.Camera.GetAllowCaptureStillWhileRecording()) {
+                    CaptureStill.setEnabled(true);
+                } else {
+                    CaptureStill.setEnabled(false);
+                }
+            } else if (check == CamogmState.RECORDING) {
+                for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
+                    final int index = j;
+                    new Thread() {
+
+                        @Override
+                        public void run() {
+                            Parent.Camera.ExecuteCommand(index, "RECORDSTOP");
+                        }
+                    }.start();
+                }
+                RecordTestButton.setText("Record Test");
+                RecordTestButton.setChecked(false);
+
+                CaptureStill.setEnabled(true);
+            }
         }
-    }//GEN-LAST:event_RecordButton1ActionPerformed
+    }//GEN-LAST:event_RecordTestButtonActionPerformed
 
     public void EnableRecord(boolean val) {
         this.RecordButton.setEnabled(val);
@@ -702,7 +730,7 @@ public class MainLayoutVLC extends JPanel {
     private EButton PlaybackButton;
     private javax.swing.JPanel QuickPanel;
     private EButton RecordButton;
-    private EButton RecordButton1;
+    private EButton RecordTestButton;
     private EButton SettingsButton;
     private javax.swing.JPanel SliderPanel;
     private javax.swing.JPanel VideoFrame;

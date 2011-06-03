@@ -365,7 +365,7 @@ public class Camera {
         StringBuffer buf = new StringBuffer();
         URL FramesizeURL = null;
         int parameter = 0;
-        String camera = "http://" + this.IP + "/ElphelVision/getparam.php?parameter=FRAME_SIZE";
+        String camera = "http://" + this.IP[0] + "/ElphelVision/getparam.php?parameter=FRAME_SIZE";
         try {
             FramesizeURL = new URL(camera);
         } catch (MalformedURLException e) {
@@ -1975,7 +1975,7 @@ public class Camera {
             Calendar now = Calendar.getInstance();
             RecordstartTime = now.getTimeInMillis();
         } else if (Command.equals("RECORDSTARTTIMESTAMP")) {
-            Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording will start in: " + parameter + " seconds");
+            Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording will start in: " + parameter + " second(s)");
             command_name = "set_start_after_timestamp&start_after_timestamp=p" + parameter;
             Calendar now = Calendar.getInstance();
             RecordstartTime = now.getTimeInMillis();
@@ -2107,293 +2107,292 @@ public class Camera {
         StringBuffer buf = new StringBuffer();
 
         // try to connect
-        for (int i = 0; i < this.IP.length; i++) {
+        //for (int i = 0; i < this.IP.length; i++) { //just get all data from camera with IP Index 0 for now -> TODO
+        int i = 0;
+        try {
+            conn = CameraUrl[i].openConnection();
+            conn.connect();
+
+            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            buf.delete(0, buf.length());
+            while ((line = data.readLine()) != null) {
+                buf.append(line + "\n");
+            }
+
+            result = buf.toString();
+            data.close();
+
+            // try to extract data from XML structure
             try {
-                conn = CameraUrl[i].openConnection();
-                conn.connect();
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
 
-                data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
+                doc.getDocumentElement().normalize();
+                NodeList nodeLst = doc.getElementsByTagName("elphel_vision_data");
+                for (int s = 0; s < nodeLst.getLength(); s++) {
+                    Node fstNode = nodeLst.item(s);
+                    if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element fstElmnt = (Element) fstNode;
+                        NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("image_width");
 
-                buf.delete(0, buf.length());
-                while ((line = data.readLine()) != null) {
-                    buf.append(line + "\n");
-                }
+                        Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+                        NodeList fstNm = fstNmElmnt.getChildNodes();
+                        this.ImageWidth = Integer.parseInt(((Node) fstNm.item(0)).getNodeValue());
 
-                result = buf.toString();
-                data.close();
+                        NodeList lstNmElmntLst = fstElmnt.getElementsByTagName("image_height");
+                        Element lstNmElmnt = (Element) lstNmElmntLst.item(0);
+                        NodeList lstNm = lstNmElmnt.getChildNodes();
+                        this.ImageHeight = Integer.parseInt(((Node) lstNm.item(0)).getNodeValue());
 
-                // try to extract data from XML structure
-                try {
-                    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder db = dbf.newDocumentBuilder();
+                        NodeList nxtNmElmntLst = fstElmnt.getElementsByTagName("fps");
+                        Element nxtNmElmnt = (Element) nxtNmElmntLst.item(0);
+                        NodeList nxtNm = nxtNmElmnt.getChildNodes();
+                        this.FPS = Float.parseFloat(((Node) nxtNm.item(0)).getNodeValue()) / 1000.0f;
 
-                    Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
-                    doc.getDocumentElement().normalize();
-                    NodeList nodeLst = doc.getElementsByTagName("elphel_vision_data");
-                    for (int s = 0; s
-                            < nodeLst.getLength(); s++) {
-                        Node fstNode = nodeLst.item(s);
-                        if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
-                            Element fstElmnt = (Element) fstNode;
-                            NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("image_width");
+                        NodeList NmElmntLst4 = fstElmnt.getElementsByTagName("jpeg_quality");
+                        Element NmElmnt4 = (Element) NmElmntLst4.item(0);
+                        NodeList Elmnt4 = NmElmnt4.getChildNodes();
+                        this.JPEGQuality = Integer.parseInt(((Node) Elmnt4.item(0)).getNodeValue());
 
-                            Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
-                            NodeList fstNm = fstNmElmnt.getChildNodes();
-                            this.ImageWidth = Integer.parseInt(((Node) fstNm.item(0)).getNodeValue());
-
-                            NodeList lstNmElmntLst = fstElmnt.getElementsByTagName("image_height");
-                            Element lstNmElmnt = (Element) lstNmElmntLst.item(0);
-                            NodeList lstNm = lstNmElmnt.getChildNodes();
-                            this.ImageHeight = Integer.parseInt(((Node) lstNm.item(0)).getNodeValue());
-
-                            NodeList nxtNmElmntLst = fstElmnt.getElementsByTagName("fps");
-                            Element nxtNmElmnt = (Element) nxtNmElmntLst.item(0);
-                            NodeList nxtNm = nxtNmElmnt.getChildNodes();
-                            this.FPS = Float.parseFloat(((Node) nxtNm.item(0)).getNodeValue()) / 1000.0f;
-
-                            NodeList NmElmntLst4 = fstElmnt.getElementsByTagName("jpeg_quality");
-                            Element NmElmnt4 = (Element) NmElmntLst4.item(0);
-                            NodeList Elmnt4 = NmElmnt4.getChildNodes();
-                            this.JPEGQuality = Integer.parseInt(((Node) Elmnt4.item(0)).getNodeValue());
-
-                            NodeList fstNmElmntLst1 = fstElmnt.getElementsByTagName("camogm");
-                            Element fstNmElmnt1 = (Element) fstNmElmntLst1.item(0);
-                            NodeList fstNm1 = fstNmElmnt1.getChildNodes();
-                            if ((((Node) fstNm.item(0)).getNodeValue().compareTo("not running")) == 0) {
-                                this.CAMOGMState = CamogmState.NOTRUNNING;
-                            } else {
-                                NodeList NmElmntLst11 = fstElmnt.getElementsByTagName("camogm_state");
-                                Element NmElmnt11 = (Element) NmElmntLst11.item(0);
-                                NodeList Elmnt11 = NmElmnt11.getChildNodes();
-                                if (((Node) Elmnt11.item(0)) != null) {
-                                    if (((Node) Elmnt11.item(0)).getNodeValue().startsWith("stopped")) {
-                                        this.CAMOGMState = CamogmState.STOPPED;
-                                    }
-
-                                    if (((Node) Elmnt11.item(0)).getNodeValue().startsWith("running")) {
-                                        this.CAMOGMState = CamogmState.RECORDING;
-                                    }
-
-                                }
-                            }
-
-                            NodeList NmElmntLst5 = fstElmnt.getElementsByTagName("camogm_format");
-                            Element NmElmnt5 = (Element) NmElmntLst5.item(0);
-                            NodeList Elmnt5 = NmElmnt5.getChildNodes();
-                            if (((Node) Elmnt5.item(0)) != null) {
-                                String formatname = ((Node) Elmnt5.item(0)).getNodeValue();
-                                if (formatname.startsWith("mov")) {
-                                    this.RecordFormat = RecordFormat.MOV;
-                                } else if (formatname.startsWith("ogm")) {
-                                    this.RecordFormat = RecordFormat.OGM;
-                                } else if (formatname.startsWith("jpeg")) {
-                                    this.RecordFormat = RecordFormat.JPEG;
+                        NodeList fstNmElmntLst1 = fstElmnt.getElementsByTagName("camogm");
+                        Element fstNmElmnt1 = (Element) fstNmElmntLst1.item(0);
+                        NodeList fstNm1 = fstNmElmnt1.getChildNodes();
+                        if ((((Node) fstNm.item(0)).getNodeValue().compareTo("not running")) == 0) {
+                            this.CAMOGMState = CamogmState.NOTRUNNING;
+                        } else {
+                            NodeList NmElmntLst11 = fstElmnt.getElementsByTagName("camogm_state");
+                            Element NmElmnt11 = (Element) NmElmntLst11.item(0);
+                            NodeList Elmnt11 = NmElmnt11.getChildNodes();
+                            if (((Node) Elmnt11.item(0)) != null) {
+                                if (((Node) Elmnt11.item(0)).getNodeValue().startsWith("stopped")) {
+                                    this.CAMOGMState = CamogmState.STOPPED;
                                 }
 
-                            }
-
-                            NodeList NmElmntLst6 = fstElmnt.getElementsByTagName("hdd_freespaceratio");
-                            Element NmElmnt6 = (Element) NmElmntLst6.item(0);
-                            NodeList Elmnt6 = NmElmnt6.getChildNodes();
-                            if (((Node) Elmnt6.item(0)).getNodeValue().startsWith("unmounted")) {
-                                this.HDDSpaceFreeRatio = -1;
-                            } else {
-                                try {
-                                    this.HDDSpaceFreeRatio = Float.parseFloat(((Node) Elmnt6.item(0)).getNodeValue());
-                                } catch (Exception e) {
-                                    this.HDDSpaceFreeRatio = -1;
+                                if (((Node) Elmnt11.item(0)).getNodeValue().startsWith("running")) {
+                                    this.CAMOGMState = CamogmState.RECORDING;
                                 }
 
-                            }
-
-                            NodeList NmElmntLstHDD = fstElmnt.getElementsByTagName("hdd_freespace");
-                            Element NmElmntHDD = (Element) NmElmntLstHDD.item(0);
-
-                            if (NmElmntHDD == null) { // if we get nothing returned
-                                this.HDDSpaceFree = -1;
-                            } else {
-                                NodeList ElmntHDD = NmElmntHDD.getChildNodes();
-                                if (((Node) Elmnt6.item(0)).getNodeValue().startsWith("unmounted")) {
-                                    this.HDDSpaceFree = -1;
-                                } else {
-                                    if ((((Node) ElmntHDD.item(0)).getNodeValue() != "") && (((Node) ElmntHDD.item(0)).getNodeValue() != "0")) {
-                                        try {
-                                            this.HDDSpaceFree = Float.parseFloat(((Node) ElmntHDD.item(0)).getNodeValue());
-                                        } catch (Exception e) {
-                                            this.HDDSpaceFree = -1;
-                                        }
-                                    }
-                                }
-                            }
-
-                            NodeList NmElmntLst7 = fstElmnt.getElementsByTagName("camogm_fileframeduration");
-                            Element NmElmnt7 = (Element) NmElmntLst7.item(0);
-                            NodeList Elmnt7 = NmElmnt7.getChildNodes();
-                            if (((Node) Elmnt7.item(0)) != null) {
-                                this.RecordedFrames = Integer.parseInt(((Node) Elmnt7.item(0)).getNodeValue());
-                            }
-
-                            NodeList NmElmntLstDatarate = fstElmnt.getElementsByTagName("camogm_datarate");
-                            Element NmElmntDatarate = (Element) NmElmntLstDatarate.item(0);
-                            NodeList ElmntDatarate = NmElmntDatarate.getChildNodes();
-                            if (((Node) ElmntDatarate.item(0)) != null) {
-                                this.Datarate = Float.parseFloat(((Node) ElmntDatarate.item(0)).getNodeValue());
-                            }
-
-                            NodeList NmElmntLstGainR = fstElmnt.getElementsByTagName("gain_r");
-                            Element NmElmntGainR = (Element) NmElmntLstGainR.item(0);
-                            NodeList ElmntGainR = NmElmntGainR.getChildNodes();
-                            if (((Node) ElmntGainR.item(0)) != null) {
-                                this.Gain_R = Integer.parseInt(((Node) ElmntGainR.item(0)).getNodeValue()) / 65536.0f;
-                            }
-
-                            NodeList NmElmntLstGainB = fstElmnt.getElementsByTagName("gain_b");
-                            Element NmElmntGainB = (Element) NmElmntLstGainB.item(0);
-                            NodeList ElmntGainB = NmElmntGainB.getChildNodes();
-                            if (((Node) ElmntGainB.item(0)) != null) {
-                                this.Gain_B = Integer.parseInt(((Node) ElmntGainB.item(0)).getNodeValue()) / 65536.0f;
-                            }
-
-                            NodeList NmElmntLstGainG = fstElmnt.getElementsByTagName("gain_g");
-                            Element NmElmntGainG = (Element) NmElmntLstGainG.item(0);
-                            NodeList ElmntGainG = NmElmntGainG.getChildNodes();
-                            if (((Node) ElmntGainG.item(0)) != null) {
-                                this.Gain_G = Integer.parseInt(((Node) ElmntGainG.item(0)).getNodeValue()) / 65536.0f;
-                                if (this.Gain_G == 1.0f) {
-                                    this.GainIndex = 4;
-                                }
-
-                                if (this.Gain_G == 2.0f) {
-                                    this.GainIndex = 3;
-                                }
-
-                                if (this.Gain_G == 4.0f) {
-                                    this.GainIndex = 2;
-                                }
-
-                                if (this.Gain_G == 8.0f) {
-                                    this.GainIndex = 1;
-                                }
-
-                                if (this.Gain_G == 16.0f) {
-                                    this.GainIndex = 0;
-                                }
-
-                            }
-
-                            NodeList NmElmntLstGainGB = fstElmnt.getElementsByTagName("gain_gb");
-                            Element NmElmntGainGB = (Element) NmElmntLstGainGB.item(0);
-                            NodeList ElmntGainGB = NmElmntGainGB.getChildNodes();
-                            if (((Node) ElmntGainGB.item(0)) != null) {
-                                this.Gain_GB = Integer.parseInt(((Node) ElmntGainGB.item(0)).getNodeValue()) / 65536.0f;
-                            }
-
-                            NodeList NmElmntLstCamOGMMaxDuration = fstElmnt.getElementsByTagName("camogm_max_duration"); // seconds
-                            Element NmElmntCamOGMMaxDuration = (Element) NmElmntLstCamOGMMaxDuration.item(0);
-                            NodeList ElmntCamOGMMaxDuration = NmElmntCamOGMMaxDuration.getChildNodes();
-                            if (((Node) ElmntCamOGMMaxDuration.item(0)) != null) {
-                                // TODO
-                            }
-
-                            NodeList NmElmntLstCamOGMMaxLength = fstElmnt.getElementsByTagName("camogm_max_length"); // bytes
-                            Element NmElmntCamOGMMaxLength = (Element) NmElmntLstCamOGMMaxLength.item(0);
-                            NodeList ElmntCamOGMMaxLength = NmElmntCamOGMMaxLength.getChildNodes();
-                            if (((Node) ElmntCamOGMMaxLength.item(0)) != null) {
-                                this.MovieClipMaxChunkSize = Integer.parseInt(((Node) ElmntCamOGMMaxLength.item(0)).getNodeValue()) / 1024 / 1024;
-                            }
-
-                            NodeList NmElmntLstCamOGMMaxFrames = fstElmnt.getElementsByTagName("camogm_max_frames"); // frames
-                            Element NmElmntCamOGMMaxFrames = (Element) NmElmntLstCamOGMMaxFrames.item(0);
-                            NodeList ElmntCamOGMMaxFrames = NmElmntCamOGMMaxFrames.getChildNodes();
-                            if (((Node) ElmntCamOGMMaxFrames.item(0)) != null) {
-                                // TODO
-                            }
-
-                            NodeList NmElmntLst9 = fstElmnt.getElementsByTagName("exposure");
-                            Element NmElmnt9 = (Element) NmElmntLst9.item(0);
-                            NodeList Elmnt9 = NmElmnt9.getChildNodes();
-                            if (((Node) Elmnt9.item(0)) != null) {
-                                // Todo
-                                //Integer.parseInt(((Node) Elmnt9.item(0)).getNodeValue());
-                            }
-
-                            NodeList NmElmntLstauto_exposure = fstElmnt.getElementsByTagName("auto_exposure");
-                            Element NmElmntauto_exposure = (Element) NmElmntLstauto_exposure.item(0);
-                            NodeList Elmntauto_exposure = NmElmntauto_exposure.getChildNodes();
-                            if (((Node) Elmntauto_exposure.item(0)) != null) {
-                                if (((Node) Elmntauto_exposure.item(0)).getNodeValue().equals("1")) {
-                                    this.AutoExposure = true;
-                                } else {
-                                    this.AutoExposure = false;
-                                }
-                            }
-
-                            NodeList NmElmntLstCoring = fstElmnt.getElementsByTagName("coringindex");
-                            Element NmElmntCoring = (Element) NmElmntLstCoring.item(0);
-                            NodeList ElmntCoring = NmElmntCoring.getChildNodes();
-                            if (((Node) ElmntCoring.item(0)) != null) {
-                                this.CoringIndex = Integer.parseInt(((Node) ElmntCoring.item(0)).getNodeValue());
-                            }
-
-                            NodeList NmElmntLstFrameSkip = fstElmnt.getElementsByTagName("camogm_frameskip");
-                            Element NmElmntFrameSkip = (Element) NmElmntLstFrameSkip.item(0);
-                            NodeList ElmntFrameSkip = NmElmntFrameSkip.getChildNodes();
-                            if (((Node) ElmntFrameSkip.item(0)) != null) {
-                                this.FPSSkipFrames = Integer.parseInt(((Node) ElmntFrameSkip.item(0)).getNodeValue());
-                            }
-
-                            NodeList NmElmntLstSecondsSkip = fstElmnt.getElementsByTagName("camogm_secondsskip");
-                            Element NmElmntSecondsSkip = (Element) NmElmntLstSecondsSkip.item(0);
-                            NodeList ElmntSecondsSkip = NmElmntSecondsSkip.getChildNodes();
-                            if (((Node) ElmntSecondsSkip.item(0)) != null) {
-                                this.FPSSkipSeconds = Integer.parseInt(((Node) ElmntSecondsSkip.item(0)).getNodeValue());
-                            }
-
-                            NodeList NmElmntLstFlipH = fstElmnt.getElementsByTagName("fliph");
-                            Element NmElmntFlipH = (Element) NmElmntLstFlipH.item(0);
-                            NodeList ElmntFlipH = NmElmntFlipH.getChildNodes();
-                            NodeList NmElmntLstFlipV = fstElmnt.getElementsByTagName("flipv");
-                            Element NmElmntFlipV = (Element) NmElmntLstFlipV.item(0);
-                            NodeList ElmntFlipV = NmElmntFlipV.getChildNodes();
-                            if (((Node) ElmntFlipV.item(0)) != null) {
-                                int flipv = Integer.parseInt(((Node) ElmntFlipV.item(0)).getNodeValue());
-                                int fliph = Integer.parseInt(((Node) ElmntFlipH.item(0)).getNodeValue());
-                                if ((flipv == 1) && (fliph == 1)) {
-                                    this.ImageFlip = MirrorImage.VERTICALHORIZONTAL;
-                                }
-
-                                if ((flipv == 1) && (fliph == 0)) {
-                                    this.ImageFlip = MirrorImage.VERTICAL;
-                                }
-
-                                if ((flipv == 0) && (fliph == 1)) {
-                                    this.ImageFlip = MirrorImage.HORIZONTAL;
-                                }
-
-                                if ((flipv == 0) && (fliph == 0)) {
-                                    this.ImageFlip = MirrorImage.NONE;
-                                }
-                            }
-                            NodeList NmElmntLstBufferOverFlow = fstElmnt.getElementsByTagName("bufferoverruns");
-                            Element NmElmntBufferOverFlow = (Element) NmElmntLstBufferOverFlow.item(0);
-                            NodeList ElmntBufferOverFlow = NmElmntBufferOverFlow.getChildNodes();
-                            if (((Node) ElmntBufferOverFlow.item(0)) != null) {
-                                int tempvalue = Integer.parseInt(((Node) ElmntBufferOverFlow.item(0)).getNodeValue());
-                                if ((tempvalue != 0) && (tempvalue != -1)) {
-                                    this.AlertBufferOverrun("" + tempvalue);
-                                }
-                                this.BufferOverruns = tempvalue;
                             }
                         }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
-            } catch (IOException e) {
-                Parent.WriteErrortoConsole("UpdateCameraData() IO Error:" + e.getMessage());
+                        NodeList NmElmntLst5 = fstElmnt.getElementsByTagName("camogm_format");
+                        Element NmElmnt5 = (Element) NmElmntLst5.item(0);
+                        NodeList Elmnt5 = NmElmnt5.getChildNodes();
+                        if (((Node) Elmnt5.item(0)) != null) {
+                            String formatname = ((Node) Elmnt5.item(0)).getNodeValue();
+                            if (formatname.startsWith("mov")) {
+                                this.RecordFormat = RecordFormat.MOV;
+                            } else if (formatname.startsWith("ogm")) {
+                                this.RecordFormat = RecordFormat.OGM;
+                            } else if (formatname.startsWith("jpeg")) {
+                                this.RecordFormat = RecordFormat.JPEG;
+                            }
+
+                        }
+
+                        NodeList NmElmntLst6 = fstElmnt.getElementsByTagName("hdd_freespaceratio");
+                        Element NmElmnt6 = (Element) NmElmntLst6.item(0);
+                        NodeList Elmnt6 = NmElmnt6.getChildNodes();
+                        if (((Node) Elmnt6.item(0)).getNodeValue().startsWith("unmounted")) {
+                            this.HDDSpaceFreeRatio = -1;
+                        } else {
+                            try {
+                                this.HDDSpaceFreeRatio = Float.parseFloat(((Node) Elmnt6.item(0)).getNodeValue());
+                            } catch (Exception e) {
+                                this.HDDSpaceFreeRatio = -1;
+                            }
+
+                        }
+
+                        NodeList NmElmntLstHDD = fstElmnt.getElementsByTagName("hdd_freespace");
+                        Element NmElmntHDD = (Element) NmElmntLstHDD.item(0);
+
+                        if (NmElmntHDD == null) { // if we get nothing returned
+                            this.HDDSpaceFree = -1;
+                        } else {
+                            NodeList ElmntHDD = NmElmntHDD.getChildNodes();
+                            if (((Node) Elmnt6.item(0)).getNodeValue().startsWith("unmounted")) {
+                                this.HDDSpaceFree = -1;
+                            } else {
+                                if ((((Node) ElmntHDD.item(0)).getNodeValue() != "") && (((Node) ElmntHDD.item(0)).getNodeValue() != "0")) {
+                                    try {
+                                        this.HDDSpaceFree = Float.parseFloat(((Node) ElmntHDD.item(0)).getNodeValue());
+                                    } catch (Exception e) {
+                                        this.HDDSpaceFree = -1;
+                                    }
+                                }
+                            }
+                        }
+
+                        NodeList NmElmntLst7 = fstElmnt.getElementsByTagName("camogm_fileframeduration");
+                        Element NmElmnt7 = (Element) NmElmntLst7.item(0);
+                        NodeList Elmnt7 = NmElmnt7.getChildNodes();
+                        if (((Node) Elmnt7.item(0)) != null) {
+                            this.RecordedFrames = Integer.parseInt(((Node) Elmnt7.item(0)).getNodeValue());
+                        }
+
+                        NodeList NmElmntLstDatarate = fstElmnt.getElementsByTagName("camogm_datarate");
+                        Element NmElmntDatarate = (Element) NmElmntLstDatarate.item(0);
+                        NodeList ElmntDatarate = NmElmntDatarate.getChildNodes();
+                        if (((Node) ElmntDatarate.item(0)) != null) {
+                            this.Datarate = Float.parseFloat(((Node) ElmntDatarate.item(0)).getNodeValue());
+                        }
+
+                        NodeList NmElmntLstGainR = fstElmnt.getElementsByTagName("gain_r");
+                        Element NmElmntGainR = (Element) NmElmntLstGainR.item(0);
+                        NodeList ElmntGainR = NmElmntGainR.getChildNodes();
+                        if (((Node) ElmntGainR.item(0)) != null) {
+                            this.Gain_R = Integer.parseInt(((Node) ElmntGainR.item(0)).getNodeValue()) / 65536.0f;
+                        }
+
+                        NodeList NmElmntLstGainB = fstElmnt.getElementsByTagName("gain_b");
+                        Element NmElmntGainB = (Element) NmElmntLstGainB.item(0);
+                        NodeList ElmntGainB = NmElmntGainB.getChildNodes();
+                        if (((Node) ElmntGainB.item(0)) != null) {
+                            this.Gain_B = Integer.parseInt(((Node) ElmntGainB.item(0)).getNodeValue()) / 65536.0f;
+                        }
+
+                        NodeList NmElmntLstGainG = fstElmnt.getElementsByTagName("gain_g");
+                        Element NmElmntGainG = (Element) NmElmntLstGainG.item(0);
+                        NodeList ElmntGainG = NmElmntGainG.getChildNodes();
+                        if (((Node) ElmntGainG.item(0)) != null) {
+                            this.Gain_G = Integer.parseInt(((Node) ElmntGainG.item(0)).getNodeValue()) / 65536.0f;
+                            if (this.Gain_G == 1.0f) {
+                                this.GainIndex = 4;
+                            }
+
+                            if (this.Gain_G == 2.0f) {
+                                this.GainIndex = 3;
+                            }
+
+                            if (this.Gain_G == 4.0f) {
+                                this.GainIndex = 2;
+                            }
+
+                            if (this.Gain_G == 8.0f) {
+                                this.GainIndex = 1;
+                            }
+
+                            if (this.Gain_G == 16.0f) {
+                                this.GainIndex = 0;
+                            }
+
+                        }
+
+                        NodeList NmElmntLstGainGB = fstElmnt.getElementsByTagName("gain_gb");
+                        Element NmElmntGainGB = (Element) NmElmntLstGainGB.item(0);
+                        NodeList ElmntGainGB = NmElmntGainGB.getChildNodes();
+                        if (((Node) ElmntGainGB.item(0)) != null) {
+                            this.Gain_GB = Integer.parseInt(((Node) ElmntGainGB.item(0)).getNodeValue()) / 65536.0f;
+                        }
+
+                        NodeList NmElmntLstCamOGMMaxDuration = fstElmnt.getElementsByTagName("camogm_max_duration"); // seconds
+                        Element NmElmntCamOGMMaxDuration = (Element) NmElmntLstCamOGMMaxDuration.item(0);
+                        NodeList ElmntCamOGMMaxDuration = NmElmntCamOGMMaxDuration.getChildNodes();
+                        if (((Node) ElmntCamOGMMaxDuration.item(0)) != null) {
+                            // TODO
+                        }
+
+                        NodeList NmElmntLstCamOGMMaxLength = fstElmnt.getElementsByTagName("camogm_max_length"); // bytes
+                        Element NmElmntCamOGMMaxLength = (Element) NmElmntLstCamOGMMaxLength.item(0);
+                        NodeList ElmntCamOGMMaxLength = NmElmntCamOGMMaxLength.getChildNodes();
+                        if (((Node) ElmntCamOGMMaxLength.item(0)) != null) {
+                            this.MovieClipMaxChunkSize = Integer.parseInt(((Node) ElmntCamOGMMaxLength.item(0)).getNodeValue()) / 1024 / 1024;
+                        }
+
+                        NodeList NmElmntLstCamOGMMaxFrames = fstElmnt.getElementsByTagName("camogm_max_frames"); // frames
+                        Element NmElmntCamOGMMaxFrames = (Element) NmElmntLstCamOGMMaxFrames.item(0);
+                        NodeList ElmntCamOGMMaxFrames = NmElmntCamOGMMaxFrames.getChildNodes();
+                        if (((Node) ElmntCamOGMMaxFrames.item(0)) != null) {
+                            // TODO
+                        }
+
+                        NodeList NmElmntLst9 = fstElmnt.getElementsByTagName("exposure");
+                        Element NmElmnt9 = (Element) NmElmntLst9.item(0);
+                        NodeList Elmnt9 = NmElmnt9.getChildNodes();
+                        if (((Node) Elmnt9.item(0)) != null) {
+                            // Todo
+                            //Integer.parseInt(((Node) Elmnt9.item(0)).getNodeValue());
+                        }
+
+                        NodeList NmElmntLstauto_exposure = fstElmnt.getElementsByTagName("auto_exposure");
+                        Element NmElmntauto_exposure = (Element) NmElmntLstauto_exposure.item(0);
+                        NodeList Elmntauto_exposure = NmElmntauto_exposure.getChildNodes();
+                        if (((Node) Elmntauto_exposure.item(0)) != null) {
+                            if (((Node) Elmntauto_exposure.item(0)).getNodeValue().equals("1")) {
+                                this.AutoExposure = true;
+                            } else {
+                                this.AutoExposure = false;
+                            }
+                        }
+
+                        NodeList NmElmntLstCoring = fstElmnt.getElementsByTagName("coringindex");
+                        Element NmElmntCoring = (Element) NmElmntLstCoring.item(0);
+                        NodeList ElmntCoring = NmElmntCoring.getChildNodes();
+                        if (((Node) ElmntCoring.item(0)) != null) {
+                            this.CoringIndex = Integer.parseInt(((Node) ElmntCoring.item(0)).getNodeValue());
+                        }
+
+                        NodeList NmElmntLstFrameSkip = fstElmnt.getElementsByTagName("camogm_frameskip");
+                        Element NmElmntFrameSkip = (Element) NmElmntLstFrameSkip.item(0);
+                        NodeList ElmntFrameSkip = NmElmntFrameSkip.getChildNodes();
+                        if (((Node) ElmntFrameSkip.item(0)) != null) {
+                            this.FPSSkipFrames = Integer.parseInt(((Node) ElmntFrameSkip.item(0)).getNodeValue());
+                        }
+
+                        NodeList NmElmntLstSecondsSkip = fstElmnt.getElementsByTagName("camogm_secondsskip");
+                        Element NmElmntSecondsSkip = (Element) NmElmntLstSecondsSkip.item(0);
+                        NodeList ElmntSecondsSkip = NmElmntSecondsSkip.getChildNodes();
+                        if (((Node) ElmntSecondsSkip.item(0)) != null) {
+                            this.FPSSkipSeconds = Integer.parseInt(((Node) ElmntSecondsSkip.item(0)).getNodeValue());
+                        }
+
+                        NodeList NmElmntLstFlipH = fstElmnt.getElementsByTagName("fliph");
+                        Element NmElmntFlipH = (Element) NmElmntLstFlipH.item(0);
+                        NodeList ElmntFlipH = NmElmntFlipH.getChildNodes();
+                        NodeList NmElmntLstFlipV = fstElmnt.getElementsByTagName("flipv");
+                        Element NmElmntFlipV = (Element) NmElmntLstFlipV.item(0);
+                        NodeList ElmntFlipV = NmElmntFlipV.getChildNodes();
+                        if (((Node) ElmntFlipV.item(0)) != null) {
+                            int flipv = Integer.parseInt(((Node) ElmntFlipV.item(0)).getNodeValue());
+                            int fliph = Integer.parseInt(((Node) ElmntFlipH.item(0)).getNodeValue());
+                            if ((flipv == 1) && (fliph == 1)) {
+                                this.ImageFlip = MirrorImage.VERTICALHORIZONTAL;
+                            }
+
+                            if ((flipv == 1) && (fliph == 0)) {
+                                this.ImageFlip = MirrorImage.VERTICAL;
+                            }
+
+                            if ((flipv == 0) && (fliph == 1)) {
+                                this.ImageFlip = MirrorImage.HORIZONTAL;
+                            }
+
+                            if ((flipv == 0) && (fliph == 0)) {
+                                this.ImageFlip = MirrorImage.NONE;
+                            }
+                        }
+                        NodeList NmElmntLstBufferOverFlow = fstElmnt.getElementsByTagName("bufferoverruns");
+                        Element NmElmntBufferOverFlow = (Element) NmElmntLstBufferOverFlow.item(0);
+                        NodeList ElmntBufferOverFlow = NmElmntBufferOverFlow.getChildNodes();
+                        if (((Node) ElmntBufferOverFlow.item(0)) != null) {
+                            int tempvalue = Integer.parseInt(((Node) ElmntBufferOverFlow.item(0)).getNodeValue());
+                            if ((tempvalue != 0) && (tempvalue != -1)) {
+                                this.AlertBufferOverrun("" + tempvalue);
+                            }
+                            this.BufferOverruns = tempvalue;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        } catch (IOException e) {
+            Parent.WriteErrortoConsole("UpdateCameraData() IO Error:" + e.getMessage());
         }
+
     }
 
     public void ReadCameraFileList() throws Exception {
@@ -2406,7 +2405,7 @@ public class Camera {
         String result;
         StringBuffer buf = new StringBuffer();
 
-        URL CameraFileReadURL = new URL("http://" + this.IP + "/ElphelVision/elphelvision_interface.php?cmd=list_files");
+        URL CameraFileReadURL = new URL("http://" + this.IP[0] + "/ElphelVision/elphelvision_interface.php?cmd=list_files");
 
         // try to connect
         try {

@@ -42,7 +42,7 @@ public class VLCPlayer {
         List<String> vlcArgs = new ArrayList<String>();
 
         vlcArgs.add("--no-video-title-show");
-        vlcArgs.add("--rtsp-caching=40");
+        vlcArgs.add("--rtsp-caching=50");
         vlcArgs.add("--clock-jitter=0");
 
         // This burns so many people on Windows that I decided to leave it in...
@@ -98,7 +98,7 @@ public class VLCPlayer {
     mediaPlayer.enableOverlay(true);
     }*/
     public void PlayVideoFile(String file) {
-        mediaPlayer.playMedia("http://" + Parent.Camera.GetIP() + file);
+        mediaPlayer.playMedia("http://" + Parent.Camera.GetIP()[0] + file); // TODO this only works for camera index 0 atm
     }
 
     public void PlayLocalVideoFile(String file) {

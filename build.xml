@@ -72,63 +72,67 @@
 
     -->
 	<!-- provide a path where executable distros should be saved  -->
-	<property name="release.dir" value="${basedir}/release"/>
+    <property name="release.dir" value="${basedir}/release"/>
 	<!-- provide the path to the shared native libraries directory -->
-	<property name="natives.dir" value="./dist/lib/"/>
+    <property name="natives.dir" value="./dist/lib/"/>
 	<!-- provide a base name for your executable. -->
-	<property name="standalone.jar.name" value="ElphelVision"/>
+    <property name="standalone.jar.name" value="ElphelVision"/>
 
-	<import file="one-jar-ant-task.xml" />
-	<target name="dist-all" depends="jar" description="Bundles a stand-alone OneJAR distribution">
-	<echo>Bundling: OneJAR is composing ${standalone.jar.name}-dist.jar</echo>
-	<one-jar destfile="${dist.jar.dir}/${standalone.jar.name}-dist.jar" manifest="onejar.mf" update="true">
-	    <main>
-		<fileset dir="${build.classes.dir}/" />
-	    </main>
-	    <lib>
-		<fileset file="${dist.jar.dir}/lib/*.*" />
-	    </lib>
-	    <fileset file="${basedir}/properties.cfg"></fileset><!-- optional -->
-	</one-jar> 
+    <import file="one-jar-ant-task.xml" />
+    <target name="dist-all" depends="jar" description="Bundles a stand-alone OneJAR distribution">
+        <echo>Bundling: OneJAR is composing ${standalone.jar.name}-dist.jar</echo>
+        <one-jar destfile="${dist.jar.dir}/${standalone.jar.name}-dist.jar" manifest="onejar.mf" update="true">
+            <main>
+                <fileset dir="${build.classes.dir}/" />
+            </main>
+            <lib>
+                <fileset file="${dist.jar.dir}/lib/*.*" />
+            </lib>
+            <fileset file="${basedir}/properties.cfg"></fileset><!-- optional -->
+        </one-jar> 
         <copy todir="${dist.jar.dir}" file="${basedir}/default.config" />
-	<echo file="${dist.jar.dir}/README.TXT" append="true">
+        <echo file="${dist.jar.dir}/README.TXT" append="true">
    	Run the stand-alone distribution from the command line using:
-	java -jar -Xmx256m ${standalone.jar.name}-dist.jar</echo>
-	<echo>Bundling: OneJAR is done.</echo>
-	</target>
+	java -jar -Xmx256m ${standalone.jar.name}-dist.jar
+        </echo>
+        <echo>Bundling: OneJAR is done.</echo>
+    </target>
 
-	<target name="dist-zip" depends="dist-all" description="Creating ZIP archives of the standalone OneJAR for windows, mac, linux">
-            <echo>Bundling: Creating JAR Launchers</echo>
-	     <mkdir  dir="${release.dir}" />             
-	     <echo>Bundling: Creating Windows ZIP Archive</echo>
+    <target name="dist-zip" depends="dist-all" description="Creating ZIP archives of the standalone OneJAR for windows, mac, linux">
+        <echo>Bundling: Creating JAR Launchers</echo>
+        <mkdir  dir="${release.dir}" />             
+        <echo>Bundling: Creating Windows ZIP Archive</echo>
 
-	     <echo>Bundling: Creating Windows ZIP Archive</echo>
-	     <mkdir  dir="${release.dir}/${standalone.jar.name}-win" />
-	     <echo  file="${release.dir}/${standalone.jar.name}-win/${standalone.jar.name}.bat">
+        <echo>Bundling: Creating Windows ZIP Archive</echo>
+        <mkdir  dir="${release.dir}/${standalone.jar.name}-win" />
+        <echo  file="${release.dir}/${standalone.jar.name}-win/${standalone.jar.name}.bat">
 	     java -jar -Xmx256m ${standalone.jar.name}-dist.jar --debuglevel 3
-	     </echo>
-	     <copy todir="${release.dir}/${standalone.jar.name}-win" file="${dist.jar.dir}/default.config" />
-	     <copy todir="${release.dir}/${standalone.jar.name}-win/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" />
-	     <zip destfile="${release.dir}/${standalone.jar.name}-win.zip" basedir="${release.dir}/${standalone.jar.name}-win" update="false" />
+        </echo>
+        <copy todir="${release.dir}/${standalone.jar.name}-win" file="${dist.jar.dir}/default.config" />
+        <copy todir="${release.dir}/${standalone.jar.name}-win/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" />
+        <zip destfile="${release.dir}/${standalone.jar.name}-win.zip" basedir="${release.dir}/${standalone.jar.name}-win" update="false" />
 
-	     <echo>Bundling: Creating Linux ZIP Archive</echo>
-	     <mkdir  dir="${release.dir}/${standalone.jar.name}-linux" />
-	     <echo  file="${release.dir}/${standalone.jar.name}-linux/${standalone.jar.name}.sh">
+        <echo>Bundling: Creating Linux ZIP Archive</echo>
+        <mkdir  dir="${release.dir}/${standalone.jar.name}-linux" />
+        <echo  file="${release.dir}/${standalone.jar.name}-linux/${standalone.jar.name}.sh">
 	     java -jar -Xmx256m ${standalone.jar.name}-dist.jar --debuglevel 3
-	     </echo>
-	     <copy todir="${release.dir}/${standalone.jar.name}-linux/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" />
-	     <copy todir="${release.dir}/${standalone.jar.name}-linux" file="${dist.jar.dir}/default.config" />
-	     <zip destfile="${release.dir}/${standalone.jar.name}-linux.zip" basedir="${release.dir}/${standalone.jar.name}-linux" update="false" />
+        </echo>
+        <copy todir="${release.dir}/${standalone.jar.name}-linux/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" />
+        <copy todir="${release.dir}/${standalone.jar.name}-linux" file="${dist.jar.dir}/default.config" />
+        <zip destfile="${release.dir}/${standalone.jar.name}-linux.zip" basedir="${release.dir}/${standalone.jar.name}-linux" update="false" />
 	 
-	     <echo>Bundling: Creating Mac ZIP Archive</echo>
-	     <mkdir  dir="${release.dir}/${standalone.jar.name}-mac" />
-	     <move todir="${release.dir}/${standalone.jar.name}-mac/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" ></move>
-	     <copy todir="${release.dir}/${standalone.jar.name}-mac" file="${dist.jar.dir}/default.config" />
-	     <zip destfile="${release.dir}/${standalone.jar.name}-mac.zip" basedir="${release.dir}/${standalone.jar.name}-mac" update="false" />
+        <echo>Bundling: Creating Mac ZIP Archive</echo>
+        <mkdir  dir="${release.dir}/${standalone.jar.name}-mac" />
+        <move todir="${release.dir}/${standalone.jar.name}-mac/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" ></move>
+        <copy todir="${release.dir}/${standalone.jar.name}-mac" file="${dist.jar.dir}/default.config" />
+        <echo  file="${release.dir}/${standalone.jar.name}-mac/${standalone.jar.name}.sh">
+	     java -jar -Xmx256m ${standalone.jar.name}-dist.jar --debuglevel 3
+        </echo>
+        <zip destfile="${release.dir}/${standalone.jar.name}-mac.zip" basedir="${release.dir}/${standalone.jar.name}-mac" update="false" />
 
-	     <echo>Bundling: Cleaning up temporary files</echo>
-	     <delete dir="${release.dir}/${standalone.jar.name}-win" />
-	     <delete dir="${release.dir}/${standalone.jar.name}-linux" />
-	     <delete dir="${release.dir}/${standalone.jar.name}-mac" />
-	</target>
+        <echo>Bundling: Cleaning up temporary files</echo>
+        <delete dir="${release.dir}/${standalone.jar.name}-win" />
+        <delete dir="${release.dir}/${standalone.jar.name}-linux" />
+        <delete dir="${release.dir}/${standalone.jar.name}-mac" />
+    </target>
 </project>

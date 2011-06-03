@@ -71,7 +71,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     GuidesLayout GuidesPanel;
     PlaybackLayout PlaybackCardLayout;
     PhotoSettingsLayout PhotoSettingsCardLayout;
-    String AppVersion = "0.51";
+    String AppVersion = "0.52";
     static boolean WindowDecorations = false;
     static boolean NoCameraParameter = false;
     Utils Utils;
@@ -396,11 +396,13 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     }
 
     public void UpdateOverlayPosition() {
-        if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
-            MaincardLayoutGST.UpdateOverlayPosition();
-        }
-        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
-            MaincardLayoutVLC.UpdateOverlayPosition();
+        if (MaincardLayoutGST.isShowing() || MaincardLayoutVLC.isShowing()) {
+            if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
+                MaincardLayoutGST.UpdateOverlayPosition();
+            }
+            if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+                MaincardLayoutVLC.UpdateOverlayPosition();
+            }
         }
     }
 
