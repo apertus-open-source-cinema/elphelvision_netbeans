@@ -122,6 +122,24 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         }
 
         Utils = new Utils();
+
+        //Load Style Definitions
+        WriteLogtoConsole("Looking for default.style");
+        File StyleFile = new File("default.style");
+
+        if (StyleFile.exists()) {
+            try {
+                if (Utils.LoadStyles("default.style")) {
+                    WriteLogtoConsole("default.style found - Styles Loaded");
+                } else {
+                    WriteWarningtoConsole("Problem loading default.style");
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ConnectLayout.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            WriteWarningtoConsole("default.style not found - falling back to default styles");
+        }
         TestGraphicCapability();
     }
     private boolean isShapingSupported;
@@ -186,6 +204,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
     public void StartVideoPlayer() {
         if (NoCameraParameter) {
+            // TODO we have no test.avi yet
             VLCPlayer.PlayLocalVideoFile("test.avi");
         } else {
             if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {

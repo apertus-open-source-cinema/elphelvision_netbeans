@@ -43,7 +43,6 @@ public class ConnectLayout extends javax.swing.JPanel {
                 public void run() {
                     initComponents();
 
-
                     Title.setText("Elphel Vision Alpha");
                     if (Parent.Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
                         VLCButton.setChecked(true);
@@ -135,15 +134,15 @@ public class ConnectLayout extends javax.swing.JPanel {
         Title = new javax.swing.JLabel();
         Image = new javax.swing.JLabel();
         ConnectPanel = new javax.swing.JPanel();
-        ConnectButton = new EButton();
+        ConnectButton = new EButton(Parent);
         CameraIP = new javax.swing.JTextField();
         InfoArea1 = new javax.swing.JLabel();
-        VLCButton = new EButton();
-        GstreamerButton = new EButton();
+        VLCButton = new EButton(Parent);
+        GstreamerButton = new EButton(Parent);
         jLabel1 = new javax.swing.JLabel();
-        Stereo3DButton = new EButton();
+        Stereo3DButton = new EButton(Parent);
         CameraIP2 = new javax.swing.JTextField();
-        ExitButton = new EButton();
+        ExitButton = new EButton(Parent);
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(255, 255, 255));

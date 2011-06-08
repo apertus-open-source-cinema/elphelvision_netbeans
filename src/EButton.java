@@ -38,15 +38,15 @@ import javax.swing.JButton;
 public class EButton extends JButton implements java.io.Serializable {
     //private static final long serialVersionUID = 21L;
 
-    public static final Color DefaultBorderColor = new Color(70, 70, 70);
-    public static final Color DefaultBorderColorChecked = new Color(255, 255, 255);
-    public static final Color DefaultTextColor = new Color(255, 255, 255);
-    public static final Color DefaultTextColorChecked = new Color(0, 0, 0);
-    public static final Color DefaultBackgroundColorGradientStart = new Color(40, 40, 40);
-    public static final Color DefaultBackgroundColorGradientEnd = new Color(0, 0, 0);
-    public static final Color DefaultBackgroundColorCheckedGradientStart = new Color(200, 200, 200);
-    public static final Color DefaultBackgroundColorCheckedGradientEnd = new Color(255, 255, 255);
-    private Color BorderColor;
+    private ElphelVision Parent;
+    private Color DefaultBorderColor = new Color(70, 70, 70);
+    private Color DefaultBorderColorChecked = new Color(255, 255, 255);
+    private Color DefaultTextColor = new Color(255, 255, 255);
+    private Color DefaultTextColorChecked = new Color(0, 0, 0);
+    private Color DefaultBackgroundColorGradientStart = new Color(40, 40, 40);
+    private Color DefaultBackgroundColorGradientEnd = new Color(0, 0, 0);
+    private Color DefaultBackgroundColorCheckedGradientStart = new Color(200, 200, 200);
+    private Color DefaultBackgroundColorCheckedGradientEnd = new Color(255, 255, 255);
     private int CornerRadius = 12;
     private boolean Checked = false;
     private String ParameterName = "";
@@ -65,10 +65,30 @@ public class EButton extends JButton implements java.io.Serializable {
         this.setMargin(new Insets(0, 0, 0, 0));
     }
 
+    public EButton(ElphelVision parent) {
+        Parent = parent;
+        this.setBorderPainted(false);
+        this.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
+        this.setRolloverEnabled(false);
+        this.setPreferredSize(new Dimension(80, 35));
+        this.setContentAreaFilled(false);
+        this.setFocusPainted(false);
+        this.setMargin(new Insets(0, 0, 0, 0));
+        this.DefaultBorderColor = Parent.Utils.GetButtonBorderColor();
+        this.DefaultBorderColorChecked = Parent.Utils.GetButtonBorderColorChecked();
+        this.DefaultTextColor = Parent.Utils.GetButtonTextColor();
+        this.DefaultTextColorChecked = Parent.Utils.GetButtonTextColorChecked();
+        this.DefaultBackgroundColorGradientStart = Parent.Utils.GetButtonBackgroundColorGradientStart();
+        this.DefaultBackgroundColorGradientEnd = Parent.Utils.GetButtonBackgroundColorGradientEnd();
+        this.DefaultBackgroundColorCheckedGradientStart = Parent.Utils.GetButtonBackgroundColorCheckedGradientStart();
+        this.DefaultBackgroundColorCheckedGradientEnd = Parent.Utils.GetButtonBackgroundColorCheckedGradientEnd();
+        this.CornerRadius = Parent.Utils.GetButtonCornerRadius();
+    }
+
     public void setClickFeedback(boolean setting) {
         this.ClickFeedback = setting;
         if (setting) {
-            addActionListener(new java.awt.event.ActionListener()  {
+            addActionListener(new java.awt.event.ActionListener() {
 
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     ClickactionPerformed(evt);
@@ -80,14 +100,15 @@ public class EButton extends JButton implements java.io.Serializable {
     public boolean getClickFeedback() {
         return this.ClickFeedback;
     }
-
+    /*
     public void setBorderColor(Color newcolor) {
-        this.BorderColor = newcolor;
+    this.BorderColor = newcolor;
     }
-
+    
     public Color getBorderColor() {
-        return this.BorderColor;
+    return this.BorderColor;
     }
+     */
 
     private void ClickactionPerformed(ActionEvent e) {
         if (ClickFeedback) {
@@ -107,6 +128,8 @@ public class EButton extends JButton implements java.io.Serializable {
             setChecked(true);
         }
         this.repaint();
+
+
     }
 
     private class TimerListener implements ActionListener {
@@ -200,7 +223,6 @@ public class EButton extends JButton implements java.io.Serializable {
             g2.setPaint(DefaultBorderColorChecked);
             g2.setStroke(new BasicStroke(2));
             g2.drawRoundRect(border_width, border_width, x - 2 * border_width, y - 2 * border_width, this.CornerRadius, this.CornerRadius);
-            //g2.drawRoundRect(border_width - 1, border_width - 1, x - 2 * (border_width - 1), y - 2 * (border_width - 1), this.CornerRadius, this.CornerRadius);
         } else {
             // Button Fill
             g2.setPaint(DarkGradient);
@@ -241,7 +263,7 @@ public class EButton extends JButton implements java.io.Serializable {
             g2.drawString(this.AdditionalValue, (int) (getWidth() - area2.getWidth() - 6), (int) (getHeight() / 2 + area2.getHeight() / 2 - 2));
         }
 
-        // We do this all ourselves now
+        // We do this all ourselves now so no need to call:
         //super.paint(g);
     }
 }
