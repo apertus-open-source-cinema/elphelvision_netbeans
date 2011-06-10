@@ -47,7 +47,10 @@ public class EButton extends JButton implements java.io.Serializable {
     private Color DefaultBackgroundColorGradientEnd = new Color(0, 0, 0);
     private Color DefaultBackgroundColorCheckedGradientStart = new Color(200, 200, 200);
     private Color DefaultBackgroundColorCheckedGradientEnd = new Color(255, 255, 255);
+    private int BorderWidth = 2;
     private int CornerRadius = 12;
+    private int FontSize = 11;
+    private int FontWeight = Font.PLAIN;
     private boolean Checked = false;
     private String ParameterName = "";
     private String AdditionalValue;
@@ -57,7 +60,7 @@ public class EButton extends JButton implements java.io.Serializable {
 
     public EButton() {
         this.setBorderPainted(false);
-        this.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
+        this.setFont(new Font("DejaVu Sans", Font.PLAIN, FontSize));
         this.setRolloverEnabled(false);
         this.setPreferredSize(new Dimension(80, 35));
         this.setContentAreaFilled(false);
@@ -68,7 +71,6 @@ public class EButton extends JButton implements java.io.Serializable {
     public EButton(ElphelVision parent) {
         Parent = parent;
         this.setBorderPainted(false);
-        this.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
         this.setRolloverEnabled(false);
         this.setPreferredSize(new Dimension(80, 35));
         this.setContentAreaFilled(false);
@@ -83,6 +85,10 @@ public class EButton extends JButton implements java.io.Serializable {
         this.DefaultBackgroundColorCheckedGradientStart = Parent.Utils.GetButtonBackgroundColorCheckedGradientStart();
         this.DefaultBackgroundColorCheckedGradientEnd = Parent.Utils.GetButtonBackgroundColorCheckedGradientEnd();
         this.CornerRadius = Parent.Utils.GetButtonCornerRadius();
+        this.BorderWidth = Parent.Utils.GetButtonBorderWidth();
+        this.FontSize = Parent.Utils.GetButtonFontSize();
+        this.FontWeight = Parent.Utils.GetButtonFontWeight();
+        this.setFont(new Font(Parent.Utils.GetButtonFontName(), this.FontWeight, this.FontSize));
     }
 
     public void setClickFeedback(boolean setting) {
@@ -213,16 +219,14 @@ public class EButton extends JButton implements java.io.Serializable {
         GradientPaint DarkGradient = new GradientPaint(0, 0, DefaultBackgroundColorGradientStart, 0, 25, DefaultBackgroundColorGradientEnd, false);
         GradientPaint CheckedGradient = new GradientPaint(0, 0, DefaultBackgroundColorCheckedGradientStart, 0, 25, DefaultBackgroundColorCheckedGradientEnd, true);
 
-        int border_width = 2;
-
         if (this.Checked) {
             // Button Fill
             g2.setPaint(CheckedGradient);
-            g2.fillRoundRect(4, 4, x - 8, y - 8, this.CornerRadius - 4, this.CornerRadius - 4);
+            g2.fillRoundRect(BorderWidth * 2, BorderWidth * 2, x - BorderWidth * 4, y - BorderWidth * 4, this.CornerRadius - BorderWidth * 2, this.CornerRadius - BorderWidth * 2);
             // Button Border
             g2.setPaint(DefaultBorderColorChecked);
-            g2.setStroke(new BasicStroke(2));
-            g2.drawRoundRect(border_width, border_width, x - 2 * border_width, y - 2 * border_width, this.CornerRadius, this.CornerRadius);
+            g2.setStroke(new BasicStroke(BorderWidth));
+            g2.drawRoundRect(BorderWidth, BorderWidth, x - 2 * BorderWidth, y - 2 * BorderWidth, this.CornerRadius, this.CornerRadius);
         } else {
             // Button Fill
             g2.setPaint(DarkGradient);
@@ -230,7 +234,7 @@ public class EButton extends JButton implements java.io.Serializable {
             // Button Border
             g2.setPaint(DefaultBorderColor);
             g2.setStroke(new BasicStroke(1));
-            g2.drawRoundRect(border_width - 1, border_width - 1, x - 2 * (border_width - 1), y - 2 * (border_width - 1), this.CornerRadius, this.CornerRadius);
+            g2.drawRoundRect(BorderWidth - 1, BorderWidth - 1, x - 2 * (BorderWidth - 1), y - 2 * (BorderWidth - 1), this.CornerRadius, this.CornerRadius);
         }
 
         // Button Text

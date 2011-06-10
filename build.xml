@@ -91,6 +91,8 @@
             <fileset file="${basedir}/properties.cfg"></fileset><!-- optional -->
         </one-jar> 
         <copy todir="${dist.jar.dir}" file="${basedir}/default.config" />
+        <copy todir="${dist.jar.dir}" file="${basedir}/default.style" />
+        <copy todir="${dist.jar.dir}" file="${basedir}/LICENSE" />
         <echo file="${dist.jar.dir}/README.TXT" append="true">
    	Run the stand-alone distribution from the command line using:
 	java -jar -Xmx256m ${standalone.jar.name}-dist.jar
@@ -109,6 +111,8 @@
 	     java -jar -Xmx256m ${standalone.jar.name}-dist.jar --debuglevel 3
         </echo>
         <copy todir="${release.dir}/${standalone.jar.name}-win" file="${dist.jar.dir}/default.config" />
+        <copy todir="${release.dir}/${standalone.jar.name}-win" file="${dist.jar.dir}/default.style" />
+        <copy todir="${release.dir}/${standalone.jar.name}-win" file="${dist.jar.dir}/LICENSE" />
         <copy todir="${release.dir}/${standalone.jar.name}-win/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" />
         <zip destfile="${release.dir}/${standalone.jar.name}-win.zip" basedir="${release.dir}/${standalone.jar.name}-win" update="false" />
 
@@ -117,14 +121,18 @@
         <echo  file="${release.dir}/${standalone.jar.name}-linux/${standalone.jar.name}.sh">
 	     java -jar -Xmx256m ${standalone.jar.name}-dist.jar --debuglevel 3
         </echo>
-        <copy todir="${release.dir}/${standalone.jar.name}-linux/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" />
         <copy todir="${release.dir}/${standalone.jar.name}-linux" file="${dist.jar.dir}/default.config" />
+        <copy todir="${release.dir}/${standalone.jar.name}-linux" file="${dist.jar.dir}/default.style" />
+        <copy todir="${release.dir}/${standalone.jar.name}-linux" file="${dist.jar.dir}/LICENSE" />
+        <copy todir="${release.dir}/${standalone.jar.name}-linux/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" />
         <zip destfile="${release.dir}/${standalone.jar.name}-linux.zip" basedir="${release.dir}/${standalone.jar.name}-linux" update="false" />
 	 
         <echo>Bundling: Creating Mac ZIP Archive</echo>
         <mkdir  dir="${release.dir}/${standalone.jar.name}-mac" />
-        <move todir="${release.dir}/${standalone.jar.name}-mac/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" ></move>
         <copy todir="${release.dir}/${standalone.jar.name}-mac" file="${dist.jar.dir}/default.config" />
+        <copy todir="${release.dir}/${standalone.jar.name}-mac" file="${dist.jar.dir}/default.style" />
+        <copy todir="${release.dir}/${standalone.jar.name}-mac" file="${dist.jar.dir}/LICENSE" />
+        <move todir="${release.dir}/${standalone.jar.name}-mac/" file="${dist.jar.dir}/${standalone.jar.name}-dist.jar" ></move>
         <echo  file="${release.dir}/${standalone.jar.name}-mac/${standalone.jar.name}.sh">
 	     java -jar -Xmx256m ${standalone.jar.name}-dist.jar --debuglevel 3
         </echo>

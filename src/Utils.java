@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -44,8 +45,7 @@ public class Utils {
         }
         return input;
     }
-    //private Color ButtonBorderColor = new Color(70, 70, 70);
-    private Color ButtonBorderColor = new Color(240, 10, 10);
+    private Color ButtonBorderColor = new Color(70, 70, 70);
     private Color ButtonBorderColorChecked = new Color(255, 255, 255);
     private Color ButtonTextColor = new Color(255, 255, 255);
     private Color ButtonTextColorChecked = new Color(0, 0, 0);
@@ -55,7 +55,12 @@ public class Utils {
     //public static final Color ButtonBackgroundColorCheckedGradientEnd = new Color(105, 175, 220);
     private Color ButtonBackgroundColorCheckedGradientStart = new Color(200, 200, 200);
     private Color ButtonBackgroundColorCheckedGradientEnd = new Color(255, 255, 255);
+    private Color PanelBackgroundColor = new Color(0, 0, 0);
     private int ButtonCornerRadius = 12;
+    private int ButtonFontSize = 11;
+    private int ButtonBorderWidth = 2;
+    private String ButtonFontName;
+    private int ButtonFontWeight;
 
     public boolean LoadStyles(String FileName) throws FileNotFoundException {
 
@@ -79,10 +84,39 @@ public class Utils {
                     }
                     String value = scanner2.next();
                     if (name.trim().equals("ButtonBorderColor")) {
-                        int R = Integer.parseInt(value.trim().split(",")[0]);
-                        int G = Integer.parseInt(value.trim().split(",")[1]);
-                        int B = Integer.parseInt(value.trim().split(",")[2]);
-                        ButtonBorderColor = new Color(R, G, B);
+                        ButtonBorderColor = ReadColorFromString(value);
+                    } else if (name.trim().equals("ButtonBorderColorChecked")) {
+                        ButtonBorderColorChecked = ReadColorFromString(value);
+                    } else if (name.trim().equals("ButtonTextColor")) {
+                        ButtonTextColor = ReadColorFromString(value);
+                    } else if (name.trim().equals("ButtonTextColorChecked")) {
+                        ButtonTextColorChecked = ReadColorFromString(value);
+                    } else if (name.trim().equals("ButtonBackgroundColorGradientStart")) {
+                        ButtonBackgroundColorGradientStart = ReadColorFromString(value);
+                    } else if (name.trim().equals("ButtonBackgroundColorGradientEnd")) {
+                        ButtonBackgroundColorGradientEnd = ReadColorFromString(value);
+                    } else if (name.trim().equals("ButtonBackgroundColorCheckedGradientStart")) {
+                        ButtonBackgroundColorCheckedGradientStart = ReadColorFromString(value);
+                    } else if (name.trim().equals("ButtonBackgroundColorCheckedGradientEnd")) {
+                        ButtonBackgroundColorCheckedGradientEnd = ReadColorFromString(value);
+                    } else if (name.trim().equals("ButtonCornerRadius")) {
+                        ButtonCornerRadius = Integer.parseInt(value.trim());
+                    } else if (name.trim().equals("ButtonBorderWidth")) {
+                        ButtonBorderWidth = Integer.parseInt(value.trim());
+                    } else if (name.trim().equals("ButtonFontSize")) {
+                        ButtonFontSize = Integer.parseInt(value.trim());
+                    } else if (name.trim().equals("ButtonFont")) {
+                        ButtonFontName = value.trim();
+                    } else if (name.trim().equals("PanelBackgroundColor")) {
+                        PanelBackgroundColor = ReadColorFromString(value);
+                    } else if (name.trim().equals("ButtonFontWeight")) {
+                        if (value.trim().equals("PLAIN")) {
+                            ButtonFontWeight = Font.PLAIN;
+                        } else if (value.trim().equals("BOLD")) {
+                            ButtonFontWeight = Font.BOLD;
+                        } else if (value.trim().equals("ITALIC")) {
+                            ButtonFontWeight = Font.ITALIC;
+                        }
                     } else {
                         //Empty or invalid line. Unable to process
                     }
@@ -94,6 +128,14 @@ public class Utils {
             scanner1.close();
         }
         return true;
+    }
+
+    // This function reads a string such as "129,219,92" and converts it to an RGB Color
+    private Color ReadColorFromString(String input) {
+        int R = Integer.parseInt(input.trim().split(",")[0].trim());
+        int G = Integer.parseInt(input.trim().split(",")[1].trim());
+        int B = Integer.parseInt(input.trim().split(",")[2].trim());
+        return new Color(R, G, B);
     }
 
     public Color GetButtonBorderColor() {
@@ -130,6 +172,26 @@ public class Utils {
 
     public int GetButtonCornerRadius() {
         return ButtonCornerRadius;
+    }
+
+    public int GetButtonBorderWidth() {
+        return ButtonBorderWidth;
+    }
+
+    public int GetButtonFontSize() {
+        return ButtonFontSize;
+    }
+
+    public String GetButtonFontName() {
+        return ButtonFontName;
+    }
+
+    public int GetButtonFontWeight() {
+        return ButtonFontWeight;
+    }
+
+    public Color GetPanelBackgroundColor() {
+        return PanelBackgroundColor;
     }
     // Experimental = not yet working way to play audio files within ElphelVision
     private Audio AudioEngine;

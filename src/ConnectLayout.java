@@ -20,11 +20,12 @@
 
 //import com.sun.opengl.util.Animator;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
+//import javax.swing.SwingUtilities;
 //import javax.media.opengl.GLCapabilities;
 //import javax.media.opengl.GLJPanel;
 
@@ -38,12 +39,15 @@ public class ConnectLayout extends javax.swing.JPanel {
         Parent = parent;
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable()                                              {
+            java.awt.EventQueue.invokeAndWait(new Runnable() {
 
                 public void run() {
                     initComponents();
+                    bg.setBackground(Parent.Utils.GetPanelBackgroundColor());
+                    TitleBackground.setBackground(Parent.Utils.GetPanelBackgroundColor());
+                    ConnectPanel.setBackground(Parent.Utils.GetPanelBackgroundColor());
 
-                    Title.setText("Elphel Vision Alpha");
+                    Title.setText("Elphel Vision Alpha " + Parent.GetAppVersion());
                     if (Parent.Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
                         VLCButton.setChecked(true);
                         GstreamerButton.setChecked(false);
@@ -63,7 +67,7 @@ public class ConnectLayout extends javax.swing.JPanel {
             ex.printStackTrace();
         }
 
-        new Thread()                                 {
+        new Thread() {
 
             public void run() {
                 Parent.WriteLogtoConsole("Looking for autosave.config to read IP");
@@ -130,7 +134,7 @@ public class ConnectLayout extends javax.swing.JPanel {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        TitleBackground = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
         Image = new javax.swing.JLabel();
         ConnectPanel = new javax.swing.JPanel();
@@ -152,9 +156,9 @@ public class ConnectLayout extends javax.swing.JPanel {
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(1, 1, 1));
+        TitleBackground.setBackground(new java.awt.Color(1, 1, 1));
 
-        Title.setFont(new java.awt.Font("Tahoma", 0, 14));
+        Title.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Title.setForeground(new java.awt.Color(255, 255, 255));
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Title.setText("Elphel Vision Alpha  V0.4");
@@ -165,27 +169,27 @@ public class ConnectLayout extends javax.swing.JPanel {
         Image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/apertus.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout TitleBackgroundLayout = new javax.swing.GroupLayout(TitleBackground);
+        TitleBackground.setLayout(TitleBackgroundLayout);
+        TitleBackgroundLayout.setHorizontalGroup(
+            TitleBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TitleBackgroundLayout.createSequentialGroup()
                 .addGap(345, 345, 345)
                 .addComponent(Image)
                 .addContainerGap(353, Short.MAX_VALUE))
+            .addComponent(Title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        TitleBackgroundLayout.setVerticalGroup(
+            TitleBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TitleBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Image)
-                .addGap(14, 14, 14)
-                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        bg.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, -1, 260));
+        bg.add(TitleBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, -1, 260));
 
         ConnectPanel.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -297,13 +301,13 @@ public class ConnectLayout extends javax.swing.JPanel {
 
     private void ConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonActionPerformed
         ConnectButton.setText("Connecting");
-        new Thread()                                 {
+        new Thread() {
 
             public void run() {
                 if (!Parent.GetNoCameraParameter()) {
                     /*if (CameraIP.getText().equals(CameraIP2.getText())) {
-                        Parent.WriteWarningtoConsole("Trying to connect to Dual Camera Stereo 3D setup with single IP, assuming single camera setup: " + CameraIP.getText());
-                        Stereo3DButton.setChecked(false);
+                    Parent.WriteWarningtoConsole("Trying to connect to Dual Camera Stereo 3D setup with single IP, assuming single camera setup: " + CameraIP.getText());
+                    Stereo3DButton.setChecked(false);
                     }*/
 
                     if (Stereo3DButton.getChecked()) {
@@ -328,7 +332,7 @@ public class ConnectLayout extends javax.swing.JPanel {
                                     Thread.sleep(50); // since we are in our own thread its safe to do this
                                 }
                                 Parent.PostConnect();
-                                Parent.WriteLogtoConsole("Checking Camera("+Parent.Camera.GetIP()[i]+") connected HDD");
+                                Parent.WriteLogtoConsole("Checking Camera(" + Parent.Camera.GetIP()[i] + ") connected HDD");
                                 if (Parent.Camera.CheckHDD()) {
                                     Parent.WriteLogtoConsole("HDD detected");
                                 } else {
@@ -398,9 +402,9 @@ public class ConnectLayout extends javax.swing.JPanel {
     private javax.swing.JLabel InfoArea1;
     private EButton Stereo3DButton;
     private javax.swing.JLabel Title;
+    private javax.swing.JPanel TitleBackground;
     private EButton VLCButton;
     private javax.swing.JPanel bg;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
