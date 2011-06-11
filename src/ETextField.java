@@ -1,6 +1,9 @@
 
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.GradientPaint;
@@ -9,9 +12,13 @@ import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.RenderingHints;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.geom.Rectangle2D;
+import javax.swing.Icon;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /*! Copyright (C) 2009 Apertus, All Rights Reserved
  *! Author : Apertus Team
@@ -31,11 +38,11 @@ import javax.swing.border.Border;
  *!  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *!
 -----------------------------------------------------------------------------**/
-public class ETextField extends JTextField implements java.io.Serializable {
+public class ETextField extends JTextField implements java.io.Serializable, FocusListener {
 
     private ElphelVision Parent;
     private Color DefaultBorderColor = new Color(255, 255, 255);
-    private Color DefaultBorderColorActive = new Color(255, 255, 255);
+    private Color DefaultBorderColorActive = new Color(120, 170, 255);
     private Color DefaultTextColor = new Color(255, 255, 255);
     private Color DefaultTextColorActive = new Color(60, 0, 0);
     private Color DefaultBackgroundColorGradientStart = new Color(200, 200, 200);
@@ -46,12 +53,27 @@ public class ETextField extends JTextField implements java.io.Serializable {
     private int CornerRadius = 12;
     private int FontSize = 11;
     private int FontWeight = Font.PLAIN;
-    private boolean Active = false;
+    private Icon KeyBoardIcon;
+    private EButton KeyboardButton;
 
     public ETextField() {
         this.setBackground(Color.BLACK);
         this.setForeground(DefaultTextColor);
         this.setMargin(new Insets(0, 6, 0, 0));
+        this.addFocusListener(this);
+        this.setLayout(new FlowLayout(RIGHT));
+        KeyboardButton = new EButton();
+        KeyboardButton.setForeground(new java.awt.Color(217, 2, 2));
+        KeyboardButton.setSize(45, 20);
+        KeyboardButton.setMargin(new Insets(4, 4, 4, 4));
+        KeyboardButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/keyboard.png")));
+        KeyboardButton.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenOnScreenKeyboard();
+            }
+        });
+        this.add(KeyboardButton);
     }
 
     public ETextField(ElphelVision parent) {
@@ -59,6 +81,48 @@ public class ETextField extends JTextField implements java.io.Serializable {
         this.setBackground(Color.BLACK);
         this.setForeground(DefaultTextColor);
         this.setMargin(new Insets(0, 6, 0, 0));
+        this.addFocusListener(this);
+        this.setLayout(new FlowLayout(RIGHT));
+        KeyboardButton = new EButton();
+        KeyboardButton.setForeground(new java.awt.Color(217, 2, 2));
+        KeyboardButton.setText("Keyboard");
+        KeyboardButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/keyboard.png")));
+        KeyboardButton.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenOnScreenKeyboard();
+            }
+        });
+        this.add(KeyboardButton);
+    }
+
+    private void OpenOnScreenKeyboard() {
+        Parent.NumberPanelFloat.Load("FPS", 1, this, "Text");
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "NumberpanelFloat");
+    }
+
+    public void focusGained(FocusEvent e) {
+        this.repaint();
+    }
+
+    public void focusLost(FocusEvent e) {
+        this.repaint();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (this.KeyBoardIcon != null) {
+            if (!this.hasFocus()) {
+                int iconWidth = KeyBoardIcon.getIconWidth();
+                int iconHeight = KeyBoardIcon.getIconHeight();
+                int x = this.getWidth() - iconWidth - 3;
+                int y = (this.getHeight() - iconHeight) / 2;
+                KeyBoardIcon.paintIcon(this, g, x, y);
+            }
+        }
     }
 
     @Override
@@ -80,7 +144,11 @@ public class ETextField extends JTextField implements java.io.Serializable {
         int x = this.getWidth();
         int y = this.getHeight();
         // Button Border
-        g2.setPaint(DefaultBorderColor);
+        if (this.hasFocus()) {
+            g2.setPaint(DefaultBorderColorActive);
+        } else {
+            g2.setPaint(DefaultBorderColor);
+        }
         g2.setStroke(new BasicStroke(1));
         g2.drawRoundRect(BorderWidth - 1, BorderWidth - 1, x - 2 * (BorderWidth - 1), y - 2 * (BorderWidth - 1), this.CornerRadius, this.CornerRadius);
         //super.paintBorder(g);
