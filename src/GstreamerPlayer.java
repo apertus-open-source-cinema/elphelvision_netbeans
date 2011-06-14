@@ -18,8 +18,11 @@
  *!
 -----------------------------------------------------------------------------**/
 
+import java.awt.Color;
 import java.awt.Dimension;
-import org.gstreamer.elements.PlayBin;
+//import org.gstreamer.elements.PlayBin;
+import java.util.List;
+import org.gstreamer.Clock;
 import org.gstreamer.swing.VideoComponent;
 import org.gstreamer.Element;
 import org.gstreamer.Gst;
@@ -36,7 +39,6 @@ public class GstreamerPlayer {
 
     GstreamerPlayer(ElphelVision parent) {
         this.Parent = parent;
-
 
         args = new String[2];
         args[1] = "";
@@ -81,8 +83,12 @@ public class GstreamerPlayer {
 
     public void close() {
         Parent.WriteLogtoConsole("Stopping Gstreamer Video Player");
-        pipe.setState(State.NULL);
-        pipe = null;
+        //pipe.setState(State.PAUSED);
+        pipe.pause();
+        State test = pipe.getState();
+        int i = 1;
+        //Gst.deinit(); // more trouble
+        //pipe = null; //do we really need this?
     }
 
     public void PlayVideoStream() {
@@ -103,24 +109,25 @@ public class GstreamerPlayer {
         //GstreamerPlayer.SetVideocomponent(GstreamerVideoComponent);
         String rtspsource = "";
         if (Parent.Camera.GetColorMode() == ColorMode.RGB) {
-            rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP() + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec name=elphelstream";
+            rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP()[0] + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! decodebin ! ffmpegcolorspace name=elphelstream";
         } else if (Parent.Camera.GetColorMode() == ColorMode.JP46) {
             //            rtspsrc location=rtsp://" + Parent.Camera.GetIP() + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! jp462bayer ! queue ! bayer2rgb2 ! ffmpegcolorspace ! videorate ! "video/x-raw-yuv, format=(fourcc)I420, width=(int)1920, height=(int)1088, framerate=(fraction)25/1" ! xvimagesink sync=false max-lateness=-1
-            rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP() + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! jp462bayer ! queue ! bayer2rgb2 method=0 ! ffmpegcolorspace  name=elphelstream";
+            rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP()[0] + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! jp462bayer ! queue ! bayer2rgb2 method=0 ! ffmpegcolorspace  name=elphelstream";
         } else {
             //TODO in this mode we dont see anything from the non-jpeg compliant stream so the jp46 filter wont help, but what else should we show?
-            rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP() + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! jp462bayer ! queue ! bayer2rgb2 method=0 name=elphelstream";
+            rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP()[0] + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! jp462bayer ! queue ! bayer2rgb2 method=0 name=elphelstream";
         }
-        
+
+        //Notes
+
         //LUT
         //gst-launch rtspsrc location=rtsp://192.168.10.141:554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! ffmpegcolorspace ! videorate ! coloreffects preset=heat ! ffmpegcolorspace ! autovideosink -v
-        
+
         //edge detection: 
         //gst-launch rtspsrc location=rtsp://192.168.10.141:554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! ffmpegcolorspace ! videorate ! edgetv ! ffmpegcolorspace ! autovideosink -v
 
         // kind of scopes
-//        gst-launch rtspsrc location=rtsp://192.168.10.141:554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! ffmpegcolorspace ! videorate ! revtv ! ffmpegcolorspace ! autovideosink -v
-
+        //gst-launch rtspsrc location=rtsp://192.168.10.141:554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! ffmpegcolorspace ! videorate ! revtv ! ffmpegcolorspace ! autovideosink -v
 
         pipe = Pipeline.launch(rtspsource);
 
@@ -129,12 +136,11 @@ public class GstreamerPlayer {
         pipe.add(videosink);
         pipe.getElementByName("elphelstream").link(videosink);
 
+
         pipe.setState(State.PLAYING);
+        List<Element> sinks = pipe.getSinks();
 
-
-        //Gst.main();
-        //pipe.setState(State.NULL);
-    /*
+        /*
         
         String rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP() + ":554 latency=30 ! rtpjpegdepay ! jpegdec name=elphelstream";
         pipe = Pipeline.launch(rtspsource);
@@ -170,6 +176,49 @@ public class GstreamerPlayer {
         
         
         //Element.linkMany(videosrc, videosink);*/
+    }
+
+    public void RePlayVideoStream() {
+        Parent.WriteLogtoConsole("Trying to restart Gstreamer Video Player");
+
+        /*videoComponent = null;
+        videoComponent = new VideoComponent();
+        videoComponent.setPreferredSize(new Dimension(850, 480));
+
+        args = new String[2];
+        args[1] = "";
+        args[0] = "";/*
+        //args[0] = "rtsp://127.0.0.1:554";
+        args[0] = "rtsp://192.168.10.141:554";
+        //args[0] = "rtsp://" + Parent.Camera.GetIP() + ":554";
+        args[1] = "";
+         */
+        /*args = Gst.init("Test Player", args);
+
+        String rtspsource = "";
+        if (Parent.Camera.GetColorMode() == ColorMode.RGB) {
+            rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP()[0] + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec name=elphelstream";
+        } else if (Parent.Camera.GetColorMode() == ColorMode.JP46) {
+            //            rtspsrc location=rtsp://" + Parent.Camera.GetIP()    + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! jp462bayer ! queue ! bayer2rgb2 ! ffmpegcolorspace ! videorate ! "video/x-raw-yuv, format=(fourcc)I420, width=(int)1920, height=(int)1088, framerate=(fraction)25/1" ! xvimagesink sync=false max-lateness=-1
+            rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP()[0] + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! jp462bayer ! queue ! bayer2rgb2 method=0 ! ffmpegcolorspace  name=elphelstream";
+        } else {
+            //TODO in this mode we dont see anything from the non-jpeg compliant stream so the jp46 filter wont help, but what else should we show?
+            rtspsource = "rtspsrc location=rtsp://" + Parent.Camera.GetIP()[0] + ":554 protocols=0x00000001 latency=50 ! rtpjpegdepay ! jpegdec ! queue ! jp462bayer ! queue ! bayer2rgb2 method=0 name=elphelstream";
+        }
+
+        pipe = Pipeline.launch(rtspsource);
+
+        videoComponent.setKeepAspect(true);
+        Element videosink = videoComponent.getElement();
+        pipe.add(videosink);
+        pipe.getElementByName("elphelstream").link(videosink);
+*/
+        List<Element> sinks = pipe.getSinks();
+        pipe.setClock(null);
+        pipe.play();
+        
+        //pipe.setState(State.PLAYING);
+        //pipe.play();
     }
 
     /*public void Overlay(Window overlay) {

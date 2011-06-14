@@ -44,7 +44,7 @@ public class MainLayoutGST extends JPanel {
         Parent = parent;
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable()   {
+            java.awt.EventQueue.invokeAndWait(new Runnable() {
 
                 public void run() {
                     initComponents();
@@ -92,7 +92,7 @@ public class MainLayoutGST extends JPanel {
         Guidesoverlay.SetVisibility(true);
 
         Parent.WriteLogtoConsole("Starting Gstreamer Video Player");
-        Parent.StartVideoPlayer();
+        //Parent.StartVideoPlayer();
 
         ExposureButton.setChecked(true);
         ParameterName.setText("EV");
@@ -170,6 +170,9 @@ public class MainLayoutGST extends JPanel {
         eButton8 = new EButton();
         eButton9 = new EButton();
         datarateMonitor = new DatarateMonitor();
+        eButton10 = new EButton();
+        eButton11 = new EButton();
+        eButton12 = new EButton();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -495,10 +498,37 @@ public class MainLayoutGST extends JPanel {
                 .addComponent(eButton8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(eButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        bg.add(QuickPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 50, 90, -1));
+        bg.add(QuickPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 50, 90, 370));
+
+        eButton10.setText("Play");
+        eButton10.setClickFeedback(true);
+        eButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eButton10ActionPerformed(evt);
+            }
+        });
+        bg.add(eButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 500, 66, -1));
+
+        eButton11.setText("Start GST");
+        eButton11.setClickFeedback(true);
+        eButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eButton11ActionPerformed(evt);
+            }
+        });
+        bg.add(eButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 420, 66, -1));
+
+        eButton12.setText("Pause");
+        eButton12.setClickFeedback(true);
+        eButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eButton12ActionPerformed(evt);
+            }
+        });
+        bg.add(eButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 460, 66, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -648,6 +678,18 @@ public class MainLayoutGST extends JPanel {
         Parent.Camera.SetColorMode(ColorMode.JP4);
 }//GEN-LAST:event_eButton9ActionPerformed
 
+    private void eButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton10ActionPerformed
+        Parent.GstreamerPlayer.RePlayVideoStream();
+    }//GEN-LAST:event_eButton10ActionPerformed
+
+    private void eButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton11ActionPerformed
+        Parent.StartVideoPlayer();
+    }//GEN-LAST:event_eButton11ActionPerformed
+
+    private void eButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton12ActionPerformed
+        Parent.StopVideoPlayer();
+    }//GEN-LAST:event_eButton12ActionPerformed
+
     public void EnableRecord(boolean val) {
         this.RecordButton.setEnabled(val);
     }
@@ -675,6 +717,9 @@ public class MainLayoutGST extends JPanel {
     private DatarateMonitor datarateMonitor;
     private EButton decvalue;
     private EButton eButton1;
+    private EButton eButton10;
+    private EButton eButton11;
+    private EButton eButton12;
     private EButton eButton3;
     private EButton eButton4;
     private EButton eButton6;

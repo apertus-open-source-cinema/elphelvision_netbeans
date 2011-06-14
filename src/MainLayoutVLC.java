@@ -671,16 +671,19 @@ public class MainLayoutVLC extends JPanel {
     }//GEN-LAST:event_histogramMouseClicked
 
     private void RecordTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordTestButtonActionPerformed
+        int RecordDelay = 1; // seconds
+        double CurrentTime = Parent.Camera.GetCameraTime(0);
         CamogmState check = Parent.Camera.GetCamogmState();
         for (int i = 0; i < Parent.Camera.GetIP().length; i++) {
             if (check == CamogmState.STOPPED) {
+                final String StartTime = String.format("%3f", (CurrentTime + (RecordDelay * 10000)) / 10000);
                 for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
                     final int index = j;
                     new Thread() {
 
                         @Override
                         public void run() {
-                            Parent.Camera.ExecuteCommand(index, "RECORDSTARTTIMESTAMP", "1");
+                            Parent.Camera.ExecuteCommand(index, "RECORDSTARTTIMESTAMP", StartTime);
                             Parent.Camera.ExecuteCommand(index, "RECORDSTART");
                         }
                     }.start();

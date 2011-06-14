@@ -65,6 +65,7 @@ public class EButton extends JButton implements java.io.Serializable {
         this.setPreferredSize(new Dimension(80, 35));
         this.setContentAreaFilled(false);
         this.setFocusPainted(false);
+        this.setForeground(DefaultTextColor);
         this.setMargin(new Insets(0, 0, 0, 0));
     }
 
@@ -80,6 +81,7 @@ public class EButton extends JButton implements java.io.Serializable {
         this.DefaultBorderColorChecked = Parent.Utils.GetButtonBorderColorChecked();
         this.DefaultTextColor = Parent.Utils.GetButtonTextColor();
         this.DefaultTextColorChecked = Parent.Utils.GetButtonTextColorChecked();
+        this.setForeground(DefaultTextColor);
         this.DefaultBackgroundColorGradientStart = Parent.Utils.GetButtonBackgroundColorGradientStart();
         this.DefaultBackgroundColorGradientEnd = Parent.Utils.GetButtonBackgroundColorGradientEnd();
         this.DefaultBackgroundColorCheckedGradientStart = Parent.Utils.GetButtonBackgroundColorCheckedGradientStart();

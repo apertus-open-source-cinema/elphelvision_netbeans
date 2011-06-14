@@ -1952,6 +1952,69 @@ public class Camera {
         ExecuteCommand(CameraIPIndex, Command, "");
     }
 
+    public double GetCameraTime(int CameraIPIndex) {
+        if (Parent.GetNoCameraParameter()) {
+            return 0;
+        }
+
+        URLConnection conn = null;
+        BufferedReader data = null;
+        String line;
+        String result;
+        StringBuffer buf = new StringBuffer();
+        URL CommandURL = null;
+        double Time = 0;
+
+        // try to connect
+        try {
+            String command_url = "http://" + this.IP[CameraIPIndex] + "/camogmgui/camogm_interface.php?cmd=gettime";
+            try {
+                CommandURL = new URL(command_url);
+            } catch (MalformedURLException e) {
+                System.out.println("Bad URL: " + command_url);
+            }
+            conn = CommandURL.openConnection();
+            conn.connect();
+
+            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            buf.delete(0, buf.length());
+            while ((line = data.readLine()) != null) {
+                buf.append(line + "\n");
+            }
+
+            result = buf.toString();
+            data.close();
+
+            // try to extract data from XML structure
+            try {
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
+
+                Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
+                doc.getDocumentElement().normalize();
+                NodeList nodeLst = doc.getElementsByTagName("camogm_interface");
+                for (int s = 0; s < nodeLst.getLength(); s++) {
+                    Node fstNode = nodeLst.item(s);
+                    if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element fstElmnt = (Element) fstNode;
+                        NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("gettime");
+
+                        Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+                        NodeList fstNm = fstNmElmnt.getChildNodes();
+                        String response = ((Node) fstNm.item(0)).getNodeValue();
+                        Time = Double.parseDouble(response.replace(".", "")); // we get rid of the comma and by doing that actually mulitply with 10000
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            Parent.WriteErrortoConsole("Getting Camera Time IO Error: " + e.getMessage());
+        }
+        return Time;
+    }
+
     public void ExecuteCommand(int CameraIPIndex, String Command, String parameter) {
         if (Parent.GetNoCameraParameter()) {
             return;
@@ -1975,8 +2038,8 @@ public class Camera {
             Calendar now = Calendar.getInstance();
             RecordstartTime = now.getTimeInMillis();
         } else if (Command.equals("RECORDSTARTTIMESTAMP")) {
-            Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording will start in: " + parameter + " second(s)");
-            command_name = "set_start_after_timestamp&start_after_timestamp=p" + parameter;
+            Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording will start at: " + parameter + " second(s)");
+            command_name = "set_start_after_timestamp&start_after_timestamp=" + parameter;
             Calendar now = Calendar.getInstance();
             RecordstartTime = now.getTimeInMillis();
         } else if (Command.equals(

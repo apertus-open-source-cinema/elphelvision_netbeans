@@ -158,7 +158,7 @@ public class ConnectLayout extends javax.swing.JPanel {
 
         TitleBackground.setBackground(new java.awt.Color(1, 1, 1));
 
-        Title.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Title.setFont(new java.awt.Font("Tahoma", 0, 14));
         Title.setForeground(new java.awt.Color(255, 255, 255));
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Title.setText("Elphel Vision Alpha  V0.4");
@@ -226,7 +226,6 @@ public class ConnectLayout extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Gstreamer is experimental");
 
-        Stereo3DButton.setBackground(new java.awt.Color(254, 254, 254));
         Stereo3DButton.setText("Stereo 3D");
         Stereo3DButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
