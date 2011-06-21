@@ -671,46 +671,47 @@ public class MainLayoutVLC extends JPanel {
     }//GEN-LAST:event_histogramMouseClicked
 
     private void RecordTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordTestButtonActionPerformed
-        int RecordDelay = 1; // seconds
-        double CurrentTime = Parent.Camera.GetCameraTime(0);
         CamogmState check = Parent.Camera.GetCamogmState();
-        for (int i = 0; i < Parent.Camera.GetIP().length; i++) {
-            if (check == CamogmState.STOPPED) {
-                final String StartTime = String.format("%3f", (CurrentTime + (RecordDelay * 10000)) / 10000);
-                for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
-                    final int index = j;
-                    new Thread() {
+        if (check == CamogmState.STOPPED) {
+            int RecordDelay = 2; // seconds
+            double CurrentTime = Parent.Camera.GetCameraTime(0);
+            String CurTime = String.format("%3f", (CurrentTime / 10000));
+            final String StartTime = String.format("%3f", (CurrentTime + (RecordDelay * 10000)) / 10000);
+            Parent.WriteLogtoConsole("Current time = " + CurTime);
+            Parent.WriteLogtoConsole("Target record start time = " + StartTime);
+            for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
+                final int index = j;
+                new Thread() {
 
-                        @Override
-                        public void run() {
-                            Parent.Camera.ExecuteCommand(index, "RECORDSTARTTIMESTAMP", StartTime);
-                            Parent.Camera.ExecuteCommand(index, "RECORDSTART");
-                        }
-                    }.start();
-                }
-                RecordTestButton.setText("Stop");
-                RecordTestButton.setChecked(true);
-                if (Parent.Camera.GetAllowCaptureStillWhileRecording()) {
-                    CaptureStill.setEnabled(true);
-                } else {
-                    CaptureStill.setEnabled(false);
-                }
-            } else if (check == CamogmState.RECORDING) {
-                for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
-                    final int index = j;
-                    new Thread() {
-
-                        @Override
-                        public void run() {
-                            Parent.Camera.ExecuteCommand(index, "RECORDSTOP");
-                        }
-                    }.start();
-                }
-                RecordTestButton.setText("Record Test");
-                RecordTestButton.setChecked(false);
-
-                CaptureStill.setEnabled(true);
+                    @Override
+                    public void run() {
+                        Parent.Camera.ExecuteCommand(index, "RECORDSTARTTIMESTAMP", StartTime);
+                        Parent.Camera.ExecuteCommand(index, "RECORDSTART");
+                    }
+                }.start();
             }
+            RecordTestButton.setText("Stop");
+            RecordTestButton.setChecked(true);
+            if (Parent.Camera.GetAllowCaptureStillWhileRecording()) {
+                CaptureStill.setEnabled(true);
+            } else {
+                CaptureStill.setEnabled(false);
+            }
+        } else if (check == CamogmState.RECORDING) {
+            for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
+                final int index = j;
+                new Thread() {
+
+                    @Override
+                    public void run() {
+                        Parent.Camera.ExecuteCommand(index, "RECORDSTOP");
+                    }
+                }.start();
+            }
+            RecordTestButton.setText("Record Test");
+            RecordTestButton.setChecked(false);
+
+            CaptureStill.setEnabled(true);
         }
     }//GEN-LAST:event_RecordTestButtonActionPerformed
 

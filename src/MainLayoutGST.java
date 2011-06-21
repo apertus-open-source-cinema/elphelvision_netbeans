@@ -155,11 +155,11 @@ public class MainLayoutGST extends JPanel {
         CaptureStill = new EButton();
         RecordButton = new EButton();
         PlaybackButton = new EButton();
+        eButton10 = new EButton();
         InfoPanel = new javax.swing.JPanel();
         InfoTextPane = new javax.swing.JTextPane();
         NoticeArea = new javax.swing.JTextPane();
         VideoFrame = new javax.swing.JPanel();
-        gstcanvas = new java.awt.Canvas();
         QuickPanel = new javax.swing.JPanel();
         eButton1 = new EButton();
         eButton3 = new EButton();
@@ -170,9 +170,9 @@ public class MainLayoutGST extends JPanel {
         eButton8 = new EButton();
         eButton9 = new EButton();
         datarateMonitor = new DatarateMonitor();
-        eButton10 = new EButton();
         eButton11 = new EButton();
         eButton12 = new EButton();
+        eButton13 = new EButton();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -305,6 +305,14 @@ public class MainLayoutGST extends JPanel {
             }
         });
 
+        eButton10.setText("RePlay");
+        eButton10.setClickFeedback(true);
+        eButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eButton10ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ParameterPanelLayout = new javax.swing.GroupLayout(ParameterPanel);
         ParameterPanel.setLayout(ParameterPanelLayout);
         ParameterPanelLayout.setHorizontalGroup(
@@ -317,26 +325,30 @@ public class MainLayoutGST extends JPanel {
                 .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(PlaybackButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
                 .addComponent(histogram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CaptureStill, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(RecordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(eButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         ParameterPanelLayout.setVerticalGroup(
             ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ParameterPanelLayout.createSequentialGroup()
-                .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(PlaybackButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(histogram, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                    .addComponent(RecordButton, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                    .addComponent(SettingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(CaptureStill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PlaybackButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(histogram, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                        .addComponent(RecordButton, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                        .addComponent(SettingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CaptureStill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(eButton10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -378,14 +390,8 @@ public class MainLayoutGST extends JPanel {
         VideoFrame.setDoubleBuffered(false);
         VideoFrame.setOpaque(false);
         VideoFrame.setLayout(new javax.swing.BoxLayout(VideoFrame, javax.swing.BoxLayout.LINE_AXIS));
-
-        gstcanvas.setBackground(new java.awt.Color(0, 0, 0));
-        gstcanvas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        VideoFrame.add(gstcanvas);
-        //VideoFrame.add(Parent.GstreamerPlayer.GetGSTPlayer());
-        VideoFrame.add(Parent.GstreamerPlayer.GetGSTVideoComponent());
-
         bg.add(VideoFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 50, 850, 480));
+        VideoFrame.add(Parent.GstreamerPlayer.GetGSTVideoComponent());
 
         QuickPanel.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -503,15 +509,6 @@ public class MainLayoutGST extends JPanel {
 
         bg.add(QuickPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 50, 90, 370));
 
-        eButton10.setText("Play");
-        eButton10.setClickFeedback(true);
-        eButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eButton10ActionPerformed(evt);
-            }
-        });
-        bg.add(eButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 500, 66, -1));
-
         eButton11.setText("Start GST");
         eButton11.setClickFeedback(true);
         eButton11.addActionListener(new java.awt.event.ActionListener() {
@@ -529,6 +526,15 @@ public class MainLayoutGST extends JPanel {
             }
         });
         bg.add(eButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 460, 66, -1));
+
+        eButton13.setText("Stop");
+        eButton13.setClickFeedback(true);
+        eButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eButton13ActionPerformed(evt);
+            }
+        });
+        bg.add(eButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 500, 66, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -683,12 +689,18 @@ public class MainLayoutGST extends JPanel {
     }//GEN-LAST:event_eButton10ActionPerformed
 
     private void eButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton11ActionPerformed
+
         Parent.StartVideoPlayer();
     }//GEN-LAST:event_eButton11ActionPerformed
 
     private void eButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton12ActionPerformed
-        Parent.StopVideoPlayer();
+        //Parent.StopVideoPlayer();
+        Parent.GstreamerPlayer.PauseVideoStream();
     }//GEN-LAST:event_eButton12ActionPerformed
+
+    private void eButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton13ActionPerformed
+        Parent.GstreamerPlayer.StopVideoStream();
+    }//GEN-LAST:event_eButton13ActionPerformed
 
     public void EnableRecord(boolean val) {
         this.RecordButton.setEnabled(val);
@@ -720,12 +732,12 @@ public class MainLayoutGST extends JPanel {
     private EButton eButton10;
     private EButton eButton11;
     private EButton eButton12;
+    private EButton eButton13;
     private EButton eButton3;
     private EButton eButton4;
     private EButton eButton6;
     private EButton eButton8;
     private EButton eButton9;
-    private java.awt.Canvas gstcanvas;
     private Histogram histogram;
     private EButton incvalue;
     private javax.swing.JLabel jLabel4;

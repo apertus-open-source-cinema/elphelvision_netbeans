@@ -137,29 +137,34 @@
                       <Component id="GainButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Component id="PlaybackButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="163" max="32767" attributes="0"/>
+                      <EmptySpace pref="136" max="32767" attributes="0"/>
                       <Component id="histogram" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="CaptureStill" min="-2" pref="52" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="RecordButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="eButton10" min="-2" pref="66" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="ExposureButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="GainButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="PlaybackButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="ExposureButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="GainButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="PlaybackButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="histogram" alignment="0" pref="52" max="32767" attributes="1"/>
+                              <Component id="RecordButton" alignment="0" pref="52" max="32767" attributes="1"/>
+                              <Component id="SettingsButton" alignment="0" max="32767" attributes="1"/>
+                              <Component id="CaptureStill" alignment="0" max="32767" attributes="1"/>
                           </Group>
-                          <Component id="histogram" alignment="0" pref="52" max="32767" attributes="1"/>
-                          <Component id="RecordButton" alignment="0" pref="52" max="32767" attributes="1"/>
-                          <Component id="SettingsButton" alignment="0" max="32767" attributes="1"/>
-                          <Component id="CaptureStill" alignment="0" max="32767" attributes="1"/>
+                          <Component id="eButton10" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -280,6 +285,15 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PlaybackButtonActionPerformed"/>
               </Events>
             </Component>
+            <Component class="EButton" name="eButton10">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="RePlay"/>
+                <Property name="clickFeedback" type="boolean" value="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eButton10ActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="InfoPanel">
@@ -355,6 +369,7 @@
             <Property name="opaque" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="VideoFrame.add(Parent.GstreamerPlayer.GetGSTVideoComponent());"/>
             <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="private org.gstreamer.swing.VideoComponent GstreamerVideoComponent;"/>
           </AuxValues>
           <Constraints>
@@ -364,21 +379,6 @@
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
-          <SubComponents>
-            <Component class="java.awt.Canvas" name="gstcanvas">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="0" type="rgb"/>
-                </Property>
-                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Default Cursor"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="//VideoFrame.add(Parent.GstreamerPlayer.GetGSTPlayer());&#xa;VideoFrame.add(Parent.GstreamerPlayer.GetGSTVideoComponent());"/>
-              </AuxValues>
-            </Component>
-          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="QuickPanel">
           <Properties>
@@ -538,20 +538,6 @@
             </Container>
           </SubComponents>
         </Container>
-        <Component class="EButton" name="eButton10">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Play"/>
-            <Property name="clickFeedback" type="boolean" value="true"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eButton10ActionPerformed"/>
-          </Events>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="940" y="500" width="66" height="-1"/>
-            </Constraint>
-          </Constraints>
-        </Component>
         <Component class="EButton" name="eButton11">
           <Properties>
             <Property name="text" type="java.lang.String" value="Start GST"/>
@@ -577,6 +563,20 @@
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="940" y="460" width="66" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="EButton" name="eButton13">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Stop"/>
+            <Property name="clickFeedback" type="boolean" value="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eButton13ActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="940" y="500" width="66" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
