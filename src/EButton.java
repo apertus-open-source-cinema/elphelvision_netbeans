@@ -248,17 +248,41 @@ public class EButton extends JButton implements java.io.Serializable {
 
         //Draw Text
         FontMetrics fm = g2.getFontMetrics();
-        Rectangle2D area = fm.getStringBounds(this.getText(), g2);
-        int textx = 0, texty = 0;
-        if (this.getHorizontalAlignment() == 0) { // center
-            textx = (int) (getWidth() / 2 - area.getWidth() / 2);
-            texty = (int) (getHeight() / 2 + area.getHeight() / 2 - 2);
-        } else if (this.getHorizontalAlignment() == 2) { // left
-            textx = this.getMargin().left;
-            texty = (int) (getHeight() / 2 + area.getHeight() / 2 - 2);
+        boolean multiline = false;
+        if (this.getText().contains("\\n")) {
+            multiline = true;
         }
-        g2.drawString(this.getText(), textx, texty);
+        if (multiline) {
+            String linecontent[] = this.getText().split("\\\\n");
+            int lines = linecontent.length;
 
+            for (int i = 0; i < lines; i++) {
+                Rectangle2D area = fm.getStringBounds(linecontent[i], g2);
+                int textx = 0, texty = 0;
+                int totalmulitlineheight = (int) area.getHeight() * lines;
+                if (this.getHorizontalAlignment() == 0) { // center
+                    textx = (int) (getWidth() / 2 - area.getWidth() / 2);
+                    texty = (int) (getHeight() / 2 - totalmulitlineheight / 2 + area.getHeight() - 2 + i * (int) area.getHeight());
+                } else if (this.getHorizontalAlignment() == 2) { // left
+                    textx = this.getMargin().left;
+                    texty = (int) (getHeight() / 2 - totalmulitlineheight / 2 + area.getHeight() - 2 + i * (int) area.getHeight());
+                }
+
+                g2.drawString(linecontent[i], textx, texty);
+            }
+        } else {
+
+            Rectangle2D area = fm.getStringBounds(this.getText(), g2);
+            int textx = 0, texty = 0;
+            if (this.getHorizontalAlignment() == 0) { // center
+                textx = (int) (getWidth() / 2 - area.getWidth() / 2);
+                texty = (int) (getHeight() / 2 + area.getHeight() / 2 - 2);
+            } else if (this.getHorizontalAlignment() == 2) { // left
+                textx = this.getMargin().left;
+                texty = (int) (getHeight() / 2 + area.getHeight() / 2 - 2);
+            }
+            g2.drawString(this.getText(), textx, texty);
+        }
         // Draw the Icon Image
         if (this.getIcon() != null) {
             this.getIcon().paintIcon(this, g2, (int) (getWidth() / 2 - this.getIcon().getIconWidth() / 2), (int) (getHeight() / 2 - this.getIcon().getIconHeight() / 2));
