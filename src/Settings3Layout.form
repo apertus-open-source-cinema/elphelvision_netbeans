@@ -39,10 +39,10 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="MovieMaxSplitSizePanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="ePanel1" alignment="0" pref="1000" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="NavigationPanel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="274" max="32767" attributes="0"/>
@@ -57,13 +57,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="ePanel1" min="-2" pref="523" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="NavigationPanel1" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="ConfirmationPanel" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="MovieMaxSplitSizePanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="506" max="-2" attributes="0"/>
-                          <Component id="NavigationPanel1" min="-2" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -113,102 +111,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsCancelButtonActionPerformed"/>
-              </Events>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="MovieMaxSplitSizePanel">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="MovieSplitSizeLabel" min="-2" max="-2" attributes="2"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="MovieSplitSizeField" min="-2" pref="112" max="-2" attributes="1"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="MovieSplitSizeType" min="-2" pref="60" max="-2" attributes="1"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" max="-2" attributes="0">
-                      <Component id="MovieSplitSizeField" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="MovieSplitSizeType" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="MovieSplitSizeLabel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JTextField" name="MovieSplitSizeField">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="0" type="rgb"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder thickness="2">
-                      <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
-                    </LineBorder>
-                  </Border>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="MovieSplitSizeFieldCaretUpdate"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="MovieSplitSizeLabel">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="DejaVu Sans" size="14" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="text" type="java.lang.String" value="Movie Split Size"/>
-                <Property name="verticalAlignment" type="int" value="3"/>
-                <Property name="alignmentY" type="float" value="0.0"/>
-                <Property name="horizontalTextPosition" type="int" value="2"/>
-                <Property name="iconTextGap" type="int" value="0"/>
-                <Property name="inheritsPopupMenu" type="boolean" value="false"/>
-                <Property name="requestFocusEnabled" type="boolean" value="false"/>
-                <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
-                <Property name="verticalTextPosition" type="int" value="3"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
-              <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="MB"/>
-              </Properties>
-            </Component>
-            <Component class="EButton" name="MovieSplitSizeType">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="type"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="DejaVu Sans" size="10" style="0"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MovieSplitSizeTypeActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -290,6 +192,236 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PhotoSettingsMenuActionPerformed"/>
               </Events>
             </Component>
+          </SubComponents>
+        </Container>
+        <Container class="EPanel" name="ePanel1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="1b" green="14" red="d" type="rgb"/>
+            </Property>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Default Cursor"/>
+            </Property>
+          </Properties>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+            <Property name="useNullLayout" type="boolean" value="false"/>
+          </Layout>
+          <SubComponents>
+            <Container class="EPanel" name="ePanel2">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="29" green="27" red="27" type="rgb"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="50" green="50" red="50" type="rgb"/>
+                </Property>
+                <Property name="doubleBuffered" type="boolean" value="true"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="10" y="10" width="480" height="60"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="MulitCameraRecordingDelay" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="19" max="32767" attributes="0"/>
+                          <Component id="MultiCameraRecordingDelayField" min="-2" pref="112" max="-2" attributes="1"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="MulitCameraRecordingDelayType" min="-2" pref="60" max="-2" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="MulitCameraRecordingDelay" alignment="0" max="32767" attributes="1"/>
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="MulitCameraRecordingDelayType" alignment="0" pref="35" max="32767" attributes="1"/>
+                                  <Component id="MultiCameraRecordingDelayField" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace pref="13" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="MulitCameraRecordingDelay">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="1" green="1" red="1" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="DejaVu Sans" size="12" style="0"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="2"/>
+                    <Property name="text" type="java.lang.String" value="Multi Camera Recording Delay [seconds]"/>
+                    <Property name="alignmentY" type="float" value="0.0"/>
+                    <Property name="horizontalTextPosition" type="int" value="2"/>
+                    <Property name="iconTextGap" type="int" value="0"/>
+                    <Property name="inheritsPopupMenu" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                    <Property name="verticalTextPosition" type="int" value="3"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="MultiCameraRecordingDelayField">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                        <LineBorder>
+                          <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
+                        </LineBorder>
+                      </Border>
+                    </Property>
+                    <Property name="caretColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="fe" green="fe" red="fe" type="rgb"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="MultiCameraRecordingDelayFieldCaretUpdate"/>
+                  </Events>
+                </Component>
+                <Component class="EButton" name="MulitCameraRecordingDelayType">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="type"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="DejaVu Sans" size="10" style="0"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MulitCameraRecordingDelayTypeActionPerformed"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="EPanel" name="ePanel3">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="29" green="27" red="27" type="rgb"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="50" green="50" red="50" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="510" y="10" width="480" height="60"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="MovieSplitSizeLabel" min="-2" max="-2" attributes="2"/>
+                          <EmptySpace pref="140" max="32767" attributes="0"/>
+                          <Component id="MovieSplitSizeField" min="-2" pref="112" max="-2" attributes="1"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="MovieSplitSizeType" min="-2" pref="60" max="-2" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="MovieSplitSizeLabel" alignment="0" pref="35" max="32767" attributes="1"/>
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="MovieSplitSizeType" alignment="3" pref="35" max="32767" attributes="1"/>
+                                  <Component id="MovieSplitSizeField" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="MovieSplitSizeLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="DejaVu Sans" size="12" style="0"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="2"/>
+                    <Property name="text" type="java.lang.String" value="Movie Split Size [MB]"/>
+                    <Property name="alignmentY" type="float" value="0.0"/>
+                    <Property name="horizontalTextPosition" type="int" value="2"/>
+                    <Property name="iconTextGap" type="int" value="0"/>
+                    <Property name="inheritsPopupMenu" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+                    <Property name="verticalTextPosition" type="int" value="3"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="MovieSplitSizeField">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                        <LineBorder>
+                          <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
+                        </LineBorder>
+                      </Border>
+                    </Property>
+                    <Property name="caretColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="fe" green="fe" red="fe" type="rgb"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="MovieSplitSizeFieldCaretUpdate"/>
+                  </Events>
+                </Component>
+                <Component class="EButton" name="MovieSplitSizeType">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="type"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="DejaVu Sans" size="10" style="0"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MovieSplitSizeTypeActionPerformed"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
       </SubComponents>

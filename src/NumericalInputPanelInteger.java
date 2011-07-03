@@ -350,7 +350,7 @@ public class NumericalInputPanelInteger extends javax.swing.JPanel {
 
         NumberPanel.setBackground(java.awt.Color.black);
 
-        VarName.setFont(new java.awt.Font("DejaVu Sans", 1, 18));
+        VarName.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
         VarName.setForeground(new java.awt.Color(255, 255, 255));
         VarName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         VarName.setText("Name");
@@ -364,7 +364,7 @@ public class NumericalInputPanelInteger extends javax.swing.JPanel {
         VarName.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         NumberField.setBackground(new java.awt.Color(0, 0, 0));
-        NumberField.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 18));
+        NumberField.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 18)); // NOI18N
         NumberField.setForeground(new java.awt.Color(255, 255, 255));
         NumberField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         NumberField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(148, 148, 148)));
@@ -375,40 +375,40 @@ public class NumericalInputPanelInteger extends javax.swing.JPanel {
             }
         });
 
+        EndButton.setText("End");
         EndButton.setClickFeedback(true);
         EndButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         EndButton.setPreferredSize(new java.awt.Dimension(100, 60));
-        EndButton.setText("End");
         EndButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EndButtonActionPerformed(evt);
             }
         });
 
+        RightButton.setText("->");
         RightButton.setClickFeedback(true);
         RightButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         RightButton.setPreferredSize(new java.awt.Dimension(100, 60));
-        RightButton.setText("->");
         RightButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RightButtonActionPerformed(evt);
             }
         });
 
+        LeftButton.setText("<-");
         LeftButton.setClickFeedback(true);
         LeftButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         LeftButton.setPreferredSize(new java.awt.Dimension(100, 60));
-        LeftButton.setText("<-");
         LeftButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LeftButtonActionPerformed(evt);
             }
         });
 
+        Pos1Button.setText("Pos1");
         Pos1Button.setClickFeedback(true);
         Pos1Button.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         Pos1Button.setPreferredSize(new java.awt.Dimension(100, 60));
-        Pos1Button.setText("Pos1");
         Pos1Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Pos1ButtonActionPerformed(evt);
@@ -419,35 +419,36 @@ public class NumericalInputPanelInteger extends javax.swing.JPanel {
         NumberPanel.setLayout(NumberPanelLayout);
         NumberPanelLayout.setHorizontalGroup(
             NumberPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NumberPanelLayout.createSequentialGroup()
-                .addComponent(VarName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
-                .addGroup(NumberPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(NumberPanelLayout.createSequentialGroup()
-                        .addComponent(Pos1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(LeftButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(RightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(EndButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(NumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+            .addGroup(NumberPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(NumberPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(VarName)
+                    .addGroup(NumberPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(NumberPanelLayout.createSequentialGroup()
+                            .addComponent(Pos1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(LeftButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(RightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(EndButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(NumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
         NumberPanelLayout.setVerticalGroup(
             NumberPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NumberPanelLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(NumberPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(VarName)
-                    .addComponent(NumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(VarName)
+                .addGap(18, 18, 18)
+                .addComponent(NumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(NumberPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Pos1Button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LeftButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(RightButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(EndButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Validation.setForeground(new java.awt.Color(180, 1, 1));
@@ -489,20 +490,19 @@ public class NumericalInputPanelInteger extends javax.swing.JPanel {
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(NumberPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Validation, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(Keypad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(NumberPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Validation, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(283, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addContainerGap(800, Short.MAX_VALUE)
+                .addContainerGap(840, Short.MAX_VALUE)
                 .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(bgLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Keypad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(339, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -514,9 +514,9 @@ public class NumericalInputPanelInteger extends javax.swing.JPanel {
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addComponent(Validation, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Keypad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

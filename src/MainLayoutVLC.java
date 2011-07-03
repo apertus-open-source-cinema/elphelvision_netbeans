@@ -720,12 +720,11 @@ public class MainLayoutVLC extends JPanel {
     private void RecordTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordTestButtonActionPerformed
         CamogmState check = Parent.Camera.GetCamogmState();
         if (check == CamogmState.STOPPED) {
-            int RecordDelay = 2; // seconds
+            float RecordDelay = Parent.Camera.GetMultiCameraRecordingStartDelay();
             double CurrentTime = Parent.Camera.GetCameraTime(0);
             String CurTime = String.format("%3f", (CurrentTime / 10000));
             final String StartTime = String.format("%3f", (CurrentTime + (RecordDelay * 10000)) / 10000);
             Parent.WriteLogtoConsole("Current time = " + CurTime);
-            Parent.WriteLogtoConsole("Target record start time = " + StartTime);
             for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
                 final int index = j;
                 new Thread() {
@@ -733,7 +732,7 @@ public class MainLayoutVLC extends JPanel {
                     @Override
                     public void run() {
                         Parent.Camera.ExecuteCommand(index, "RECORDSTARTTIMESTAMP", StartTime);
-                        Parent.Camera.ExecuteCommand(index, "RECORDSTART");
+                        Parent.Camera.ExecuteCommand(index, "RECORDSTARTARM");
                     }
                 }.start();
             }

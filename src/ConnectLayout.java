@@ -165,10 +165,10 @@ public class ConnectLayout extends javax.swing.JPanel {
 
         TitleBackground.setBackground(new java.awt.Color(1, 1, 1));
 
-        Title.setFont(new java.awt.Font("Tahoma", 0, 14));
+        Title.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Title.setForeground(new java.awt.Color(255, 255, 255));
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Title.setText("Elphel Vision Alpha  V0.4");
+        Title.setText("Elphel Vision Alpha  V");
 
         Image.setBackground(new java.awt.Color(0, 0, 0));
         Image.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -211,7 +211,7 @@ public class ConnectLayout extends javax.swing.JPanel {
         CameraIP.setText("192.168.0.9");
         CameraIP.setMargin(new java.awt.Insets(0, 4, 0, 0));
 
-        InfoArea1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        InfoArea1.setFont(new java.awt.Font("Tahoma", 0, 14));
         InfoArea1.setForeground(new java.awt.Color(255, 255, 255));
         InfoArea1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         InfoArea1.setText("Camera IP: ");
@@ -401,6 +401,7 @@ public class ConnectLayout extends javax.swing.JPanel {
             CameraIP2.setEnabled(false);
         }
     }//GEN-LAST:event_Stereo3DButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CameraIP;
     private javax.swing.JTextField CameraIP2;

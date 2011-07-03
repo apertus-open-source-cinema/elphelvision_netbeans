@@ -140,6 +140,7 @@ public class Camera {
     private boolean GuideDrawOuterX = false;
     private boolean GuideDrawThirds = false;
     private boolean GuideDrawSafeArea = false;
+    private float MultiCameraRecordingStartDelay = 2.0f;
     private GammaPreset GammaPreset;
     private ElphelVision Parent;
     private ArrayList<VideoFile> VideoFilesList;
@@ -493,6 +494,14 @@ public class Camera {
 
     public GammaPreset GetGammaPreset() {
         return this.GammaPreset;
+    }
+
+    public float GetMultiCameraRecordingStartDelay() {
+        return this.MultiCameraRecordingStartDelay;
+    }
+
+    public void SetMultiCameraRecordingStartDelay(float newdelay) {
+        MultiCameraRecordingStartDelay = newdelay;
     }
 
     public void SetFPSSkipSeconds(int newseconds) {
@@ -1444,6 +1453,7 @@ public class Camera {
             line += "FrameSkip=" + this.GetFPSSkipFrames() + "\n";
             line += "SecondsSkip=" + this.GetFPSSkipSeconds() + "\n";
             line += "AllowSlowShutter=" + this.GetAllowSlowShutter() + "\n";
+            line += "MultiCameraRecordingStartDelay=" + Float.toString(this.GetMultiCameraRecordingStartDelay()) + "\n";
 
             output.write(line);
         } finally {
@@ -1701,6 +1711,9 @@ public class Camera {
                         if (value.trim().contentEquals("false")) {
                             this.SetAllowSlowShutter(false);
                         }
+                    }
+                    if (name.trim().equals("MultiCameraRecordingStartDelay")) {
+                        this.MultiCameraRecordingStartDelay = (Float.parseFloat(value.trim()));
                     }
                 } else {
                     //Empty or invalid line. Unable to process
@@ -2058,6 +2071,11 @@ public class Camera {
             command_name = "run_camogm";
         } else if (Command.equals("RECORDSTART")) {
             Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording started");
+            command_name = "start";
+            Calendar now = Calendar.getInstance();
+            RecordstartTime = now.getTimeInMillis();
+        } else if (Command.equals("RECORDSTARTARM")) {
+            Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording armed - will start at target time");
             command_name = "start";
             Calendar now = Calendar.getInstance();
             RecordstartTime = now.getTimeInMillis();
