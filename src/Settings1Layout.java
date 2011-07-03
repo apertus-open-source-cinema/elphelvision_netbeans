@@ -34,7 +34,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
         Parent = parent;
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable()      {
+            java.awt.EventQueue.invokeAndWait(new Runnable() {
 
                 public void run() {
                     initComponents();
@@ -1405,6 +1405,11 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
 
     private void TerminateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TerminateButtonActionPerformed
         if (JOptionPane.showConfirmDialog(new JFrame(), "Do you want to quit ElphelVision?", "Quit ElphelVision?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            try { // Save to config file
+                Parent.Camera.WriteConfigFile("autosave.config");
+            } catch (IOException ex) {
+                Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
+            }
             System.exit(0);
         }
     }//GEN-LAST:event_TerminateButtonActionPerformed

@@ -23,6 +23,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 //import javax.swing.SwingUtilities;
@@ -73,18 +74,24 @@ public class ConnectLayout extends javax.swing.JPanel {
                 Parent.WriteLogtoConsole("Looking for autosave.config to read IP");
                 File AutoSaveFile = new File("autosave.config");
 
-
                 if (AutoSaveFile.exists()) {
                     try {
-                        CameraIP.setText(Parent.Camera.ReadConfigFileIP("autosave.config"));
+                        ArrayList IPs = Parent.Camera.ReadConfigFileIP("autosave.config");
+                        CameraIP.setText((String) IPs.get(0));
                         Parent.WriteLogtoConsole("autosave.config found - IP loaded");
+                        if (IPs.size() > 1) {
+                            Stereo3DButton.setChecked(true);
+                            CameraIP2.setEnabled(true);
+                            CameraIP2.setText((String) IPs.get(1));
+                            Parent.WriteLogtoConsole("second IP found in autosave.config - enabling Stereo3D");
+                        }
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(ConnectLayout.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
                     Parent.WriteWarningtoConsole("autosave.config not found: falling back to default.config");
                     try {
-                        String IP = Parent.Camera.ReadConfigFileIP("default.config");
+                        String IP = (String) Parent.Camera.ReadConfigFileIP("default.config").get(0);
                         if (IP != null) {
                             CameraIP.setText(IP);
                             Parent.WriteLogtoConsole("default.config found: read IP: " + IP);
@@ -202,8 +209,9 @@ public class ConnectLayout extends javax.swing.JPanel {
         });
 
         CameraIP.setText("192.168.0.9");
+        CameraIP.setMargin(new java.awt.Insets(0, 4, 0, 0));
 
-        InfoArea1.setFont(new java.awt.Font("Tahoma", 0, 14));
+        InfoArea1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         InfoArea1.setForeground(new java.awt.Color(255, 255, 255));
         InfoArea1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         InfoArea1.setText("Camera IP: ");
@@ -226,6 +234,7 @@ public class ConnectLayout extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Gstreamer is experimental");
 
+        Stereo3DButton.setBackground(new java.awt.Color(254, 254, 254));
         Stereo3DButton.setText("Stereo 3D");
         Stereo3DButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -235,17 +244,12 @@ public class ConnectLayout extends javax.swing.JPanel {
 
         CameraIP2.setText("192.168.0.9");
         CameraIP2.setEnabled(false);
+        CameraIP2.setMargin(new java.awt.Insets(0, 4, 0, 0));
 
         javax.swing.GroupLayout ConnectPanelLayout = new javax.swing.GroupLayout(ConnectPanel);
         ConnectPanel.setLayout(ConnectPanelLayout);
         ConnectPanelLayout.setHorizontalGroup(
             ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ConnectPanelLayout.createSequentialGroup()
-                .addComponent(InfoArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CameraIP, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ConnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(ConnectPanelLayout.createSequentialGroup()
                 .addComponent(VLCButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -253,9 +257,16 @@ public class ConnectLayout extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1))
             .addGroup(ConnectPanelLayout.createSequentialGroup()
-                .addComponent(Stereo3DButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(CameraIP2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(Stereo3DButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(InfoArea1, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ConnectPanelLayout.createSequentialGroup()
+                        .addComponent(CameraIP, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ConnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CameraIP2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         ConnectPanelLayout.setVerticalGroup(
             ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,10 +315,10 @@ public class ConnectLayout extends javax.swing.JPanel {
 
             public void run() {
                 if (!Parent.GetNoCameraParameter()) {
-                    /*if (CameraIP.getText().equals(CameraIP2.getText())) {
-                    Parent.WriteWarningtoConsole("Trying to connect to Dual Camera Stereo 3D setup with single IP, assuming single camera setup: " + CameraIP.getText());
-                    Stereo3DButton.setChecked(false);
-                    }*/
+                    if (CameraIP.getText().equals(CameraIP2.getText())) {
+                        Parent.WriteWarningtoConsole("Trying to connect to Dual Camera Stereo 3D setup with single IP, assuming single camera setup: " + CameraIP.getText());
+                        Stereo3DButton.setChecked(false);
+                    }
 
                     if (Stereo3DButton.getChecked()) {
                         Parent.WriteLogtoConsole("Trying to connect to Dual Camera Stereo 3D setup: " + CameraIP.getText() + " and " + CameraIP2.getText());

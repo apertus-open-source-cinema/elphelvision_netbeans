@@ -143,6 +143,7 @@ public class Camera {
     private GammaPreset GammaPreset;
     private ElphelVision Parent;
     private ArrayList<VideoFile> VideoFilesList;
+    private boolean AllowSlowShutter;
     private float ExposureTimeEV[] = {
         4,
         3.2f,
@@ -591,8 +592,20 @@ public class Camera {
         return this.ExposureIndex;
     }
 
+    public boolean GetAllowSlowShutter() {
+        return AllowSlowShutter;
+    }
+
+    public void SetAllowSlowShutter(boolean newvalue) {
+        AllowSlowShutter = newvalue;
+    }
+
     public String GetGain() {
         return this.GainNames[GainIndex];
+    }
+
+    public String GetGain(int index) {
+        return this.GainNames[index];
     }
 
     public int GetGainIndex() {
@@ -1312,6 +1325,9 @@ public class Camera {
             //FileWriter always assumes default encoding is OK!
             String line = "";
             line += "IP=" + this.GetIP()[0] + "\n";
+            if (this.GetIP().length == 2) {
+                line += "IP2=" + this.GetIP()[1] + "\n";
+            }
             line += "ImageWidth=" + Integer.toString(this.GetImageWidth()) + "\n";
             line += "ImageHeight=" + Integer.toString(this.GetImageHeight()) + "\n";
             line += "Preset=";
@@ -1420,11 +1436,6 @@ public class Camera {
             line += "\n";
             line += "PhotoQuality=" + Integer.toString(this.GetPhotoQuality()) + "\n";
             line += "AllowCaptureStillWhileRecording=" + Boolean.toString(this.GetAllowCaptureStillWhileRecording()) + "\n";
-
-            // returnval[0] = this.GuideDrawCenterX;
-            // returnval[1] = this.GuideDrawOuterX;
-            // returnval[2] = this.GuideDrawThirds;
-            // returnval[3] = this.GuideDrawSafeArea;
             line += "GuidesCenterX=" + Boolean.toString(this.GetGuides()[0]) + "\n";
             line += "GuidesOuterX=" + Boolean.toString(this.GetGuides()[1]) + "\n";
             line += "GuidesThirds=" + Boolean.toString(this.GetGuides()[2]) + "\n";
@@ -1432,6 +1443,7 @@ public class Camera {
             line += "CoringIndex=" + this.GetCoringIndex() + "\n";
             line += "FrameSkip=" + this.GetFPSSkipFrames() + "\n";
             line += "SecondsSkip=" + this.GetFPSSkipSeconds() + "\n";
+            line += "AllowSlowShutter=" + this.GetAllowSlowShutter() + "\n";
 
             output.write(line);
         } finally {
@@ -1439,14 +1451,14 @@ public class Camera {
         }
     }
 
-    public String ReadConfigFileIP(String FileName) throws FileNotFoundException {
+    public ArrayList ReadConfigFileIP(String FileName) throws FileNotFoundException {
         File ConfigFile = new File(FileName);
 
         if (!ConfigFile.exists()) {
             return null;
         }
 
-        String RetValue = null;
+        ArrayList RetValue = new ArrayList();;
 
         Scanner scanner1 = new Scanner(ConfigFile);
         try {
@@ -1462,17 +1474,21 @@ public class Camera {
                     }
                     String value = scanner2.next();
                     if (name.trim().equals("IP")) {
-                        RetValue = value.trim();
-                    } else {
-                        //Empty or invalid line. Unable to process
+                        RetValue.add(new String(value.trim()));
                     }
-                    scanner2.close();
+                    if (name.trim().equals("IP2")) {
+                        RetValue.add(new String(value.trim()));
+                    }
+                } else {
+                    //Empty or invalid line. Unable to process
                 }
+                scanner2.close();
             }
         } finally {
             //ensure the underlying stream is always closed
             scanner1.close();
         }
+
         return RetValue;
     }
 
@@ -1677,6 +1693,14 @@ public class Camera {
                     }
                     if (name.trim().equals("SecondsSkip")) {
                         this.SetFPSSkipSeconds(Integer.parseInt(value.trim()));
+                    }
+                    if (name.trim().equals("AllowSlowShutter")) {
+                        if (value.trim().contentEquals("true")) {
+                            this.SetAllowSlowShutter(true);
+                        }
+                        if (value.trim().contentEquals("false")) {
+                            this.SetAllowSlowShutter(false);
+                        }
                     }
                 } else {
                     //Empty or invalid line. Unable to process

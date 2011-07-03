@@ -95,11 +95,18 @@ public class MainLayoutVLC extends JPanel {
         Parent.StartVideoPlayer();
 
         ExposureButton.setChecked(true);
-        ParameterName.setText("EV");
         ExposureButton.setValue(Parent.Camera.GetExposure());
-        GainButton.setValue(Parent.Camera.GetGain());
+
+        UpdateGainButtons(Parent.Camera.GetGainIndex());
+
+        if (Parent.Camera.GetAllowSlowShutter()) {
+            slowshutter.setChecked(true);
+        } else {
+            slowshutter.setChecked(false);
+        }
 
         datarateMonitor.startAnimator();
+
     }
 
     public void UpdateOverlayPosition() {
@@ -146,9 +153,18 @@ public class MainLayoutVLC extends JPanel {
 
         bg = new javax.swing.JPanel();
         SliderPanel = new javax.swing.JPanel();
-        incvalue = new EButton();
-        ParameterName = new javax.swing.JLabel();
-        decvalue = new EButton();
+        ShutterPanel = new javax.swing.JPanel();
+        incvalue2 = new EButton();
+        slowshutter = new EButton();
+        decvalue3 = new EButton();
+        GainPanel = new javax.swing.JPanel();
+        twelvedb = new EButton();
+        incvalue1 = new EButton();
+        decvalue1 = new EButton();
+        zerodb = new EButton();
+        threedb = new EButton();
+        sixdb = new EButton();
+        ninedb = new EButton();
         ParameterPanel = new javax.swing.JPanel();
         ExposureButton = new EButton();
         GainButton = new EButton();
@@ -182,46 +198,105 @@ public class MainLayoutVLC extends JPanel {
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         SliderPanel.setBackground(new java.awt.Color(0, 0, 0));
+        SliderPanel.setLayout(new java.awt.CardLayout());
 
-        incvalue.setText("+");
-        incvalue.addActionListener(new java.awt.event.ActionListener() {
+        ShutterPanel.setBackground(new java.awt.Color(0, 0, 0));
+        ShutterPanel.setPreferredSize(new java.awt.Dimension(50, 480));
+        ShutterPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        incvalue2.setText("+");
+        incvalue2.setAlignmentY(0.0F);
+        incvalue2.setClickFeedback(true);
+        incvalue2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                incvalueActionPerformed(evt);
+                incvalue2ActionPerformed(evt);
             }
         });
+        ShutterPanel.add(incvalue2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
 
-        ParameterName.setForeground(new java.awt.Color(254, 254, 254));
-        ParameterName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ParameterName.setText("...");
-
-        decvalue.setText("-");
-        decvalue.setMaximumSize(new java.awt.Dimension(23, 27));
-        decvalue.setMinimumSize(new java.awt.Dimension(23, 27));
-        decvalue.addActionListener(new java.awt.event.ActionListener() {
+        slowshutter.setText("slow\\nshutter");
+        slowshutter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                decvalueActionPerformed(evt);
+                slowshutterActionPerformed(evt);
             }
         });
+        ShutterPanel.add(slowshutter, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 50, 50));
 
-        javax.swing.GroupLayout SliderPanelLayout = new javax.swing.GroupLayout(SliderPanel);
-        SliderPanel.setLayout(SliderPanelLayout);
-        SliderPanelLayout.setHorizontalGroup(
-            SliderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ParameterName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-            .addComponent(incvalue, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-            .addComponent(decvalue, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-        );
-        SliderPanelLayout.setVerticalGroup(
-            SliderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SliderPanelLayout.createSequentialGroup()
-                .addComponent(incvalue, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(169, 169, 169)
-                .addComponent(ParameterName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
-                .addComponent(decvalue, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        decvalue3.setText("‒");
+        decvalue3.setClickFeedback(true);
+        decvalue3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decvalue3ActionPerformed(evt);
+            }
+        });
+        ShutterPanel.add(decvalue3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 50, 50));
 
-        bg.add(SliderPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 480));
+        SliderPanel.add(ShutterPanel, "ShutterPanel");
+
+        GainPanel.setBackground(new java.awt.Color(0, 0, 0));
+        GainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        twelvedb.setText("+12dB");
+        twelvedb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                twelvedbActionPerformed(evt);
+            }
+        });
+        GainPanel.add(twelvedb, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 50, 47));
+
+        incvalue1.setText("+");
+        incvalue1.setClickFeedback(true);
+        incvalue1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                incvalue1ActionPerformed(evt);
+            }
+        });
+        GainPanel.add(incvalue1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
+
+        decvalue1.setText("‒");
+        decvalue1.setClickFeedback(true);
+        decvalue1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decvalue1ActionPerformed(evt);
+            }
+        });
+        GainPanel.add(decvalue1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 50, 50));
+
+        zerodb.setText("0dB");
+        zerodb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zerodbActionPerformed(evt);
+            }
+        });
+        GainPanel.add(zerodb, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 50, 47));
+
+        threedb.setText("+3dB");
+        threedb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                threedbActionPerformed(evt);
+            }
+        });
+        GainPanel.add(threedb, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 50, 47));
+
+        sixdb.setText("+6dB");
+        sixdb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sixdbActionPerformed(evt);
+            }
+        });
+        GainPanel.add(sixdb, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 50, 47));
+
+        ninedb.setText("+9dB");
+        ninedb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ninedbActionPerformed(evt);
+            }
+        });
+        GainPanel.add(ninedb, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 50, 47));
+
+        SliderPanel.add(GainPanel, "GainPanel");
+
+        bg.add(SliderPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 50, 480));
 
         ParameterPanel.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -528,21 +603,6 @@ public class MainLayoutVLC extends JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void decvalueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decvalueActionPerformed
-        // decreaseing the value actually means lower shutter = higher exposure time
-        switch (EditingParameter) {
-            case EXPOSURE:
-                Parent.Camera.SetExposureIndex(Parent.Camera.GetExposureIndex() + 1);
-                ExposureButton.setValue(Parent.Camera.GetExposure());
-                break;
-
-            case GAIN:
-                Parent.Camera.SetGainIndex(Parent.Camera.GetGainIndex() + 1);
-                GainButton.setValue(Parent.Camera.GetGain());
-                break;
-        }
-    }//GEN-LAST:event_decvalueActionPerformed
-
     private void RecordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordButtonActionPerformed
         CamogmState check = Parent.Camera.GetCamogmState();
         for (int i = 0; i < Parent.Camera.GetIP().length; i++) {
@@ -566,33 +626,20 @@ public class MainLayoutVLC extends JPanel {
         }
     }//GEN-LAST:event_RecordButtonActionPerformed
 
-    private void incvalueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incvalueActionPerformed
-        switch (EditingParameter) {
-            case EXPOSURE:
-                float max_shutter = 1 / Parent.Camera.GetFPS();
-                if (max_shutter > (Parent.Camera.GetExposurefromIndex(Parent.Camera.GetExposureIndex() - 1))) {
-                    Parent.Camera.SetExposureIndex(Parent.Camera.GetExposureIndex() - 1);
-                    ExposureButton.setValue(Parent.Camera.GetExposure());
-                }
-                break;
-
-            case GAIN:
-                Parent.Camera.SetGainIndex(Parent.Camera.GetGainIndex() - 1);
-                GainButton.setValue(Parent.Camera.GetGain());
-                break;
-        }
-    }//GEN-LAST:event_incvalueActionPerformed
-
     private void ExposureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExposureButtonActionPerformed
-        ParameterName.setText("EV");
-        EditingParameter = CameraParameter.EXPOSURE;
+        //ParameterName.setText("EV");
+        //EditingParameter = CameraParameter.EXPOSURE;
+        CardLayout cl = (CardLayout) (SliderPanel.getLayout());
+        cl.show(SliderPanel, "ShutterPanel");
         ExposureButton.setChecked(true);
         GainButton.setChecked(false);
     }//GEN-LAST:event_ExposureButtonActionPerformed
 
     private void GainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GainButtonActionPerformed
-        ParameterName.setText("Gain");
-        EditingParameter = CameraParameter.GAIN;
+        //ParameterName.setText("Gain");
+        //EditingParameter = CameraParameter.GAIN;
+        CardLayout cl = (CardLayout) (SliderPanel.getLayout());
+        cl.show(SliderPanel, "GainPanel");
         ExposureButton.setChecked(false);
         GainButton.setChecked(true);
     }//GEN-LAST:event_GainButtonActionPerformed
@@ -715,6 +762,119 @@ public class MainLayoutVLC extends JPanel {
         }
     }//GEN-LAST:event_RecordTestButtonActionPerformed
 
+    private void twelvedbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twelvedbActionPerformed
+        Parent.Camera.SetGainIndex(0);
+        UpdateGainButtons(0);
+}//GEN-LAST:event_twelvedbActionPerformed
+
+    private void UpdateGainButtons(int newgainindex) {
+        switch (newgainindex) {
+            case 4:
+                zerodb.setChecked(true);
+                threedb.setChecked(false);
+                sixdb.setChecked(false);
+                ninedb.setChecked(false);
+                twelvedb.setChecked(false);
+                break;
+            case 3:
+                zerodb.setChecked(false);
+                threedb.setChecked(true);
+                sixdb.setChecked(false);
+                ninedb.setChecked(false);
+                twelvedb.setChecked(false);
+                break;
+            case 2:
+                zerodb.setChecked(false);
+                threedb.setChecked(false);
+                sixdb.setChecked(true);
+                ninedb.setChecked(false);
+                twelvedb.setChecked(false);
+                break;
+            case 1:
+                zerodb.setChecked(false);
+                threedb.setChecked(false);
+                sixdb.setChecked(false);
+                ninedb.setChecked(true);
+                twelvedb.setChecked(false);
+                break;
+            case 0:
+                zerodb.setChecked(false);
+                threedb.setChecked(false);
+                sixdb.setChecked(false);
+                ninedb.setChecked(false);
+                twelvedb.setChecked(true);
+                break;
+        }
+        GainButton.setValue(Parent.Camera.GetGain(newgainindex));
+
+    }
+    private void incvalue1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incvalue1ActionPerformed
+        int oldgainindex = Parent.Camera.GetGainIndex();
+        int newgainindex = oldgainindex - 1;
+        newgainindex = Utils.MinMaxRange(newgainindex, 0, 4);
+        Parent.WriteLogtoConsole("oldgainindex = " + oldgainindex);
+        Parent.WriteLogtoConsole("newgainindex = " + newgainindex);
+        Parent.Camera.SetGainIndex(newgainindex);
+        UpdateGainButtons(newgainindex);
+    }//GEN-LAST:event_incvalue1ActionPerformed
+
+    private void decvalue1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decvalue1ActionPerformed
+        int oldgainindex = Parent.Camera.GetGainIndex();
+        int newgainindex = oldgainindex + 1;
+        newgainindex = Utils.MinMaxRange(newgainindex, 0, 4);
+        Parent.WriteLogtoConsole("oldgainindex = " + oldgainindex);
+        Parent.WriteLogtoConsole("newgainindex = " + newgainindex);
+        Parent.Camera.SetGainIndex(newgainindex);
+        UpdateGainButtons(newgainindex);
+    }//GEN-LAST:event_decvalue1ActionPerformed
+
+    private void zerodbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zerodbActionPerformed
+        Parent.Camera.SetGainIndex(4);
+        UpdateGainButtons(4);
+    }//GEN-LAST:event_zerodbActionPerformed
+
+    private void threedbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_threedbActionPerformed
+        Parent.Camera.SetGainIndex(3);
+        UpdateGainButtons(3);
+    }//GEN-LAST:event_threedbActionPerformed
+
+    private void sixdbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sixdbActionPerformed
+        Parent.Camera.SetGainIndex(2);
+        UpdateGainButtons(2);
+    }//GEN-LAST:event_sixdbActionPerformed
+
+    private void ninedbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ninedbActionPerformed
+        Parent.Camera.SetGainIndex(1);
+        UpdateGainButtons(1);
+    }//GEN-LAST:event_ninedbActionPerformed
+
+    private void incvalue2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incvalue2ActionPerformed
+        float max_shutter = 1 / Parent.Camera.GetFPS();
+        if ((max_shutter > (Parent.Camera.GetExposurefromIndex(Parent.Camera.GetExposureIndex() - 1)) || Parent.Camera.GetAllowSlowShutter())) {
+            Parent.Camera.SetExposureIndex(Parent.Camera.GetExposureIndex() - 1);
+            ExposureButton.setValue(Parent.Camera.GetExposure());
+        }
+    }//GEN-LAST:event_incvalue2ActionPerformed
+
+    private void slowshutterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_slowshutterActionPerformed
+        // Toggle
+        if (Parent.Camera.GetAllowSlowShutter()) {
+            slowshutter.setChecked(false);
+            Parent.Camera.SetAllowSlowShutter(false);
+        } else {
+            slowshutter.setChecked(true);
+            Parent.Camera.SetAllowSlowShutter(true);
+        }
+    }//GEN-LAST:event_slowshutterActionPerformed
+
+    private void decvalue3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decvalue3ActionPerformed
+        float max_shutter = 1 / Parent.Camera.GetFPS();
+        if ((max_shutter > (Parent.Camera.GetExposurefromIndex(Parent.Camera.GetExposureIndex() + 1)) || Parent.Camera.GetAllowSlowShutter())) {
+            Parent.Camera.SetExposureIndex(Parent.Camera.GetExposureIndex() + 1);
+            ExposureButton.setValue(Parent.Camera.GetExposure());
+        }
+    }//GEN-LAST:event_decvalue3ActionPerformed
+
     public void EnableRecord(boolean val) {
         this.RecordButton.setEnabled(val);
     }
@@ -726,22 +886,24 @@ public class MainLayoutVLC extends JPanel {
     private EButton CaptureStill;
     private EButton ExposureButton;
     private EButton GainButton;
+    private javax.swing.JPanel GainPanel;
     private javax.swing.JPanel InfoPanel;
     private javax.swing.JTextPane InfoTextPane;
     private javax.swing.JTextPane NoticeArea;
-    private javax.swing.JLabel ParameterName;
     private javax.swing.JPanel ParameterPanel;
     private EButton PlaybackButton;
     private javax.swing.JPanel QuickPanel;
     private EButton RecordButton;
     private EButton RecordTestButton;
     private EButton SettingsButton;
+    private javax.swing.JPanel ShutterPanel;
     private javax.swing.JPanel SliderPanel;
     private javax.swing.JPanel VideoFrame;
     private org.gstreamer.swing.VideoComponent GstreamerVideoComponent;
     private javax.swing.JPanel bg;
     private DatarateMonitor datarateMonitor;
-    private EButton decvalue;
+    private EButton decvalue1;
+    private EButton decvalue3;
     private EButton eButton1;
     private EButton eButton3;
     private EButton eButton4;
@@ -749,9 +911,16 @@ public class MainLayoutVLC extends JPanel {
     private EButton eButton8;
     private EButton eButton9;
     private Histogram histogram;
-    private EButton incvalue;
+    private EButton incvalue1;
+    private EButton incvalue2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private EButton ninedb;
+    private EButton sixdb;
+    private EButton slowshutter;
+    private EButton threedb;
+    private EButton twelvedb;
     private java.awt.Canvas vlcoverlay;
+    private EButton zerodb;
     // End of variables declaration//GEN-END:variables
 }
