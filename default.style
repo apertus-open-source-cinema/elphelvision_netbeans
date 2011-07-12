@@ -12,3 +12,4 @@ ButtonFontSize = 11
 ButtonFont = DejaVu Sans
 ButtonFontWeight = PLAIN
 PanelBackgroundColor = 0, 0, 0
+TextColor = 255, 255, 255
