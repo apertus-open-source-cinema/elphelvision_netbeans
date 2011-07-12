@@ -78,7 +78,7 @@ public class DatarateMonitor extends JPanel implements Runnable, java.io.Seriali
 
             // rate bar
             g2.setStroke(new BasicStroke(1));
-            g2.setColor(Color.darkGray);
+            g2.setColor(this.getForeground());
             g2.drawLine(0, height - 6, width, height - 6);
             g2.drawLine(width, height - 6, width, 0);
             g2.drawLine(width, 0, 0, 0);
@@ -102,7 +102,7 @@ public class DatarateMonitor extends JPanel implements Runnable, java.io.Seriali
             g2.fill(new Rectangle2D.Double(4, 4, (bar_length * width) - 6, 6));
 
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setColor(Color.white);
+            g2.setColor(this.getForeground());
             g2.drawString(Math.round(datarate) + " Mbit/s", 3, 25);
         }
     }
