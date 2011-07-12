@@ -8,6 +8,9 @@
     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
     </Property>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1024, 600]"/>
+    </Property>
   </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -24,12 +27,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="bg" min="-2" pref="1024" max="-2" attributes="0"/>
+          <Component id="bg" alignment="0" pref="1048" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="bg" min="-2" max="-2" attributes="0"/>
+          <Component id="bg" alignment="0" pref="612" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -143,7 +146,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="Stereo3DButton" alignment="1" max="32767" attributes="1"/>
-                          <Component id="InfoArea1" alignment="1" pref="82" max="32767" attributes="1"/>
+                          <Component id="Camera1IPLabel" alignment="1" pref="82" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -161,7 +164,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="InfoArea1" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="Camera1IPLabel" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                           <Component id="CameraIP" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="ConnectButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -201,7 +204,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="InfoArea1">
+            <Component class="javax.swing.JLabel" name="Camera1IPLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>

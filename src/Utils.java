@@ -56,6 +56,7 @@ public class Utils {
     private Color ButtonBackgroundColorCheckedGradientStart = new Color(200, 200, 200);
     private Color ButtonBackgroundColorCheckedGradientEnd = new Color(255, 255, 255);
     private Color PanelBackgroundColor = new Color(0, 0, 0);
+    private Color TextColor = new Color(255, 255, 255);
     private int ButtonCornerRadius = 12;
     private int ButtonFontSize = 11;
     private int ButtonBorderWidth = 2;
@@ -109,6 +110,8 @@ public class Utils {
                         ButtonFontName = value.trim();
                     } else if (name.trim().equals("PanelBackgroundColor")) {
                         PanelBackgroundColor = ReadColorFromString(value);
+                    } else if (name.trim().equals("TextColor")) {
+                        TextColor = ReadColorFromString(value);
                     } else if (name.trim().equals("ButtonFontWeight")) {
                         if (value.trim().equals("PLAIN")) {
                             ButtonFontWeight = Font.PLAIN;
@@ -192,6 +195,10 @@ public class Utils {
 
     public Color GetPanelBackgroundColor() {
         return PanelBackgroundColor;
+    }
+
+    public Color GetTextColor() {
+        return TextColor;
     }
     // Experimental = not yet working way to play audio files within ElphelVision
     private Audio AudioEngine;
