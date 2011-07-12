@@ -36,6 +36,7 @@ public class PlaybackLayout extends javax.swing.JPanel {
 
                 public void run() {
                     initComponents();
+                    bg.setBackground(Parent.Utils.GetPanelBackgroundColor());
                 }
             });
         } catch (Exception ex) {
@@ -60,9 +61,9 @@ public class PlaybackLayout extends javax.swing.JPanel {
         bg = new javax.swing.JPanel();
         VideoFrame = new javax.swing.JPanel();
         vlcoverlay = new java.awt.Canvas();
-        SettingsCancelButton = new EButton();
-        eButton1 = new EButton();
-        ListFiles = new EButton();
+        SettingsCancelButton = new EButton(Parent);
+        eButton1 = new EButton(Parent);
+        ListFiles = new EButton(Parent);
         jScrollPane1 = new javax.swing.JScrollPane();
         FilesList = new javax.swing.JList();
 
@@ -82,7 +83,7 @@ public class PlaybackLayout extends javax.swing.JPanel {
         );
         VideoFrameLayout.setVerticalGroup(
             VideoFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(vlcoverlay, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
+            .addComponent(vlcoverlay, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
         );
 
         SettingsCancelButton.setText("Close");
@@ -136,7 +137,7 @@ public class PlaybackLayout extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
                     .addComponent(VideoFrame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
