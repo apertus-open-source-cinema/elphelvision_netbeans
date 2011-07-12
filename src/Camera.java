@@ -336,7 +336,10 @@ public class Camera {
 
     public void SetMovieClipMaxChunkSize(int newchunksize) {
         long newsize = (long) newchunksize * 1024 * 1024;  // Megabytes
-        this.ExecuteCommand(0, "set_size&size=" + newsize);
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting MovieClipMaxChunkSize to " + newsize);
+            this.ExecuteCommand(i, "set_size&size=" + newsize);
+        }
     }
 
     public int GetMovieClipMaxChunkSize() {
