@@ -46,13 +46,26 @@ public class MainLayoutVLC extends JPanel {
 
                 public void run() {
                     initComponents();
+                    bg.setBackground(Parent.Utils.GetPanelBackgroundColor());
+                    ShutterPanel.setBackground(Parent.Utils.GetPanelBackgroundColor());
+                    InfoPanel.setBackground(Parent.Utils.GetPanelBackgroundColor());
+                    ParameterPanel.setBackground(Parent.Utils.GetPanelBackgroundColor());
+                    QuickPanel.setBackground(Parent.Utils.GetPanelBackgroundColor());
+                    GainPanel.setBackground(Parent.Utils.GetPanelBackgroundColor());
+                    ScaleLabel.setForeground(Parent.Utils.GetTextColor());
+                    ColorModeLabel.setForeground(Parent.Utils.GetTextColor());
+                    NoticeArea.setBackground(Parent.Utils.GetPanelBackgroundColor());
+                    InfoTextPane.setBackground(Parent.Utils.GetPanelBackgroundColor());
+                    InfoTextPane.setForeground(Parent.Utils.GetTextColor());
+                    DatarateMonitor.setBackground(Parent.Utils.GetPanelBackgroundColor());
+                    DatarateMonitor.setForeground(Parent.Utils.GetTextColor());
                 }
             });
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         histogram.SetParent(Parent);
-        datarateMonitor.SetParent(Parent);
+        DatarateMonitor.SetParent(Parent);
 
         if (Parent.NoCameraParameter) {
 
@@ -105,7 +118,7 @@ public class MainLayoutVLC extends JPanel {
             slowshutter.setChecked(false);
         }
 
-        datarateMonitor.startAnimator();
+        DatarateMonitor.startAnimator();
 
     }
 
@@ -154,41 +167,41 @@ public class MainLayoutVLC extends JPanel {
         bg = new javax.swing.JPanel();
         SliderPanel = new javax.swing.JPanel();
         ShutterPanel = new javax.swing.JPanel();
-        incvalue2 = new EButton();
-        slowshutter = new EButton();
-        decvalue3 = new EButton();
+        incvalue2 = new EButton(Parent);
+        slowshutter = new EButton(Parent);
+        decvalue3 = new EButton(Parent);
         GainPanel = new javax.swing.JPanel();
-        twelvedb = new EButton();
-        incvalue1 = new EButton();
-        decvalue1 = new EButton();
-        zerodb = new EButton();
-        threedb = new EButton();
-        sixdb = new EButton();
-        ninedb = new EButton();
+        twelvedb = new EButton(Parent);
+        incvalue1 = new EButton(Parent);
+        decvalue1 = new EButton(Parent);
+        zerodb = new EButton(Parent);
+        threedb = new EButton(Parent);
+        sixdb = new EButton(Parent);
+        ninedb = new EButton(Parent);
         ParameterPanel = new javax.swing.JPanel();
-        ExposureButton = new EButton();
-        GainButton = new EButton();
-        SettingsButton = new EButton();
+        ExposureButton = new EButton(Parent);
+        GainButton = new EButton(Parent);
+        SettingsButton = new EButton(Parent);
         histogram = new Histogram();
-        CaptureStill = new EButton();
-        RecordButton = new EButton();
-        PlaybackButton = new EButton();
-        RecordTestButton = new EButton();
+        CaptureStill = new EButton(Parent);
+        RecordButton = new EButton(Parent);
+        PlaybackButton = new EButton(Parent);
+        RecordTestButton = new EButton(Parent);
         InfoPanel = new javax.swing.JPanel();
         InfoTextPane = new javax.swing.JTextPane();
         NoticeArea = new javax.swing.JTextPane();
         VideoFrame = new javax.swing.JPanel();
         vlcoverlay = new java.awt.Canvas();
         QuickPanel = new javax.swing.JPanel();
-        eButton1 = new EButton();
-        eButton3 = new EButton();
-        eButton4 = new EButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        eButton6 = new EButton();
-        eButton8 = new EButton();
-        eButton9 = new EButton();
-        datarateMonitor = new DatarateMonitor();
+        eButton1 = new EButton(Parent);
+        eButton3 = new EButton(Parent);
+        eButton4 = new EButton(Parent);
+        ScaleLabel = new javax.swing.JLabel();
+        ColorModeLabel = new javax.swing.JLabel();
+        eButton6 = new EButton(Parent);
+        eButton8 = new EButton(Parent);
+        eButton9 = new EButton(Parent);
+        DatarateMonitor = new DatarateMonitor();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -501,17 +514,17 @@ public class MainLayoutVLC extends JPanel {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Scaling");
-        jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ScaleLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
+        ScaleLabel.setForeground(new java.awt.Color(255, 255, 255));
+        ScaleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ScaleLabel.setText("Scaling");
+        ScaleLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel5.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Color-Mode");
-        jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ColorModeLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
+        ColorModeLabel.setForeground(new java.awt.Color(255, 255, 255));
+        ColorModeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ColorModeLabel.setText("Color-Mode");
+        ColorModeLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         eButton6.setText("RGB");
         eButton6.setToolTipText("RGB 24bit color mode");
@@ -538,17 +551,17 @@ public class MainLayoutVLC extends JPanel {
             }
         });
 
-        datarateMonitor.setBackground(new java.awt.Color(0, 0, 0));
-        datarateMonitor.setPreferredSize(new java.awt.Dimension(90, 40));
+        DatarateMonitor.setBackground(new java.awt.Color(0, 0, 0));
+        DatarateMonitor.setPreferredSize(new java.awt.Dimension(90, 40));
 
-        javax.swing.GroupLayout datarateMonitorLayout = new javax.swing.GroupLayout(datarateMonitor);
-        datarateMonitor.setLayout(datarateMonitorLayout);
-        datarateMonitorLayout.setHorizontalGroup(
-            datarateMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout DatarateMonitorLayout = new javax.swing.GroupLayout(DatarateMonitor);
+        DatarateMonitor.setLayout(DatarateMonitorLayout);
+        DatarateMonitorLayout.setHorizontalGroup(
+            DatarateMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 90, Short.MAX_VALUE)
         );
-        datarateMonitorLayout.setVerticalGroup(
-            datarateMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        DatarateMonitorLayout.setVerticalGroup(
+            DatarateMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 40, Short.MAX_VALUE)
         );
 
@@ -558,18 +571,18 @@ public class MainLayoutVLC extends JPanel {
             QuickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(eButton4, 0, 0, Short.MAX_VALUE)
             .addComponent(eButton3, 0, 0, Short.MAX_VALUE)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+            .addComponent(ScaleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+            .addComponent(ColorModeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
             .addComponent(eButton6, 0, 0, Short.MAX_VALUE)
             .addComponent(eButton1, 0, 0, Short.MAX_VALUE)
             .addComponent(eButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
             .addComponent(eButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-            .addComponent(datarateMonitor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(DatarateMonitor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         QuickPanelLayout.setVerticalGroup(
             QuickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(QuickPanelLayout.createSequentialGroup()
-                .addComponent(jLabel4)
+                .addComponent(ScaleLabel)
                 .addGap(5, 5, 5)
                 .addComponent(eButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -577,9 +590,9 @@ public class MainLayoutVLC extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(eButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(datarateMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(DatarateMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jLabel5)
+                .addComponent(ColorModeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(eButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -883,6 +896,8 @@ public class MainLayoutVLC extends JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton CaptureStill;
+    private javax.swing.JLabel ColorModeLabel;
+    private DatarateMonitor DatarateMonitor;
     private EButton ExposureButton;
     private EButton GainButton;
     private javax.swing.JPanel GainPanel;
@@ -894,13 +909,13 @@ public class MainLayoutVLC extends JPanel {
     private javax.swing.JPanel QuickPanel;
     private EButton RecordButton;
     private EButton RecordTestButton;
+    private javax.swing.JLabel ScaleLabel;
     private EButton SettingsButton;
     private javax.swing.JPanel ShutterPanel;
     private javax.swing.JPanel SliderPanel;
     private javax.swing.JPanel VideoFrame;
     private org.gstreamer.swing.VideoComponent GstreamerVideoComponent;
     private javax.swing.JPanel bg;
-    private DatarateMonitor datarateMonitor;
     private EButton decvalue1;
     private EButton decvalue3;
     private EButton eButton1;
@@ -912,8 +927,6 @@ public class MainLayoutVLC extends JPanel {
     private Histogram histogram;
     private EButton incvalue1;
     private EButton incvalue2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private EButton ninedb;
     private EButton sixdb;
     private EButton slowshutter;
