@@ -26,6 +26,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 //import javax.swing.SwingUtilities;
 //import javax.media.opengl.GLCapabilities;
 //import javax.media.opengl.GLJPanel;
@@ -147,7 +149,6 @@ public class ConnectLayout extends javax.swing.JPanel {
         Title = new javax.swing.JLabel();
         Image = new javax.swing.JLabel();
         ConnectPanel = new javax.swing.JPanel();
-        ConnectButton = new EButton(Parent);
         CameraIP = new javax.swing.JTextField();
         Camera1IPLabel = new javax.swing.JLabel();
         VLCButton = new EButton(Parent);
@@ -155,6 +156,9 @@ public class ConnectLayout extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         Stereo3DButton = new EButton(Parent);
         CameraIP2 = new javax.swing.JTextField();
+        IP_type = new EButton(Parent);
+        IP2_type = new EButton(Parent);
+        ConnectButton = new EButton(Parent);
         ExitButton = new EButton(Parent);
 
         setBackground(new java.awt.Color(0, 0, 0));
@@ -168,7 +172,7 @@ public class ConnectLayout extends javax.swing.JPanel {
 
         TitleBackground.setBackground(new java.awt.Color(1, 1, 1));
 
-        Title.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Title.setFont(new java.awt.Font("Tahoma", 0, 14));
         Title.setForeground(new java.awt.Color(255, 255, 255));
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Title.setText("Elphel Vision Alpha  V");
@@ -203,34 +207,26 @@ public class ConnectLayout extends javax.swing.JPanel {
 
         ConnectPanel.setBackground(new java.awt.Color(0, 0, 0));
 
-        ConnectButton.setText("Connect");
-        ConnectButton.setClickFeedback(true);
-        ConnectButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConnectButtonActionPerformed(evt);
-            }
-        });
-
         CameraIP.setText("192.168.0.9");
         CameraIP.setMargin(new java.awt.Insets(0, 4, 0, 0));
 
-        Camera1IPLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Camera1IPLabel.setFont(new java.awt.Font("Tahoma", 0, 14));
         Camera1IPLabel.setForeground(new java.awt.Color(255, 255, 255));
         Camera1IPLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Camera1IPLabel.setText("Camera IP: ");
 
         VLCButton.setText("VLC");
         VLCButton.setChecked(true);
-        VLCButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VLCButtonActionPerformed(evt);
+        VLCButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                VLCButtonMouseClicked(evt);
             }
         });
 
         GstreamerButton.setText("Gstreamer");
-        GstreamerButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GstreamerButtonActionPerformed(evt);
+        GstreamerButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GstreamerButtonMouseClicked(evt);
             }
         });
 
@@ -239,9 +235,9 @@ public class ConnectLayout extends javax.swing.JPanel {
 
         Stereo3DButton.setBackground(new java.awt.Color(254, 254, 254));
         Stereo3DButton.setText("Stereo 3D");
-        Stereo3DButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Stereo3DButtonActionPerformed(evt);
+        Stereo3DButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Stereo3DButtonMouseClicked(evt);
             }
         });
 
@@ -249,27 +245,59 @@ public class ConnectLayout extends javax.swing.JPanel {
         CameraIP2.setEnabled(false);
         CameraIP2.setMargin(new java.awt.Insets(0, 4, 0, 0));
 
+        IP_type.setText("type");
+        IP_type.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        IP_type.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                IP_typeMouseClicked(evt);
+            }
+        });
+
+        IP2_type.setText("type");
+        IP2_type.setEnabled(false);
+        IP2_type.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        IP2_type.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                IP2_typeMouseClicked(evt);
+            }
+        });
+
+        ConnectButton.setText("Connect");
+        ConnectButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ConnectButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout ConnectPanelLayout = new javax.swing.GroupLayout(ConnectPanel);
         ConnectPanel.setLayout(ConnectPanelLayout);
         ConnectPanelLayout.setHorizontalGroup(
             ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConnectPanelLayout.createSequentialGroup()
-                .addComponent(VLCButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(GstreamerButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1))
-            .addGroup(ConnectPanelLayout.createSequentialGroup()
-                .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(Stereo3DButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Camera1IPLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ConnectPanelLayout.createSequentialGroup()
-                        .addComponent(CameraIP, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ConnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(CameraIP2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(VLCButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(GstreamerButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1))
+                    .addGroup(ConnectPanelLayout.createSequentialGroup()
+                        .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(Stereo3DButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Camera1IPLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ConnectPanelLayout.createSequentialGroup()
+                                .addComponent(CameraIP, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(IP_type, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ConnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(ConnectPanelLayout.createSequentialGroup()
+                                .addComponent(CameraIP2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(IP2_type, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
         ConnectPanelLayout.setVerticalGroup(
             ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,11 +305,13 @@ public class ConnectLayout extends javax.swing.JPanel {
                 .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Camera1IPLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CameraIP, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IP_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ConnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Stereo3DButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CameraIP2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CameraIP2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IP2_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(ConnectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(VLCButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,9 +323,9 @@ public class ConnectLayout extends javax.swing.JPanel {
 
         ExitButton.setForeground(new java.awt.Color(217, 2, 2));
         ExitButton.setText("Exit");
-        ExitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExitButtonActionPerformed(evt);
+        ExitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ExitButtonMouseClicked(evt);
             }
         });
         bg.add(ExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 540, -1, -1));
@@ -304,15 +334,33 @@ public class ConnectLayout extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 1048, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonActionPerformed
+    private void Stereo3DButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Stereo3DButtonMouseClicked
+        Stereo3DButton.ToggleChecked();
+
+        if (Stereo3DButton.getChecked()) {
+            CameraIP2.setEnabled(true);
+            IP2_type.setEnabled(true);
+        } else {
+            CameraIP2.setEnabled(false);
+            IP2_type.setEnabled(false);
+        }
+    }//GEN-LAST:event_Stereo3DButtonMouseClicked
+
+    private void IP_typeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IP_typeMouseClicked
+        Parent.NumberPanelIP.Load("Camera IP", CameraIP.getText(), CameraIP, "ConnectCard");
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "NumberpanelIP");
+    }//GEN-LAST:event_IP_typeMouseClicked
+
+    private void ConnectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConnectButtonMouseClicked
         ConnectButton.setText("Connecting");
         new Thread() {
 
@@ -379,31 +427,30 @@ public class ConnectLayout extends javax.swing.JPanel {
                 }
             }
         }.start();
-    }//GEN-LAST:event_ConnectButtonActionPerformed
-    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_ExitButtonActionPerformed
+    }//GEN-LAST:event_ConnectButtonMouseClicked
 
-    private void GstreamerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GstreamerButtonActionPerformed
+    private void GstreamerButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GstreamerButtonMouseClicked
         VLCButton.setChecked(false);
         GstreamerButton.setChecked(true);
         Parent.Settings.SetVideoPlayer(streamVideoPlayer.GSTREAMER);
-    }//GEN-LAST:event_GstreamerButtonActionPerformed
-    private void VLCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VLCButtonActionPerformed
+    }//GEN-LAST:event_GstreamerButtonMouseClicked
+
+    private void VLCButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VLCButtonMouseClicked
         VLCButton.setChecked(true);
         GstreamerButton.setChecked(false);
         Parent.Settings.SetVideoPlayer(streamVideoPlayer.VLC);
-    }//GEN-LAST:event_VLCButtonActionPerformed
+    }//GEN-LAST:event_VLCButtonMouseClicked
 
-    private void Stereo3DButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Stereo3DButtonActionPerformed
-        Stereo3DButton.ToggleChecked();
+    private void IP2_typeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IP2_typeMouseClicked
+        Parent.NumberPanelIP.Load("Camera 2 IP", CameraIP2.getText(), CameraIP2, "ConnectCard");
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "NumberpanelIP");
+    }//GEN-LAST:event_IP2_typeMouseClicked
 
-        if (Stereo3DButton.getChecked()) {
-            CameraIP2.setEnabled(true);
-        } else {
-            CameraIP2.setEnabled(false);
-        }
-    }//GEN-LAST:event_Stereo3DButtonActionPerformed
+    private void ExitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitButtonMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_ExitButtonMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Camera1IPLabel;
     private javax.swing.JTextField CameraIP;
@@ -412,6 +459,8 @@ public class ConnectLayout extends javax.swing.JPanel {
     private javax.swing.JPanel ConnectPanel;
     private EButton ExitButton;
     private EButton GstreamerButton;
+    private EButton IP2_type;
+    private EButton IP_type;
     private javax.swing.JLabel Image;
     private EButton Stereo3DButton;
     private javax.swing.JLabel Title;

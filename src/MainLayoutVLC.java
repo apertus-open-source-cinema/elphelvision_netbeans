@@ -219,7 +219,6 @@ public class MainLayoutVLC extends JPanel {
 
         incvalue2.setText("+");
         incvalue2.setAlignmentY(0.0F);
-        incvalue2.setClickFeedback(true);
         incvalue2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 incvalue2ActionPerformed(evt);
@@ -236,7 +235,6 @@ public class MainLayoutVLC extends JPanel {
         ShutterPanel.add(slowshutter, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 50, 50));
 
         decvalue3.setText("‒");
-        decvalue3.setClickFeedback(true);
         decvalue3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 decvalue3ActionPerformed(evt);
@@ -258,7 +256,6 @@ public class MainLayoutVLC extends JPanel {
         GainPanel.add(twelvedb, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 50, 47));
 
         incvalue1.setText("+");
-        incvalue1.setClickFeedback(true);
         incvalue1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 incvalue1ActionPerformed(evt);
@@ -267,7 +264,6 @@ public class MainLayoutVLC extends JPanel {
         GainPanel.add(incvalue1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
 
         decvalue1.setText("‒");
-        decvalue1.setClickFeedback(true);
         decvalue1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 decvalue1ActionPerformed(evt);
@@ -371,7 +367,6 @@ public class MainLayoutVLC extends JPanel {
         CaptureStill.setForeground(new java.awt.Color(255, 0, 0));
         CaptureStill.setText("Still");
         CaptureStill.setAlignmentY(0.0F);
-        CaptureStill.setClickFeedback(true);
         CaptureStill.setDoubleBuffered(true);
         CaptureStill.setFont(CaptureStill.getFont());
         CaptureStill.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -491,7 +486,6 @@ public class MainLayoutVLC extends JPanel {
         QuickPanel.setBackground(new java.awt.Color(0, 0, 0));
 
         eButton1.setText("2:1");
-        eButton1.setClickFeedback(true);
         eButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton1ActionPerformed(evt);
@@ -499,7 +493,6 @@ public class MainLayoutVLC extends JPanel {
         });
 
         eButton3.setText("fit");
-        eButton3.setClickFeedback(true);
         eButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton3ActionPerformed(evt);
@@ -507,7 +500,6 @@ public class MainLayoutVLC extends JPanel {
         });
 
         eButton4.setText("1:1");
-        eButton4.setClickFeedback(true);
         eButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton4ActionPerformed(evt);
@@ -528,7 +520,6 @@ public class MainLayoutVLC extends JPanel {
 
         eButton6.setText("RGB");
         eButton6.setToolTipText("RGB 24bit color mode");
-        eButton6.setClickFeedback(true);
         eButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton6ActionPerformed(evt);
@@ -536,7 +527,6 @@ public class MainLayoutVLC extends JPanel {
         });
 
         eButton8.setText("JP46 RAW");
-        eButton8.setClickFeedback(true);
         eButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton8ActionPerformed(evt);
@@ -544,7 +534,6 @@ public class MainLayoutVLC extends JPanel {
         });
 
         eButton9.setText("JP4 RAW");
-        eButton9.setClickFeedback(true);
         eButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton9ActionPerformed(evt);

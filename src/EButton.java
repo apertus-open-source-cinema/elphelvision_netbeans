@@ -41,42 +41,47 @@ public class EButton extends JButton implements java.io.Serializable {
     private ElphelVision Parent;
     private Color DefaultBorderColor = new Color(70, 70, 70);
     private Color DefaultBorderColorChecked = new Color(255, 255, 255);
+    private Color DefaultBorderColorDisabled = new Color(30, 30, 30);
+    private Color DefaultBorderColorHighlighted = new Color(20, 80, 130);
     private Color DefaultTextColor = new Color(255, 255, 255);
     private Color DefaultTextColorChecked = new Color(0, 0, 0);
+    private Color DefaultTextColorHighlighted = new Color(200, 200, 255);
+    private Color DefaultTextColorDisabled = new Color(100, 100, 100);
     private Color DefaultBackgroundColorGradientStart = new Color(40, 40, 40);
     private Color DefaultBackgroundColorGradientEnd = new Color(0, 0, 0);
     private Color DefaultBackgroundColorCheckedGradientStart = new Color(200, 200, 200);
     private Color DefaultBackgroundColorCheckedGradientEnd = new Color(255, 255, 255);
+    private Color DefaultBackgroundColorDisabledGradientStart = new Color(20, 20, 20);
+    private Color DefaultBackgroundColorDisabledGradientEnd = new Color(0, 0, 0);
+    private Color DefaultBackgroundColorHighlightedGradientStart = new Color(50, 60, 100);
+    private Color DefaultBackgroundColorHighlightedGradientEnd = new Color(0, 0, 0);
     private int BorderWidth = 2;
     private int CornerRadius = 12;
     private int FontSize = 11;
     private int FontWeight = Font.PLAIN;
     private boolean Checked = false;
+    private boolean Highlighted = false;
     private String ParameterName = "";
     private String AdditionalValue;
-    private boolean ClickFeedback = false;
-    private Timer ClickFeedbacktimer;
-    private static final int BLINKING_RATE = 100; // in ms
+    //private boolean ClickFeedback = false;
+    //private Timer ClickFeedbacktimer;
+    //private static final int BLINKING_RATE = 100; // in ms
 
     public EButton() {
-        this.setBorderPainted(false);
-        this.setFont(new Font("DejaVu Sans", Font.PLAIN, FontSize));
-        this.setRolloverEnabled(false);
         this.setPreferredSize(new Dimension(80, 35));
-        this.setContentAreaFilled(false);
-        this.setFocusPainted(false);
-        this.setForeground(DefaultTextColor);
-        this.setMargin(new Insets(0, 0, 0, 0));
+
+        // To get rid of these implementations
+        System.out.println("Warning: called EButton Constructor without parent parameter - use new EButton(Parent); instead - " + this.getClass());
     }
 
     public EButton(ElphelVision parent) {
         Parent = parent;
-        this.setBorderPainted(false);
         this.setRolloverEnabled(false);
         this.setPreferredSize(new Dimension(80, 35));
         this.setContentAreaFilled(false);
         this.setFocusPainted(false);
         this.setMargin(new Insets(0, 0, 0, 0));
+        this.setBorderPainted(false);
         this.DefaultBorderColor = Parent.Utils.GetButtonBorderColor();
         this.DefaultBorderColorChecked = Parent.Utils.GetButtonBorderColorChecked();
         this.DefaultTextColor = Parent.Utils.GetButtonTextColor();
@@ -91,23 +96,44 @@ public class EButton extends JButton implements java.io.Serializable {
         this.FontSize = Parent.Utils.GetButtonFontSize();
         this.FontWeight = Parent.Utils.GetButtonFontWeight();
         this.setFont(new Font(Parent.Utils.GetButtonFontName(), this.FontWeight, this.FontSize));
-    }
 
+        addMouseListener(new java.awt.event.MouseAdapter() {
+
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                setHighlighted(true);
+            }
+
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                setHighlighted(false);
+            }
+
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                setHighlighted(false);
+                repaint();
+                super.mouseClicked(evt);
+            }
+        });
+    }
+    /*
     public void setClickFeedback(boolean setting) {
-        this.ClickFeedback = setting;
-        if (setting) {
-            addActionListener(new java.awt.event.ActionListener() {
-
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    ClickactionPerformed(evt);
-                }
-            });
-        }
+    this.ClickFeedback = setting;
+    if (setting) {
+    addActionListener(new java.awt.event.ActionListener() {
+    
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+    ClickactionPerformed(evt);
     }
+    });
+    }
+    }*/
 
+    /*
     public boolean getClickFeedback() {
-        return this.ClickFeedback;
-    }
+    return this.ClickFeedback;
+    }*/
     /*
     public void setBorderColor(Color newcolor) {
     this.BorderColor = newcolor;
@@ -117,18 +143,28 @@ public class EButton extends JButton implements java.io.Serializable {
     return this.BorderColor;
     }
      */
-
+    /*
     private void ClickactionPerformed(ActionEvent e) {
-        if (ClickFeedback) {
-            ClickFeedbacktimer = new Timer(BLINKING_RATE, new TimerListener(this));
-            ClickFeedbacktimer.setInitialDelay(100);
-
-            setChecked(true);
-            this.repaint();
-            ClickFeedbacktimer.start();
-        }
+    if (ClickFeedback) {
+    ClickFeedbacktimer = new Timer(BLINKING_RATE, new TimerListener(this));
+    ClickFeedbacktimer.setInitialDelay(100);
+    
+    setChecked(true);
+    this.repaint();
+    ClickFeedbacktimer.start();
     }
-
+    }*/
+    /*
+    private void MouseReleasedactionPerformed(ActionEvent e) {
+    if (ClickFeedback) {
+    ClickFeedbacktimer = new Timer(BLINKING_RATE, new TimerListener(this));
+    ClickFeedbacktimer.setInitialDelay(100);
+    
+    setChecked(true);
+    this.repaint();
+    ClickFeedbacktimer.start();
+    }
+    }*/
     public void ToggleChecked() {
         if (this.Checked) {
             setChecked(false);
@@ -136,25 +172,23 @@ public class EButton extends JButton implements java.io.Serializable {
             setChecked(true);
         }
         this.repaint();
-
-
     }
-
+    /*
     private class TimerListener implements ActionListener {
-
-        private EButton targetbutton;
-
-        public TimerListener(EButton button) {
-            targetbutton = button;
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            if (targetbutton.getClickFeedback()) {
-                targetbutton.setChecked(false);
-                ClickFeedbacktimer.stop();
-            }
-        }
+    
+    private EButton targetbutton;
+    
+    public TimerListener(EButton button) {
+    targetbutton = button;
     }
+    
+    public void actionPerformed(ActionEvent e) {
+    if (targetbutton.getClickFeedback()) {
+    targetbutton.setChecked(false);
+    ClickFeedbacktimer.stop();
+    }
+    }
+    }*/
 
     public void setParameterName(String name) {
         this.ParameterName = name;
@@ -220,13 +254,31 @@ public class EButton extends JButton implements java.io.Serializable {
         // Gradients
         GradientPaint DarkGradient = new GradientPaint(0, 0, DefaultBackgroundColorGradientStart, 0, 25, DefaultBackgroundColorGradientEnd, false);
         GradientPaint CheckedGradient = new GradientPaint(0, 0, DefaultBackgroundColorCheckedGradientStart, 0, 25, DefaultBackgroundColorCheckedGradientEnd, true);
+        GradientPaint DisabledGradient = new GradientPaint(0, 0, DefaultBackgroundColorDisabledGradientStart, 0, 25, DefaultBackgroundColorDisabledGradientEnd, true);
+        GradientPaint HighlightGradient = new GradientPaint(0, 0, DefaultBackgroundColorHighlightedGradientStart, 0, 25, DefaultBackgroundColorHighlightedGradientEnd, true);
 
-        if (this.Checked) {
+        if (this.isEnabled() == false) {
+            // Button Fill
+            g2.setPaint(DisabledGradient);
+            g2.fillRoundRect(1, 1, x - 2, y - 2, this.CornerRadius - 2, this.CornerRadius - 2);
+            // Button Border
+            g2.setPaint(DefaultBorderColorDisabled);
+            g2.setStroke(new BasicStroke(1));
+            g2.drawRoundRect(BorderWidth - 1, BorderWidth - 1, x - 2 * (BorderWidth - 1), y - 2 * (BorderWidth - 1), this.CornerRadius, this.CornerRadius);
+        } else if (this.Checked) {
             // Button Fill
             g2.setPaint(CheckedGradient);
             g2.fillRoundRect(BorderWidth * 2, BorderWidth * 2, x - BorderWidth * 4, y - BorderWidth * 4, this.CornerRadius - BorderWidth * 2, this.CornerRadius - BorderWidth * 2);
             // Button Border
             g2.setPaint(DefaultBorderColorChecked);
+            g2.setStroke(new BasicStroke(BorderWidth));
+            g2.drawRoundRect(BorderWidth, BorderWidth, x - 2 * BorderWidth, y - 2 * BorderWidth, this.CornerRadius, this.CornerRadius);
+        } else if (this.isHighlighted()) {
+            // Button Fill
+            g2.setPaint(HighlightGradient);
+            g2.fillRoundRect(BorderWidth * 2, BorderWidth * 2, x - BorderWidth * 4, y - BorderWidth * 4, this.CornerRadius - BorderWidth * 2, this.CornerRadius - BorderWidth * 2);
+            // Button Border
+            g2.setPaint(DefaultBorderColorHighlighted);
             g2.setStroke(new BasicStroke(BorderWidth));
             g2.drawRoundRect(BorderWidth, BorderWidth, x - 2 * BorderWidth, y - 2 * BorderWidth, this.CornerRadius, this.CornerRadius);
         } else {
@@ -237,13 +289,18 @@ public class EButton extends JButton implements java.io.Serializable {
             g2.setPaint(DefaultBorderColor);
             g2.setStroke(new BasicStroke(1));
             g2.drawRoundRect(BorderWidth - 1, BorderWidth - 1, x - 2 * (BorderWidth - 1), y - 2 * (BorderWidth - 1), this.CornerRadius, this.CornerRadius);
+
         }
 
         // Button Text
         if (Checked) {
             g2.setPaint(DefaultTextColorChecked);
-        } else {
+        } else if (this.isEnabled()) {
             g2.setPaint(this.getForeground());
+        } else if (this.isHighlighted()) {
+            g2.setPaint(DefaultTextColorHighlighted);
+        } else {
+            g2.setPaint(DefaultTextColorDisabled);
         }
 
         //Draw Text
@@ -295,5 +352,14 @@ public class EButton extends JButton implements java.io.Serializable {
 
         // We do this all ourselves now so no need to call:
         //super.paint(g);
+    }
+
+    public boolean isHighlighted() {
+        return Highlighted;
+    }
+
+    public void setHighlighted(boolean Highlighted) {
+        this.Highlighted = Highlighted;
+        this.repaint();
     }
 }

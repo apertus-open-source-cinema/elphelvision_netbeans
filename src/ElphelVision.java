@@ -45,7 +45,7 @@ import javax.swing.text.StyledDocument;
 public class ElphelVision extends Panel implements ActionListener, Runnable {
 
     //private static final long serialVersionUID = 21L;
-    String AppVersion = "0.53";
+    String AppVersion = "0.54";
     Camera Camera; // class containing all camera specific information
     UserSettings Settings; // class containing user settings
     VLCPlayer VLCPlayer = null; // VLC Video player class dealing with video streaming
@@ -69,6 +69,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     HistogramSettingsLayout HistogramSettingsCardLayout;
     NumericalInputPanelFloat NumberPanelFloat;
     NumericalInputPanelInteger NumberPanelInteger;
+    NumericalInputPanelIP NumberPanelIP;
     GuidesLayout GuidesPanel;
     PlaybackLayout PlaybackCardLayout;
     PhotoSettingsLayout PhotoSettingsCardLayout;
@@ -379,6 +380,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         FPSSettingsCardLayout = new FPSSettings(this);
         NumberPanelInteger = new NumericalInputPanelInteger(this);
         NumberPanelFloat = new NumericalInputPanelFloat(this);
+        NumberPanelIP = new NumericalInputPanelIP(this);
         GuidesPanel = new GuidesLayout(this);
         PlaybackCardLayout = new PlaybackLayout(this);
         PhotoSettingsCardLayout = new PhotoSettingsLayout(this);
@@ -393,6 +395,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         CardManager.add(FPSSettingsCardLayout, "CustomFPSCard");
         CardManager.add(GuidesPanel, "GuidesCard");
         CardManager.add(NumberPanelFloat, "NumberpanelFloat");
+        CardManager.add(NumberPanelIP, "NumberpanelIP");
         CardManager.add(NumberPanelInteger, "NumberpanelInteger");
         CardManager.add(PlaybackCardLayout, "PlaybackCard");
         CardManager.add(PhotoSettingsCardLayout, "PhotoSettings");

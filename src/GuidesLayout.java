@@ -71,19 +71,19 @@ public class GuidesLayout extends javax.swing.JPanel {
         PhotoSettingsMenu = new EButton();
         bg = new javax.swing.JPanel();
         ConfirmationPanel = new javax.swing.JPanel();
-        SettingsCancelButton = new EButton();
+        SettingsCancelButton = new EButton(Parent);
         jPanel1 = new javax.swing.JPanel();
-        CenterXButton = new EButton();
-        ThirdsButton = new EButton();
-        OuterXButton = new EButton();
-        SafeAreaButton = new EButton();
+        CenterXButton = new EButton(Parent);
+        ThirdsButton = new EButton(Parent);
+        OuterXButton = new EButton(Parent);
+        SafeAreaButton = new EButton(Parent);
         guidespreview1 = new Guides();
         NavigationPanel1 = new javax.swing.JPanel();
-        SettingsMenu1Button1 = new EButton();
-        SettingsMenu2Button1 = new EButton();
-        SettingsMenu3Button = new EButton();
-        PhotoSettingsMenu1 = new EButton();
-        GuidesMenuButton1 = new EButton();
+        SettingsMenu1Button1 = new EButton(Parent);
+        SettingsMenu2Button1 = new EButton(Parent);
+        SettingsMenu3Button = new EButton(Parent);
+        PhotoSettingsMenu1 = new EButton(Parent);
+        GuidesMenuButton1 = new EButton(Parent);
 
         PhotoSettingsMenu.setText("Photo Settings");
         PhotoSettingsMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -250,7 +250,7 @@ public class GuidesLayout extends javax.swing.JPanel {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addComponent(NavigationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
                         .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(guidespreview1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,7 +265,7 @@ public class GuidesLayout extends javax.swing.JPanel {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(guidespreview1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(NavigationPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ConfirmationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

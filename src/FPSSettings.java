@@ -106,20 +106,20 @@ public class FPSSettings extends javax.swing.JPanel {
 
         bg = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        SettingsCancelButton = new EButton();
-        SettingsOKButton = new EButton();
+        SettingsCancelButton = new EButton(Parent);
+        SettingsOKButton = new EButton(Parent);
         FPSPanel = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         CalculatedFPS = new javax.swing.JLabel();
-        FPSType = new EButton();
+        FPSType = new EButton(Parent);
         FPSField = new javax.swing.JTextField();
         TimelapsePanel = new javax.swing.JPanel();
         SkipFramesField = new javax.swing.JTextField();
         SkipSecondsField = new javax.swing.JTextField();
-        SkipFramesType = new EButton();
-        SkipSecondsType = new EButton();
-        SkipFramesButton = new EButton();
-        SkipSecondsButton = new EButton();
+        SkipFramesType = new EButton(Parent);
+        SkipSecondsType = new EButton(Parent);
+        SkipFramesButton = new EButton(Parent);
+        SkipSecondsButton = new EButton(Parent);
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -158,7 +158,7 @@ public class FPSSettings extends javax.swing.JPanel {
 
         FPSPanel.setBackground(java.awt.Color.black);
 
-        jLabel9.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("DejaVu Sans", 1, 18));
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("FPS");
@@ -176,8 +176,8 @@ public class FPSSettings extends javax.swing.JPanel {
         CalculatedFPS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         CalculatedFPS.setText("resulting FPS:");
 
-        FPSType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         FPSType.setText("type");
+        FPSType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         FPSType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FPSTypeActionPerformed(evt);
@@ -223,25 +223,25 @@ public class FPSSettings extends javax.swing.JPanel {
             }
         });
 
-        SkipFramesType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         SkipFramesType.setText("type");
+        SkipFramesType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         SkipFramesType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SkipFramesTypeActionPerformed(evt);
             }
         });
 
+        SkipSecondsType.setText("type");
         SkipSecondsType.setEnabled(false);
         SkipSecondsType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        SkipSecondsType.setText("type");
         SkipSecondsType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SkipSecondsTypeActionPerformed(evt);
             }
         });
 
-        SkipFramesButton.setChecked(true);
         SkipFramesButton.setText("Skip Frames");
+        SkipFramesButton.setChecked(true);
         SkipFramesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SkipFramesButtonActionPerformed(evt);
@@ -333,10 +333,10 @@ public class FPSSettings extends javax.swing.JPanel {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addGap(800, 800, 800)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         bgLayout.setVerticalGroup(
@@ -344,7 +344,7 @@ public class FPSSettings extends javax.swing.JPanel {
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(FPSPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

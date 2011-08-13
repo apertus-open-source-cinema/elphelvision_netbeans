@@ -57,23 +57,23 @@ public class Settings3Layout extends javax.swing.JPanel {
 
         bg = new javax.swing.JPanel();
         ConfirmationPanel = new javax.swing.JPanel();
-        SettingsOKButton = new EButton();
-        SettingsCancelButton = new EButton();
+        SettingsOKButton = new EButton(Parent);
+        SettingsCancelButton = new EButton(Parent);
         NavigationPanel1 = new javax.swing.JPanel();
-        SettingsMenu1Button1 = new EButton();
-        SettingsMenu2Button1 = new EButton();
-        GuidesMenuButton1 = new EButton();
-        SettingsMenu3Button = new EButton();
-        PhotoSettingsMenu = new EButton();
+        SettingsMenu1Button1 = new EButton(Parent);
+        SettingsMenu2Button1 = new EButton(Parent);
+        GuidesMenuButton1 = new EButton(Parent);
+        SettingsMenu3Button = new EButton(Parent);
+        PhotoSettingsMenu = new EButton(Parent);
         ePanel1 = new EPanel();
         ePanel2 = new EPanel();
         MulitCameraRecordingDelay = new javax.swing.JLabel();
         MultiCameraRecordingDelayField = new javax.swing.JTextField();
-        MulitCameraRecordingDelayType = new EButton();
+        MulitCameraRecordingDelayType = new EButton(Parent);
         ePanel3 = new EPanel();
         MovieSplitSizeLabel = new javax.swing.JLabel();
         MovieSplitSizeField = new javax.swing.JTextField();
-        MovieSplitSizeType = new EButton();
+        MovieSplitSizeType = new EButton(Parent);
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -181,10 +181,9 @@ public class Settings3Layout extends javax.swing.JPanel {
         ePanel2.setBackground(new java.awt.Color(39, 39, 41));
         ePanel2.setBorder(null);
         ePanel2.setForeground(new java.awt.Color(80, 80, 80));
-        ePanel2.setDoubleBuffered(true);
 
         MulitCameraRecordingDelay.setBackground(new java.awt.Color(1, 1, 1));
-        MulitCameraRecordingDelay.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        MulitCameraRecordingDelay.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         MulitCameraRecordingDelay.setForeground(new java.awt.Color(255, 255, 255));
         MulitCameraRecordingDelay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MulitCameraRecordingDelay.setText("Multi Camera Recording Delay [seconds]");
@@ -234,9 +233,8 @@ public class Settings3Layout extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(ePanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(MulitCameraRecordingDelay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ePanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(MulitCameraRecordingDelayType, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                        .addComponent(MultiCameraRecordingDelayField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(MulitCameraRecordingDelayType, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(MultiCameraRecordingDelayField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -246,7 +244,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         ePanel3.setBorder(null);
         ePanel3.setForeground(new java.awt.Color(80, 80, 80));
 
-        MovieSplitSizeLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        MovieSplitSizeLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         MovieSplitSizeLabel.setForeground(new java.awt.Color(255, 255, 255));
         MovieSplitSizeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MovieSplitSizeLabel.setText("Movie Split Size [MB]");

@@ -87,15 +87,15 @@ public class ResolutionSettings extends javax.swing.JPanel {
         bg = new javax.swing.JPanel();
         MirrorPanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        FlipHorizontal = new EButton();
-        FlipVertical = new EButton();
+        FlipHorizontal = new EButton(Parent);
+        FlipVertical = new EButton(Parent);
         RotationPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        OrientationLandscape = new EButton();
-        OrientationPortrait = new EButton();
+        OrientationLandscape = new EButton(Parent);
+        OrientationPortrait = new EButton(Parent);
         ConfirmationPanel = new javax.swing.JPanel();
-        SettingsCancelButton = new EButton();
-        SettingsOKButton = new EButton();
+        SettingsCancelButton = new EButton(Parent);
+        SettingsOKButton = new EButton(Parent);
         DimensionsPanel = new javax.swing.JPanel();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel9 = new javax.swing.JLabel();
@@ -104,8 +104,8 @@ public class ResolutionSettings extends javax.swing.JPanel {
         CalculatedHeight = new javax.swing.JLabel();
         HeightField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        HeightType = new EButton();
-        WidthType = new EButton();
+        HeightType = new EButton(Parent);
+        WidthType = new EButton(Parent);
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -123,7 +123,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
 
         FlipHorizontal.setText("horizontal");
         FlipHorizontal.setAlignmentY(0.0F);
-        FlipHorizontal.setHorizontalTextPosition(2);
+        FlipHorizontal.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         FlipHorizontal.setIconTextGap(20);
         FlipHorizontal.setMargin(new java.awt.Insets(0, 5, 0, 0));
         FlipHorizontal.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +134,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
 
         FlipVertical.setText("vertical");
         FlipVertical.setAlignmentY(0.0F);
-        FlipVertical.setHorizontalTextPosition(2);
+        FlipVertical.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         FlipVertical.setIconTextGap(20);
         FlipVertical.setMargin(new java.awt.Insets(0, 5, 0, 0));
         FlipVertical.addActionListener(new java.awt.event.ActionListener() {
@@ -172,7 +172,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
 
         OrientationLandscape.setText("Landscape");
         OrientationLandscape.setAlignmentY(0.0F);
-        OrientationLandscape.setHorizontalTextPosition(2);
+        OrientationLandscape.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         OrientationLandscape.setIconTextGap(20);
         OrientationLandscape.setMargin(new java.awt.Insets(0, 5, 0, 0));
         OrientationLandscape.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +183,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
 
         OrientationPortrait.setText("Portrait");
         OrientationPortrait.setAlignmentY(0.0F);
-        OrientationPortrait.setHorizontalTextPosition(2);
+        OrientationPortrait.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         OrientationPortrait.setIconTextGap(20);
         OrientationPortrait.setMargin(new java.awt.Insets(0, 5, 0, 0));
         OrientationPortrait.addActionListener(new java.awt.event.ActionListener() {
@@ -196,8 +196,8 @@ public class ResolutionSettings extends javax.swing.JPanel {
         RotationPanel.setLayout(RotationPanelLayout);
         RotationPanelLayout.setHorizontalGroup(
             RotationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(OrientationLandscape, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(OrientationPortrait, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(OrientationLandscape, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(OrientationPortrait, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
         RotationPanelLayout.setVerticalGroup(
@@ -319,8 +319,8 @@ public class ResolutionSettings extends javax.swing.JPanel {
             }
         });
 
-        WidthType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         WidthType.setText("type");
+        WidthType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         WidthType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 WidthTypeActionPerformed(evt);
@@ -384,7 +384,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
                 .addComponent(MirrorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(383, 383, 383))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addContainerGap(800, Short.MAX_VALUE)
+                .addContainerGap(840, Short.MAX_VALUE)
                 .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -397,7 +397,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
                     .addComponent(RotationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(DimensionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
                         .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );

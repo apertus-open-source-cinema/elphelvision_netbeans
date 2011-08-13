@@ -63,215 +63,197 @@ public class NumericalInputPanelFloat extends javax.swing.JPanel {
 
         bg = new javax.swing.JPanel();
         Keypad = new javax.swing.JPanel();
-        Number1 = new EButton();
-        Number2 = new EButton();
-        Number3 = new EButton();
-        Number4 = new EButton();
-        Number5 = new EButton();
-        Number6 = new EButton();
-        Number7 = new EButton();
-        Number8 = new EButton();
-        Number9 = new EButton();
-        NumberClear = new EButton();
-        Number0 = new EButton();
-        NumberPlusOne = new EButton();
-        NumberPlusTen = new EButton();
-        NumberMinusOne = new EButton();
-        NumberMinus10 = new EButton();
-        NumberComma = new EButton();
-        BackspaceButton = new EButton();
-        DelButton = new EButton();
+        Number1 = new EButton(Parent);
+        Number2 = new EButton(Parent);
+        Number3 = new EButton(Parent);
+        Number4 = new EButton(Parent);
+        Number5 = new EButton(Parent);
+        Number6 = new EButton(Parent);
+        Number7 = new EButton(Parent);
+        Number8 = new EButton(Parent);
+        Number9 = new EButton(Parent);
+        NumberClear = new EButton(Parent);
+        Number0 = new EButton(Parent);
+        NumberPlusOne = new EButton(Parent);
+        NumberPlusTen = new EButton(Parent);
+        NumberMinusOne = new EButton(Parent);
+        NumberMinus10 = new EButton(Parent);
+        NumberComma = new EButton(Parent);
+        BackspaceButton = new EButton(Parent);
+        DelButton = new EButton(Parent);
         NumberPanel = new javax.swing.JPanel();
         VarName = new javax.swing.JLabel();
         NumberField = new javax.swing.JTextField();
-        EndButton = new EButton();
-        RightButton = new EButton();
-        LeftButton = new EButton();
-        Pos1Button = new EButton();
+        EndButton = new EButton(Parent);
+        RightButton = new EButton(Parent);
+        LeftButton = new EButton(Parent);
+        Pos1Button = new EButton(Parent);
         Validation = new javax.swing.JLabel();
         ConfirmationPanel = new javax.swing.JPanel();
-        SettingsCancelButton = new EButton();
-        SettingsOKButton = new EButton();
+        SettingsCancelButton = new EButton(Parent);
+        SettingsOKButton = new EButton(Parent);
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
 
         Keypad.setBackground(new java.awt.Color(0, 0, 0));
 
-        Number1.setClickFeedback(true);
+        Number1.setText("1");
         Number1.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         Number1.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number1.setText("1");
         Number1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Number1ActionPerformed(evt);
             }
         });
 
-        Number2.setClickFeedback(true);
+        Number2.setText("2");
         Number2.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         Number2.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number2.setText("2");
         Number2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Number2ActionPerformed(evt);
             }
         });
 
-        Number3.setClickFeedback(true);
+        Number3.setText("3");
         Number3.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         Number3.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number3.setText("3");
         Number3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Number3ActionPerformed(evt);
             }
         });
 
-        Number4.setClickFeedback(true);
+        Number4.setText("4");
         Number4.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         Number4.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number4.setText("4");
         Number4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Number4ActionPerformed(evt);
             }
         });
 
-        Number5.setClickFeedback(true);
+        Number5.setText("5");
         Number5.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         Number5.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number5.setText("5");
         Number5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Number5ActionPerformed(evt);
             }
         });
 
-        Number6.setClickFeedback(true);
+        Number6.setText("6");
         Number6.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         Number6.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number6.setText("6");
         Number6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Number6ActionPerformed(evt);
             }
         });
 
-        Number7.setClickFeedback(true);
+        Number7.setText("7");
         Number7.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         Number7.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number7.setText("7");
         Number7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Number7ActionPerformed(evt);
             }
         });
 
-        Number8.setClickFeedback(true);
+        Number8.setText("8");
         Number8.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         Number8.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number8.setText("8");
         Number8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Number8ActionPerformed(evt);
             }
         });
 
-        Number9.setClickFeedback(true);
+        Number9.setText("9");
         Number9.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         Number9.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number9.setText("9");
         Number9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Number9ActionPerformed(evt);
             }
         });
 
-        NumberClear.setClickFeedback(true);
+        NumberClear.setText("Clear");
         NumberClear.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         NumberClear.setPreferredSize(new java.awt.Dimension(100, 60));
-        NumberClear.setText("Clear");
         NumberClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NumberClearActionPerformed(evt);
             }
         });
 
-        Number0.setClickFeedback(true);
+        Number0.setText("0");
         Number0.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         Number0.setPreferredSize(new java.awt.Dimension(100, 60));
-        Number0.setText("0");
         Number0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Number0ActionPerformed(evt);
             }
         });
 
-        NumberPlusOne.setClickFeedback(true);
+        NumberPlusOne.setText("+1");
         NumberPlusOne.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         NumberPlusOne.setPreferredSize(new java.awt.Dimension(100, 60));
-        NumberPlusOne.setText("+1");
         NumberPlusOne.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NumberPlusOneActionPerformed(evt);
             }
         });
 
-        NumberPlusTen.setClickFeedback(true);
+        NumberPlusTen.setText("+10");
         NumberPlusTen.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         NumberPlusTen.setPreferredSize(new java.awt.Dimension(100, 60));
-        NumberPlusTen.setText("+10");
         NumberPlusTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NumberPlusTenActionPerformed(evt);
             }
         });
 
-        NumberMinusOne.setClickFeedback(true);
+        NumberMinusOne.setText("-1");
         NumberMinusOne.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         NumberMinusOne.setPreferredSize(new java.awt.Dimension(100, 60));
-        NumberMinusOne.setText("-1");
         NumberMinusOne.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NumberMinusOneActionPerformed(evt);
             }
         });
 
-        NumberMinus10.setClickFeedback(true);
+        NumberMinus10.setText("-10");
         NumberMinus10.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         NumberMinus10.setPreferredSize(new java.awt.Dimension(100, 60));
-        NumberMinus10.setText("-10");
         NumberMinus10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NumberMinus10ActionPerformed(evt);
             }
         });
 
-        NumberComma.setClickFeedback(true);
+        NumberComma.setText(".");
         NumberComma.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         NumberComma.setPreferredSize(new java.awt.Dimension(100, 60));
-        NumberComma.setText(".");
         NumberComma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NumberCommaActionPerformed(evt);
             }
         });
 
-        BackspaceButton.setClickFeedback(true);
+        BackspaceButton.setText("Backspace");
         BackspaceButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         BackspaceButton.setPreferredSize(new java.awt.Dimension(100, 60));
-        BackspaceButton.setText("Backspace");
         BackspaceButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BackspaceButtonActionPerformed(evt);
             }
         });
 
-        DelButton.setClickFeedback(true);
+        DelButton.setText("Del");
         DelButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         DelButton.setPreferredSize(new java.awt.Dimension(100, 60));
-        DelButton.setText("Del");
         DelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DelButtonActionPerformed(evt);
@@ -364,7 +346,7 @@ public class NumericalInputPanelFloat extends javax.swing.JPanel {
 
         NumberPanel.setBackground(java.awt.Color.black);
 
-        VarName.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
+        VarName.setFont(new java.awt.Font("DejaVu Sans", 1, 18));
         VarName.setForeground(new java.awt.Color(255, 255, 255));
         VarName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         VarName.setText("Name");
@@ -378,7 +360,7 @@ public class NumericalInputPanelFloat extends javax.swing.JPanel {
         VarName.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         NumberField.setBackground(new java.awt.Color(0, 0, 0));
-        NumberField.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 18)); // NOI18N
+        NumberField.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 18));
         NumberField.setForeground(new java.awt.Color(255, 255, 255));
         NumberField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         NumberField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(148, 148, 148)));
@@ -390,7 +372,6 @@ public class NumericalInputPanelFloat extends javax.swing.JPanel {
         });
 
         EndButton.setText("End");
-        EndButton.setClickFeedback(true);
         EndButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         EndButton.setPreferredSize(new java.awt.Dimension(100, 60));
         EndButton.addActionListener(new java.awt.event.ActionListener() {
@@ -400,7 +381,6 @@ public class NumericalInputPanelFloat extends javax.swing.JPanel {
         });
 
         RightButton.setText("->");
-        RightButton.setClickFeedback(true);
         RightButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         RightButton.setPreferredSize(new java.awt.Dimension(100, 60));
         RightButton.addActionListener(new java.awt.event.ActionListener() {
@@ -410,7 +390,6 @@ public class NumericalInputPanelFloat extends javax.swing.JPanel {
         });
 
         LeftButton.setText("<-");
-        LeftButton.setClickFeedback(true);
         LeftButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         LeftButton.setPreferredSize(new java.awt.Dimension(100, 60));
         LeftButton.addActionListener(new java.awt.event.ActionListener() {
@@ -420,7 +399,6 @@ public class NumericalInputPanelFloat extends javax.swing.JPanel {
         });
 
         Pos1Button.setText("Pos1");
-        Pos1Button.setClickFeedback(true);
         Pos1Button.setFont(new java.awt.Font("DejaVu Sans", 0, 18));
         Pos1Button.setPreferredSize(new java.awt.Dimension(100, 60));
         Pos1Button.addActionListener(new java.awt.event.ActionListener() {
@@ -509,7 +487,7 @@ public class NumericalInputPanelFloat extends javax.swing.JPanel {
                 .addComponent(Validation, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(190, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addContainerGap(840, Short.MAX_VALUE)
+                .addContainerGap(922, Short.MAX_VALUE)
                 .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(bgLayout.createSequentialGroup()
@@ -529,7 +507,7 @@ public class NumericalInputPanelFloat extends javax.swing.JPanel {
                         .addComponent(Validation, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Keypad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

@@ -111,9 +111,9 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
-        SettingsCloseButton = new EButton();
-        mode_linear = new EButton();
-        mode_log = new EButton();
+        SettingsCloseButton = new EButton(Parent);
+        mode_linear = new EButton(Parent);
+        mode_log = new EButton(Parent);
         jPanel1 = new javax.swing.JPanel();
         Image = new javax.swing.JLabel();
         histogram = new Histogram();
@@ -125,8 +125,8 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
         MaxLabelGreen = new javax.swing.JLabel();
         MaxLabelBlue = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        mode_luma = new EButton();
-        mode_rgb = new EButton();
+        mode_luma = new EButton(Parent);
+        mode_rgb = new EButton(Parent);
         jLabel3 = new javax.swing.JLabel();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
@@ -264,7 +264,7 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mode_rgb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(SettingsCloseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())

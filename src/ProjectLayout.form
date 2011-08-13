@@ -47,7 +47,7 @@
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="794" max="32767" attributes="3"/>
+                  <EmptySpace pref="834" max="32767" attributes="3"/>
                   <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -61,7 +61,7 @@
                       <Component id="MovieMaxSplitSizePanel" min="-2" max="-2" attributes="0"/>
                       <Component id="MovieSplitSizeLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="501" max="32767" attributes="3"/>
+                  <EmptySpace pref="516" max="32767" attributes="3"/>
                   <Component id="ConfirmationPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -104,6 +104,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsOKButtonActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EButton(Parent);"/>
+              </AuxValues>
             </Component>
             <Component class="EButton" name="SettingsCancelButton">
               <Properties>
@@ -112,6 +115,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsCancelButtonActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EButton(Parent);"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

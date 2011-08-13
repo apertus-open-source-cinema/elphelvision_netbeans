@@ -144,35 +144,35 @@ public class MainLayoutGST extends JPanel {
 
         bg = new javax.swing.JPanel();
         SliderPanel = new javax.swing.JPanel();
-        incvalue = new EButton();
+        incvalue = new EButton(Parent);
         ParameterName = new javax.swing.JLabel();
-        decvalue = new EButton();
+        decvalue = new EButton(Parent);
         ParameterPanel = new javax.swing.JPanel();
-        ExposureButton = new EButton();
-        GainButton = new EButton();
-        SettingsButton = new EButton();
+        ExposureButton = new EButton(Parent);
+        GainButton = new EButton(Parent);
+        SettingsButton = new EButton(Parent);
         histogram = new Histogram();
-        CaptureStill = new EButton();
-        RecordButton = new EButton();
-        PlaybackButton = new EButton();
-        eButton10 = new EButton();
+        CaptureStill = new EButton(Parent);
+        RecordButton = new EButton(Parent);
+        PlaybackButton = new EButton(Parent);
+        eButton10 = new EButton(Parent);
         InfoPanel = new javax.swing.JPanel();
         InfoTextPane = new javax.swing.JTextPane();
         NoticeArea = new javax.swing.JTextPane();
         VideoFrame = new javax.swing.JPanel();
         QuickPanel = new javax.swing.JPanel();
-        eButton1 = new EButton();
-        eButton3 = new EButton();
-        eButton4 = new EButton();
+        eButton1 = new EButton(Parent);
+        eButton3 = new EButton(Parent);
+        eButton4 = new EButton(Parent);
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        eButton6 = new EButton();
-        eButton8 = new EButton();
-        eButton9 = new EButton();
+        eButton6 = new EButton(Parent);
+        eButton8 = new EButton(Parent);
+        eButton9 = new EButton(Parent);
         datarateMonitor = new DatarateMonitor();
-        eButton11 = new EButton();
-        eButton12 = new EButton();
-        eButton13 = new EButton();
+        eButton11 = new EButton(Parent);
+        eButton12 = new EButton(Parent);
+        eButton13 = new EButton(Parent);
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -278,7 +278,6 @@ public class MainLayoutGST extends JPanel {
         CaptureStill.setForeground(new java.awt.Color(255, 0, 0));
         CaptureStill.setText("Still");
         CaptureStill.setAlignmentY(0.0F);
-        CaptureStill.setClickFeedback(true);
         CaptureStill.setDoubleBuffered(true);
         CaptureStill.setFont(CaptureStill.getFont());
         CaptureStill.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -306,7 +305,6 @@ public class MainLayoutGST extends JPanel {
         });
 
         eButton10.setText("RePlay");
-        eButton10.setClickFeedback(true);
         eButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton10ActionPerformed(evt);
@@ -396,7 +394,6 @@ public class MainLayoutGST extends JPanel {
         QuickPanel.setBackground(new java.awt.Color(0, 0, 0));
 
         eButton1.setText("2:1");
-        eButton1.setClickFeedback(true);
         eButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton1ActionPerformed(evt);
@@ -404,7 +401,6 @@ public class MainLayoutGST extends JPanel {
         });
 
         eButton3.setText("fit");
-        eButton3.setClickFeedback(true);
         eButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton3ActionPerformed(evt);
@@ -412,7 +408,6 @@ public class MainLayoutGST extends JPanel {
         });
 
         eButton4.setText("1:1");
-        eButton4.setClickFeedback(true);
         eButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton4ActionPerformed(evt);
@@ -433,7 +428,6 @@ public class MainLayoutGST extends JPanel {
 
         eButton6.setText("RGB");
         eButton6.setToolTipText("RGB 24bit color mode");
-        eButton6.setClickFeedback(true);
         eButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton6ActionPerformed(evt);
@@ -441,7 +435,6 @@ public class MainLayoutGST extends JPanel {
         });
 
         eButton8.setText("JP46 RAW");
-        eButton8.setClickFeedback(true);
         eButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton8ActionPerformed(evt);
@@ -449,7 +442,6 @@ public class MainLayoutGST extends JPanel {
         });
 
         eButton9.setText("JP4 RAW");
-        eButton9.setClickFeedback(true);
         eButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton9ActionPerformed(evt);
@@ -510,7 +502,6 @@ public class MainLayoutGST extends JPanel {
         bg.add(QuickPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 50, 90, 370));
 
         eButton11.setText("Start GST");
-        eButton11.setClickFeedback(true);
         eButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton11ActionPerformed(evt);
@@ -519,7 +510,6 @@ public class MainLayoutGST extends JPanel {
         bg.add(eButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 420, 66, -1));
 
         eButton12.setText("Pause");
-        eButton12.setClickFeedback(true);
         eButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton12ActionPerformed(evt);
@@ -528,7 +518,6 @@ public class MainLayoutGST extends JPanel {
         bg.add(eButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 460, 66, -1));
 
         eButton13.setText("Stop");
-        eButton13.setClickFeedback(true);
         eButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eButton13ActionPerformed(evt);

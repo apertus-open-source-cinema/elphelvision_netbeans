@@ -57,8 +57,8 @@ public class ProjectLayout extends javax.swing.JPanel {
 
         bg = new javax.swing.JPanel();
         ConfirmationPanel = new javax.swing.JPanel();
-        SettingsOKButton = new EButton();
-        SettingsCancelButton = new EButton();
+        SettingsOKButton = new EButton(Parent);
+        SettingsCancelButton = new EButton(Parent);
         MovieMaxSplitSizePanel = new javax.swing.JPanel();
         MovieSplitSizeLabel = new javax.swing.JLabel();
 
@@ -111,7 +111,7 @@ public class ProjectLayout extends javax.swing.JPanel {
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        MovieSplitSizeLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 14)); // NOI18N
+        MovieSplitSizeLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 14));
         MovieSplitSizeLabel.setForeground(new java.awt.Color(255, 255, 255));
         MovieSplitSizeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MovieSplitSizeLabel.setText("Projects");
@@ -135,7 +135,7 @@ public class ProjectLayout extends javax.swing.JPanel {
                 .addComponent(MovieMaxSplitSizePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addContainerGap(794, Short.MAX_VALUE)
+                .addContainerGap(834, Short.MAX_VALUE)
                 .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -146,7 +146,7 @@ public class ProjectLayout extends javax.swing.JPanel {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(MovieMaxSplitSizePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MovieSplitSizeLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 501, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 516, Short.MAX_VALUE)
                 .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

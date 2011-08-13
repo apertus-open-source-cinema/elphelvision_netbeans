@@ -82,25 +82,25 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
 
         bg = new javax.swing.JPanel();
         NavigationPanel1 = new javax.swing.JPanel();
-        SettingsMenu1Button1 = new EButton();
-        SettingsMenu2Button1 = new EButton();
-        GuidesMenuButton1 = new EButton();
-        SettingsMenu3Button = new EButton();
-        PhotoSettingsMenu = new EButton();
+        SettingsMenu1Button1 = new EButton(Parent);
+        SettingsMenu2Button1 = new EButton(Parent);
+        GuidesMenuButton1 = new EButton(Parent);
+        SettingsMenu3Button = new EButton(Parent);
+        PhotoSettingsMenu = new EButton(Parent);
         PhotoSettings = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        ResolutionAsVideo = new EButton();
+        ResolutionAsVideo = new EButton(Parent);
         MovieSplitSizeLabel = new javax.swing.JLabel();
         PhotoQualityField = new javax.swing.JTextField();
-        PhotoQualityType = new EButton();
-        ResolutionFull = new EButton();
+        PhotoQualityType = new EButton(Parent);
+        ResolutionFull = new EButton(Parent);
         jLabel2 = new javax.swing.JLabel();
-        ColorModeRGB = new EButton();
-        ColorModeJP4 = new EButton();
+        ColorModeRGB = new EButton(Parent);
+        ColorModeJP4 = new EButton(Parent);
         jLabel3 = new javax.swing.JLabel();
-        StillsWhileRecAllow = new EButton();
-        StillsWhileRecDisable = new EButton();
-        SettingsCancelButton = new EButton();
+        StillsWhileRecAllow = new EButton(Parent);
+        StillsWhileRecDisable = new EButton(Parent);
+        SettingsCancelButton = new EButton(Parent);
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -328,7 +328,7 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PhotoSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PhotoSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(NavigationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 372, Short.MAX_VALUE)
