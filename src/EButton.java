@@ -265,20 +265,20 @@ public class EButton extends JButton implements java.io.Serializable {
             g2.setPaint(DefaultBorderColorDisabled);
             g2.setStroke(new BasicStroke(1));
             g2.drawRoundRect(BorderWidth - 1, BorderWidth - 1, x - 2 * (BorderWidth - 1), y - 2 * (BorderWidth - 1), this.CornerRadius, this.CornerRadius);
-        } else if (this.Checked) {
-            // Button Fill
-            g2.setPaint(CheckedGradient);
-            g2.fillRoundRect(BorderWidth * 2, BorderWidth * 2, x - BorderWidth * 4, y - BorderWidth * 4, this.CornerRadius - BorderWidth * 2, this.CornerRadius - BorderWidth * 2);
-            // Button Border
-            g2.setPaint(DefaultBorderColorChecked);
-            g2.setStroke(new BasicStroke(BorderWidth));
-            g2.drawRoundRect(BorderWidth, BorderWidth, x - 2 * BorderWidth, y - 2 * BorderWidth, this.CornerRadius, this.CornerRadius);
         } else if (this.isHighlighted()) {
             // Button Fill
             g2.setPaint(HighlightGradient);
             g2.fillRoundRect(BorderWidth * 2, BorderWidth * 2, x - BorderWidth * 4, y - BorderWidth * 4, this.CornerRadius - BorderWidth * 2, this.CornerRadius - BorderWidth * 2);
             // Button Border
             g2.setPaint(DefaultBorderColorHighlighted);
+            g2.setStroke(new BasicStroke(BorderWidth));
+            g2.drawRoundRect(BorderWidth, BorderWidth, x - 2 * BorderWidth, y - 2 * BorderWidth, this.CornerRadius, this.CornerRadius);
+        } else if (this.Checked) {
+            // Button Fill
+            g2.setPaint(CheckedGradient);
+            g2.fillRoundRect(BorderWidth * 2, BorderWidth * 2, x - BorderWidth * 4, y - BorderWidth * 4, this.CornerRadius - BorderWidth * 2, this.CornerRadius - BorderWidth * 2);
+            // Button Border
+            g2.setPaint(DefaultBorderColorChecked);
             g2.setStroke(new BasicStroke(BorderWidth));
             g2.drawRoundRect(BorderWidth, BorderWidth, x - 2 * BorderWidth, y - 2 * BorderWidth, this.CornerRadius, this.CornerRadius);
         } else {
@@ -293,14 +293,14 @@ public class EButton extends JButton implements java.io.Serializable {
         }
 
         // Button Text
-        if (Checked) {
-            g2.setPaint(DefaultTextColorChecked);
-        } else if (this.isEnabled()) {
-            g2.setPaint(this.getForeground());
+        if (this.isEnabled() == false) {
+            g2.setPaint(DefaultTextColorDisabled);
         } else if (this.isHighlighted()) {
             g2.setPaint(DefaultTextColorHighlighted);
+        } else if (this.Checked) {
+            g2.setPaint(DefaultTextColorChecked);
         } else {
-            g2.setPaint(DefaultTextColorDisabled);
+            g2.setPaint(this.getForeground());
         }
 
         //Draw Text
