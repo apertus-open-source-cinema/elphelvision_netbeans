@@ -82,20 +82,28 @@ public class EButton extends JButton implements java.io.Serializable {
         this.setFocusPainted(false);
         this.setMargin(new Insets(0, 0, 0, 0));
         this.setBorderPainted(false);
-        this.DefaultBorderColor = Parent.Utils.GetButtonBorderColor();
-        this.DefaultBorderColorChecked = Parent.Utils.GetButtonBorderColorChecked();
-        this.DefaultTextColor = Parent.Utils.GetButtonTextColor();
-        this.DefaultTextColorChecked = Parent.Utils.GetButtonTextColorChecked();
+        this.DefaultBorderColor = Parent.Settings.GetButtonBorderColor();
+        this.DefaultBorderColorChecked = Parent.Settings.GetButtonBorderColorChecked();
+        this.DefaultTextColor = Parent.Settings.GetButtonTextColor();
+        this.DefaultTextColorChecked = Parent.Settings.GetButtonTextColorChecked();
         this.setForeground(DefaultTextColor);
-        this.DefaultBackgroundColorGradientStart = Parent.Utils.GetButtonBackgroundColorGradientStart();
-        this.DefaultBackgroundColorGradientEnd = Parent.Utils.GetButtonBackgroundColorGradientEnd();
-        this.DefaultBackgroundColorCheckedGradientStart = Parent.Utils.GetButtonBackgroundColorCheckedGradientStart();
-        this.DefaultBackgroundColorCheckedGradientEnd = Parent.Utils.GetButtonBackgroundColorCheckedGradientEnd();
-        this.CornerRadius = Parent.Utils.GetButtonCornerRadius();
-        this.BorderWidth = Parent.Utils.GetButtonBorderWidth();
-        this.FontSize = Parent.Utils.GetButtonFontSize();
-        this.FontWeight = Parent.Utils.GetButtonFontWeight();
-        this.setFont(new Font(Parent.Utils.GetButtonFontName(), this.FontWeight, this.FontSize));
+        this.DefaultBackgroundColorGradientStart = Parent.Settings.GetButtonBackgroundColorGradientStart();
+        this.DefaultBackgroundColorGradientEnd = Parent.Settings.GetButtonBackgroundColorGradientEnd();
+        this.DefaultBackgroundColorCheckedGradientStart = Parent.Settings.GetButtonBackgroundColorCheckedGradientStart();
+        this.DefaultBackgroundColorCheckedGradientEnd = Parent.Settings.GetButtonBackgroundColorCheckedGradientEnd();
+        this.DefaultBorderColorDisabled = Parent.Settings.getButtonBorderColorDisabled();
+        this.DefaultBorderColorHighlighted = Parent.Settings.getButtonBorderColorHighlighted();
+        this.DefaultTextColorHighlighted = Parent.Settings.getButtonTextColorHighlighted();
+        this.DefaultTextColorDisabled = Parent.Settings.getButtonTextColorDisabled();
+        this.DefaultBackgroundColorDisabledGradientStart = Parent.Settings.getButtonBackgroundColorDisabledGradientStart();
+        this.DefaultBackgroundColorDisabledGradientEnd = Parent.Settings.getButtonBackgroundColorDisabledGradientEnd();
+        this.DefaultBackgroundColorHighlightedGradientStart = Parent.Settings.getButtonBackgroundColorHighlightedGradientStart();
+        this.DefaultBackgroundColorHighlightedGradientEnd = Parent.Settings.getButtonBackgroundColorHighlightedGradientEnd();
+        this.CornerRadius = Parent.Settings.GetButtonCornerRadius();
+        this.BorderWidth = Parent.Settings.GetButtonBorderWidth();
+        this.FontSize = Parent.Settings.GetButtonFontSize();
+        this.FontWeight = Parent.Settings.GetButtonFontWeight();
+        this.setFont(new Font(Parent.Settings.GetButtonFontName(), this.FontWeight, this.FontSize));
 
         addMouseListener(new java.awt.event.MouseAdapter() {
 
@@ -217,7 +225,7 @@ public class EButton extends JButton implements java.io.Serializable {
         this.repaint();
     }
 
-    public boolean getChecked() {
+    public boolean isChecked() {
         return this.Checked;
     }
 

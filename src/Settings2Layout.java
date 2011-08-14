@@ -31,7 +31,7 @@ public class Settings2Layout extends javax.swing.JPanel {
         Parent = parent;
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable()    {
+            java.awt.EventQueue.invokeAndWait(new Runnable() {
 
                 public void run() {
                     initComponents();
@@ -55,7 +55,9 @@ public class Settings2Layout extends javax.swing.JPanel {
         gamma.setValue(String.valueOf(Utils.Round(Parent.Camera.GetGamma(), 1)));
         gammacurve.SetControlPoints(6 + Parent.Camera.GetBlacklevel(), 256, 150, 256, 150, 0, 6 + 256, 0);
         Parent.VLCPlayer.SetCanvas(vlcoverlay);
-        Parent.StartVideoPlayer();
+        if (Parent.Settings.isVideoStreamEnabled()) {
+            Parent.StartVideoPlayer();
+        }
     }
 
     /* public void StartMplayerVideoStream() {
@@ -476,8 +478,9 @@ public class Settings2Layout extends javax.swing.JPanel {
         } catch (IOException ex) {
             Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        Parent.StopVideoPlayer();
+        if (Parent.Settings.isVideoStreamEnabled()) {
+            Parent.StopVideoPlayer();
+        }
         Parent.LoadMainCard();
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 

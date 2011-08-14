@@ -426,23 +426,23 @@ public class ResolutionSettings extends javax.swing.JPanel {
         
         Parent.Camera.SetPreset(CameraPreset.CUSTOM);
 
-        if (OrientationPortrait.getChecked()) {
+        if (OrientationPortrait.isChecked()) {
             Parent.Camera.SetImageOrientation(ImageOrientation.PORTRAIT);
         }
-        if (OrientationLandscape.getChecked()) {
+        if (OrientationLandscape.isChecked()) {
             Parent.Camera.SetImageOrientation(ImageOrientation.LANDSCAPE);
         }
 
-        if (!FlipHorizontal.getChecked() && !FlipVertical.getChecked()) {
+        if (!FlipHorizontal.isChecked() && !FlipVertical.isChecked()) {
             Parent.Camera.SetImageFlipMode(MirrorImage.NONE);
         }
-        if (FlipHorizontal.getChecked() && !FlipVertical.getChecked()) {
+        if (FlipHorizontal.isChecked() && !FlipVertical.isChecked()) {
             Parent.Camera.SetImageFlipMode(MirrorImage.HORIZONTAL);
         }
-        if (!FlipHorizontal.getChecked() && FlipVertical.getChecked()) {
+        if (!FlipHorizontal.isChecked() && FlipVertical.isChecked()) {
             Parent.Camera.SetImageFlipMode(MirrorImage.VERTICAL);
         }
-        if (FlipHorizontal.getChecked() && FlipVertical.getChecked()) {
+        if (FlipHorizontal.isChecked() && FlipVertical.isChecked()) {
             Parent.Camera.SetImageFlipMode(MirrorImage.VERTICALHORIZONTAL);
         }
 
@@ -462,10 +462,10 @@ public class ResolutionSettings extends javax.swing.JPanel {
     private void UpdateWidthLabel() {
         if (!WidthField.getText().isEmpty()) {
             int WidthValue = 0;
-            if (OrientationPortrait.getChecked()) {
+            if (OrientationPortrait.isChecked()) {
                 WidthValue = Integer.parseInt(HeightField.getText());
             }
-            if (OrientationLandscape.getChecked()) {
+            if (OrientationLandscape.isChecked()) {
                 WidthValue = Integer.parseInt(WidthField.getText());
             }
             if (WidthValue % 16 != 0) {
@@ -478,10 +478,10 @@ public class ResolutionSettings extends javax.swing.JPanel {
     private void UpdateHeightLabel() {
         if (!HeightField.getText().isEmpty()) {
             int HeightValue = 0;
-            if (OrientationPortrait.getChecked()) {
+            if (OrientationPortrait.isChecked()) {
                 HeightValue = Integer.parseInt(WidthField.getText());
             }
-            if (OrientationLandscape.getChecked()) {
+            if (OrientationLandscape.isChecked()) {
                 HeightValue = Integer.parseInt(HeightField.getText());
             }
             if (HeightValue % 16 != 0) {
@@ -515,7 +515,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
     }//GEN-LAST:event_OrientationPortraitActionPerformed
 
     private void FlipHorizontalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlipHorizontalActionPerformed
-        if (FlipHorizontal.getChecked()) {
+        if (FlipHorizontal.isChecked()) {
             FlipHorizontal.setChecked(false);
         } else {
             FlipHorizontal.setChecked(true);
@@ -523,7 +523,7 @@ public class ResolutionSettings extends javax.swing.JPanel {
     }//GEN-LAST:event_FlipHorizontalActionPerformed
 
     private void FlipVerticalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlipVerticalActionPerformed
-        if (FlipVertical.getChecked()) {
+        if (FlipVertical.isChecked()) {
             FlipVertical.setChecked(false);
         } else {
             FlipVertical.setChecked(true);

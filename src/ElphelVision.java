@@ -45,7 +45,7 @@ import javax.swing.text.StyledDocument;
 public class ElphelVision extends Panel implements ActionListener, Runnable {
 
     //private static final long serialVersionUID = 21L;
-    String AppVersion = "0.54";
+    String AppVersion = "0.55";
     Camera Camera; // class containing all camera specific information
     UserSettings Settings; // class containing user settings
     VLCPlayer VLCPlayer = null; // VLC Video player class dealing with video streaming
@@ -123,6 +123,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         }
 
         Utils = new Utils();
+        Settings = new UserSettings();
 
         //Load Style Definitions
         WriteLogtoConsole("Looking for default.style");
@@ -130,7 +131,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
         if (StyleFile.exists()) {
             try {
-                if (Utils.LoadStyles("default.style")) {
+                if (Settings.LoadStyles("default.style")) {
                     WriteLogtoConsole("default.style found - Styles Loaded");
                 } else {
                     WriteWarningtoConsole("Problem loading default.style");
@@ -207,12 +208,15 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         if (NoCameraParameter) {
             // TODO we have no test.avi yet
             VLCPlayer.PlayLocalVideoFile("test.avi");
+            WriteLogtoConsole("Starting Dummy Video Stream");
         } else {
             if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
                 GstreamerPlayer.PlayVideoStream();
+                WriteLogtoConsole("Starting GStreamer Video");
             }
             if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
                 VLCPlayer.PlayVideoStream();
+                WriteLogtoConsole("Starting VLC Video");
             }
         }
     }
@@ -347,8 +351,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
         //Init everything
         Camera = new Camera(this);
-        Settings = new UserSettings();
-
+        
         String osname = System.getProperty("os.name");
         if (osname.startsWith("Windows")) {
             Settings.SetOS(OStype.Windows);
@@ -414,7 +417,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             MaincardLayoutVLC.Load();
             cl.show(GetCardManager(), "MainCardVLC");
         }
-        StartVideoPlayer();
+        //StartVideoPlayer();
     }
 
     public void UpdateOverlayPosition() {

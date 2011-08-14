@@ -85,7 +85,6 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="+"/>
                     <Property name="alignmentY" type="float" value="0.0"/>
-                    <Property name="clickFeedback" type="boolean" value="true"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="incvalue2ActionPerformed"/>
@@ -118,7 +117,6 @@
                 <Component class="EButton" name="decvalue3">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="&#x2012;"/>
-                    <Property name="clickFeedback" type="boolean" value="true"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decvalue3ActionPerformed"/>
@@ -169,7 +167,6 @@
                 <Component class="EButton" name="incvalue1">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="+"/>
-                    <Property name="clickFeedback" type="boolean" value="true"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="incvalue1ActionPerformed"/>
@@ -186,7 +183,6 @@
                 <Component class="EButton" name="decvalue1">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="&#x2012;"/>
-                    <Property name="clickFeedback" type="boolean" value="true"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decvalue1ActionPerformed"/>
@@ -415,7 +411,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Still"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
-                <Property name="clickFeedback" type="boolean" value="true"/>
                 <Property name="doubleBuffered" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
                   <FontInfo relative="true">
@@ -592,6 +587,7 @@
                   <Component id="eButton8" alignment="0" pref="90" max="32767" attributes="1"/>
                   <Component id="eButton9" alignment="0" pref="90" max="32767" attributes="1"/>
                   <Component id="DatarateMonitor" alignment="1" max="32767" attributes="1"/>
+                  <Component id="LiveVideoButton" alignment="1" pref="90" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -614,7 +610,9 @@
                       <Component id="eButton8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="eButton9" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="92" max="32767" attributes="0"/>
+                      <EmptySpace pref="45" max="32767" attributes="0"/>
+                      <Component id="LiveVideoButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -623,7 +621,6 @@
             <Component class="EButton" name="eButton1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="2:1"/>
-                <Property name="clickFeedback" type="boolean" value="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eButton1ActionPerformed"/>
@@ -635,7 +632,6 @@
             <Component class="EButton" name="eButton3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="fit"/>
-                <Property name="clickFeedback" type="boolean" value="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eButton3ActionPerformed"/>
@@ -647,7 +643,6 @@
             <Component class="EButton" name="eButton4">
               <Properties>
                 <Property name="text" type="java.lang.String" value="1:1"/>
-                <Property name="clickFeedback" type="boolean" value="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eButton4ActionPerformed"/>
@@ -686,7 +681,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="RGB"/>
                 <Property name="toolTipText" type="java.lang.String" value="RGB 24bit color mode"/>
-                <Property name="clickFeedback" type="boolean" value="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eButton6ActionPerformed"/>
@@ -698,7 +692,6 @@
             <Component class="EButton" name="eButton8">
               <Properties>
                 <Property name="text" type="java.lang.String" value="JP46 RAW"/>
-                <Property name="clickFeedback" type="boolean" value="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eButton8ActionPerformed"/>
@@ -710,7 +703,6 @@
             <Component class="EButton" name="eButton9">
               <Properties>
                 <Property name="text" type="java.lang.String" value="JP4 RAW"/>
-                <Property name="clickFeedback" type="boolean" value="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eButton9ActionPerformed"/>
@@ -742,6 +734,18 @@
                 </DimensionLayout>
               </Layout>
             </Container>
+            <Component class="EButton" name="LiveVideoButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Live Video"/>
+                <Property name="checked" type="boolean" value="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LiveVideoButtonActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EButton(Parent);"/>
+              </AuxValues>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

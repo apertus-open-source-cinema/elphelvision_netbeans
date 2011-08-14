@@ -36,7 +36,7 @@ public class PlaybackLayout extends javax.swing.JPanel {
 
                 public void run() {
                     initComponents();
-                    bg.setBackground(Parent.Utils.GetPanelBackgroundColor());
+                    bg.setBackground(Parent.Settings.GetPanelBackgroundColor());
                 }
             });
         } catch (Exception ex) {

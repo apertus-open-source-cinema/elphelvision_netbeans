@@ -20,11 +20,16 @@
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Action;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
@@ -46,19 +51,19 @@ public class MainLayoutVLC extends JPanel {
 
                 public void run() {
                     initComponents();
-                    bg.setBackground(Parent.Utils.GetPanelBackgroundColor());
-                    ShutterPanel.setBackground(Parent.Utils.GetPanelBackgroundColor());
-                    InfoPanel.setBackground(Parent.Utils.GetPanelBackgroundColor());
-                    ParameterPanel.setBackground(Parent.Utils.GetPanelBackgroundColor());
-                    QuickPanel.setBackground(Parent.Utils.GetPanelBackgroundColor());
-                    GainPanel.setBackground(Parent.Utils.GetPanelBackgroundColor());
-                    ScaleLabel.setForeground(Parent.Utils.GetTextColor());
-                    ColorModeLabel.setForeground(Parent.Utils.GetTextColor());
-                    NoticeArea.setBackground(Parent.Utils.GetPanelBackgroundColor());
-                    InfoTextPane.setBackground(Parent.Utils.GetPanelBackgroundColor());
-                    InfoTextPane.setForeground(Parent.Utils.GetTextColor());
-                    DatarateMonitor.setBackground(Parent.Utils.GetPanelBackgroundColor());
-                    DatarateMonitor.setForeground(Parent.Utils.GetTextColor());
+                    bg.setBackground(Parent.Settings.GetPanelBackgroundColor());
+                    ShutterPanel.setBackground(Parent.Settings.GetPanelBackgroundColor());
+                    InfoPanel.setBackground(Parent.Settings.GetPanelBackgroundColor());
+                    ParameterPanel.setBackground(Parent.Settings.GetPanelBackgroundColor());
+                    QuickPanel.setBackground(Parent.Settings.GetPanelBackgroundColor());
+                    GainPanel.setBackground(Parent.Settings.GetPanelBackgroundColor());
+                    ScaleLabel.setForeground(Parent.Settings.GetTextColor());
+                    ColorModeLabel.setForeground(Parent.Settings.GetTextColor());
+                    NoticeArea.setBackground(Parent.Settings.GetPanelBackgroundColor());
+                    InfoTextPane.setBackground(Parent.Settings.GetPanelBackgroundColor());
+                    InfoTextPane.setForeground(Parent.Settings.GetTextColor());
+                    DatarateMonitor.setBackground(Parent.Settings.GetPanelBackgroundColor());
+                    DatarateMonitor.setForeground(Parent.Settings.GetTextColor());
                 }
             });
         } catch (Exception ex) {
@@ -102,10 +107,10 @@ public class MainLayoutVLC extends JPanel {
         }
         Guidesoverlay.SetVisibility(true); // DEBUG
 
-
         Parent.VLCPlayer.SetCanvas(vlcoverlay);
-        Parent.WriteLogtoConsole("Starting VLC Video Stream");
-        Parent.StartVideoPlayer();
+        if (Parent.Settings.isVideoStreamEnabled()) {
+            Parent.StartVideoPlayer();
+        }
 
         ExposureButton.setChecked(true);
         ExposureButton.setValue(Parent.Camera.GetExposure());
@@ -119,7 +124,6 @@ public class MainLayoutVLC extends JPanel {
         }
 
         DatarateMonitor.startAnimator();
-
     }
 
     public void UpdateOverlayPosition() {
@@ -202,6 +206,7 @@ public class MainLayoutVLC extends JPanel {
         eButton8 = new EButton(Parent);
         eButton9 = new EButton(Parent);
         DatarateMonitor = new DatarateMonitor();
+        LiveVideoButton = new EButton(Parent);
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -554,6 +559,14 @@ public class MainLayoutVLC extends JPanel {
             .addGap(0, 40, Short.MAX_VALUE)
         );
 
+        LiveVideoButton.setText("Live Video");
+        LiveVideoButton.setChecked(true);
+        LiveVideoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LiveVideoButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout QuickPanelLayout = new javax.swing.GroupLayout(QuickPanel);
         QuickPanel.setLayout(QuickPanelLayout);
         QuickPanelLayout.setHorizontalGroup(
@@ -567,6 +580,7 @@ public class MainLayoutVLC extends JPanel {
             .addComponent(eButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
             .addComponent(eButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
             .addComponent(DatarateMonitor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(LiveVideoButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
         );
         QuickPanelLayout.setVerticalGroup(
             QuickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -588,7 +602,9 @@ public class MainLayoutVLC extends JPanel {
                 .addComponent(eButton8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(eButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(LiveVideoButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         bg.add(QuickPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 50, 90, -1));
@@ -876,6 +892,17 @@ public class MainLayoutVLC extends JPanel {
         }
     }//GEN-LAST:event_decvalue3ActionPerformed
 
+    private void LiveVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LiveVideoButtonActionPerformed
+        if (LiveVideoButton.isChecked()) {
+            Parent.Settings.setVideoStreamEnabled(false);
+            Parent.StopVideoPlayer();
+        } else {
+            Parent.Settings.setVideoStreamEnabled(true);
+            Parent.StartVideoPlayer();
+        }
+        LiveVideoButton.ToggleChecked();
+    }//GEN-LAST:event_LiveVideoButtonActionPerformed
+
     public void EnableRecord(boolean val) {
         this.RecordButton.setEnabled(val);
     }
@@ -892,6 +919,7 @@ public class MainLayoutVLC extends JPanel {
     private javax.swing.JPanel GainPanel;
     private javax.swing.JPanel InfoPanel;
     private javax.swing.JTextPane InfoTextPane;
+    private EButton LiveVideoButton;
     private javax.swing.JTextPane NoticeArea;
     private javax.swing.JPanel ParameterPanel;
     private EButton PlaybackButton;

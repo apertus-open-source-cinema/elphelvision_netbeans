@@ -20,14 +20,15 @@
 
 //import com.sun.opengl.util.Animator;
 import java.awt.CardLayout;
-import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 //import javax.swing.SwingUtilities;
 //import javax.media.opengl.GLCapabilities;
 //import javax.media.opengl.GLJPanel;
@@ -46,11 +47,11 @@ public class ConnectLayout extends javax.swing.JPanel {
 
                 public void run() {
                     initComponents();
-                    bg.setBackground(Parent.Utils.GetPanelBackgroundColor());
-                    TitleBackground.setBackground(Parent.Utils.GetPanelBackgroundColor());
-                    ConnectPanel.setBackground(Parent.Utils.GetPanelBackgroundColor());
-                    Title.setForeground(Parent.Utils.GetTextColor());
-                    Camera1IPLabel.setForeground(Parent.Utils.GetTextColor());
+                    bg.setBackground(Parent.Settings.GetPanelBackgroundColor());
+                    TitleBackground.setBackground(Parent.Settings.GetPanelBackgroundColor());
+                    ConnectPanel.setBackground(Parent.Settings.GetPanelBackgroundColor());
+                    Title.setForeground(Parent.Settings.GetTextColor());
+                    Camera1IPLabel.setForeground(Parent.Settings.GetTextColor());
 
                     Title.setText("Elphel Vision Alpha " + Parent.GetAppVersion());
                     if (Parent.Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
@@ -110,6 +111,18 @@ public class ConnectLayout extends javax.swing.JPanel {
                 }
             }
         }.start();
+
+        // Tests to deal with keyboard shortcuts
+        ActionListener actionListener = new ActionListener() {
+
+            public void actionPerformed(ActionEvent actionEvent) {
+                Parent.WriteLogtoConsole("keypressed: " + actionEvent.paramString());
+            }
+        };
+        KeyStroke up = KeyStroke.getKeyStroke('c');
+        this.registerKeyboardAction(actionListener, "c childfocus", up, JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        this.registerKeyboardAction(actionListener, "c focus", up, JComponent.WHEN_IN_FOCUSED_WINDOW);
+        this.requestFocus();
     }
 
     /*    @Override
@@ -345,7 +358,7 @@ public class ConnectLayout extends javax.swing.JPanel {
     private void Stereo3DButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Stereo3DButtonMouseClicked
         Stereo3DButton.ToggleChecked();
 
-        if (Stereo3DButton.getChecked()) {
+        if (Stereo3DButton.isChecked()) {
             CameraIP2.setEnabled(true);
             IP2_type.setEnabled(true);
         } else {
@@ -371,7 +384,7 @@ public class ConnectLayout extends javax.swing.JPanel {
                         Stereo3DButton.setChecked(false);
                     }
 
-                    if (Stereo3DButton.getChecked()) {
+                    if (Stereo3DButton.isChecked()) {
                         Parent.WriteLogtoConsole("Trying to connect to Dual Camera Stereo 3D setup: " + CameraIP.getText() + " and " + CameraIP2.getText());
                     } else {
                         Parent.WriteLogtoConsole("Trying to connect to: " + CameraIP.getText());
@@ -380,7 +393,7 @@ public class ConnectLayout extends javax.swing.JPanel {
 
                 if (!Parent.GetNoCameraParameter()) {
                     try {
-                        if (Stereo3DButton.getChecked()) {
+                        if (Stereo3DButton.isChecked()) {
                             Parent.Camera.SetIP(new String[]{CameraIP.getText(), CameraIP2.getText()});
                         } else {
                             Parent.Camera.SetIP(new String[]{CameraIP.getText()});
@@ -399,13 +412,13 @@ public class ConnectLayout extends javax.swing.JPanel {
                                 } else {
                                     Parent.WriteWarningtoConsole("HDD detection failed");
                                 }
-                                if (VLCButton.getChecked()) {
+                                if (VLCButton.isChecked()) {
                                     Parent.WriteLogtoConsole("Loading Main Window with VLC Player");
                                     Parent.MaincardLayoutVLC.Load();
                                     CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
                                     cl.show(Parent.CardManager, "MainCardVLC");
                                 }
-                                if (GstreamerButton.getChecked()) {
+                                if (GstreamerButton.isChecked()) {
                                     Parent.WriteLogtoConsole("Loading Main Window with Gstreamer");
                                     Parent.MaincardLayoutGST.Load();
                                     CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
@@ -450,7 +463,6 @@ public class ConnectLayout extends javax.swing.JPanel {
     private void ExitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitButtonMouseClicked
         System.exit(0);
     }//GEN-LAST:event_ExitButtonMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Camera1IPLabel;
     private javax.swing.JTextField CameraIP;

@@ -51,7 +51,7 @@ public class GuidesLayout extends javax.swing.JPanel {
         ThirdsButton.setChecked(Parent.Camera.GetGuides()[2]);
         SafeAreaButton.setChecked(Parent.Camera.GetGuides()[3]);
 
-        guidespreview1.SetOptions(CenterXButton.getChecked(), OuterXButton.getChecked(), ThirdsButton.getChecked(), SafeAreaButton.getChecked());
+        guidespreview1.SetOptions(CenterXButton.isChecked(), OuterXButton.isChecked(), ThirdsButton.isChecked(), SafeAreaButton.isChecked());
         RedrawPreviewArea();
     }
 
@@ -285,7 +285,7 @@ public class GuidesLayout extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SettingsCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsCancelButtonActionPerformed
-        Parent.Camera.SetGuides(CenterXButton.getChecked(), OuterXButton.getChecked(), ThirdsButton.getChecked(), SafeAreaButton.getChecked());
+        Parent.Camera.SetGuides(CenterXButton.isChecked(), OuterXButton.isChecked(), ThirdsButton.isChecked(), SafeAreaButton.isChecked());
 
         try { // Save to config file
             Parent.Camera.WriteConfigFile("autosave.config");
@@ -297,26 +297,26 @@ public class GuidesLayout extends javax.swing.JPanel {
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void CenterXButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CenterXButtonActionPerformed
-        CenterXButton.setChecked(!CenterXButton.getChecked());
-        guidespreview1.SetOptions(CenterXButton.getChecked(), OuterXButton.getChecked(), ThirdsButton.getChecked(), SafeAreaButton.getChecked());
+        CenterXButton.setChecked(!CenterXButton.isChecked());
+        guidespreview1.SetOptions(CenterXButton.isChecked(), OuterXButton.isChecked(), ThirdsButton.isChecked(), SafeAreaButton.isChecked());
         RedrawPreviewArea();
     }//GEN-LAST:event_CenterXButtonActionPerformed
 
     private void ThirdsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThirdsButtonActionPerformed
-        ThirdsButton.setChecked(!ThirdsButton.getChecked());
-        guidespreview1.SetOptions(CenterXButton.getChecked(), OuterXButton.getChecked(), ThirdsButton.getChecked(), SafeAreaButton.getChecked());
+        ThirdsButton.setChecked(!ThirdsButton.isChecked());
+        guidespreview1.SetOptions(CenterXButton.isChecked(), OuterXButton.isChecked(), ThirdsButton.isChecked(), SafeAreaButton.isChecked());
         RedrawPreviewArea();
     }//GEN-LAST:event_ThirdsButtonActionPerformed
 
     private void SafeAreaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SafeAreaButtonActionPerformed
-        SafeAreaButton.setChecked(!SafeAreaButton.getChecked());
-        guidespreview1.SetOptions(CenterXButton.getChecked(), OuterXButton.getChecked(), ThirdsButton.getChecked(), SafeAreaButton.getChecked());
+        SafeAreaButton.setChecked(!SafeAreaButton.isChecked());
+        guidespreview1.SetOptions(CenterXButton.isChecked(), OuterXButton.isChecked(), ThirdsButton.isChecked(), SafeAreaButton.isChecked());
         RedrawPreviewArea();
     }//GEN-LAST:event_SafeAreaButtonActionPerformed
 
     private void OuterXButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OuterXButtonActionPerformed
-        OuterXButton.setChecked(!OuterXButton.getChecked());
-        guidespreview1.SetOptions(CenterXButton.getChecked(), OuterXButton.getChecked(), ThirdsButton.getChecked(), SafeAreaButton.getChecked());
+        OuterXButton.setChecked(!OuterXButton.isChecked());
+        guidespreview1.SetOptions(CenterXButton.isChecked(), OuterXButton.isChecked(), ThirdsButton.isChecked(), SafeAreaButton.isChecked());
         RedrawPreviewArea();
     }//GEN-LAST:event_OuterXButtonActionPerformed
 

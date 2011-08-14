@@ -75,7 +75,7 @@ public class FPSSettings extends javax.swing.JPanel {
             FPS = Float.parseFloat(FPSField.getText());
         }
 
-        if (SkipSecondsButton.getChecked()) {
+        if (SkipSecondsButton.isChecked()) {
             if (SkipSecondsField.getText().isEmpty() || SkipSecondsField.getText().equals("0")) {
                 if (!FPSField.getText().isEmpty()) {
                     CalculatedFPS.setText("resulting FPS: " + FPS);
@@ -84,7 +84,7 @@ public class FPSSettings extends javax.swing.JPanel {
                 CalculatedFPS.setText("resulting FPS: " + Utils.Round(1.0f / (Float.parseFloat(SkipSecondsField.getText())), 2));
             }
         }
-        if (SkipFramesButton.getChecked()) {
+        if (SkipFramesButton.isChecked()) {
             if (SkipFramesField.getText().isEmpty() || SkipFramesField.getText().equals("0")) {
                 if (!FPSField.getText().isEmpty()) {
                     CalculatedFPS.setText("resulting FPS: " + FPS);
@@ -364,11 +364,11 @@ public class FPSSettings extends javax.swing.JPanel {
     private void SettingsOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsOKButtonActionPerformed
         Parent.Camera.SetFPS(Float.parseFloat(FPSField.getText()));
 
-        if (SkipSecondsButton.getChecked()) {
+        if (SkipSecondsButton.isChecked()) {
             Parent.Camera.SetFPSSkipSeconds(Integer.parseInt(SkipSecondsField.getText()));
             //Parent.Camera.SetFPSSkipFrames(0);
         }
-        if (SkipFramesButton.getChecked()) {
+        if (SkipFramesButton.isChecked()) {
             //Parent.Camera.SetFPSSkipSeconds(0);
             Parent.Camera.SetFPSSkipFrames(Integer.parseInt(SkipFramesField.getText()));
         }
