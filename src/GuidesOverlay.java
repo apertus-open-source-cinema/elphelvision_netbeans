@@ -23,7 +23,6 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.Rectangle;
 
-import java.util.Random;
 
 public class GuidesOverlay extends javax.swing.JFrame implements javax.swing.RootPaneContainer {
 

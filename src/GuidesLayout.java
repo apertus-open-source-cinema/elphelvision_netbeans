@@ -68,7 +68,6 @@ public class GuidesLayout extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PhotoSettingsMenu = new EButton();
         bg = new javax.swing.JPanel();
         ConfirmationPanel = new javax.swing.JPanel();
         SettingsCancelButton = new EButton(Parent);
@@ -84,13 +83,6 @@ public class GuidesLayout extends javax.swing.JPanel {
         SettingsMenu3Button = new EButton(Parent);
         PhotoSettingsMenu1 = new EButton(Parent);
         GuidesMenuButton1 = new EButton(Parent);
-
-        PhotoSettingsMenu.setText("Photo Settings");
-        PhotoSettingsMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PhotoSettingsMenuActionPerformed(evt);
-            }
-        });
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -250,7 +242,7 @@ public class GuidesLayout extends javax.swing.JPanel {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addComponent(NavigationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
                         .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(guidespreview1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,7 +257,7 @@ public class GuidesLayout extends javax.swing.JPanel {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(guidespreview1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(NavigationPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ConfirmationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -341,24 +333,18 @@ public class GuidesLayout extends javax.swing.JPanel {
         Parent.Settings3CardLayout.Load();
 }//GEN-LAST:event_SettingsMenu3ButtonActionPerformed
 
-    private void PhotoSettingsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhotoSettingsMenuActionPerformed
-        Parent.PhotoSettingsCardLayout.Load();
-        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "PhotoSettings");
-}//GEN-LAST:event_PhotoSettingsMenuActionPerformed
-
     private void PhotoSettingsMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhotoSettingsMenu1ActionPerformed
         Parent.PhotoSettingsCardLayout.Load();
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "PhotoSettings");
 }//GEN-LAST:event_PhotoSettingsMenu1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton CenterXButton;
     private javax.swing.JPanel ConfirmationPanel;
     private EButton GuidesMenuButton1;
     private javax.swing.JPanel NavigationPanel1;
     private EButton OuterXButton;
-    private EButton PhotoSettingsMenu;
     private EButton PhotoSettingsMenu1;
     private EButton SafeAreaButton;
     private EButton SettingsCancelButton;

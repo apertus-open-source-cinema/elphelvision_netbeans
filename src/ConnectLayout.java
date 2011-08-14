@@ -412,21 +412,24 @@ public class ConnectLayout extends javax.swing.JPanel {
                                 } else {
                                     Parent.WriteWarningtoConsole("HDD detection failed");
                                 }
-                                if (VLCButton.isChecked()) {
-                                    Parent.WriteLogtoConsole("Loading Main Window with VLC Player");
-                                    Parent.MaincardLayoutVLC.Load();
-                                    CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
-                                    cl.show(Parent.CardManager, "MainCardVLC");
-                                }
-                                if (GstreamerButton.isChecked()) {
-                                    Parent.WriteLogtoConsole("Loading Main Window with Gstreamer");
-                                    Parent.MaincardLayoutGST.Load();
-                                    CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
-                                    cl.show(Parent.CardManager, "MainCardGST");
-                                }
                             } else {
                                 Parent.WriteErrortoConsole("ConnectButtonActionPerformed() Connecting to: " + CameraIP.getText() + " failed");
                             }
+                        }
+                        if (Stereo3DButton.isChecked()) {
+                            Parent.Camera.InitStereo3DSettings();
+                        }
+                        if (VLCButton.isChecked()) {
+                            Parent.WriteLogtoConsole("Loading Main Window with VLC Player");
+                            Parent.MaincardLayoutVLC.Load();
+                            CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
+                            cl.show(Parent.CardManager, "MainCardVLC");
+                        }
+                        if (GstreamerButton.isChecked()) {
+                            Parent.WriteLogtoConsole("Loading Main Window with Gstreamer");
+                            Parent.MaincardLayoutGST.Load();
+                            CardLayout cl = (CardLayout) (Parent.CardManager.getLayout());
+                            cl.show(Parent.CardManager, "MainCardGST");
                         }
                     } catch (Exception e) {
                         Parent.WriteErrortoConsole("ConnectButtonActionPerformed() Connecting failed: " + e.getMessage());

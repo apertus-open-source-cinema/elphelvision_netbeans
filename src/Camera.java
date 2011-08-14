@@ -1149,6 +1149,52 @@ public class Camera {
         return ReturnValue;
     }
 
+    public boolean InitStereo3DSettings() {
+        boolean error = false;
+        this.CameraUrl = new URL[this.IP.length];
+        URLConnection conn = null;
+        BufferedReader data = null;
+
+        String camera_url1 = "http://" + this.IP[0] + "/ElphelVision/elphelvision_interface.php?cmd=init_stereo3d_master";
+        try {
+            this.CameraUrl[0] = new URL(camera_url1);
+            error = true;
+        } catch (MalformedURLException e) {
+            System.out.println("Bad URL: " + this.CameraUrl);
+            error = false;
+        }
+        try {
+            conn = this.CameraUrl[0].openConnection();
+            conn.connect();
+            Parent.WriteLogtoConsole(this.IP[0] + ": Setting Trigger Parameters");
+
+            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            data.close();
+        } catch (IOException e) {
+            Parent.WriteErrortoConsole("InitStereo3DSettings: " + e.getMessage());
+        }
+
+        String camera_url2 = "http://" + this.IP[1] + "/ElphelVision/elphelvision_interface.php?cmd=init_stereo3d_slave";
+        try {
+            this.CameraUrl[1] = new URL(camera_url2);
+            error = true;
+        } catch (MalformedURLException e) {
+            System.out.println("Bad URL: " + this.CameraUrl);
+            error = false;
+        }
+        try {
+            conn = this.CameraUrl[1].openConnection();
+            conn.connect();
+            Parent.WriteLogtoConsole(this.IP[1] + ": Setting Trigger Parameters");
+
+            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            data.close();
+        } catch (IOException e) {
+            Parent.WriteErrortoConsole("InitStereo3DSettings: " + e.getMessage());
+        }
+        return error;
+    }
+
     public void SetParameter(int CameraIPIndex, CameraParameter par, float value) {
         switch (par) {
             case EXPOSURE:
