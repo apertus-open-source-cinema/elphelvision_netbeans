@@ -1,6 +1,3 @@
-
-
-
 /*! Copyright (C) 20010 Apertus, All Rights Reserved
  *! Author : Apertus Team
  *! Description: Class to store helper functions and handy utilities.
@@ -20,9 +17,10 @@
  *!  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *!
 -----------------------------------------------------------------------------**/
-public class Utils {
 
+public class Utils {
     // round a float value to a certain number of decimals
+
     public static float Round(float Rval, int decimals) {
         float p = (float) Math.pow(10, decimals);
         Rval = Rval * p;
@@ -43,9 +41,13 @@ public class Utils {
     }
     // Experimental = not yet working way to play audio files within ElphelVision
     private Audio AudioEngine;
+    AudioRecorder SoundRecorder;
+    ElphelVision Parent;
 
-    public void Utils() {
+    public Utils(ElphelVision parent) {
+        Parent = parent;
         AudioEngine = new Audio();
+        SoundRecorder = new AudioRecorder(Parent);
     }
 
     public void PlayAudio(String filename) {

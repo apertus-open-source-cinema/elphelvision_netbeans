@@ -58,6 +58,11 @@ enum RecordFormat {
     MOV, OGM, JPEG
 }
 
+enum Trigger {
+
+    FREERUNNING, TRIGGERED
+}
+
 enum CameraParameter {
 
     EXPOSURE, GAIN, GAMMA, PRESET, AUTOEXP, JPEGQUAL, COLORMODE, FPS, SENSORWIDTH, SENSORHEIGHT, WHITEBALANCE, RECORDFORMAT
@@ -133,6 +138,10 @@ public class Camera {
     private int CoringIndex;
     private int FPSSkipSeconds;
     private int FPSSkipFrames;
+    private Trigger FrameTrigger = Trigger.FREERUNNING;
+    private int TriggerPeriod = 0;
+    private int TriggerOut = 0;
+    private int TriggerCondition = 0;
     private int FrameSizeBytes;
     private int BufferOverruns;
     private boolean AutoExposure = false;
@@ -1814,8 +1823,14 @@ public class Camera {
                     break;
 
                 case FPS:
-                    float fps_parameter = value * 1000;
-                    param_url = "http://" + this.IP[CameraIPIndex] + "/ElphelVision/setparam.php?framedelay=3&FPSFLAGS=1&FP1000SLIM=" + fps_parameter;
+                    if (this.FrameTrigger == Trigger.FREERUNNING) {
+                        float fps_parameter = value * 1000;
+                        param_url = "http://" + this.IP[CameraIPIndex] + "/ElphelVision/setparam.php?framedelay=3&FPSFLAGS=1&FP1000SLIM=" + fps_parameter;
+                    } else if (this.FrameTrigger == Trigger.TRIGGERED){
+                        float fps_parameter = value * 1000;
+                        int trig_period = (int) (96000000 / value);
+                        param_url = "http://" + this.IP[CameraIPIndex] + "/ElphelVision/setparam.php?framedelay=3&FPSFLAGS=0&FP1000SLIM=" + fps_parameter + "&TRIG_PERIOD=" + trig_period;
+                    }
                     break;
 
                 case SENSORHEIGHT:
@@ -2290,7 +2305,6 @@ public class Camera {
                     if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
                         Element fstElmnt = (Element) fstNode;
                         NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("image_width");
-
                         Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
                         NodeList fstNm = fstNmElmnt.getChildNodes();
                         this.ImageWidth = Integer.parseInt(((Node) fstNm.item(0)).getNodeValue());
@@ -2432,7 +2446,6 @@ public class Camera {
                             if (this.Gain_G == 16.0f) {
                                 this.GainIndex = 0;
                             }
-
                         }
 
                         NodeList NmElmntLstGainGB = fstElmnt.getElementsByTagName("gain_gb");
@@ -2538,6 +2551,39 @@ public class Camera {
                             }
                             this.BufferOverruns = tempvalue;
                         }
+
+                        NodeList NmElmntLstTrigger = fstElmnt.getElementsByTagName("trigger");
+                        Element NmElmntTrigger = (Element) NmElmntLstTrigger.item(0);
+                        NodeList ElmntTrigger = NmElmntTrigger.getChildNodes();
+                        if (((Node) ElmntTrigger.item(0)) != null) {
+                            int trigger = Integer.parseInt(((Node) ElmntTrigger.item(0)).getNodeValue());
+                            if (trigger == 0) {
+                                this.FrameTrigger = Trigger.FREERUNNING;
+                            } else if (trigger == 4) {
+                                this.FrameTrigger = Trigger.TRIGGERED;
+                            }
+                        }
+
+                        NodeList NmElmntLstTriggerPeriod = fstElmnt.getElementsByTagName("trigger_period");
+                        Element NmElmntTriggerPeriod = (Element) NmElmntLstTriggerPeriod.item(0);
+                        NodeList ElmntTriggerPeriod = NmElmntTriggerPeriod.getChildNodes();
+                        if (((Node) ElmntTriggerPeriod.item(0)) != null) {
+                            this.TriggerPeriod = Integer.parseInt(((Node) ElmntTriggerPeriod.item(0)).getNodeValue());
+                        }
+
+                        NodeList NmElmntLstTriggerCondition = fstElmnt.getElementsByTagName("trigger_condition");
+                        Element NmElmntTriggerCondition = (Element) NmElmntLstTriggerCondition.item(0);
+                        NodeList ElmntTriggerCondition = NmElmntTriggerCondition.getChildNodes();
+                        if (((Node) ElmntTriggerCondition.item(0)) != null) {
+                            this.TriggerCondition = Integer.parseInt(((Node) ElmntTriggerCondition.item(0)).getNodeValue());
+                        }
+
+                        NodeList NmElmntLstTriggerOut = fstElmnt.getElementsByTagName("trigger_out");
+                        Element NmElmntTriggerOut = (Element) NmElmntLstTriggerOut.item(0);
+                        NodeList ElmntTriggerOut = NmElmntTriggerOut.getChildNodes();
+                        if (((Node) ElmntTriggerOut.item(0)) != null) {
+                            this.TriggerOut = Integer.parseInt(((Node) ElmntTriggerOut.item(0)).getNodeValue());
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -2639,6 +2685,61 @@ public class Camera {
         }
         if (Parent.Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
             Parent.MaincardLayoutVLC.AddNoticeMessage("Buffer Overrun - likely had to drop frames!");
+        }
+    }
+
+    public Trigger getFrameTrigger() {
+        return FrameTrigger;
+    }
+
+    public void setFrameTrigger(Trigger newFrameTrigger) {
+        this.FrameTrigger = newFrameTrigger;
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting FrameTrigger to " + newFrameTrigger);
+            if (FrameTrigger == Trigger.FREERUNNING) {
+                this.SendParametertoCamera(i, "TRIG=0");
+            } else if (FrameTrigger == Trigger.TRIGGERED) {
+                this.SendParametertoCamera(i, "TRIG=4");
+            }
+        }
+    }
+
+    public int getTriggerPeriod() {
+        return TriggerPeriod;
+    }
+
+    /**
+     * @param TRIG_PERIOD = 96MHz / FPS
+     */
+    public void setTriggerPeriod(int TriggerPeriod) {
+        this.TriggerPeriod = TriggerPeriod;
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting TriggerPeriod to " + TriggerPeriod);
+            this.SendParametertoCamera(i, "TRIG_PERIOD=" + TriggerPeriod);
+        }
+    }
+
+    public int getTriggerOut() {
+        return TriggerOut;
+    }
+
+    public void setTriggerOut(int TriggerOut) {
+        this.TriggerOut = TriggerOut;
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting TriggerOut to " + TriggerOut);
+            this.SendParametertoCamera(i, "TRIG_OUT=" + TriggerOut);
+        }
+    }
+
+    public int getTriggerCondition() {
+        return TriggerCondition;
+    }
+
+    public void setTriggerCondition(int TriggerCondition) {
+        this.TriggerCondition = TriggerCondition;
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting TriggerCondition to " + TriggerCondition);
+            this.SendParametertoCamera(i, "TRIG_CONDITION=" + TriggerCondition);
         }
     }
 }

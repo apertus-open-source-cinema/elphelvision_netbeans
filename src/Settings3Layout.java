@@ -21,6 +21,7 @@ import java.awt.CardLayout;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioFormat;
 
 public class Settings3Layout extends javax.swing.JPanel {
 
@@ -44,6 +45,36 @@ public class Settings3Layout extends javax.swing.JPanel {
     public void Load() {
         MultiCameraRecordingDelayField.setText(String.valueOf(Parent.Camera.GetMultiCameraRecordingStartDelay()));
         MovieSplitSizeField.setText(String.valueOf(Parent.Camera.GetMovieClipMaxChunkSize()));
+
+        String[] audio_devices = Parent.Utils.SoundRecorder.GetAvailableAudioMixers();
+        for (int i = 0; i < audio_devices.length; i++) {
+            if (audio_devices[i] != null) {
+                AudioDevices.addItem(new KeyValue(i, audio_devices[i]));
+            }
+        }
+    }
+
+    public class KeyValue {
+
+        private int key;
+        private String value;
+
+        public KeyValue(int key, String value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public int getKey() {
+            return key;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public String toString() {
+            return value;
+        }
     }
 
     /** This method is called from within the init() method to
@@ -68,12 +99,18 @@ public class Settings3Layout extends javax.swing.JPanel {
         ePanel1 = new EPanel();
         ePanel2 = new EPanel();
         MulitCameraRecordingDelay = new javax.swing.JLabel();
-        MultiCameraRecordingDelayField = new javax.swing.JTextField();
-        MulitCameraRecordingDelayType = new EButton(Parent);
+        AudioDevices = new javax.swing.JComboBox();
         ePanel3 = new EPanel();
         MovieSplitSizeLabel = new javax.swing.JLabel();
         MovieSplitSizeField = new javax.swing.JTextField();
         MovieSplitSizeType = new EButton(Parent);
+        ePanel4 = new EPanel();
+        MulitCameraRecordingDelay1 = new javax.swing.JLabel();
+        MultiCameraRecordingDelayField = new javax.swing.JTextField();
+        MulitCameraRecordingDelayType1 = new EButton(Parent);
+        ePanel5 = new EPanel();
+        MulitCameraRecordingDelay2 = new javax.swing.JLabel();
+        AudioFormats = new javax.swing.JComboBox();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -183,10 +220,10 @@ public class Settings3Layout extends javax.swing.JPanel {
         ePanel2.setForeground(new java.awt.Color(80, 80, 80));
 
         MulitCameraRecordingDelay.setBackground(new java.awt.Color(1, 1, 1));
-        MulitCameraRecordingDelay.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
+        MulitCameraRecordingDelay.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         MulitCameraRecordingDelay.setForeground(new java.awt.Color(255, 255, 255));
         MulitCameraRecordingDelay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MulitCameraRecordingDelay.setText("Multi Camera Recording Delay [seconds]");
+        MulitCameraRecordingDelay.setText("Audio Devices");
         MulitCameraRecordingDelay.setAlignmentY(0.0F);
         MulitCameraRecordingDelay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         MulitCameraRecordingDelay.setIconTextGap(0);
@@ -195,22 +232,10 @@ public class Settings3Layout extends javax.swing.JPanel {
         MulitCameraRecordingDelay.setVerifyInputWhenFocusTarget(false);
         MulitCameraRecordingDelay.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        MultiCameraRecordingDelayField.setBackground(new java.awt.Color(0, 0, 0));
-        MultiCameraRecordingDelayField.setForeground(new java.awt.Color(255, 255, 255));
-        MultiCameraRecordingDelayField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        MultiCameraRecordingDelayField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        MultiCameraRecordingDelayField.setCaretColor(new java.awt.Color(254, 254, 254));
-        MultiCameraRecordingDelayField.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                MultiCameraRecordingDelayFieldCaretUpdate(evt);
-            }
-        });
-
-        MulitCameraRecordingDelayType.setText("type");
-        MulitCameraRecordingDelayType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
-        MulitCameraRecordingDelayType.addActionListener(new java.awt.event.ActionListener() {
+        AudioDevices.setFont(new java.awt.Font("DejaVu Sans", 0, 8)); // NOI18N
+        AudioDevices.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MulitCameraRecordingDelayTypeActionPerformed(evt);
+                AudioDevicesActionPerformed(evt);
             }
         });
 
@@ -218,27 +243,26 @@ public class Settings3Layout extends javax.swing.JPanel {
         ePanel2.setLayout(ePanel2Layout);
         ePanel2Layout.setHorizontalGroup(
             ePanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ePanel2Layout.createSequentialGroup()
+            .addGroup(ePanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MulitCameraRecordingDelay)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(MultiCameraRecordingDelayField, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(MulitCameraRecordingDelayType, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(AudioDevices, 0, 351, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ePanel2Layout.setVerticalGroup(
             ePanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ePanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(ePanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(MulitCameraRecordingDelay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MulitCameraRecordingDelayType, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(MultiCameraRecordingDelayField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addComponent(AudioDevices, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addGap(15, 15, 15))
+            .addGroup(ePanel2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(MulitCameraRecordingDelay)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        ePanel1.add(ePanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 480, 60));
+        ePanel1.add(ePanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 480, 60));
 
         ePanel3.setBackground(new java.awt.Color(39, 39, 41));
         ePanel3.setBorder(null);
@@ -302,6 +326,110 @@ public class Settings3Layout extends javax.swing.JPanel {
 
         ePanel1.add(ePanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 480, 60));
 
+        ePanel4.setBackground(new java.awt.Color(39, 39, 41));
+        ePanel4.setBorder(null);
+        ePanel4.setForeground(new java.awt.Color(80, 80, 80));
+
+        MulitCameraRecordingDelay1.setBackground(new java.awt.Color(1, 1, 1));
+        MulitCameraRecordingDelay1.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
+        MulitCameraRecordingDelay1.setForeground(new java.awt.Color(255, 255, 255));
+        MulitCameraRecordingDelay1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MulitCameraRecordingDelay1.setText("Multi Camera Recording Delay [seconds]");
+        MulitCameraRecordingDelay1.setAlignmentY(0.0F);
+        MulitCameraRecordingDelay1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        MulitCameraRecordingDelay1.setIconTextGap(0);
+        MulitCameraRecordingDelay1.setInheritsPopupMenu(false);
+        MulitCameraRecordingDelay1.setRequestFocusEnabled(false);
+        MulitCameraRecordingDelay1.setVerifyInputWhenFocusTarget(false);
+        MulitCameraRecordingDelay1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        MultiCameraRecordingDelayField.setBackground(new java.awt.Color(0, 0, 0));
+        MultiCameraRecordingDelayField.setForeground(new java.awt.Color(255, 255, 255));
+        MultiCameraRecordingDelayField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        MultiCameraRecordingDelayField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        MultiCameraRecordingDelayField.setCaretColor(new java.awt.Color(254, 254, 254));
+        MultiCameraRecordingDelayField.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                MultiCameraRecordingDelayFieldCaretUpdate(evt);
+            }
+        });
+
+        MulitCameraRecordingDelayType1.setText("type");
+        MulitCameraRecordingDelayType1.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        MulitCameraRecordingDelayType1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MulitCameraRecordingDelayType1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ePanel4Layout = new javax.swing.GroupLayout(ePanel4);
+        ePanel4.setLayout(ePanel4Layout);
+        ePanel4Layout.setHorizontalGroup(
+            ePanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ePanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(MulitCameraRecordingDelay1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(MultiCameraRecordingDelayField, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(MulitCameraRecordingDelayType1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        ePanel4Layout.setVerticalGroup(
+            ePanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ePanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ePanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(MulitCameraRecordingDelay1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MulitCameraRecordingDelayType1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(MultiCameraRecordingDelayField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        ePanel1.add(ePanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 480, 60));
+
+        ePanel5.setBackground(new java.awt.Color(39, 39, 41));
+        ePanel5.setBorder(null);
+        ePanel5.setForeground(new java.awt.Color(80, 80, 80));
+
+        MulitCameraRecordingDelay2.setBackground(new java.awt.Color(1, 1, 1));
+        MulitCameraRecordingDelay2.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        MulitCameraRecordingDelay2.setForeground(new java.awt.Color(255, 255, 255));
+        MulitCameraRecordingDelay2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MulitCameraRecordingDelay2.setText("Audio Recording Formats");
+        MulitCameraRecordingDelay2.setAlignmentY(0.0F);
+        MulitCameraRecordingDelay2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        MulitCameraRecordingDelay2.setIconTextGap(0);
+        MulitCameraRecordingDelay2.setInheritsPopupMenu(false);
+        MulitCameraRecordingDelay2.setRequestFocusEnabled(false);
+        MulitCameraRecordingDelay2.setVerifyInputWhenFocusTarget(false);
+        MulitCameraRecordingDelay2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        AudioFormats.setFont(new java.awt.Font("DejaVu Sans", 0, 8)); // NOI18N
+
+        javax.swing.GroupLayout ePanel5Layout = new javax.swing.GroupLayout(ePanel5);
+        ePanel5.setLayout(ePanel5Layout);
+        ePanel5Layout.setHorizontalGroup(
+            ePanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ePanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(MulitCameraRecordingDelay2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AudioFormats, 0, 287, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        ePanel5Layout.setVerticalGroup(
+            ePanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ePanel5Layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(ePanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MulitCameraRecordingDelay2)
+                    .addComponent(AudioFormats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        ePanel1.add(ePanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 480, -1));
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -344,6 +472,12 @@ public class Settings3Layout extends javax.swing.JPanel {
         Parent.Camera.SetMovieClipMaxChunkSize(Integer.parseInt(MovieSplitSizeField.getText()));
         Parent.Camera.SetMultiCameraRecordingStartDelay(Float.parseFloat(MultiCameraRecordingDelayField.getText()));
 
+        // testing audio recording
+        Parent.Utils.SoundRecorder.SetFilename("test.wav");
+        int AudioDeviceObjectKey = ((KeyValue) (AudioDevices.getSelectedObjects()[0])).getKey();
+        int AudioFormatObjectKey = ((KeyValue) (AudioFormats.getSelectedObjects()[0])).getKey();
+        Parent.Utils.SoundRecorder.SetAudioOptions(AudioDeviceObjectKey, AudioFormatObjectKey);
+
         try { // Save to config file
             Parent.Camera.WriteConfigFile("autosave.config");
         } catch (IOException ex) {
@@ -357,12 +491,6 @@ public class Settings3Layout extends javax.swing.JPanel {
         Parent.StopVideoPlayer();
         Parent.LoadMainCard();
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
-
-    private void MulitCameraRecordingDelayTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MulitCameraRecordingDelayTypeActionPerformed
-        Parent.NumberPanelFloat.Load("Multi Camera Recording Delay [seconds]", Float.parseFloat(MultiCameraRecordingDelayField.getText()), MultiCameraRecordingDelayField, "Settings3Card");
-        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
-        cl.show(Parent.GetCardManager(), "NumberpanelFloat");
-}//GEN-LAST:event_MulitCameraRecordingDelayTypeActionPerformed
 
     private void SettingsMenu1Button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu1Button1ActionPerformed
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
@@ -404,14 +532,42 @@ public class Settings3Layout extends javax.swing.JPanel {
     private void MultiCameraRecordingDelayFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_MultiCameraRecordingDelayFieldCaretUpdate
         // TODO add your handling code here:
     }//GEN-LAST:event_MultiCameraRecordingDelayFieldCaretUpdate
+
+    private void MulitCameraRecordingDelayType1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MulitCameraRecordingDelayType1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MulitCameraRecordingDelayType1ActionPerformed
+
+    private void AudioDevicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AudioDevicesActionPerformed
+        AudioFormats.removeAllItems();
+        KeyValue AudioDeviceObject = (KeyValue) (AudioDevices.getSelectedObjects()[0]);
+        AudioFormat[] audio_formats = Parent.Utils.SoundRecorder.GetMixerCapabilities(AudioDeviceObject.getKey());
+        if (audio_formats != null) {
+            for (int i = 0; i < audio_formats.length; i++) {
+                String line = "";
+                if (audio_formats[i].getSampleRate() == -1) {
+                    line += "Samplerate: any";
+                } else {
+                    line += "Samplerate: " + audio_formats[i].getSampleRate();
+                }
+                line += " | Bits: " + audio_formats[i].getSampleSizeInBits();
+                line += " | Channels: " + audio_formats[i].getChannels();
+                KeyValue entry = new KeyValue(i, line);
+                AudioFormats.addItem(entry);
+            }
+        }
+    }//GEN-LAST:event_AudioDevicesActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox AudioDevices;
+    private javax.swing.JComboBox AudioFormats;
     private javax.swing.JPanel ConfirmationPanel;
     private EButton GuidesMenuButton1;
     private javax.swing.JTextField MovieSplitSizeField;
     private javax.swing.JLabel MovieSplitSizeLabel;
     private EButton MovieSplitSizeType;
     private javax.swing.JLabel MulitCameraRecordingDelay;
-    private EButton MulitCameraRecordingDelayType;
+    private javax.swing.JLabel MulitCameraRecordingDelay1;
+    private javax.swing.JLabel MulitCameraRecordingDelay2;
+    private EButton MulitCameraRecordingDelayType1;
     private javax.swing.JTextField MultiCameraRecordingDelayField;
     private javax.swing.JPanel NavigationPanel1;
     private EButton PhotoSettingsMenu;
@@ -424,5 +580,7 @@ public class Settings3Layout extends javax.swing.JPanel {
     private EPanel ePanel1;
     private EPanel ePanel2;
     private EPanel ePanel3;
+    private EPanel ePanel4;
+    private EPanel ePanel5;
     // End of variables declaration//GEN-END:variables
 }

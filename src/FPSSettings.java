@@ -65,6 +65,13 @@ public class FPSSettings extends javax.swing.JPanel {
             SkipSecondsType.setEnabled(false);
             SkipFramesType.setEnabled(true);
         }
+        if (Parent.Camera.getFrameTrigger() == Trigger.FREERUNNING) {
+            TriggerFreeRunning.setChecked(true);
+            TriggerTriggered.setChecked(false);
+        } else {
+            TriggerFreeRunning.setChecked(false);
+            TriggerTriggered.setChecked(true);
+        }
     }
 
     private void UpdateResultingFPS() {
@@ -110,7 +117,6 @@ public class FPSSettings extends javax.swing.JPanel {
         SettingsOKButton = new EButton(Parent);
         FPSPanel = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        CalculatedFPS = new javax.swing.JLabel();
         FPSType = new EButton(Parent);
         FPSField = new javax.swing.JTextField();
         TimelapsePanel = new javax.swing.JPanel();
@@ -120,6 +126,10 @@ public class FPSSettings extends javax.swing.JPanel {
         SkipSecondsType = new EButton(Parent);
         SkipFramesButton = new EButton(Parent);
         SkipSecondsButton = new EButton(Parent);
+        CalculatedFPS = new javax.swing.JLabel();
+        TriggerFreeRunning = new EButton(Parent);
+        CalculatedFPS1 = new javax.swing.JLabel();
+        TriggerTriggered = new EButton(Parent);
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -158,7 +168,7 @@ public class FPSSettings extends javax.swing.JPanel {
 
         FPSPanel.setBackground(java.awt.Color.black);
 
-        jLabel9.setFont(new java.awt.Font("DejaVu Sans", 1, 18));
+        jLabel9.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("FPS");
@@ -170,11 +180,6 @@ public class FPSSettings extends javax.swing.JPanel {
         jLabel9.setRequestFocusEnabled(false);
         jLabel9.setVerifyInputWhenFocusTarget(false);
         jLabel9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        CalculatedFPS.setBackground(new java.awt.Color(0, 0, 0));
-        CalculatedFPS.setForeground(new java.awt.Color(255, 255, 255));
-        CalculatedFPS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CalculatedFPS.setText("resulting FPS:");
 
         FPSType.setText("type");
         FPSType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
@@ -255,6 +260,11 @@ public class FPSSettings extends javax.swing.JPanel {
             }
         });
 
+        CalculatedFPS.setBackground(new java.awt.Color(0, 0, 0));
+        CalculatedFPS.setForeground(new java.awt.Color(255, 255, 255));
+        CalculatedFPS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        CalculatedFPS.setText("resulting FPS:");
+
         javax.swing.GroupLayout TimelapsePanelLayout = new javax.swing.GroupLayout(TimelapsePanel);
         TimelapsePanel.setLayout(TimelapsePanelLayout);
         TimelapsePanelLayout.setHorizontalGroup(
@@ -273,8 +283,9 @@ public class FPSSettings extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(SkipFramesField, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SkipFramesType, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(SkipFramesType, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CalculatedFPS, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         TimelapsePanelLayout.setVerticalGroup(
             TimelapsePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,8 +299,31 @@ public class FPSSettings extends javax.swing.JPanel {
                     .addComponent(SkipSecondsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SkipSecondsField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SkipSecondsType, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(CalculatedFPS)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        TriggerFreeRunning.setText("continous\\nfree-running");
+        TriggerFreeRunning.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        TriggerFreeRunning.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TriggerFreeRunningActionPerformed(evt);
+            }
+        });
+
+        CalculatedFPS1.setBackground(new java.awt.Color(0, 0, 0));
+        CalculatedFPS1.setForeground(new java.awt.Color(255, 255, 255));
+        CalculatedFPS1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        CalculatedFPS1.setText("Frame Read-Out");
+
+        TriggerTriggered.setText("triggered");
+        TriggerTriggered.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        TriggerTriggered.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TriggerTriggeredActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout FPSPanelLayout = new javax.swing.GroupLayout(FPSPanel);
         FPSPanel.setLayout(FPSPanelLayout);
@@ -298,15 +332,20 @@ public class FPSSettings extends javax.swing.JPanel {
             .addGroup(FPSPanelLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(FPSPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CalculatedFPS, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TimelapsePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(FPSPanelLayout.createSequentialGroup()
+                        .addComponent(TimelapsePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(FPSPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(CalculatedFPS1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TriggerTriggered, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TriggerFreeRunning, javax.swing.GroupLayout.PREFERRED_SIZE, 96, Short.MAX_VALUE)))
                     .addGroup(FPSPanelLayout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
                         .addComponent(FPSField, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(FPSType, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(289, 289, 289))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
         FPSPanelLayout.setVerticalGroup(
             FPSPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,9 +357,15 @@ public class FPSSettings extends javax.swing.JPanel {
                     .addComponent(FPSField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(TimelapsePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(CalculatedFPS)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FPSPanelLayout.createSequentialGroup()
+                .addContainerGap(74, Short.MAX_VALUE)
+                .addComponent(CalculatedFPS1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TriggerFreeRunning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TriggerTriggered, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
         );
 
         TimelapsePanel.getAccessibleContext().setAccessibleName("a");
@@ -449,8 +494,21 @@ public class FPSSettings extends javax.swing.JPanel {
     private void FPSFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FPSFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_FPSFieldActionPerformed
+
+private void TriggerFreeRunningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TriggerFreeRunningActionPerformed
+    Parent.Camera.setFrameTrigger(Trigger.FREERUNNING);
+    TriggerFreeRunning.setChecked(true);
+    TriggerTriggered.setChecked(false);
+}//GEN-LAST:event_TriggerFreeRunningActionPerformed
+
+private void TriggerTriggeredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TriggerTriggeredActionPerformed
+    Parent.Camera.setFrameTrigger(Trigger.TRIGGERED);
+    TriggerFreeRunning.setChecked(false);
+    TriggerTriggered.setChecked(true);
+}//GEN-LAST:event_TriggerTriggeredActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CalculatedFPS;
+    private javax.swing.JLabel CalculatedFPS1;
     private javax.swing.JTextField FPSField;
     private javax.swing.JPanel FPSPanel;
     private EButton FPSType;
@@ -463,6 +521,8 @@ public class FPSSettings extends javax.swing.JPanel {
     private javax.swing.JTextField SkipSecondsField;
     private EButton SkipSecondsType;
     private javax.swing.JPanel TimelapsePanel;
+    private EButton TriggerFreeRunning;
+    private EButton TriggerTriggered;
     private javax.swing.JPanel bg;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

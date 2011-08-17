@@ -191,6 +191,7 @@ public class MainLayoutVLC extends JPanel {
         RecordButton = new EButton(Parent);
         PlaybackButton = new EButton(Parent);
         RecordTestButton = new EButton(Parent);
+        AudioRec = new EButton(Parent);
         InfoPanel = new javax.swing.JPanel();
         InfoTextPane = new javax.swing.JTextPane();
         NoticeArea = new javax.swing.JTextPane();
@@ -406,6 +407,13 @@ public class MainLayoutVLC extends JPanel {
             }
         });
 
+        AudioRec.setText("Audio Rec");
+        AudioRec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AudioRecActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ParameterPanelLayout = new javax.swing.GroupLayout(ParameterPanel);
         ParameterPanel.setLayout(ParameterPanelLayout);
         ParameterPanelLayout.setHorizontalGroup(
@@ -418,7 +426,9 @@ public class MainLayoutVLC extends JPanel {
                 .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(PlaybackButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(AudioRec, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addComponent(histogram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CaptureStill, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -437,7 +447,8 @@ public class MainLayoutVLC extends JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PlaybackButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AudioRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(histogram, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                         .addComponent(CaptureStill, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(SettingsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -903,6 +914,16 @@ public class MainLayoutVLC extends JPanel {
         LiveVideoButton.ToggleChecked();
     }//GEN-LAST:event_LiveVideoButtonActionPerformed
 
+private void AudioRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AudioRecActionPerformed
+    if (AudioRec.isChecked()) {
+
+        Parent.Utils.SoundRecorder.StopRecording();
+    } else {
+        Parent.Utils.SoundRecorder.StartRecording();
+    }
+    AudioRec.ToggleChecked();
+}//GEN-LAST:event_AudioRecActionPerformed
+
     public void EnableRecord(boolean val) {
         this.RecordButton.setEnabled(val);
     }
@@ -911,6 +932,7 @@ public class MainLayoutVLC extends JPanel {
         return this.RecordButton.isEnabled();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private EButton AudioRec;
     private EButton CaptureStill;
     private javax.swing.JLabel ColorModeLabel;
     private DatarateMonitor DatarateMonitor;

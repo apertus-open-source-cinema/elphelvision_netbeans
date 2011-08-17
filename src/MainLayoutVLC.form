@@ -287,7 +287,9 @@
                       <Component id="GainButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Component id="PlaybackButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="164" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="AudioRec" min="-2" pref="70" max="-2" attributes="0"/>
+                      <EmptySpace pref="82" max="32767" attributes="0"/>
                       <Component id="histogram" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="CaptureStill" min="-2" pref="52" max="-2" attributes="0"/>
@@ -309,6 +311,7 @@
                                   <Component id="GainButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="PlaybackButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="ExposureButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="AudioRec" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="histogram" alignment="0" pref="52" max="32767" attributes="1"/>
                               <Component id="CaptureStill" alignment="0" max="32767" attributes="1"/>
@@ -464,6 +467,17 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RecordTestButtonActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EButton(Parent);"/>
+              </AuxValues>
+            </Component>
+            <Component class="EButton" name="AudioRec">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Audio Rec"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AudioRecActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EButton(Parent);"/>

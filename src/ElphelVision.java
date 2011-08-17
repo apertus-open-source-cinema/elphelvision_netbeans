@@ -45,7 +45,7 @@ import javax.swing.text.StyledDocument;
 public class ElphelVision extends Panel implements ActionListener, Runnable {
 
     //private static final long serialVersionUID = 21L;
-    String AppVersion = "0.55";
+    String AppVersion = "0.56";
     Camera Camera; // class containing all camera specific information
     UserSettings Settings; // class containing user settings
     VLCPlayer VLCPlayer = null; // VLC Video player class dealing with video streaming
@@ -122,7 +122,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             System.out.println("Starting without a connected camera...");
         }
 
-        Utils = new Utils();
+        Utils = new Utils(this);
         Settings = new UserSettings();
 
         //Load Style Definitions
@@ -351,7 +351,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
         //Init everything
         Camera = new Camera(this);
-        
+
         String osname = System.getProperty("os.name");
         if (osname.startsWith("Windows")) {
             Settings.SetOS(OStype.Windows);
@@ -595,12 +595,18 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         CameraInfo += "    ";
 
         if (Camera.GetFPSSkipFrames() != 0) {
-            CameraInfo += Utils.Round(Camera.GetFPS() / (1.0f + Camera.GetFPSSkipFrames()), 3) + "fps (FS)";
+            CameraInfo += Utils.Round(Camera.GetFPS() / (1.0f + Camera.GetFPSSkipFrames()), 3) + "fps (FrameSkip)";
         } else if (Camera.GetFPSSkipSeconds() != 0) {
-            CameraInfo += Utils.Round((1.0f / Camera.GetFPSSkipSeconds()), 3) + "fps (SS)";
+            CameraInfo += Utils.Round((1.0f / Camera.GetFPSSkipSeconds()), 3) + "fps (SecondsSkip)";
         } else {
             CameraInfo += Camera.GetFPS() + "fps";
         }
+        if (Camera.getFrameTrigger() == Trigger.FREERUNNING) {
+            CameraInfo += " (Freerun)";
+        } else if (Camera.getFrameTrigger() == Trigger.TRIGGERED) {
+            CameraInfo += " (Trigger)";
+        }
+
         CameraInfo += "    ";
         CameraInfo += "JPEG: " + Camera.GetImageJPEGQuality() + "%";
         CameraInfo += "    ";

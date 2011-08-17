@@ -31,7 +31,7 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
         Parent = parent;
 
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable()  {
+            java.awt.EventQueue.invokeAndWait(new Runnable() {
 
                 public void run() {
                     initComponents();
@@ -388,6 +388,9 @@ public class PhotoSettingsLayout extends javax.swing.JPanel {
 }//GEN-LAST:event_GuidesMenuButton1ActionPerformed
 
     private void SettingsMenu3ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsMenu3ButtonActionPerformed
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "Settings3Card");
+        Parent.Settings3CardLayout.Load();
 }//GEN-LAST:event_SettingsMenu3ButtonActionPerformed
 
     private void PhotoSettingsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhotoSettingsMenuActionPerformed
