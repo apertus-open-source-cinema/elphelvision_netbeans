@@ -532,25 +532,54 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     }
     Style StyleRed = null;
     Style StyleNormal = null;
+    Style StyleBigFont = null;
 
     public void InitInfoArea() {
-        StyledDocument doc = null;
-        if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
-            doc = (StyledDocument) MaincardLayoutGST.GetInfoTextPane().getDocument();
-        }
-        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
-            doc = (StyledDocument) MaincardLayoutVLC.GetInfoTextPane().getDocument();
-        }
-        StyleRed = doc.addStyle("RedNotice", null);
-        StyleConstants.setForeground(StyleRed, Color.red);
-        StyleConstants.setBold(StyleRed, true);
-        StyleNormal = doc.addStyle("NormalText", null);
-        StyleConstants.setForeground(StyleNormal, Color.white);
-        StyleConstants.setBold(StyleNormal, true);
+        //redesign
+        StyledDocument ResolutionDoc = null;
+        StyledDocument FPSDoc = null;
+        StyledDocument WBDoc = null;
+        StyledDocument QualityDoc = null;
+        StyledDocument HDDDoc = null;
+        StyledDocument RecordDoc = null;
 
-        MutableAttributeSet standard = new SimpleAttributeSet();
-        StyleConstants.setAlignment(standard, StyleConstants.ALIGN_CENTER);
-        doc.setParagraphAttributes(0, 0, standard, true);
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+            ResolutionDoc = (StyledDocument) MaincardLayoutVLC.GetInfoAreaResolution().getDocument();
+            FPSDoc = (StyledDocument) MaincardLayoutVLC.GetInfoAreaFPS().getDocument();
+            WBDoc = (StyledDocument) MaincardLayoutVLC.GetInfoAreaWB().getDocument();
+            QualityDoc = (StyledDocument) MaincardLayoutVLC.GetInfoAreaQuality().getDocument();
+            HDDDoc = (StyledDocument) MaincardLayoutVLC.GetInfoAreaHDD().getDocument();
+            RecordDoc = (StyledDocument) MaincardLayoutVLC.GetInfoAreaRecord().getDocument();
+        }
+
+        // Style definitions
+        StyleBigFont = ResolutionDoc.addStyle("BigFont", null);
+        StyleConstants.setForeground(StyleBigFont, Color.white);
+        StyleConstants.setBold(StyleBigFont, true);
+        StyleConstants.setFontFamily(StyleBigFont, "SansSerif");
+        StyleConstants.setFontSize(StyleBigFont, 18);
+
+        StyleNormal = ResolutionDoc.addStyle("NormalText", null);
+        StyleConstants.setForeground(StyleNormal, Color.white);
+        StyleConstants.setBold(StyleNormal, false);
+        StyleConstants.setFontSize(StyleNormal, 10);
+
+        StyleRed = ResolutionDoc.addStyle("RedNotice", null);
+        StyleConstants.setForeground(StyleRed, Color.red);
+        StyleConstants.setFontFamily(StyleRed, "SansSerif");
+        StyleConstants.setBold(StyleRed, true);
+        StyleConstants.setFontSize(StyleRed, 18);
+
+        // center them
+        MutableAttributeSet center = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+        ResolutionDoc.setParagraphAttributes(0, 0, center, true);
+        FPSDoc.setParagraphAttributes(0, 0, center, true);
+        WBDoc.setParagraphAttributes(0, 0, center, true);
+        QualityDoc.setParagraphAttributes(0, 0, center, true);
+        HDDDoc.setParagraphAttributes(0, 0, center, true);
+        RecordDoc.setParagraphAttributes(0, 0, center, true);
+
 
         //Notice Area
         StyledDocument docNotice = null;
@@ -570,117 +599,171 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     }
 
     public void UpdateInfoArea() {
-        StyledDocument doc = null;
-        if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
-            doc = (StyledDocument) MaincardLayoutGST.GetInfoTextPane().getDocument();
-            // Clear content
-            MaincardLayoutGST.GetInfoTextPane().setText("");
-        }
+        // Resolution
+        MaincardLayoutVLC.GetInfoAreaResolution().setText("");
+        StyledDocument ResolutionDoc = null;
         if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
-            doc = (StyledDocument) MaincardLayoutVLC.GetInfoTextPane().getDocument();
-            // Clear content
-            MaincardLayoutVLC.GetInfoTextPane().setText("");
+            ResolutionDoc = (StyledDocument) MaincardLayoutVLC.GetInfoAreaResolution().getDocument();
+        }
+        String InfoAreaResolution = "";
+        if (Camera.GetPreset() == CameraPreset.FULL) {
+            InfoAreaResolution += "FULL\n";
+        } else if (Camera.GetPreset() == CameraPreset.CIMAX) {
+            InfoAreaResolution += "CIMAX\n";
+        } else if (Camera.GetPreset() == CameraPreset.AMAX) {
+            InfoAreaResolution += "AMAX\n";
+        } else if (Camera.GetPreset() == CameraPreset.FULLHD) {
+            InfoAreaResolution += "1080p\n";
+        } else if (Camera.GetPreset() == CameraPreset.SMALLHD) {
+            InfoAreaResolution += "720p\n";
+        } else if (Camera.GetPreset() == CameraPreset.CUSTOM) {
+            InfoAreaResolution += "CUSTOM\n";
         }
 
-        String CameraInfo = "";
-
-        if ((Camera.GetImageWidth() == 1920) && (Camera.GetImageHeight() == 1088)) {
-            CameraInfo = "1080p ";
-        }
-
-        if ((Camera.GetImageWidth() == 1280) && (Camera.GetImageHeight() == 720)) {
-            CameraInfo = "720p ";
-        }
-        CameraInfo += "(" + Camera.GetImageWidth() + "x" + Camera.GetImageHeight() + ")";
-        CameraInfo += "    ";
-
-        if (Camera.GetFPSSkipFrames() != 0) {
-            CameraInfo += Utils.Round(Camera.GetFPS() / (1.0f + Camera.GetFPSSkipFrames()), 3) + "fps (FrameSkip)";
-        } else if (Camera.GetFPSSkipSeconds() != 0) {
-            CameraInfo += Utils.Round((1.0f / Camera.GetFPSSkipSeconds()), 3) + "fps (SecondsSkip)";
-        } else {
-            CameraInfo += Camera.GetFPS() + "fps";
-        }
-        if (Camera.getFrameTrigger() == Trigger.FREERUNNING) {
-            CameraInfo += " (Freerun)";
-        } else if (Camera.getFrameTrigger() == Trigger.TRIGGERED) {
-            CameraInfo += " (Trigger)";
-        }
-
-        CameraInfo += "    ";
-        CameraInfo += "JPEG: " + Camera.GetImageJPEGQuality() + "%";
-        CameraInfo += "    ";
-        CameraInfo += "WB: " + Camera.GetWhiteBalance().toString();
-        CameraInfo += "    ";
-
-        if (Camera.GetRecordFormat() == RecordFormat.MOV) {
-            CameraInfo += "Quicktime";
-        }
-
-        if (Camera.GetRecordFormat() == RecordFormat.OGM) {
-            CameraInfo += "OGM";
-        }
-
-        if (Camera.GetRecordFormat() == RecordFormat.JPEG) {
-            CameraInfo += "JPEG Sequence";
-        }
         try {
-            doc.insertString(doc.getLength(), CameraInfo, StyleNormal);
+            ResolutionDoc.insertString(ResolutionDoc.getLength(), InfoAreaResolution, StyleBigFont);
         } catch (BadLocationException ex) {
             Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
         }
-        CameraInfo = "";
-        CameraInfo += "    ";
+        InfoAreaResolution = Camera.GetImageWidth() + "x" + Camera.GetImageHeight();
+        try {
+            ResolutionDoc.insertString(ResolutionDoc.getLength(), InfoAreaResolution, StyleNormal);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        // FPS
+        MaincardLayoutVLC.GetInfoAreaFPS().setText("");
+        StyledDocument FPSDoc = null;
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+            FPSDoc = (StyledDocument) MaincardLayoutVLC.GetInfoAreaFPS().getDocument();
+        }
+        String InfoAreaFPSLine1 = "";
+        String InfoAreaFPSLine2 = "";
+        if (Camera.GetFPSSkipFrames() != 0) {
+            InfoAreaFPSLine1 += Utils.Round(Camera.GetFPS() / (1.0f + Camera.GetFPSSkipFrames()), 2) + " FPS\n";
+            InfoAreaFPSLine2 += "FrameSkip";
+        } else if (Camera.GetFPSSkipSeconds() != 0) {
+            InfoAreaFPSLine1 += Utils.Round((1.0f / Camera.GetFPSSkipSeconds()), 2) + " FPS\n";
+            InfoAreaFPSLine2 += "SecondsSkip";
+        } else {
+            InfoAreaFPSLine1 += Utils.Round(Camera.GetFPS(), 2) + " FPS\n";
+        }
 
+        if (Camera.getFrameTrigger() == Trigger.FREERUNNING) {
+            InfoAreaFPSLine2 += " Freerun";
+        } else if (Camera.getFrameTrigger() == Trigger.TRIGGERED) {
+            InfoAreaFPSLine2 += " Trigger";
+        }
+
+        try {
+            FPSDoc.insertString(FPSDoc.getLength(), InfoAreaFPSLine1, StyleBigFont);
+            FPSDoc.insertString(FPSDoc.getLength(), InfoAreaFPSLine2, StyleNormal);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // WB
+        MaincardLayoutVLC.GetInfoAreaWB().setText("");
+        StyledDocument WBDoc = null;
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+            WBDoc = (StyledDocument) MaincardLayoutVLC.GetInfoAreaWB().getDocument();
+        }
+        String InfoAreaWBLine1 = "";
+        String InfoAreaWBLine2 = "";
+
+        InfoAreaWBLine1 += Camera.GetWhiteBalance() + "\n";
+        InfoAreaWBLine2 += "WB";
+
+        try {
+            WBDoc.insertString(WBDoc.getLength(), InfoAreaWBLine1, StyleBigFont);
+            WBDoc.insertString(WBDoc.getLength(), InfoAreaWBLine2, StyleNormal);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Quality
+        MaincardLayoutVLC.GetInfoAreaQuality().setText("");
+        StyledDocument QualityDoc = null;
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+            QualityDoc = (StyledDocument) MaincardLayoutVLC.GetInfoAreaQuality().getDocument();
+        }
+        String InfoAreaQualityLine1 = "";
+        String InfoAreaQualityLine2 = "";
+
+        InfoAreaQualityLine1 += Camera.GetImageJPEGQuality() + " %\n";
+        InfoAreaQualityLine2 += "Quality";
+
+        try {
+            QualityDoc.insertString(QualityDoc.getLength(), InfoAreaQualityLine1, StyleBigFont);
+            QualityDoc.insertString(QualityDoc.getLength(), InfoAreaQualityLine2, StyleNormal);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // HDD
+        MaincardLayoutVLC.GetInfoAreaHDD().setText("");
+        StyledDocument HDDDoc = null;
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+            HDDDoc = (StyledDocument) MaincardLayoutVLC.GetInfoAreaHDD().getDocument();
+        }
+        String InfoAreaHDDLine1 = "";
+        String InfoAreaHDDLine2 = "";
         if (Camera.GetFreeHDDSpace() == -1) {
-            CameraInfo += "HDD: not found"; // No HDD attached/detected
+            InfoAreaHDDLine1 += "none\n"; // No HDD attached/detected
+            InfoAreaHDDLine2 += "no HDD found";
             if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
                 MaincardLayoutGST.EnableRecord(false); // disable Rec Button
             }
             if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
                 MaincardLayoutVLC.EnableRecord(false); // disable Rec Button
             }
-
             try {
-                doc.insertString(doc.getLength(), CameraInfo, StyleRed);
+                HDDDoc.insertString(HDDDoc.getLength(), InfoAreaHDDLine1, StyleRed);
+                HDDDoc.insertString(HDDDoc.getLength(), InfoAreaHDDLine2, StyleNormal);
             } catch (BadLocationException ex) {
                 Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         } else {
-            CameraInfo += "HDD: " + Camera.GetFreeHDDRatio() + "% free";
+            InfoAreaHDDLine1 += Camera.GetFreeHDDRatio() + " %\n"; // 
+            InfoAreaHDDLine2 += "Free HDD Space";
             try {
-                doc.insertString(doc.getLength(), CameraInfo, StyleNormal);
+                HDDDoc.insertString(HDDDoc.getLength(), InfoAreaHDDLine1, StyleBigFont);
+                HDDDoc.insertString(HDDDoc.getLength(), InfoAreaHDDLine2, StyleNormal);
             } catch (BadLocationException ex) {
                 Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        CameraInfo = "";
-        CameraInfo += "    ";
 
 
-        if (Camera.GetCamogmState()
-                == CamogmState.RECORDING) {
-            CameraInfo += "Recording (frame#): " + Camera.GetRecordedFramesCount();
-            CameraInfo += "    ";
-            CameraInfo += "Datarate: " + Camera.GetDatarate() + " MBit/s";
-            /*
-            Calendar now = Calendar.getInstance();
-            double delta_t = now.getTimeInMillis() - Camera.GetRecordstartTime();
-            int animateframes = (int) (delta_t / 1000 * Camera.GetFPS());
-            CameraInfo += "Recording (frame#): " + animateframes;
-             */
-
-        } else {
-            CameraInfo += "STOPPED";
+        // Record
+        MaincardLayoutVLC.GetInfoAreaRecord().setText("");
+        StyledDocument RecordDoc = null;
+        if (Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
+            RecordDoc = (StyledDocument) MaincardLayoutVLC.GetInfoAreaRecord().getDocument();
         }
+        String InfoAreaRecordLine1 = "";
+        String InfoAreaRecordLine2 = "";
 
-
-
-        try {
-            doc.insertString(doc.getLength(), CameraInfo, StyleNormal);
-        } catch (BadLocationException ex) {
-            Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
+        if (Camera.GetCamogmState() == CamogmState.RECORDING) {
+            InfoAreaRecordLine1 += "Recording\n";
+            InfoAreaRecordLine2 += "Freame#: " + Camera.GetRecordedFramesCount();
+            try {
+                RecordDoc.insertString(RecordDoc.getLength(), InfoAreaRecordLine1, StyleRed);
+                RecordDoc.insertString(RecordDoc.getLength(), InfoAreaRecordLine2, StyleNormal);
+            } catch (BadLocationException ex) {
+                Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            InfoAreaRecordLine1 += "Standby\n";
+            InfoAreaRecordLine2 += "Record";
+            try {
+                RecordDoc.insertString(RecordDoc.getLength(), InfoAreaRecordLine1, StyleBigFont);
+                RecordDoc.insertString(RecordDoc.getLength(), InfoAreaRecordLine2, StyleNormal);
+            } catch (BadLocationException ex) {
+                Logger.getLogger(ElphelVision.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

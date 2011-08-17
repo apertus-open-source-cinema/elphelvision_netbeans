@@ -195,6 +195,17 @@ public class MainLayoutVLC extends JPanel {
         InfoPanel = new javax.swing.JPanel();
         InfoTextPane = new javax.swing.JTextPane();
         NoticeArea = new javax.swing.JTextPane();
+        InfoArea_Record = new javax.swing.JTextPane();
+        InfoArea_Resolution = new javax.swing.JTextPane();
+        Image = new javax.swing.JLabel();
+        Image1 = new javax.swing.JLabel();
+        InfoArea_FPS = new javax.swing.JTextPane();
+        Image2 = new javax.swing.JLabel();
+        InfoArea_WB = new javax.swing.JTextPane();
+        InfoArea_Quality = new javax.swing.JTextPane();
+        Image3 = new javax.swing.JLabel();
+        Image4 = new javax.swing.JLabel();
+        InfoArea_HDD = new javax.swing.JTextPane();
         VideoFrame = new javax.swing.JPanel();
         vlcoverlay = new java.awt.Canvas();
         QuickPanel = new javax.swing.JPanel();
@@ -459,34 +470,99 @@ public class MainLayoutVLC extends JPanel {
         bg.add(ParameterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 535, 1010, 60));
 
         InfoPanel.setBackground(new java.awt.Color(0, 0, 0));
+        InfoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         InfoTextPane.setBackground(new java.awt.Color(0, 0, 0));
         InfoTextPane.setForeground(new java.awt.Color(255, 255, 255));
         InfoTextPane.setDoubleBuffered(true);
         InfoTextPane.setFocusable(false);
+        InfoPanel.add(InfoTextPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 200, 19));
 
         NoticeArea.setBackground(new java.awt.Color(0, 0, 0));
         NoticeArea.setForeground(new java.awt.Color(254, 54, 54));
         NoticeArea.setText("loading...");
         NoticeArea.setDoubleBuffered(true);
         NoticeArea.setFocusable(false);
+        InfoPanel.add(NoticeArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, 190, 19));
 
-        javax.swing.GroupLayout InfoPanelLayout = new javax.swing.GroupLayout(InfoPanel);
-        InfoPanel.setLayout(InfoPanelLayout);
-        InfoPanelLayout.setHorizontalGroup(
-            InfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(InfoTextPane, javax.swing.GroupLayout.DEFAULT_SIZE, 939, Short.MAX_VALUE)
-            .addComponent(NoticeArea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 939, Short.MAX_VALUE)
-        );
-        InfoPanelLayout.setVerticalGroup(
-            InfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InfoPanelLayout.createSequentialGroup()
-                .addComponent(InfoTextPane, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(NoticeArea, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        InfoArea_Record.setBackground(new java.awt.Color(0, 0, 0));
+        InfoArea_Record.setForeground(new java.awt.Color(255, 255, 255));
+        InfoArea_Record.setText("Record");
+        InfoArea_Record.setDoubleBuffered(true);
+        InfoArea_Record.setFocusable(false);
+        InfoPanel.add(InfoArea_Record, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 100, 50));
 
-        bg.add(InfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, -1, -1));
+        InfoArea_Resolution.setBackground(new java.awt.Color(0, 0, 0));
+        InfoArea_Resolution.setForeground(new java.awt.Color(255, 255, 255));
+        InfoArea_Resolution.setText("Resolution");
+        InfoArea_Resolution.setDoubleBuffered(true);
+        InfoArea_Resolution.setFocusable(false);
+        InfoPanel.add(InfoArea_Resolution, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 50));
+
+        Image.setBackground(new java.awt.Color(0, 0, 0));
+        Image.setFont(new java.awt.Font("Tahoma", 0, 14));
+        Image.setForeground(new java.awt.Color(255, 255, 255));
+        Image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/divider01.png"))); // NOI18N
+        InfoPanel.add(Image, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 0, -1, -1));
+
+        Image1.setBackground(new java.awt.Color(0, 0, 0));
+        Image1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Image1.setForeground(new java.awt.Color(255, 255, 255));
+        Image1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Image1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/divider01.png"))); // NOI18N
+        InfoPanel.add(Image1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, -1, -1));
+
+        InfoArea_FPS.setBackground(new java.awt.Color(0, 0, 0));
+        InfoArea_FPS.setForeground(new java.awt.Color(255, 255, 255));
+        InfoArea_FPS.setText("FPS");
+        InfoArea_FPS.setDoubleBuffered(true);
+        InfoArea_FPS.setFocusable(false);
+        InfoPanel.add(InfoArea_FPS, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 110, 50));
+
+        Image2.setBackground(new java.awt.Color(0, 0, 0));
+        Image2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Image2.setForeground(new java.awt.Color(255, 255, 255));
+        Image2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Image2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/divider01.png"))); // NOI18N
+        InfoPanel.add(Image2, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 0, -1, -1));
+
+        InfoArea_WB.setBackground(new java.awt.Color(0, 0, 0));
+        InfoArea_WB.setForeground(new java.awt.Color(255, 255, 255));
+        InfoArea_WB.setText("WB");
+        InfoArea_WB.setDoubleBuffered(true);
+        InfoArea_WB.setFocusable(false);
+        InfoPanel.add(InfoArea_WB, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 120, 50));
+
+        InfoArea_Quality.setBackground(new java.awt.Color(0, 0, 0));
+        InfoArea_Quality.setForeground(new java.awt.Color(255, 255, 255));
+        InfoArea_Quality.setText("Quality");
+        InfoArea_Quality.setDoubleBuffered(true);
+        InfoArea_Quality.setFocusable(false);
+        InfoPanel.add(InfoArea_Quality, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 60, 50));
+
+        Image3.setBackground(new java.awt.Color(0, 0, 0));
+        Image3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Image3.setForeground(new java.awt.Color(255, 255, 255));
+        Image3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Image3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/divider01.png"))); // NOI18N
+        InfoPanel.add(Image3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, -1, -1));
+
+        Image4.setBackground(new java.awt.Color(0, 0, 0));
+        Image4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Image4.setForeground(new java.awt.Color(255, 255, 255));
+        Image4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Image4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/divider01.png"))); // NOI18N
+        InfoPanel.add(Image4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, -1, -1));
+
+        InfoArea_HDD.setBackground(new java.awt.Color(0, 0, 0));
+        InfoArea_HDD.setForeground(new java.awt.Color(255, 255, 255));
+        InfoArea_HDD.setText("HDD");
+        InfoArea_HDD.setDoubleBuffered(true);
+        InfoArea_HDD.setFocusable(false);
+        InfoPanel.add(InfoArea_HDD, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 80, 50));
+
+        bg.add(InfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 0, 850, -1));
 
         VideoFrame.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
         VideoFrame.setDoubleBuffered(false);
@@ -931,6 +1007,54 @@ private void AudioRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public boolean GetRecordEnabled() {
         return this.RecordButton.isEnabled();
     }
+
+    public void SetInfoAreaResolution(String newtext) {
+        InfoArea_Resolution.setText(newtext);
+    }
+
+    public javax.swing.JTextPane GetInfoAreaResolution() {
+        return this.InfoArea_Resolution;
+    }
+
+    public void SetInfoAreaFPS(String newtext) {
+        InfoArea_Record.setText(newtext);
+    }
+
+    public javax.swing.JTextPane GetInfoAreaFPS() {
+        return this.InfoArea_FPS;
+    }
+
+    public void SetInfoAreaWB(String newtext) {
+        InfoArea_Record.setText(newtext);
+    }
+
+    public javax.swing.JTextPane GetInfoAreaWB() {
+        return this.InfoArea_WB;
+    }
+
+    public void SetInfoAreaQuality(String newtext) {
+        InfoArea_Quality.setText(newtext);
+    }
+
+    public javax.swing.JTextPane GetInfoAreaQuality() {
+        return this.InfoArea_Quality;
+    }
+
+    public void SetInfoAreaHDD(String newtext) {
+        InfoArea_HDD.setText(newtext);
+    }
+
+    public javax.swing.JTextPane GetInfoAreaHDD() {
+        return this.InfoArea_HDD;
+    }
+
+    public void SetInfoAreaRecord(String newtext) {
+        InfoArea_Record.setText(newtext);
+    }
+
+    public javax.swing.JTextPane GetInfoAreaRecord() {
+        return this.InfoArea_Record;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton AudioRec;
     private EButton CaptureStill;
@@ -939,6 +1063,17 @@ private void AudioRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private EButton ExposureButton;
     private EButton GainButton;
     private javax.swing.JPanel GainPanel;
+    private javax.swing.JLabel Image;
+    private javax.swing.JLabel Image1;
+    private javax.swing.JLabel Image2;
+    private javax.swing.JLabel Image3;
+    private javax.swing.JLabel Image4;
+    private javax.swing.JTextPane InfoArea_FPS;
+    private javax.swing.JTextPane InfoArea_HDD;
+    private javax.swing.JTextPane InfoArea_Quality;
+    private javax.swing.JTextPane InfoArea_Record;
+    private javax.swing.JTextPane InfoArea_Resolution;
+    private javax.swing.JTextPane InfoArea_WB;
     private javax.swing.JPanel InfoPanel;
     private javax.swing.JTextPane InfoTextPane;
     private EButton LiveVideoButton;
