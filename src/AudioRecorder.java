@@ -18,6 +18,8 @@
 
 import java.io.IOException;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.TargetDataLine;
 import javax.sound.sampled.AudioFormat;
@@ -33,25 +35,59 @@ public class AudioRecorder extends Thread {
 
     private TargetDataLine Dataline;
     private AudioInputStream AudioInputStream;
+    private AudioInputStream AudioMonitorStream;
     private AudioFileFormat.Type RecAudioFileFormat;
     private AudioFormat RecAudioFormat;
     private File AudioFile;
     ElphelVision Parent;
+    private Thread Monitor;
+    private Thread Recorder;
+    private boolean MonitorRunning = false;
+    private int MonitorCyclesPerSecond = 100;
+    private boolean Recording = false;
 
     public AudioRecorder(ElphelVision parent) {
         Parent = parent;
+        Monitor = new Thread(this);
+        Recorder = new Thread(this);
     }
 
     public void StartRecording() {
-        Dataline.start();
-        this.start();
+        if (!Dataline.isActive()) {
+            Dataline.start();
+        }
+        if (!Monitor.isAlive()) {
+            Monitor.start();
+        }
+        if (!Recorder.isAlive()) {
+            Recorder.start();
+        }
+
+        MonitorRunning = true;
+        Recording = true;
+
         Parent.WriteLogtoConsole("Audio Recording started");
     }
 
     public void StopRecording() {
         Dataline.stop();
         Dataline.close();
+
+        //MonitorRunning = false;
+        //Recording = false;
+
         Parent.WriteLogtoConsole("Audio Recording stopped");
+    }
+
+    public void StartMonitor() {
+        if (!Dataline.isActive()) {
+            Dataline.start();
+        }
+        if (!Monitor.isAlive()) {
+            Monitor.start();
+        }
+        MonitorRunning = true;
+        Parent.WriteLogtoConsole("Audio Monitoring started");
     }
 
     public void SetFilename(String filename) {
@@ -97,10 +133,10 @@ public class AudioRecorder extends Thread {
 
         // get all available audio formats on that device
         AudioFormat[] supportedFormats = GetMixerCapabilities(MixerIndex);
-        
+
         // we use WAV by default
         RecAudioFileFormat = AudioFileFormat.Type.WAVE;
-        
+
         // Create AudioFormat that the audio hardware supports
         // 48KHz is hardcoded for now until we create a custom field in the settings for it
         if (supportedFormats[FormatIndex].getSampleRate() == -1) {
@@ -118,13 +154,126 @@ public class AudioRecorder extends Thread {
         }
         Dataline = targetDataLine;
         AudioInputStream = new AudioInputStream(Dataline);
+        AudioMonitorStream = new AudioInputStream(Dataline);
+    }
+    private final float a2 = -1.9556f;
+    private final float a3 = 0.9565f;
+    private final float b1 = 0.9780f;
+    private final float b2 = -1.9561f;
+    private final float b3 = 0.9780f;
+    private double peak;
+    private static final double log10 = Math.log(10.0);
+    private static final double maxDB = Math.max(0.0, 20.0 * Math.log((double) Short.MAX_VALUE) / log10);
+    private final int peakHoldTime = 1000;
+    private long then = System.currentTimeMillis();
+    private double rms;
+    private double average;
+
+    @Override
+    public void run() {
+        while (Thread.currentThread() == Monitor) {
+            if (MonitorRunning) {
+                byte[] Byte = new byte[1024];
+                int count = 0;
+                try {
+                    while ((count = AudioMonitorStream.read(Byte)) != -1) {
+                        //Parent.WriteLogtoConsole("AudioMonitorStream.available(): " + AudioMonitorStream.available());
+                        //Parent.WriteLogtoConsole("count: " + count);
+                        short[] samples = new short[count / 2];
+                        for (int i = 0; i < count / 2; i++) {
+                            // 16 bit mode
+                            int offset = i * 2;
+                            samples[i] = (short) ((Byte[offset + 1] << 8) | (0x000000FF & Byte[offset]));
+                            //Parent.WriteLogtoConsole("i: " + i + " sample: " + samples[i]);
+
+                            // TODO: deal with any other than 16 bit mode
+                        }
+
+                        float energy = 0.0f;
+                        average = 0.0f;
+                        double y1 = 0.0f;
+                        double y2 = 0.0f;
+
+                        for (int i = 0; i < samples.length; i++) {
+                            short i1 = samples[i];
+                            double j = 0;
+                            double k = 0;
+
+                            if (i > 0) {
+                                j = samples[i - 1];
+                            }
+                            if (i > 1) {
+                                k = samples[i - 2];
+                            }
+
+                            double y = b1 * i1 + b2 * j + b3 * k - a2 * y1 - a3 * y2;
+
+                            y2 = y1;
+                            y1 = y;
+
+                            double v2 = Math.abs(y);
+
+                            long now = System.currentTimeMillis();
+
+                            energy += v2 * v2;
+                            average += v2;
+
+                            if (v2 > peak) {
+                                peak = v2;
+                            } else if ((now - then) > peakHoldTime) {
+                                peak = v2;
+                                then = now;
+                            }
+                        }
+
+                        rms = energy / samples.length;
+                        rms = Math.sqrt(rms);
+                        average /= samples.length;
+
+                        //   Parent.WriteLogtoConsole("length: " + samples.length + " rms: " + rms + " average: " + average);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(AudioRecorder.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    Thread.sleep(1 / MonitorCyclesPerSecond * 1000);
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
+        }
+
+        while (Thread.currentThread() == Recorder) {
+            if (Recording) {
+                try {
+                    AudioSystem.write(AudioInputStream, RecAudioFileFormat, AudioFile);
+                    Recording = false; // set state after the above function finished
+
+                } catch (IOException ex) {
+                    Logger.getLogger(AudioRecorder.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }
 
-    public void run() {
-        try {
-            AudioSystem.write(AudioInputStream, RecAudioFileFormat, AudioFile);
-        } catch (IOException e) {
-        }
+    public final synchronized double getRmsDB() {
+        return Math.max(0.0, 20.0 * Math.log(rms) / log10);
+    }
+
+    public final synchronized double getAverageDB() {
+        return Math.max(0.0, 20.0 * Math.log(average) / log10);
+    }
+
+    public final synchronized double getPeakDB() {
+        return Math.max(0.0, 20.0 * Math.log(peak) / log10);
+    }
+
+    public final synchronized boolean getIsClipping() {
+        return (Short.MAX_VALUE) < (2 * peak);
+    }
+
+    public final synchronized double getMaxDB() {
+        return maxDB;
     }
 }
 

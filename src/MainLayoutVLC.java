@@ -124,6 +124,7 @@ public class MainLayoutVLC extends JPanel {
         }
 
         DatarateMonitor.startAnimator();
+        audioMonitor1.startAnimator();
     }
 
     public void UpdateOverlayPosition() {
@@ -192,6 +193,7 @@ public class MainLayoutVLC extends JPanel {
         PlaybackButton = new EButton(Parent);
         RecordTestButton = new EButton(Parent);
         AudioRec = new EButton(Parent);
+        audioMonitor1 = new AudioMonitor(Parent);
         InfoPanel = new javax.swing.JPanel();
         InfoTextPane = new javax.swing.JTextPane();
         NoticeArea = new javax.swing.JTextPane();
@@ -325,6 +327,7 @@ public class MainLayoutVLC extends JPanel {
         bg.add(SliderPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 50, 480));
 
         ParameterPanel.setBackground(new java.awt.Color(0, 0, 0));
+        ParameterPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ExposureButton.setText("Shutter");
         ExposureButton.setAlignmentY(0.0F);
@@ -337,6 +340,7 @@ public class MainLayoutVLC extends JPanel {
                 ExposureButtonActionPerformed(evt);
             }
         });
+        ParameterPanel.add(ExposureButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 0, -1, -1));
 
         GainButton.setText("Gain");
         GainButton.setAlignmentY(0.0F);
@@ -349,6 +353,7 @@ public class MainLayoutVLC extends JPanel {
                 GainButtonActionPerformed(evt);
             }
         });
+        ParameterPanel.add(GainButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 0, -1, -1));
 
         SettingsButton.setBackground(new java.awt.Color(255, 255, 255));
         SettingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/settings.png"))); // NOI18N
@@ -361,6 +366,7 @@ public class MainLayoutVLC extends JPanel {
                 SettingsButtonActionPerformed(evt);
             }
         });
+        ParameterPanel.add(SettingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 52));
 
         histogram.setBackground(new java.awt.Color(0, 0, 0));
         histogram.setPreferredSize(new java.awt.Dimension(256, 50));
@@ -381,6 +387,8 @@ public class MainLayoutVLC extends JPanel {
             .addGap(0, 52, Short.MAX_VALUE)
         );
 
+        ParameterPanel.add(histogram, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 0, -1, 52));
+
         CaptureStill.setForeground(new java.awt.Color(255, 0, 0));
         CaptureStill.setText("Still");
         CaptureStill.setAlignmentY(0.0F);
@@ -394,6 +402,7 @@ public class MainLayoutVLC extends JPanel {
                 CaptureStillActionPerformed(evt);
             }
         });
+        ParameterPanel.add(CaptureStill, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 1, 52, -1));
 
         RecordButton.setForeground(new java.awt.Color(255, 0, 0));
         RecordButton.setText("Record");
@@ -402,6 +411,7 @@ public class MainLayoutVLC extends JPanel {
                 RecordButtonActionPerformed(evt);
             }
         });
+        ParameterPanel.add(RecordButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(838, 0, -1, 52));
 
         PlaybackButton.setText("Playback");
         PlaybackButton.addActionListener(new java.awt.event.ActionListener() {
@@ -409,6 +419,7 @@ public class MainLayoutVLC extends JPanel {
                 PlaybackButtonActionPerformed(evt);
             }
         });
+        ParameterPanel.add(PlaybackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 0, -1, -1));
 
         RecordTestButton.setForeground(new java.awt.Color(255, 0, 0));
         RecordTestButton.setText("Rec Test");
@@ -417,6 +428,7 @@ public class MainLayoutVLC extends JPanel {
                 RecordTestButtonActionPerformed(evt);
             }
         });
+        ParameterPanel.add(RecordTestButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(936, 0, 62, 52));
 
         AudioRec.setText("Audio Rec");
         AudioRec.addActionListener(new java.awt.event.ActionListener() {
@@ -424,48 +436,24 @@ public class MainLayoutVLC extends JPanel {
                 AudioRecActionPerformed(evt);
             }
         });
+        ParameterPanel.add(AudioRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 0, 70, -1));
 
-        javax.swing.GroupLayout ParameterPanelLayout = new javax.swing.GroupLayout(ParameterPanel);
-        ParameterPanel.setLayout(ParameterPanelLayout);
-        ParameterPanelLayout.setHorizontalGroup(
-            ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ParameterPanelLayout.createSequentialGroup()
-                .addComponent(SettingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(PlaybackButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(AudioRec, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                .addComponent(histogram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CaptureStill, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RecordButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(RecordTestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        audioMonitor1.setBackground(new java.awt.Color(19, 19, 19));
+        audioMonitor1.setForeground(new java.awt.Color(166, 166, 166));
+        audioMonitor1.setPreferredSize(new java.awt.Dimension(27, 60));
+
+        javax.swing.GroupLayout audioMonitor1Layout = new javax.swing.GroupLayout(audioMonitor1);
+        audioMonitor1.setLayout(audioMonitor1Layout);
+        audioMonitor1Layout.setHorizontalGroup(
+            audioMonitor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
         );
-        ParameterPanelLayout.setVerticalGroup(
-            ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ParameterPanelLayout.createSequentialGroup()
-                .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(RecordTestButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ParameterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(GainButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PlaybackButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ExposureButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AudioRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(histogram, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                        .addComponent(CaptureStill, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SettingsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(RecordButton, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
-                .addContainerGap())
+        audioMonitor1Layout.setVerticalGroup(
+            audioMonitor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
+
+        ParameterPanel.add(audioMonitor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 0, 20, 50));
 
         bg.add(ParameterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 535, 1010, 60));
 
@@ -507,7 +495,7 @@ public class MainLayoutVLC extends JPanel {
         InfoPanel.add(Image, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 0, -1, -1));
 
         Image1.setBackground(new java.awt.Color(0, 0, 0));
-        Image1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Image1.setFont(new java.awt.Font("Tahoma", 0, 14));
         Image1.setForeground(new java.awt.Color(255, 255, 255));
         Image1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Image1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/divider01.png"))); // NOI18N
@@ -521,7 +509,7 @@ public class MainLayoutVLC extends JPanel {
         InfoPanel.add(InfoArea_FPS, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 110, 50));
 
         Image2.setBackground(new java.awt.Color(0, 0, 0));
-        Image2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Image2.setFont(new java.awt.Font("Tahoma", 0, 14));
         Image2.setForeground(new java.awt.Color(255, 255, 255));
         Image2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Image2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/divider01.png"))); // NOI18N
@@ -542,14 +530,14 @@ public class MainLayoutVLC extends JPanel {
         InfoPanel.add(InfoArea_Quality, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 60, 50));
 
         Image3.setBackground(new java.awt.Color(0, 0, 0));
-        Image3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Image3.setFont(new java.awt.Font("Tahoma", 0, 14));
         Image3.setForeground(new java.awt.Color(255, 255, 255));
         Image3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Image3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/divider01.png"))); // NOI18N
         InfoPanel.add(Image3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, -1, -1));
 
         Image4.setBackground(new java.awt.Color(0, 0, 0));
-        Image4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Image4.setFont(new java.awt.Font("Tahoma", 0, 14));
         Image4.setForeground(new java.awt.Color(255, 255, 255));
         Image4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Image4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/divider01.png"))); // NOI18N
@@ -1089,6 +1077,7 @@ private void AudioRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JPanel SliderPanel;
     private javax.swing.JPanel VideoFrame;
     private org.gstreamer.swing.VideoComponent GstreamerVideoComponent;
+    private AudioMonitor audioMonitor1;
     private javax.swing.JPanel bg;
     private EButton decvalue1;
     private EButton decvalue3;

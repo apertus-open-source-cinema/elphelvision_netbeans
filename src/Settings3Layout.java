@@ -220,7 +220,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         ePanel2.setForeground(new java.awt.Color(80, 80, 80));
 
         MulitCameraRecordingDelay.setBackground(new java.awt.Color(1, 1, 1));
-        MulitCameraRecordingDelay.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        MulitCameraRecordingDelay.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         MulitCameraRecordingDelay.setForeground(new java.awt.Color(255, 255, 255));
         MulitCameraRecordingDelay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MulitCameraRecordingDelay.setText("Audio Devices");
@@ -232,7 +232,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         MulitCameraRecordingDelay.setVerifyInputWhenFocusTarget(false);
         MulitCameraRecordingDelay.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        AudioDevices.setFont(new java.awt.Font("DejaVu Sans", 0, 8)); // NOI18N
+        AudioDevices.setFont(new java.awt.Font("DejaVu Sans", 0, 8));
         AudioDevices.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AudioDevicesActionPerformed(evt);
@@ -393,7 +393,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         ePanel5.setForeground(new java.awt.Color(80, 80, 80));
 
         MulitCameraRecordingDelay2.setBackground(new java.awt.Color(1, 1, 1));
-        MulitCameraRecordingDelay2.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        MulitCameraRecordingDelay2.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         MulitCameraRecordingDelay2.setForeground(new java.awt.Color(255, 255, 255));
         MulitCameraRecordingDelay2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MulitCameraRecordingDelay2.setText("Audio Recording Formats");
@@ -405,7 +405,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         MulitCameraRecordingDelay2.setVerifyInputWhenFocusTarget(false);
         MulitCameraRecordingDelay2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        AudioFormats.setFont(new java.awt.Font("DejaVu Sans", 0, 8)); // NOI18N
+        AudioFormats.setFont(new java.awt.Font("DejaVu Sans", 0, 8));
 
         javax.swing.GroupLayout ePanel5Layout = new javax.swing.GroupLayout(ePanel5);
         ePanel5.setLayout(ePanel5Layout);
@@ -483,6 +483,8 @@ public class Settings3Layout extends javax.swing.JPanel {
         } catch (IOException ex) {
             Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        Parent.Utils.SoundRecorder.StartMonitor();
 
         Parent.LoadMainCard();
     }//GEN-LAST:event_SettingsOKButtonActionPerformed
