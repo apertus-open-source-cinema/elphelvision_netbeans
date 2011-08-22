@@ -191,7 +191,6 @@ public class MainLayoutVLC extends JPanel {
         CaptureStill = new EButton(Parent);
         RecordButton = new EButton(Parent);
         PlaybackButton = new EButton(Parent);
-        RecordTestButton = new EButton(Parent);
         AudioRec = new EButton(Parent);
         audioMonitor1 = new AudioMonitor(Parent);
         InfoPanel = new javax.swing.JPanel();
@@ -420,15 +419,6 @@ public class MainLayoutVLC extends JPanel {
             }
         });
         ParameterPanel.add(PlaybackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 0, -1, -1));
-
-        RecordTestButton.setForeground(new java.awt.Color(255, 0, 0));
-        RecordTestButton.setText("Rec Test");
-        RecordTestButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RecordTestButtonActionPerformed(evt);
-            }
-        });
-        ParameterPanel.add(RecordTestButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(936, 0, 62, 52));
 
         AudioRec.setText("Audio Rec");
         AudioRec.addActionListener(new java.awt.event.ActionListener() {
@@ -697,10 +687,54 @@ public class MainLayoutVLC extends JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RecordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordButtonActionPerformed
-        CamogmState check = Parent.Camera.GetCamogmState();
-        for (int i = 0; i < Parent.Camera.GetIP().length; i++) {
+        if (Parent.Camera.GetIP().length > 1) {
+            // Multiple Cameras
+            CamogmState check = Parent.Camera.GetCamogmState();
             if (check == CamogmState.STOPPED) {
-                Parent.Camera.ExecuteCommand(i, "RECORDSTART");
+                float RecordDelay = Parent.Camera.GetMultiCameraRecordingStartDelay();
+                double CurrentTime = Parent.Camera.GetCameraTime(0);
+                String CurTime = String.format("%3f", (CurrentTime / 10000));
+                final String StartTime = String.format("%3f", (CurrentTime + (RecordDelay * 10000)) / 10000);
+                Parent.WriteLogtoConsole("Current time = " + CurTime);
+                for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
+                    final int index = j;
+                    new Thread() {
+
+                        @Override
+                        public void run() {
+                            Parent.Camera.ExecuteCommand(index, "RECORDSTARTTIMESTAMP", StartTime);
+                            Parent.Camera.ExecuteCommand(index, "RECORDSTARTARM");
+                        }
+                    }.start();
+                }
+                RecordTestButton.setText("Stop");
+                RecordTestButton.setChecked(true);
+                if (Parent.Camera.GetAllowCaptureStillWhileRecording()) {
+                    CaptureStill.setEnabled(true);
+                } else {
+                    CaptureStill.setEnabled(false);
+                }
+            } else if (check == CamogmState.RECORDING) {
+                for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
+                    final int index = j;
+                    new Thread() {
+
+                        @Override
+                        public void run() {
+                            Parent.Camera.ExecuteCommand(index, "RECORDSTOP");
+                        }
+                    }.start();
+                }
+                RecordTestButton.setText("Record");
+                RecordTestButton.setChecked(false);
+
+                CaptureStill.setEnabled(true);
+            }
+        } else {
+            // Single Camera
+            CamogmState check = Parent.Camera.GetCamogmState();
+            if (check == CamogmState.STOPPED) {
+                Parent.Camera.ExecuteCommand(0, "RECORDSTART");
                 RecordButton.setText("Stop");
                 RecordButton.setChecked(true);
 
@@ -710,7 +744,7 @@ public class MainLayoutVLC extends JPanel {
                     CaptureStill.setEnabled(false);
                 }
             } else if (check == CamogmState.RECORDING) {
-                Parent.Camera.ExecuteCommand(i, "RECORDSTOP");
+                Parent.Camera.ExecuteCommand(0, "RECORDSTOP");
                 RecordButton.setText("Record");
                 RecordButton.setChecked(false);
 
@@ -809,50 +843,6 @@ public class MainLayoutVLC extends JPanel {
         Guidesoverlay.SetVisibility(false);
         Parent.HistogramSettingsCardLayout.Load();
     }//GEN-LAST:event_histogramMouseClicked
-
-    private void RecordTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordTestButtonActionPerformed
-        CamogmState check = Parent.Camera.GetCamogmState();
-        if (check == CamogmState.STOPPED) {
-            float RecordDelay = Parent.Camera.GetMultiCameraRecordingStartDelay();
-            double CurrentTime = Parent.Camera.GetCameraTime(0);
-            String CurTime = String.format("%3f", (CurrentTime / 10000));
-            final String StartTime = String.format("%3f", (CurrentTime + (RecordDelay * 10000)) / 10000);
-            Parent.WriteLogtoConsole("Current time = " + CurTime);
-            for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
-                final int index = j;
-                new Thread() {
-
-                    @Override
-                    public void run() {
-                        Parent.Camera.ExecuteCommand(index, "RECORDSTARTTIMESTAMP", StartTime);
-                        Parent.Camera.ExecuteCommand(index, "RECORDSTARTARM");
-                    }
-                }.start();
-            }
-            RecordTestButton.setText("Stop");
-            RecordTestButton.setChecked(true);
-            if (Parent.Camera.GetAllowCaptureStillWhileRecording()) {
-                CaptureStill.setEnabled(true);
-            } else {
-                CaptureStill.setEnabled(false);
-            }
-        } else if (check == CamogmState.RECORDING) {
-            for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
-                final int index = j;
-                new Thread() {
-
-                    @Override
-                    public void run() {
-                        Parent.Camera.ExecuteCommand(index, "RECORDSTOP");
-                    }
-                }.start();
-            }
-            RecordTestButton.setText("Record Test");
-            RecordTestButton.setChecked(false);
-
-            CaptureStill.setEnabled(true);
-        }
-    }//GEN-LAST:event_RecordTestButtonActionPerformed
 
     private void twelvedbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twelvedbActionPerformed
         Parent.Camera.SetGainIndex(0);
@@ -1070,7 +1060,6 @@ private void AudioRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private EButton PlaybackButton;
     private javax.swing.JPanel QuickPanel;
     private EButton RecordButton;
-    private EButton RecordTestButton;
     private javax.swing.JLabel ScaleLabel;
     private EButton SettingsButton;
     private javax.swing.JPanel ShutterPanel;
