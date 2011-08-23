@@ -25,7 +25,7 @@ public class AudioMonitor extends JPanel implements Runnable, java.io.Serializab
 
     double RMS = 0;
     Thread animator;
-    int fps = 20;
+    int fps = 4;
     int VUMeterWidth = 8;
     ElphelVision Parent = null;
 
@@ -52,7 +52,7 @@ public class AudioMonitor extends JPanel implements Runnable, java.io.Serializab
                 repaint();
 
                 try {
-                    Thread.sleep(1 / fps * 1000);
+                    Thread.sleep((int) (1.0f / fps * 1000.0f));
                 } catch (InterruptedException e) {
                     break;
                 }
@@ -68,18 +68,18 @@ public class AudioMonitor extends JPanel implements Runnable, java.io.Serializab
             Graphics2D g2 = (Graphics2D) g;
             g.setPaintMode();
 
-            // rate bar
+            // Bar Border
             g2.setStroke(new BasicStroke(1));
             g2.setColor(this.getForeground());
-            g2.drawLine(4, 4, 4 + VUMeterWidth, 4); // top
+            g2.drawLine(4, 4, 4 + VUMeterWidth + 1, 4); // top
             g2.drawLine(4, 4, 4, this.getHeight() - 4); // left
-            g2.drawLine(4, this.getHeight() - 4, 4 + VUMeterWidth, this.getHeight() - 4); // bottom
-            g2.drawLine(4 + VUMeterWidth, 4, 4 + VUMeterWidth, this.getHeight() - 4); // right
+            g2.drawLine(4, this.getHeight() - 4, 4 + VUMeterWidth + 1, this.getHeight() - 4); // bottom
+            g2.drawLine(4 + VUMeterWidth + 1, 4, 4 + VUMeterWidth + 1, this.getHeight() - 4); // right
 
-            // border
+            // Outline Border
             g2.draw(new Rectangle2D.Double(0, 0, this.getWidth() - 1, this.getHeight() - 1));
 
-            // fill
+            // Bar Filling
             float bar_length = (float) (RMS / Parent.Utils.SoundRecorder.getMaxDB());
             if (bar_length > 1) {
                 bar_length = 1;
@@ -91,13 +91,13 @@ public class AudioMonitor extends JPanel implements Runnable, java.io.Serializab
             } else {
                 g2.setColor(Color.green);
             }
-            g2.fill(new Rectangle2D.Double(4, this.getHeight() - (bar_length * (this.getHeight() - 8)) + 4, VUMeterWidth, (bar_length * this.getHeight() - 8)));
+            g2.fill(new Rectangle2D.Double(5, this.getHeight() - (bar_length * (this.getHeight() - 8)) - 4, VUMeterWidth, (bar_length * (this.getHeight() - 8))));
 
 
-            // peak
+            // Peak
             float peak_length = (float) (Parent.Utils.SoundRecorder.getPeakDB() / Parent.Utils.SoundRecorder.getMaxDB());
             g2.setColor(Color.red);
-            g2.fill(new Rectangle2D.Double(4, this.getHeight() - (peak_length * (this.getHeight() - 8)) + 4, VUMeterWidth, 3));
+            g2.fill(new Rectangle2D.Double(5, this.getHeight() - (peak_length * (this.getHeight() - 8 - 3) - 3) - 4, VUMeterWidth, 3));
         }
     }
 

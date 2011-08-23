@@ -46,6 +46,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         MultiCameraRecordingDelayField.setText(String.valueOf(Parent.Camera.GetMultiCameraRecordingStartDelay()));
         MovieSplitSizeField.setText(String.valueOf(Parent.Camera.GetMovieClipMaxChunkSize()));
 
+        AudioDevices.removeAllItems();
         String[] audio_devices = Parent.Utils.SoundRecorder.GetAvailableAudioMixers();
         for (int i = 0; i < audio_devices.length; i++) {
             if (audio_devices[i] != null) {
@@ -472,8 +473,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         Parent.Camera.SetMovieClipMaxChunkSize(Integer.parseInt(MovieSplitSizeField.getText()));
         Parent.Camera.SetMultiCameraRecordingStartDelay(Float.parseFloat(MultiCameraRecordingDelayField.getText()));
 
-        // testing audio recording
-        Parent.Utils.SoundRecorder.SetFilename("test.wav");
+        Parent.Utils.SoundRecorder.SetFilename("temp.wav");
         int AudioDeviceObjectKey = ((KeyValue) (AudioDevices.getSelectedObjects()[0])).getKey();
         int AudioFormatObjectKey = ((KeyValue) (AudioFormats.getSelectedObjects()[0])).getKey();
         Parent.Utils.SoundRecorder.SetAudioOptions(AudioDeviceObjectKey, AudioFormatObjectKey);
@@ -541,20 +541,22 @@ public class Settings3Layout extends javax.swing.JPanel {
 
     private void AudioDevicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AudioDevicesActionPerformed
         AudioFormats.removeAllItems();
-        KeyValue AudioDeviceObject = (KeyValue) (AudioDevices.getSelectedObjects()[0]);
-        AudioFormat[] audio_formats = Parent.Utils.SoundRecorder.GetMixerCapabilities(AudioDeviceObject.getKey());
-        if (audio_formats != null) {
-            for (int i = 0; i < audio_formats.length; i++) {
-                String line = "";
-                if (audio_formats[i].getSampleRate() == -1) {
-                    line += "Samplerate: any";
-                } else {
-                    line += "Samplerate: " + audio_formats[i].getSampleRate();
+        if (AudioDevices.getSelectedObjects().length > 0) {
+            KeyValue AudioDeviceObject = (KeyValue) (AudioDevices.getSelectedObjects()[0]);
+            AudioFormat[] audio_formats = Parent.Utils.SoundRecorder.GetMixerCapabilities(AudioDeviceObject.getKey());
+            if (audio_formats != null) {
+                for (int i = 0; i < audio_formats.length; i++) {
+                    String line = "";
+                    if (audio_formats[i].getSampleRate() == -1) {
+                        line += "Samplerate: any";
+                    } else {
+                        line += "Samplerate: " + audio_formats[i].getSampleRate();
+                    }
+                    line += " | Bits: " + audio_formats[i].getSampleSizeInBits();
+                    line += " | Channels: " + audio_formats[i].getChannels();
+                    KeyValue entry = new KeyValue(i, line);
+                    AudioFormats.addItem(entry);
                 }
-                line += " | Bits: " + audio_formats[i].getSampleSizeInBits();
-                line += " | Channels: " + audio_formats[i].getChannels();
-                KeyValue entry = new KeyValue(i, line);
-                AudioFormats.addItem(entry);
             }
         }
     }//GEN-LAST:event_AudioDevicesActionPerformed

@@ -22,6 +22,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -428,7 +429,7 @@ public class MainLayoutVLC extends JPanel {
         });
         ParameterPanel.add(AudioRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 0, 70, -1));
 
-        audioMonitor1.setBackground(new java.awt.Color(19, 19, 19));
+        audioMonitor1.setBackground(new java.awt.Color(0, 0, 0));
         audioMonitor1.setForeground(new java.awt.Color(166, 166, 166));
         audioMonitor1.setPreferredSize(new java.awt.Dimension(27, 60));
 
@@ -436,14 +437,14 @@ public class MainLayoutVLC extends JPanel {
         audioMonitor1.setLayout(audioMonitor1Layout);
         audioMonitor1Layout.setHorizontalGroup(
             audioMonitor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
+            .addGap(0, 18, Short.MAX_VALUE)
         );
         audioMonitor1Layout.setVerticalGroup(
             audioMonitor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        ParameterPanel.add(audioMonitor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 0, 20, 50));
+        ParameterPanel.add(audioMonitor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 0, 18, 50));
 
         bg.add(ParameterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 535, 1010, 60));
 
@@ -707,8 +708,8 @@ public class MainLayoutVLC extends JPanel {
                         }
                     }.start();
                 }
-                RecordTestButton.setText("Stop");
-                RecordTestButton.setChecked(true);
+                RecordButton.setText("Stop");
+                RecordButton.setChecked(true);
                 if (Parent.Camera.GetAllowCaptureStillWhileRecording()) {
                     CaptureStill.setEnabled(true);
                 } else {
@@ -725,8 +726,8 @@ public class MainLayoutVLC extends JPanel {
                         }
                     }.start();
                 }
-                RecordTestButton.setText("Record");
-                RecordTestButton.setChecked(false);
+                RecordButton.setText("Record");
+                RecordButton.setChecked(false);
 
                 CaptureStill.setEnabled(true);
             }
@@ -970,9 +971,24 @@ public class MainLayoutVLC extends JPanel {
 
 private void AudioRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AudioRecActionPerformed
     if (AudioRec.isChecked()) {
+        new Thread() {
 
-        Parent.Utils.SoundRecorder.StopRecording();
+            @Override
+            public void run() {
+                Parent.Utils.SoundRecorder.StopRecording();
+            }
+        }.start();
     } else {
+        int AudioFileIndex = 0;
+        String AudioFilename = "Audio" + String.format("%07d", AudioFileIndex) + ".wav";
+        File AudioFile = new File(AudioFilename);
+        while (AudioFile.exists()) {
+            AudioFileIndex++;
+            AudioFilename = "Audio" + String.format("%07d", AudioFileIndex) + ".wav";
+            AudioFile = new File(AudioFilename);
+        }
+        Parent.Utils.SoundRecorder.SetFilename(AudioFilename);
+        Parent.WriteLogtoConsole("Setting Audio Recording Filename: " + AudioFilename);
         Parent.Utils.SoundRecorder.StartRecording();
     }
     AudioRec.ToggleChecked();

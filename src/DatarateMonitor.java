@@ -57,7 +57,7 @@ public class DatarateMonitor extends JPanel implements Runnable, java.io.Seriali
                 repaint();
 
                 try {
-                    Thread.sleep(1 / fps * 1000);
+                    Thread.sleep((int)(1.0f / fps * 1000.0f));
                 } catch (InterruptedException e) {
                     break;
                 }

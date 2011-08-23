@@ -60,7 +60,7 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
             UpdateValues();
 
             try {
-                Thread.sleep(1 / UpdaterFPS * 1000);
+                Thread.sleep((int)(1.0f / UpdaterFPS * 1000.0f));
             } catch (InterruptedException e) {
                 break;
             }

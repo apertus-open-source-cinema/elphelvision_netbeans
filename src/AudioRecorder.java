@@ -44,7 +44,9 @@ public class AudioRecorder extends Thread {
     private Thread Recorder;
     private boolean MonitorRunning = false;
     private int MonitorCyclesPerSecond = 100;
+    private int RecorderCyclesPerSecond = 5;
     private boolean Recording = false;
+    private int MixerID = -1, FormatID = -1;
 
     public AudioRecorder(ElphelVision parent) {
         Parent = parent;
@@ -53,6 +55,9 @@ public class AudioRecorder extends Thread {
     }
 
     public void StartRecording() {
+        MonitorRunning = true;
+        Recording = true;
+
         if (!Dataline.isActive()) {
             Dataline.start();
         }
@@ -63,20 +68,27 @@ public class AudioRecorder extends Thread {
             Recorder.start();
         }
 
-        MonitorRunning = true;
-        Recording = true;
-
         Parent.WriteLogtoConsole("Audio Recording started");
     }
 
     public void StopRecording() {
         Dataline.stop();
-        Dataline.close();
+
+        //Dataline.close();
 
         //MonitorRunning = false;
         //Recording = false;
 
         Parent.WriteLogtoConsole("Audio Recording stopped");
+    }
+
+    // called once all data has been read from Audiobuffer after stopping the recording
+    private void PostStopRecording() {
+        Dataline.close(); // once writing finished close the Dataline
+        Recording = false; // set state after the above function finished when targetdataline does not provide any new data
+        SetAudioOptions(); //reinit for next recording
+        //We need to close the Dataline to end the recording, but we still want to monitor it afterwards so we need to start the monitor again
+        StartMonitor();
     }
 
     public void StartMonitor() {
@@ -90,7 +102,7 @@ public class AudioRecorder extends Thread {
         Parent.WriteLogtoConsole("Audio Monitoring started");
     }
 
-    public void SetFilename(String filename) {
+    public synchronized void SetFilename(String filename) {
         AudioFile = new File(filename);
     }
 
@@ -124,7 +136,15 @@ public class AudioRecorder extends Thread {
         return null;
     }
 
+    public synchronized void SetAudioOptions() {
+        if ((FormatID != -1) && (MixerID != -1)) {
+            SetAudioOptions(MixerID, FormatID);
+        }
+    }
+
     public void SetAudioOptions(int MixerIndex, int FormatIndex) {
+        FormatID = FormatIndex;
+        MixerID = MixerIndex;
 
         Info[] mixerinfo = AudioSystem.getMixerInfo();
 
@@ -236,7 +256,7 @@ public class AudioRecorder extends Thread {
                     Logger.getLogger(AudioRecorder.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 try {
-                    Thread.sleep(1 / MonitorCyclesPerSecond * 1000);
+                    Thread.sleep((int) (1.0f / MonitorCyclesPerSecond * 1000.0f));
                 } catch (InterruptedException e) {
                     break;
                 }
@@ -246,11 +266,17 @@ public class AudioRecorder extends Thread {
         while (Thread.currentThread() == Recorder) {
             if (Recording) {
                 try {
+                    Parent.WriteLogtoConsole("Audio Writing started");
                     AudioSystem.write(AudioInputStream, RecAudioFileFormat, AudioFile);
-                    Recording = false; // set state after the above function finished
-
+                    PostStopRecording();
                 } catch (IOException ex) {
                     Logger.getLogger(AudioRecorder.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                try {
+                    Thread.sleep((int) (1.0f / RecorderCyclesPerSecond * 1000.0f));
+                } catch (InterruptedException e) {
+                    break;
                 }
             }
         }

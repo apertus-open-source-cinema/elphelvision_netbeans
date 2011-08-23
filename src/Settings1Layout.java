@@ -125,7 +125,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
                 repaint();
 
                 try {
-                    Thread.sleep(1 / UpdaterFPS * 1000);
+                    Thread.sleep((int) (1.0f / UpdaterFPS * 1000.0f));
                 } catch (InterruptedException e) {
                     break;
                 }
