@@ -748,7 +748,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
 
         if (Camera.GetCamogmState() == CamogmState.RECORDING) {
             InfoAreaRecordLine1 += "Recording\n";
-            InfoAreaRecordLine2 += "Freame#: " + Camera.GetRecordedFramesCount();
+            InfoAreaRecordLine2 += Camera.getRecordClipName() + " Frame#: " + Camera.GetRecordedFramesCount();
             try {
                 RecordDoc.insertString(RecordDoc.getLength(), InfoAreaRecordLine1, StyleRed);
                 RecordDoc.insertString(RecordDoc.getLength(), InfoAreaRecordLine2, StyleNormal);

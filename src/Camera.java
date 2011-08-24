@@ -301,6 +301,8 @@ public class Camera {
     private MirrorImage ImageFlip = MirrorImage.NONE;
     private int MovieClipMaxChunkSize;
     private boolean ConnectionEstablished = false;
+    private String RecordPath;
+    private String RecordClipName;
 
     Camera(ElphelVision parent) {
         this.Parent = parent;
@@ -1160,20 +1162,20 @@ public class Camera {
 
     public boolean InitStereo3DSettings() {
         boolean error = false;
-        this.CameraUrl = new URL[this.IP.length];
+        URL[] CameraURL = new URL[this.IP.length];
         URLConnection conn = null;
         BufferedReader data = null;
 
         String camera_url1 = "http://" + this.IP[0] + "/ElphelVision/elphelvision_interface.php?cmd=init_stereo3d_master";
         try {
-            this.CameraUrl[0] = new URL(camera_url1);
+            CameraURL[0] = new URL(camera_url1);
             error = true;
         } catch (MalformedURLException e) {
             System.out.println("Bad URL: " + this.CameraUrl);
             error = false;
         }
         try {
-            conn = this.CameraUrl[0].openConnection();
+            conn = CameraURL[0].openConnection();
             conn.connect();
             Parent.WriteLogtoConsole(this.IP[0] + ": Setting Trigger Parameters");
 
@@ -1185,14 +1187,14 @@ public class Camera {
 
         String camera_url2 = "http://" + this.IP[1] + "/ElphelVision/elphelvision_interface.php?cmd=init_stereo3d_slave";
         try {
-            this.CameraUrl[1] = new URL(camera_url2);
+            CameraURL[1] = new URL(camera_url2);
             error = true;
         } catch (MalformedURLException e) {
             System.out.println("Bad URL: " + this.CameraUrl);
             error = false;
         }
         try {
-            conn = this.CameraUrl[1].openConnection();
+            conn = CameraURL[1].openConnection();
             conn.connect();
             Parent.WriteLogtoConsole(this.IP[1] + ": Setting Trigger Parameters");
 
@@ -1202,6 +1204,29 @@ public class Camera {
             Parent.WriteErrortoConsole("InitStereo3DSettings: " + e.getMessage());
         }
         return error;
+    }
+
+    public void SendCommandToCamera(int CameraIndex, String Command) {
+        URL CameraURL = null;
+        URLConnection conn = null;
+        BufferedReader data = null;
+
+        String camera_url = "http://" + this.IP[CameraIndex] + "/ElphelVision/elphelvision_interface.php?cmd=" + Command;
+        try {
+            CameraURL = new URL(camera_url);
+        } catch (MalformedURLException e) {
+            System.out.println("Bad URL: " + this.CameraUrl);
+        }
+        try {
+            conn = CameraURL.openConnection();
+            conn.connect();
+            Parent.WriteLogtoConsole(this.IP[CameraIndex] + ": Sending Command: " + Command);
+
+            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            data.close();
+        } catch (IOException e) {
+            Parent.WriteErrortoConsole("SendCommandToCamera(): " + e.getMessage());
+        }
     }
 
     public void SetParameter(int CameraIPIndex, CameraParameter par, float value) {
@@ -1826,7 +1851,7 @@ public class Camera {
                     if (this.FrameTrigger == Trigger.FREERUNNING) {
                         float fps_parameter = value * 1000;
                         param_url = "http://" + this.IP[CameraIPIndex] + "/ElphelVision/setparam.php?framedelay=3&FPSFLAGS=1&FP1000SLIM=" + fps_parameter;
-                    } else if (this.FrameTrigger == Trigger.TRIGGERED){
+                    } else if (this.FrameTrigger == Trigger.TRIGGERED) {
                         float fps_parameter = value * 1000;
                         int trig_period = (int) (96000000 / value);
                         param_url = "http://" + this.IP[CameraIPIndex] + "/ElphelVision/setparam.php?framedelay=3&FPSFLAGS=0&FP1000SLIM=" + fps_parameter + "&TRIG_PERIOD=" + trig_period;
@@ -2116,6 +2141,83 @@ public class Camera {
         return Time;
     }
 
+    public void StartRecording() {
+        Thread[] t = new Thread[Parent.Camera.GetIP().length];
+        for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
+            final int index = j;
+            t[j] = new Thread() {
+
+                @Override
+                public void run() {
+                    Parent.Camera.SendCommandToCamera(index, "camogmstartrecording");
+                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[index] + ": Recording started");
+                }
+            };
+            t[j].setPriority(Thread.MAX_PRIORITY);
+            t[j].start();
+        }
+        Calendar now = Calendar.getInstance();
+        RecordstartTime = now.getTimeInMillis();
+    }
+
+    public void StopRecording() {
+        Thread[] t = new Thread[Parent.Camera.GetIP().length];
+        for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
+            final int index = j;
+            t[j] = new Thread() {
+
+                @Override
+                public void run() {
+                    Parent.Camera.SendCommandToCamera(index, "camogmstoprecording");
+                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[index] + ": Recording Stopped");
+                }
+            };
+            t[j].setPriority(Thread.MAX_PRIORITY);
+            t[j].start();
+        }
+    }
+
+    public void ArmRecording() {
+        Thread[] t = new Thread[Parent.Camera.GetIP().length];
+        for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
+            final int index = j;
+            t[j] = new Thread() {
+
+                @Override
+                public void run() {
+                    Parent.Camera.SendCommandToCamera(index, "camogmstartrecording");
+                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[index] + ": Recording Armed");
+                }
+            };
+            t[j].setPriority(Thread.MAX_PRIORITY);
+            t[j].start();
+        }
+
+        Calendar now = Calendar.getInstance();
+        RecordstartTime = now.getTimeInMillis();
+
+    }
+
+    public void StartRecording(String Starttime) {
+        Thread[] t = new Thread[Parent.Camera.GetIP().length];
+        for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
+            final int index = j;
+            final String Parameter = Starttime;
+            t[j] = new Thread() {
+
+                @Override
+                public void run() {
+                    ExecuteCommand(index, "RECORDSTARTTIMESTAMP", Parameter);
+                }
+            };
+            t[j].setPriority(Thread.MAX_PRIORITY);
+            t[j].start();
+        }
+        // recording does not really start right now but since we do not know when it really will lets keep this
+        Calendar now = Calendar.getInstance();
+        RecordstartTime = now.getTimeInMillis();
+    }
+
     public void ExecuteCommand(int CameraIPIndex, String Command, String parameter) {
         if (Parent.GetNoCameraParameter()) {
             return;
@@ -2134,11 +2236,15 @@ public class Camera {
         if (Command.equals("CAMOGMSTART")) {
             command_name = "run_camogm";
         } else if (Command.equals("RECORDSTART")) {
+            // old: dont use this anymore
+            Parent.WriteWarningtoConsole("Outdated function call: ExecuteCommand(RECORDSTART)");
             Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording started");
             command_name = "start";
             Calendar now = Calendar.getInstance();
             RecordstartTime = now.getTimeInMillis();
         } else if (Command.equals("RECORDSTARTARM")) {
+            // old: dont use this anymore
+            Parent.WriteWarningtoConsole("Outdated function call: ExecuteCommand(RECORDSTARTARM)");
             Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording armed - will start at target time");
             command_name = "start";
             Calendar now = Calendar.getInstance();
@@ -2148,27 +2254,22 @@ public class Camera {
             command_name = "set_start_after_timestamp&start_after_timestamp=" + parameter;
             Calendar now = Calendar.getInstance();
             RecordstartTime = now.getTimeInMillis();
-        } else if (Command.equals(
-                "RECORDSTOP")) {
+        } else if (Command.equals("RECORDSTOP")) {
+            // old: dont use this anymore
+            Parent.WriteWarningtoConsole("Outdated function call: ExecuteCommand(RECORDSTOP)");
             Parent.WriteLogtoConsole(this.IP[CameraIPIndex] + ": Recording Stopped");
             command_name = "stop";
-        } else if (Command.equals(
-                "MOUNTHDD")) {
+        } else if (Command.equals("MOUNTHDD")) {
             command_name = "mount";
-        } else if (Command.equals(
-                "SETRECDIR")) {
+        } else if (Command.equals("SETRECDIR")) {
             command_name = "set_prefix&prefix=/var/hdd/";
-        } else if (Command.equals(
-                "SETCONTAINERFORMATQUICKTIME")) {
+        } else if (Command.equals("SETCONTAINERFORMATQUICKTIME")) {
             command_name = "setmov";
-        } else if (Command.equals(
-                "SETCONTAINERFORMATJPEG")) {
+        } else if (Command.equals("SETCONTAINERFORMATJPEG")) {
             command_name = "setjpeg";
-        } else if (Command.equals(
-                "SETSKIPFRAMES")) {
+        } else if (Command.equals("SETSKIPFRAMES")) {
             command_name = "set_frameskip&frameskip=" + parameter;
-        } else if (Command.equals(
-                "SETSKIPSECONDS")) {
+        } else if (Command.equals("SETSKIPSECONDS")) {
             command_name = "set_timelapse&timelapse=" + parameter;
         } else {
             command_name = Command;
@@ -2584,6 +2685,16 @@ public class Camera {
                         if (((Node) ElmntTriggerOut.item(0)) != null) {
                             this.TriggerOut = Integer.parseInt(((Node) ElmntTriggerOut.item(0)).getNodeValue());
                         }
+
+                        NodeList NmElmntLstRecordDirectory = fstElmnt.getElementsByTagName("record_directory");
+                        Element NmElmntRecordDirectory = (Element) NmElmntLstRecordDirectory.item(0);
+                        NodeList ElmntRecordDirectory = NmElmntRecordDirectory.getChildNodes();
+                        if (((Node) ElmntRecordDirectory.item(0)) != null) {
+                            String tempvalue = ((Node) (ElmntRecordDirectory.item(0))).getNodeValue() + "";
+                            this.RecordPath = tempvalue;
+                            String[] parts = tempvalue.split("/");
+                            this.RecordClipName = parts[parts.length - 1];
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -2592,7 +2703,6 @@ public class Camera {
         } catch (IOException e) {
             Parent.WriteErrortoConsole("UpdateCameraData() IO Error:" + e.getMessage());
         }
-
     }
 
     public void ReadCameraFileList() throws Exception {
@@ -2741,5 +2851,13 @@ public class Camera {
             Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting TriggerCondition to " + TriggerCondition);
             this.SendParametertoCamera(i, "TRIG_CONDITION=" + TriggerCondition);
         }
+    }
+
+    public String getRecordPath() {
+        return RecordPath;
+    }
+
+    public String getRecordClipName() {
+        return RecordClipName;
     }
 }

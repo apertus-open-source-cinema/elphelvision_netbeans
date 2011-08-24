@@ -455,21 +455,21 @@ public class MainLayoutVLC extends JPanel {
         InfoTextPane.setForeground(new java.awt.Color(255, 255, 255));
         InfoTextPane.setDoubleBuffered(true);
         InfoTextPane.setFocusable(false);
-        InfoPanel.add(InfoTextPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 200, 19));
+        InfoPanel.add(InfoTextPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 200, 19));
 
         NoticeArea.setBackground(new java.awt.Color(0, 0, 0));
         NoticeArea.setForeground(new java.awt.Color(254, 54, 54));
         NoticeArea.setText("loading...");
         NoticeArea.setDoubleBuffered(true);
         NoticeArea.setFocusable(false);
-        InfoPanel.add(NoticeArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, 190, 19));
+        InfoPanel.add(NoticeArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 170, 19));
 
         InfoArea_Record.setBackground(new java.awt.Color(0, 0, 0));
         InfoArea_Record.setForeground(new java.awt.Color(255, 255, 255));
         InfoArea_Record.setText("Record");
         InfoArea_Record.setDoubleBuffered(true);
         InfoArea_Record.setFocusable(false);
-        InfoPanel.add(InfoArea_Record, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 100, 50));
+        InfoPanel.add(InfoArea_Record, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 130, 50));
 
         InfoArea_Resolution.setBackground(new java.awt.Color(0, 0, 0));
         InfoArea_Resolution.setForeground(new java.awt.Color(255, 255, 255));
@@ -486,11 +486,11 @@ public class MainLayoutVLC extends JPanel {
         InfoPanel.add(Image, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 0, -1, -1));
 
         Image1.setBackground(new java.awt.Color(0, 0, 0));
-        Image1.setFont(new java.awt.Font("Tahoma", 0, 14));
+        Image1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Image1.setForeground(new java.awt.Color(255, 255, 255));
         Image1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Image1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/divider01.png"))); // NOI18N
-        InfoPanel.add(Image1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, -1, -1));
+        InfoPanel.add(Image1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, -1, -1));
 
         InfoArea_FPS.setBackground(new java.awt.Color(0, 0, 0));
         InfoArea_FPS.setForeground(new java.awt.Color(255, 255, 255));
@@ -539,7 +539,7 @@ public class MainLayoutVLC extends JPanel {
         InfoArea_HDD.setText("HDD");
         InfoArea_HDD.setDoubleBuffered(true);
         InfoArea_HDD.setFocusable(false);
-        InfoPanel.add(InfoArea_HDD, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 80, 50));
+        InfoPanel.add(InfoArea_HDD, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 90, 50));
 
         bg.add(InfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 0, 850, -1));
 
@@ -696,18 +696,11 @@ public class MainLayoutVLC extends JPanel {
                 double CurrentTime = Parent.Camera.GetCameraTime(0);
                 String CurTime = String.format("%3f", (CurrentTime / 10000));
                 final String StartTime = String.format("%3f", (CurrentTime + (RecordDelay * 10000)) / 10000);
-                Parent.WriteLogtoConsole("Current time = " + CurTime);
-                for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
-                    final int index = j;
-                    new Thread() {
+                //Parent.WriteLogtoConsole("Current time = " + CurTime);
 
-                        @Override
-                        public void run() {
-                            Parent.Camera.ExecuteCommand(index, "RECORDSTARTTIMESTAMP", StartTime);
-                            Parent.Camera.ExecuteCommand(index, "RECORDSTARTARM");
-                        }
-                    }.start();
-                }
+                Parent.Camera.StartRecording(StartTime);
+                Parent.Camera.ArmRecording();
+
                 RecordButton.setText("Stop");
                 RecordButton.setChecked(true);
                 if (Parent.Camera.GetAllowCaptureStillWhileRecording()) {
@@ -716,16 +709,8 @@ public class MainLayoutVLC extends JPanel {
                     CaptureStill.setEnabled(false);
                 }
             } else if (check == CamogmState.RECORDING) {
-                for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
-                    final int index = j;
-                    new Thread() {
-
-                        @Override
-                        public void run() {
-                            Parent.Camera.ExecuteCommand(index, "RECORDSTOP");
-                        }
-                    }.start();
-                }
+                Parent.Camera.StopRecording();
+                
                 RecordButton.setText("Record");
                 RecordButton.setChecked(false);
 
@@ -735,7 +720,9 @@ public class MainLayoutVLC extends JPanel {
             // Single Camera
             CamogmState check = Parent.Camera.GetCamogmState();
             if (check == CamogmState.STOPPED) {
-                Parent.Camera.ExecuteCommand(0, "RECORDSTART");
+                Parent.Camera.StartRecording();
+                //Parent.Camera.ExecuteCommand(0, "RECORDSTART"); old
+
                 RecordButton.setText("Stop");
                 RecordButton.setChecked(true);
 
@@ -745,7 +732,9 @@ public class MainLayoutVLC extends JPanel {
                     CaptureStill.setEnabled(false);
                 }
             } else if (check == CamogmState.RECORDING) {
-                Parent.Camera.ExecuteCommand(0, "RECORDSTOP");
+                Parent.Camera.StopRecording();
+                //Parent.Camera.ExecuteCommand(0, "RECORDSTOP"); old
+
                 RecordButton.setText("Record");
                 RecordButton.setChecked(false);
 
