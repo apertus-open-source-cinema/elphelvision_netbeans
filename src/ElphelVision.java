@@ -54,9 +54,9 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     Thread InfoAreaAnimator;
     Thread HistogramAnimator;
     long winid = 0;
-    int ReadCameradataFPS = 2;
-    int InfoAreaFPS = 2;
-    int HistogramFPS = 3;
+    int ReadCameradataFPS = 5;
+    int InfoAreaFPS = 5;
+    int HistogramFPS = 10;
     JPanel CardManager;
     ConnectLayout ConnectCardLayout;
     MainLayoutGST MaincardLayoutGST;

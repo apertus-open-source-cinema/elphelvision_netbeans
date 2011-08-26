@@ -2687,13 +2687,15 @@ public class Camera {
                         }
 
                         NodeList NmElmntLstRecordDirectory = fstElmnt.getElementsByTagName("record_directory");
-                        Element NmElmntRecordDirectory = (Element) NmElmntLstRecordDirectory.item(0);
-                        NodeList ElmntRecordDirectory = NmElmntRecordDirectory.getChildNodes();
-                        if (((Node) ElmntRecordDirectory.item(0)) != null) {
-                            String tempvalue = ((Node) (ElmntRecordDirectory.item(0))).getNodeValue() + "";
-                            this.RecordPath = tempvalue;
-                            String[] parts = tempvalue.split("/");
-                            this.RecordClipName = parts[parts.length - 1];
+                        if (NmElmntLstRecordDirectory.getLength() > 0) {
+                            Element NmElmntRecordDirectory = (Element) NmElmntLstRecordDirectory.item(0);
+                            NodeList ElmntRecordDirectory = NmElmntRecordDirectory.getChildNodes();
+                            if (((Node) ElmntRecordDirectory.item(0)) != null) {
+                                String tempvalue = ((Node) (ElmntRecordDirectory.item(0))).getNodeValue() + "";
+                                this.RecordPath = tempvalue;
+                                String[] parts = tempvalue.split("/");
+                                this.RecordClipName = parts[parts.length - 1];
+                            }
                         }
                     }
                 }

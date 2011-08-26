@@ -25,7 +25,7 @@ public class AudioMonitor extends JPanel implements Runnable, java.io.Serializab
 
     double RMS = 0;
     Thread animator;
-    int fps = 4;
+    int fps = 10;
     int VUMeterWidth = 8;
     ElphelVision Parent = null;
 

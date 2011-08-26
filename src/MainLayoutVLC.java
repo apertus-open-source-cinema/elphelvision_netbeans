@@ -486,7 +486,7 @@ public class MainLayoutVLC extends JPanel {
         InfoPanel.add(Image, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 0, -1, -1));
 
         Image1.setBackground(new java.awt.Color(0, 0, 0));
-        Image1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Image1.setFont(new java.awt.Font("Tahoma", 0, 14));
         Image1.setForeground(new java.awt.Color(255, 255, 255));
         Image1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Image1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/divider01.png"))); // NOI18N
@@ -625,7 +625,7 @@ public class MainLayoutVLC extends JPanel {
             .addGap(0, 40, Short.MAX_VALUE)
         );
 
-        LiveVideoButton.setText("Live Video");
+        LiveVideoButton.setText("Camera 1");
         LiveVideoButton.setChecked(true);
         LiveVideoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -710,7 +710,7 @@ public class MainLayoutVLC extends JPanel {
                 }
             } else if (check == CamogmState.RECORDING) {
                 Parent.Camera.StopRecording();
-                
+
                 RecordButton.setText("Record");
                 RecordButton.setChecked(false);
 
@@ -946,16 +946,41 @@ public class MainLayoutVLC extends JPanel {
             ExposureButton.setValue(Parent.Camera.GetExposure());
         }
     }//GEN-LAST:event_decvalue3ActionPerformed
-
+    int VideoStreamloop = 1;
     private void LiveVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LiveVideoButtonActionPerformed
-        if (LiveVideoButton.isChecked()) {
+        // Loop through Video sources and no-video
+        // 0 - disabled
+        // 1 - video from source 1 (default)
+        // 2 - video from source 2 (stereo 3d mode)
+
+        if (VideoStreamloop == 0) {
+            Parent.Settings.setVideoStreamEnabled(true);
+            Parent.VLCPlayer.PlayVideoStream(0);
+            LiveVideoButton.setChecked(true);
+            LiveVideoButton.setText("Camera 1");
+            VideoStreamloop = 1;
+        } else if (VideoStreamloop == 1) {
+            if (Parent.Camera.GetIP().length > 1) { // stereo 3d mode
+                Parent.StopVideoPlayer();
+                Parent.Settings.setVideoStreamEnabled(true);
+                Parent.VLCPlayer.PlayVideoStream(1);
+                LiveVideoButton.setChecked(true);
+                LiveVideoButton.setText("Camera 2");
+                VideoStreamloop = 2;
+            } else { // disable videostream
+                Parent.Settings.setVideoStreamEnabled(false);
+                Parent.StopVideoPlayer();
+                LiveVideoButton.setText("Video disabled");
+                LiveVideoButton.setChecked(false);
+                VideoStreamloop = 0;
+            }
+        } else if (VideoStreamloop == 2) {
             Parent.Settings.setVideoStreamEnabled(false);
             Parent.StopVideoPlayer();
-        } else {
-            Parent.Settings.setVideoStreamEnabled(true);
-            Parent.StartVideoPlayer();
+            LiveVideoButton.setText("Video disabled");
+            LiveVideoButton.setChecked(false);
+            VideoStreamloop = 0;
         }
-        LiveVideoButton.ToggleChecked();
     }//GEN-LAST:event_LiveVideoButtonActionPerformed
 
 private void AudioRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AudioRecActionPerformed

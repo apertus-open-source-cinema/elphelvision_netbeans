@@ -25,7 +25,7 @@ public class Histogram extends JPanel implements Runnable, java.io.Serializable 
     int width, height;
     int i = 0;
     Thread animator;
-    int fps = 25;
+    int fps = 10;
     ElphelVision Parent = null;
 
     public Histogram() {

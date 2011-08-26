@@ -979,7 +979,7 @@
             </Container>
             <Component class="EButton" name="LiveVideoButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Live Video"/>
+                <Property name="text" type="java.lang.String" value="Camera 1"/>
                 <Property name="checked" type="boolean" value="true"/>
               </Properties>
               <Events>
