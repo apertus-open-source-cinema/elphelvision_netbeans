@@ -199,6 +199,7 @@ public class MainLayoutVLC extends JPanel {
         PlaybackButton = new EButton(Parent);
         AudioRec = new EButton(Parent);
         audioMonitor1 = new AudioMonitor(Parent);
+        eButton7 = new EButton(Parent);
         InfoPanel = new javax.swing.JPanel();
         InfoTextPane = new javax.swing.JTextPane();
         NoticeArea = new javax.swing.JTextPane();
@@ -450,6 +451,15 @@ public class MainLayoutVLC extends JPanel {
         );
 
         ParameterPanel.add(audioMonitor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 0, 18, 50));
+
+        eButton7.setText("test");
+        eButton7.setToolTipText("RGB 24bit color mode");
+        eButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eButton7ActionPerformed(evt);
+            }
+        });
+        ParameterPanel.add(eButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 0, 66, -1));
 
         bg.add(ParameterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 535, 1010, 60));
 
@@ -725,7 +735,6 @@ public class MainLayoutVLC extends JPanel {
             CamogmState check = Parent.Camera.GetCamogmState();
             if (check == CamogmState.STOPPED) {
                 Parent.Camera.StartRecording();
-                //Parent.Camera.ExecuteCommand(0, "RECORDSTART"); old
 
                 RecordButton.setText("Stop");
                 RecordButton.setChecked(true);
@@ -737,7 +746,6 @@ public class MainLayoutVLC extends JPanel {
                 }
             } else if (check == CamogmState.RECORDING) {
                 Parent.Camera.StopRecording();
-                //Parent.Camera.ExecuteCommand(0, "RECORDSTOP"); old
 
                 RecordButton.setText("Record");
                 RecordButton.setChecked(false);
@@ -995,6 +1003,10 @@ private void AudioRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     AudioRec.ToggleChecked();
 }//GEN-LAST:event_AudioRecActionPerformed
 
+private void eButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton7ActionPerformed
+    String result = Parent.Camera.SetRecordDirectory(0, "test");
+}//GEN-LAST:event_eButton7ActionPerformed
+
     public void EnableRecord(boolean val) {
         this.RecordButton.setEnabled(val);
     }
@@ -1091,6 +1103,7 @@ private void AudioRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private EButton eButton3;
     private EButton eButton4;
     private EButton eButton6;
+    private EButton eButton7;
     private EButton eButton8;
     private EButton eButton9;
     private Histogram histogram;

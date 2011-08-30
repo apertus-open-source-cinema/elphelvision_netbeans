@@ -29,6 +29,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -37,6 +38,7 @@ import java.util.regex.Pattern;
 import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.xml.sax.SAXException;
 
 enum CamogmState {
 
@@ -1066,6 +1068,84 @@ public class Camera {
             }
         }
         return error;
+    }
+
+    public String CreateStereo3DClipName() {
+        String RetVal = null;
+        if (this.IP.length > 1) {
+            int Index = 1;
+            while (true) {
+                String result1 = SetRecordDirectory(0, "LEFT-CLIP" + String.format("%05d", Index));
+                if (result1.equals("success")) {
+                    String result2 = SetRecordDirectory(1, "RIGHT-CLIP" + String.format("%05d", Index));
+                    if (result2.equals("success")) {
+                        RetVal = String.format("%05d", Index);
+                        break;
+                    }
+                } else {
+                    Index++;
+                }
+            }
+        }
+        return RetVal;
+    }
+
+    public String SetRecordDirectory(int CameraIndex, String directory) {
+        String returnVal = null;
+        URLConnection conn = null;
+        BufferedReader data = null;
+        String line;
+        String result = null;
+        StringBuilder buf = new StringBuilder();
+        URL DirCameraUrl = null;
+        String ReturnValue = null;
+
+        String camera_url = "http://" + this.IP[CameraIndex] + "/ElphelVision/elphelvision_interface.php?cmd=setrecdir&directory=" + directory;
+        try {
+            DirCameraUrl = new URL(camera_url);
+        } catch (MalformedURLException e) {
+            System.out.println("Bad URL: " + DirCameraUrl);
+        }
+        try {
+            conn = DirCameraUrl.openConnection();
+            conn.connect();
+
+            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            buf.delete(0, buf.length());
+            while ((line = data.readLine()) != null) {
+                buf.append(line + "\n");
+            }
+
+            result = buf.toString();
+            data.close();
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db;
+            try {
+                db = dbf.newDocumentBuilder();
+                Document doc = null;
+
+                try {
+                    doc = db.parse(new ByteArrayInputStream(result.getBytes()));
+                } catch (SAXException ex) {
+                    Logger.getLogger(Camera.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                doc.getDocumentElement().normalize();
+                NodeList nodeLst = doc.getElementsByTagName("elphel_vision_data");
+                Element fstElmnt = (Element) nodeLst.item(0);
+                NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("result");
+
+                Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+                NodeList fstNm = fstNmElmnt.getChildNodes();
+                ReturnValue = ((Node) fstNm.item(0)).getNodeValue();
+            } catch (ParserConfigurationException ex) {
+                Logger.getLogger(Camera.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Camera.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ReturnValue;
     }
 
     public boolean InitCameraServices() {
