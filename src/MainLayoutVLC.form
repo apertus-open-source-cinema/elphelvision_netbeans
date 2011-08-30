@@ -980,7 +980,6 @@
             <Component class="EButton" name="LiveVideoButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Camera 1"/>
-                <Property name="checked" type="boolean" value="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LiveVideoButtonActionPerformed"/>

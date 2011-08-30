@@ -379,10 +379,10 @@ public class ConnectLayout extends javax.swing.JPanel {
 
             public void run() {
                 if (!Parent.GetNoCameraParameter()) {
-                   /* if (CameraIP.getText().equals(CameraIP2.getText())) {
+                    if (CameraIP.getText().equals(CameraIP2.getText())) {
                         Parent.WriteWarningtoConsole("Trying to connect to Dual Camera Stereo 3D setup with single IP, assuming single camera setup: " + CameraIP.getText());
                         Stereo3DButton.setChecked(false);
-                    }*/
+                    }
 
                     if (Stereo3DButton.isChecked()) {
                         Parent.WriteLogtoConsole("Trying to connect to Dual Camera Stereo 3D setup: " + CameraIP.getText() + " and " + CameraIP2.getText());

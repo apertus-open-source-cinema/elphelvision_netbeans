@@ -20,6 +20,7 @@
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -126,6 +127,10 @@ public class MainLayoutVLC extends JPanel {
 
         DatarateMonitor.startAnimator();
         audioMonitor1.startAnimator();
+
+        if (Parent.Camera.GetIP().length == 1) {
+            LiveVideoButton.setVisible(false);
+        }
     }
 
     public void UpdateOverlayPosition() {
@@ -626,7 +631,6 @@ public class MainLayoutVLC extends JPanel {
         );
 
         LiveVideoButton.setText("Camera 1");
-        LiveVideoButton.setChecked(true);
         LiveVideoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LiveVideoButtonActionPerformed(evt);
@@ -948,38 +952,21 @@ public class MainLayoutVLC extends JPanel {
     }//GEN-LAST:event_decvalue3ActionPerformed
     int VideoStreamloop = 1;
     private void LiveVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LiveVideoButtonActionPerformed
-        // Loop through Video sources and no-video
-        // 0 - disabled
+        // Loop through Video sources 
         // 1 - video from source 1 (default)
         // 2 - video from source 2 (stereo 3d mode)
-
-        if (VideoStreamloop == 0) {
-            Parent.Settings.setVideoStreamEnabled(true);
-            Parent.VLCPlayer.PlayVideoStream(0);
-            LiveVideoButton.setChecked(true);
-            LiveVideoButton.setText("Camera 1");
-            VideoStreamloop = 1;
-        } else if (VideoStreamloop == 1) {
-            if (Parent.Camera.GetIP().length > 1) { // stereo 3d mode
+        if (Parent.Camera.GetIP().length > 1) { // stereo 3d mode
+            if (VideoStreamloop == 1) {
                 Parent.StopVideoPlayer();
-                Parent.Settings.setVideoStreamEnabled(true);
-                Parent.VLCPlayer.PlayVideoStream(1);
-                LiveVideoButton.setChecked(true);
                 LiveVideoButton.setText("Camera 2");
                 VideoStreamloop = 2;
-            } else { // disable videostream
-                Parent.Settings.setVideoStreamEnabled(false);
+                Parent.VLCPlayer.PlayVideoStream(1);
+            } else if (VideoStreamloop == 2) {
                 Parent.StopVideoPlayer();
-                LiveVideoButton.setText("Video disabled");
-                LiveVideoButton.setChecked(false);
-                VideoStreamloop = 0;
+                LiveVideoButton.setText("Camera 1");
+                VideoStreamloop = 1;
+                Parent.VLCPlayer.PlayVideoStream(0);
             }
-        } else if (VideoStreamloop == 2) {
-            Parent.Settings.setVideoStreamEnabled(false);
-            Parent.StopVideoPlayer();
-            LiveVideoButton.setText("Video disabled");
-            LiveVideoButton.setChecked(false);
-            VideoStreamloop = 0;
         }
     }//GEN-LAST:event_LiveVideoButtonActionPerformed
 

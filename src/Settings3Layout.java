@@ -45,6 +45,13 @@ public class Settings3Layout extends javax.swing.JPanel {
     public void Load() {
         MultiCameraRecordingDelayField.setText(String.valueOf(Parent.Camera.GetMultiCameraRecordingStartDelay()));
         MovieSplitSizeField.setText(String.valueOf(Parent.Camera.GetMovieClipMaxChunkSize()));
+        if (Parent.Settings.isVideoStreamEnabled()) {
+            LiveVideoEnabledButton.setChecked(true);
+            LiveVideoEnabledButton.setText("Enabled");
+        } else {
+            LiveVideoEnabledButton.setChecked(false);
+            LiveVideoEnabledButton.setText("Disabled");
+        }
 
         AudioDevices.removeAllItems();
         String[] audio_devices = Parent.Utils.SoundRecorder.GetAvailableAudioMixers();
@@ -112,6 +119,9 @@ public class Settings3Layout extends javax.swing.JPanel {
         ePanel5 = new EPanel();
         MulitCameraRecordingDelay2 = new javax.swing.JLabel();
         AudioFormats = new javax.swing.JComboBox();
+        ePanel6 = new EPanel();
+        LiveVideoLabel = new javax.swing.JLabel();
+        LiveVideoEnabledButton = new EButton(Parent);
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -394,7 +404,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         ePanel5.setForeground(new java.awt.Color(80, 80, 80));
 
         MulitCameraRecordingDelay2.setBackground(new java.awt.Color(1, 1, 1));
-        MulitCameraRecordingDelay2.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
+        MulitCameraRecordingDelay2.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         MulitCameraRecordingDelay2.setForeground(new java.awt.Color(255, 255, 255));
         MulitCameraRecordingDelay2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MulitCameraRecordingDelay2.setText("Audio Recording Formats");
@@ -406,7 +416,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         MulitCameraRecordingDelay2.setVerifyInputWhenFocusTarget(false);
         MulitCameraRecordingDelay2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        AudioFormats.setFont(new java.awt.Font("DejaVu Sans", 0, 8));
+        AudioFormats.setFont(new java.awt.Font("DejaVu Sans", 0, 8)); // NOI18N
 
         javax.swing.GroupLayout ePanel5Layout = new javax.swing.GroupLayout(ePanel5);
         ePanel5.setLayout(ePanel5Layout);
@@ -422,14 +432,62 @@ public class Settings3Layout extends javax.swing.JPanel {
         ePanel5Layout.setVerticalGroup(
             ePanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ePanel5Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(ePanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(MulitCameraRecordingDelay2)
                     .addComponent(AudioFormats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(17, 17, 17))
         );
 
         ePanel1.add(ePanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 480, -1));
+
+        ePanel6.setBackground(new java.awt.Color(39, 39, 41));
+        ePanel6.setBorder(null);
+        ePanel6.setForeground(new java.awt.Color(80, 80, 80));
+
+        LiveVideoLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        LiveVideoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        LiveVideoLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LiveVideoLabel.setText("Live Video");
+        LiveVideoLabel.setAlignmentY(0.0F);
+        LiveVideoLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        LiveVideoLabel.setIconTextGap(0);
+        LiveVideoLabel.setInheritsPopupMenu(false);
+        LiveVideoLabel.setRequestFocusEnabled(false);
+        LiveVideoLabel.setVerifyInputWhenFocusTarget(false);
+        LiveVideoLabel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        LiveVideoEnabledButton.setText("Enabled");
+        LiveVideoEnabledButton.setChecked(true);
+        LiveVideoEnabledButton.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        LiveVideoEnabledButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LiveVideoEnabledButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ePanel6Layout = new javax.swing.GroupLayout(ePanel6);
+        ePanel6.setLayout(ePanel6Layout);
+        ePanel6Layout.setHorizontalGroup(
+            ePanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ePanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LiveVideoLabel)
+                .addGap(314, 314, 314)
+                .addComponent(LiveVideoEnabledButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        ePanel6Layout.setVerticalGroup(
+            ePanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ePanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ePanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(LiveVideoEnabledButton, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(LiveVideoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                .addGap(13, 13, 13))
+        );
+
+        ePanel1.add(ePanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 480, 60));
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -483,7 +541,13 @@ public class Settings3Layout extends javax.swing.JPanel {
         } catch (IOException ex) {
             Logger.getLogger(Settings1Layout.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        if (LiveVideoEnabledButton.isChecked()) {
+            Parent.Settings.setVideoStreamEnabled(true);
+        } else {
+            Parent.Settings.setVideoStreamEnabled(false);
+        }
+        
         Parent.Utils.SoundRecorder.StartMonitor();
 
         Parent.LoadMainCard();
@@ -560,11 +624,22 @@ public class Settings3Layout extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_AudioDevicesActionPerformed
+
+private void LiveVideoEnabledButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LiveVideoEnabledButtonActionPerformed
+    LiveVideoEnabledButton.ToggleChecked();
+    if (LiveVideoEnabledButton.isChecked()) {
+        LiveVideoEnabledButton.setText("Enabled");
+    } else {
+        LiveVideoEnabledButton.setText("Disabled");
+    }
+}//GEN-LAST:event_LiveVideoEnabledButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox AudioDevices;
     private javax.swing.JComboBox AudioFormats;
     private javax.swing.JPanel ConfirmationPanel;
     private EButton GuidesMenuButton1;
+    private EButton LiveVideoEnabledButton;
+    private javax.swing.JLabel LiveVideoLabel;
     private javax.swing.JTextField MovieSplitSizeField;
     private javax.swing.JLabel MovieSplitSizeLabel;
     private EButton MovieSplitSizeType;
@@ -586,5 +661,6 @@ public class Settings3Layout extends javax.swing.JPanel {
     private EPanel ePanel3;
     private EPanel ePanel4;
     private EPanel ePanel5;
+    private EPanel ePanel6;
     // End of variables declaration//GEN-END:variables
 }
