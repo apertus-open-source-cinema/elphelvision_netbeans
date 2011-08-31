@@ -1617,6 +1617,7 @@ public class Camera {
             line += "SecondsSkip=" + this.GetFPSSkipSeconds() + "\n";
             line += "AllowSlowShutter=" + this.GetAllowSlowShutter() + "\n";
             line += "MultiCameraRecordingStartDelay=" + Float.toString(this.GetMultiCameraRecordingStartDelay()) + "\n";
+            line += "DisableLiveVideo=" + Boolean.toString(Parent.Settings.isVideoStreamEnabled()) + "\n";
 
             output.write(line);
         } finally {
@@ -1877,6 +1878,9 @@ public class Camera {
                     }
                     if (name.trim().equals("MultiCameraRecordingStartDelay")) {
                         this.MultiCameraRecordingStartDelay = (Float.parseFloat(value.trim()));
+                    }
+                    if (name.trim().equals("DisableLiveVideo")) {
+                        Parent.Settings.setVideoStreamEnabled(Boolean.parseBoolean(value.trim()));
                     }
                 } else {
                     //Empty or invalid line. Unable to process
