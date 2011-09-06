@@ -302,6 +302,8 @@ public class Camera {
     private WhiteBalance ImageWhiteBalance = WhiteBalance.AUTO;
     private MirrorImage ImageFlip = MirrorImage.NONE;
     private int MovieClipMaxChunkSize;
+    private int MovieClipMaxChunkDuration;
+    private int MovieClipMaxChunkFrames;
     private boolean ConnectionEstablished = false;
     private String RecordPath;
     private String RecordClipName;
@@ -1551,7 +1553,6 @@ public class Camera {
             line += "WB_Factor_G=" + Float.toString(this.WB_Factor_G) + "\n";
             line += "WB_Factor_B=" + Float.toString(this.WB_Factor_B) + "\n";
             line += "WB_Factor_GB=" + Float.toString(this.WB_Factor_GB) + "\n";
-            line += "MovieMaxChunkSize=" + Integer.toString(this.GetMovieClipMaxChunkSize()) + "\n";
             line += "ImageOrientation=";
             if (this.GetImageOrientation() == ImageOrientation.LANDSCAPE) {
                 line += "LANDSCAPE";
@@ -1618,6 +1619,9 @@ public class Camera {
             line += "AllowSlowShutter=" + this.GetAllowSlowShutter() + "\n";
             line += "MultiCameraRecordingStartDelay=" + Float.toString(this.GetMultiCameraRecordingStartDelay()) + "\n";
             line += "DisableLiveVideo=" + Boolean.toString(Parent.Settings.isVideoStreamEnabled()) + "\n";
+            line += "MovieMaxChunkSize=" + Integer.toString(this.GetMovieClipMaxChunkSize()) + "\n";
+            line += "MovieMaxChunkDuration=" + Integer.toString(Parent.Camera.getMovieClipMaxChunkDuration()) + "\n";
+            line += "MovieMaxChunkFrames=" + Integer.toString(Parent.Camera.getMovieClipMaxChunkFrames()) + "\n";
 
             output.write(line);
         } finally {
@@ -1799,6 +1803,12 @@ public class Camera {
                     }
                     if (name.trim().equals("MovieMaxChunkSize")) {
                         this.SetMovieClipMaxChunkSize(Integer.parseInt(value.trim()));
+                    }
+                    if (name.trim().equals("MovieMaxChunkDuration")) {
+                        this.setMovieClipMaxChunkDuration(Integer.parseInt(value.trim()));
+                    }
+                    if (name.trim().equals("MovieMaxChunkFrames")) {
+                        this.setMovieClipMaxChunkFrames(Integer.parseInt(value.trim()));
                     }
                     if (name.trim().equals("PhotoColorMode")) {
                         if (value.trim().contentEquals("JP4")) {
@@ -2644,7 +2654,7 @@ public class Camera {
                         Element NmElmntCamOGMMaxDuration = (Element) NmElmntLstCamOGMMaxDuration.item(0);
                         NodeList ElmntCamOGMMaxDuration = NmElmntCamOGMMaxDuration.getChildNodes();
                         if (((Node) ElmntCamOGMMaxDuration.item(0)) != null) {
-                            // TODO
+                            this.MovieClipMaxChunkDuration = Integer.parseInt(((Node) ElmntCamOGMMaxDuration.item(0)).getNodeValue());
                         }
 
                         NodeList NmElmntLstCamOGMMaxLength = fstElmnt.getElementsByTagName("camogm_max_length"); // bytes
@@ -2658,7 +2668,7 @@ public class Camera {
                         Element NmElmntCamOGMMaxFrames = (Element) NmElmntLstCamOGMMaxFrames.item(0);
                         NodeList ElmntCamOGMMaxFrames = NmElmntCamOGMMaxFrames.getChildNodes();
                         if (((Node) ElmntCamOGMMaxFrames.item(0)) != null) {
-                            // TODO
+                            this.MovieClipMaxChunkFrames = Integer.parseInt(((Node) ElmntCamOGMMaxFrames.item(0)).getNodeValue());
                         }
 
                         NodeList NmElmntLst9 = fstElmnt.getElementsByTagName("exposure");
@@ -2945,5 +2955,27 @@ public class Camera {
 
     public String getRecordClipName() {
         return RecordClipName;
+    }
+
+    public int getMovieClipMaxChunkDuration() {
+        return MovieClipMaxChunkDuration;
+    }
+
+    public int getMovieClipMaxChunkFrames() {
+        return MovieClipMaxChunkFrames;
+    }
+
+    public void setMovieClipMaxChunkDuration(int MovieClipMaxChunkDuration) {
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting MovieClipMaxChunkDuration to " + MovieClipMaxChunkDuration);
+            this.ExecuteCommand(i, "set_duration&duration=" + MovieClipMaxChunkDuration);
+        }
+    }
+
+    public void setMovieClipMaxChunkFrames(int MovieClipMaxChunkFrames) {
+        for (int i = 0; i < this.IP.length; i++) {
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting MovieClipMaxChunkFrames to " + MovieClipMaxChunkFrames);
+            this.ExecuteCommand(i, "set_max_frames&max_frames=" + MovieClipMaxChunkFrames);
+        }
     }
 }

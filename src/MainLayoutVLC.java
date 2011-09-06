@@ -1004,7 +1004,9 @@ private void AudioRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_AudioRecActionPerformed
 
 private void eButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton7ActionPerformed
-    String result = Parent.Camera.SetRecordDirectory(0, "test");
+    //String result = Parent.Camera.SetRecordDirectory(0, "test");
+    File f1 = new File("no-video.jpg");
+    Parent.VLCPlayer.PlayStillImage(f1.getAbsolutePath());
 }//GEN-LAST:event_eButton7ActionPerformed
 
     public void EnableRecord(boolean val) {

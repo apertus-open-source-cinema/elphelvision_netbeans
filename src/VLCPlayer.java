@@ -80,6 +80,11 @@ public class VLCPlayer {
         mediaPlayer.setScale(factor);
     }
 
+    public void PlayStillImage(String ImagePath) {
+        String mediaoptions = "effect-list=none";
+        mediaPlayer.playMedia("file://" + ImagePath, mediaoptions);
+    }
+
     public void PlayVideoStream() {
         String mediaoptions = "effect-list=none";
         mediaPlayer.playMedia("rtsp://" + Parent.Camera.GetIP()[0] + ":554", mediaoptions);
