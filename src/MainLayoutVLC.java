@@ -112,7 +112,10 @@ public class MainLayoutVLC extends JPanel {
         Parent.VLCPlayer.SetCanvas(vlcoverlay);
         if (Parent.Settings.isVideoStreamEnabled()) {
             Parent.StartVideoPlayer();
+        } else {
+            Parent.VLCPlayer.PlayStillImage("no-video.jpg");
         }
+            
 
         ExposureButton.setChecked(true);
         ExposureButton.setValue(Parent.Camera.GetExposure());
@@ -707,11 +710,11 @@ public class MainLayoutVLC extends JPanel {
             CamogmState check = Parent.Camera.GetCamogmState();
             if (check == CamogmState.STOPPED) {
                 float RecordDelay = Parent.Camera.GetMultiCameraRecordingStartDelay();
-                double CurrentTime = Parent.Camera.GetCameraTime(0);
-                String CurTime = String.format("%3f", (CurrentTime / 10000));
-                final String StartTime = String.format("%3f", (CurrentTime + (RecordDelay * 10000)) / 10000);
+                double CurrentTime = Parent.Camera.GetCameraTime(0); // Get it from Master camera (Index 0)
+                //String CurTime = String.format("%3f", (CurrentTime / 10000));
                 //Parent.WriteLogtoConsole("Current time = " + CurTime);
-
+                final String StartTime = String.format("%3f", (CurrentTime + (RecordDelay * 10000)) / 10000);
+                
                 Parent.Camera.StartRecording(StartTime);
                 Parent.Camera.ArmRecording();
 
@@ -1004,9 +1007,7 @@ private void AudioRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_AudioRecActionPerformed
 
 private void eButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton7ActionPerformed
-    //String result = Parent.Camera.SetRecordDirectory(0, "test");
-    File f1 = new File("no-video.jpg");
-    Parent.VLCPlayer.PlayStillImage(f1.getAbsolutePath());
+    Parent.VLCPlayer.PlayStillImage("no-video.jpg");
 }//GEN-LAST:event_eButton7ActionPerformed
 
     public void EnableRecord(boolean val) {

@@ -519,6 +519,7 @@ public class Camera {
     }
 
     public void SetMultiCameraRecordingStartDelay(float newdelay) {
+        Parent.WriteLogtoConsole("Setting MultiCameraRecordingStartDelay to " + newdelay);
         MultiCameraRecordingStartDelay = newdelay;
     }
 
@@ -2307,7 +2308,7 @@ public class Camera {
             t[j].setPriority(Thread.MAX_PRIORITY);
             t[j].start();
         }
-        // recording does not really start right now but since we do not know when it really will lets keep this
+        // recording does not really start right now but since we do not know when it really will...
         Calendar now = Calendar.getInstance();
         RecordstartTime = now.getTimeInMillis();
     }

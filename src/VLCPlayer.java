@@ -21,6 +21,7 @@
 import java.awt.Canvas;
 import java.awt.GraphicsEnvironment;
 import java.awt.Window;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
@@ -81,8 +82,9 @@ public class VLCPlayer {
     }
 
     public void PlayStillImage(String ImagePath) {
+        File f1 = new File(ImagePath);
         String mediaoptions = "effect-list=none";
-        mediaPlayer.playMedia("file://" + ImagePath, mediaoptions);
+        mediaPlayer.playMedia("file://" + f1.getAbsolutePath(), mediaoptions);
     }
 
     public void PlayVideoStream() {
