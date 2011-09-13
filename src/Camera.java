@@ -2852,27 +2852,32 @@ public class Camera {
                         NodeList lstNmElmntLst1 = fstElmnt.getElementsByTagName("type");
                         Element lstNmElmnt1 = (Element) lstNmElmntLst1.item(0);
                         NodeList lstNm1 = lstNmElmnt1.getChildNodes();
-                        readentry.type = ((Node) lstNm1.item(0)).getNodeValue();
+                        readentry.setType(((Node) lstNm1.item(0)).getNodeValue());
 
                         NodeList lstNmElmntLst2 = fstElmnt.getElementsByTagName("name");
                         Element lstNmElmnt2 = (Element) lstNmElmntLst2.item(0);
                         NodeList lstNm2 = lstNmElmnt2.getChildNodes();
-                        readentry.name = ((Node) lstNm2.item(0)).getNodeValue();
+                        readentry.setName(((Node) lstNm2.item(0)).getNodeValue());
+                        
+                        NodeList lstNmElmntFolder = fstElmnt.getElementsByTagName("folder");
+                        Element ElmntFolder = (Element) lstNmElmntFolder.item(0);
+                        NodeList lstNmFolder = ElmntFolder.getChildNodes();
+                        readentry.setFolder(((Node) lstNmFolder.item(0)).getNodeValue());
 
                         NodeList lstNmElmntLst3 = fstElmnt.getElementsByTagName("path");
                         Element lstNmElmnt3 = (Element) lstNmElmntLst3.item(0);
                         NodeList lstNm3 = lstNmElmnt3.getChildNodes();
-                        readentry.path = ((Node) lstNm3.item(0)).getNodeValue();
+                        readentry.setPath(((Node) lstNm3.item(0)).getNodeValue());
 
                         NodeList lstNmElmntLst4 = fstElmnt.getElementsByTagName("size");
                         Element lstNmElmnt4 = (Element) lstNmElmntLst4.item(0);
                         NodeList lstNm4 = lstNmElmnt4.getChildNodes();
-                        readentry.size = Integer.parseInt(((Node) lstNm4.item(0)).getNodeValue());
+                        readentry.setSize(Integer.parseInt(((Node) lstNm4.item(0)).getNodeValue()));
 
                         NodeList lstNmElmntLst5 = fstElmnt.getElementsByTagName("date");
                         Element lstNmElmnt5 = (Element) lstNmElmntLst5.item(0);
                         NodeList lstNm5 = lstNmElmnt5.getChildNodes();
-                        readentry.date = ((Node) lstNm5.item(0)).getNodeValue();
+                        readentry.setDate(((Node) lstNm5.item(0)).getNodeValue());
 
                         VideoFilesList.add(readentry);
                     }

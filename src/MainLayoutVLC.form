@@ -498,23 +498,6 @@
                 </DimensionLayout>
               </Layout>
             </Container>
-            <Component class="EButton" name="eButton7">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="test"/>
-                <Property name="toolTipText" type="java.lang.String" value="RGB 24bit color mode"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eButton7ActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EButton(Parent);"/>
-              </AuxValues>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="930" y="0" width="66" height="-1"/>
-                </Constraint>
-              </Constraints>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="InfoPanel">

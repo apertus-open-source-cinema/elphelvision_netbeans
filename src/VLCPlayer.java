@@ -31,17 +31,17 @@ import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import uk.co.caprica.vlcj.runtime.windows.WindowsRuntimeUtil;
 
 public class VLCPlayer {
-
+    
     private EmbeddedMediaPlayer mediaPlayer;
     private MediaPlayerFactory mediaPlayerFactory;
     private ElphelVision Parent;
     private FullScreenStrategy fullScreenStrategy;
     private Canvas OverlayElement;
-
+    
     VLCPlayer(ElphelVision parent) {
         this.Parent = parent;
         List<String> vlcArgs = new ArrayList<String>();
-
+        
         vlcArgs.add("--no-video-title-show");
         vlcArgs.add("--rtsp-caching=50");
         vlcArgs.add("--clock-jitter=0");
@@ -57,41 +57,41 @@ public class VLCPlayer {
         mediaPlayer = mediaPlayerFactory.newMediaPlayer(fullScreenStrategy);
         //mediaPlayer = mediaPlayerFactory.newMediaPlayer(null);
     }
-
+    
     public void close() {
         Parent.WriteLogtoConsole("Stopping VLC Player");
         mediaPlayer.stop();
     }
-
+    
     public void SetCanvas(Canvas overlayelemt) {
         OverlayElement = overlayelemt;
         mediaPlayer.setVideoSurface(overlayelemt);
-
+        
     }
-
+    
     public void ToggleFullscreen() {
         //mediaPlayer.toggleFullScreen();
         //something is wrong here
         mediaPlayer.setFullScreen(true);
         fullScreenStrategy.enterFullScreenMode();
-
+        
     }
-
+    
     public void SetScale(float factor) {
         mediaPlayer.setScale(factor);
     }
-
+    
     public void PlayStillImage(String ImagePath) {
         File f1 = new File(ImagePath);
         String mediaoptions = "effect-list=none";
         mediaPlayer.playMedia("file://" + f1.getAbsolutePath(), mediaoptions);
     }
-
+    
     public void PlayVideoStream() {
         String mediaoptions = "effect-list=none";
         mediaPlayer.playMedia("rtsp://" + Parent.Camera.GetIP()[0] + ":554", mediaoptions);
     }
-
+    
     public void PlayVideoStream(int CameraIndex) {
         String mediaoptions = "effect-list=none";
         mediaPlayer.playMedia("rtsp://" + Parent.Camera.GetIP()[CameraIndex] + ":554", mediaoptions);
@@ -103,12 +103,13 @@ public class VLCPlayer {
     }*/
     public void PlayVideoFile(String file) {
         mediaPlayer.playMedia("http://" + Parent.Camera.GetIP()[0] + file); // TODO this only works for camera index 0 atm
+        Parent.WriteLogtoConsole("VLC Playing: " + file);
     }
-
+    
     public void PlayLocalVideoFile(String file) {
         mediaPlayer.playMedia(file);
     }
-
+    
     public class DefaultFullScreenStrategy implements FullScreenStrategy {
 
         /**
@@ -130,19 +131,19 @@ public class VLCPlayer {
                 throw new IllegalArgumentException("Window must not be null");
             }
         }
-
+        
         @Override
         public void enterFullScreenMode() {
             //Logger.debug("enterFullScreenMode()");
             GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(window);
         }
-
+        
         @Override
         public void exitFullScreenMode() {
             //Logger.debug("exitFullScreenMode()");
             GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(null);
         }
-
+        
         @Override
         public boolean isFullScreenMode() {
             //Logger.debug("isFullScreenMode()");

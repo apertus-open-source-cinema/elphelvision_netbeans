@@ -17,32 +17,111 @@
  *!
 -----------------------------------------------------------------------------**/
 
-import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
+import javax.swing.AbstractListModel;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
 
 public class PlaybackLayout extends javax.swing.JPanel {
 
+    private class VideoFileListModel extends AbstractListModel {
+
+        private ArrayList<VideoFile> VideoFilesList;
+
+        VideoFileListModel() {
+            VideoFilesList = new ArrayList<VideoFile>();
+            /*VideoFile test;
+            test = new VideoFile();
+            test.setName("test1");
+            VideoFilesList.add(test);*/
+        }
+
+        public int getSize() {
+            return VideoFilesList.size();
+        }
+
+        public Object getElementAt(int i) {
+            return VideoFilesList.get(i).getName();
+        }
+
+        public Object getVideoFileAt(int i) {
+            return VideoFilesList.get(i);
+        }
+
+        private void clear() {
+            VideoFilesList.clear();
+        }
+
+        private void addElement(VideoFile file) {
+            VideoFilesList.add(file);
+            int index = VideoFilesList.indexOf(file);
+            fireContentsChanged(this, index, index);
+        }
+    }
+
+    class VideoListCellRenderer extends JLabel implements ListCellRenderer {
+
+        protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+
+        public VideoListCellRenderer() {
+            // Don't paint behind the component
+            setOpaque(true);
+        }
+
+        // Set the attributes of the 
+        //class and return a reference
+        public Component getListCellRendererComponent(JList list,
+                Object value, // value to display
+                int index, // cell index
+                boolean iss, // is selected
+                boolean chf) // cell has focus?
+        {
+
+            //JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, iss, chf);
+            // Set the text and 
+            //background color for rendering
+            setText((String) value);
+            setBackground(Color.WHITE);
+
+            // Set a border if the 
+            //list item is selected
+            if (iss) {
+                setBackground(new Color(186, 206, 244, 100));
+            } else {
+                setBackground(Color.WHITE);
+            }
+            return this;
+        }
+    }
     ElphelVision Parent;
-    private DefaultListModel VideoFileListModel;
+    private VideoFileListModel videoFileListModel;
+    private VideoListCellRenderer CellRenderer;
 
     public PlaybackLayout(ElphelVision parent) {
         Parent = parent;
-        VideoFileListModel = new DefaultListModel();
-
+        videoFileListModel = new VideoFileListModel();
+        CellRenderer = new VideoListCellRenderer();
         try {
-            java.awt.EventQueue.invokeAndWait(new Runnable()   {
+            java.awt.EventQueue.invokeAndWait(new Runnable() {
 
                 public void run() {
                     initComponents();
                     bg.setBackground(Parent.Settings.GetPanelBackgroundColor());
                 }
             });
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PlaybackLayout.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
+            Logger.getLogger(PlaybackLayout.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public void Load() {
@@ -107,8 +186,9 @@ public class PlaybackLayout extends javax.swing.JPanel {
             }
         });
 
-        FilesList.setModel(VideoFileListModel);
+        FilesList.setModel(videoFileListModel);
         FilesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        FilesList.setCellRenderer(CellRenderer);
         jScrollPane1.setViewportView(FilesList);
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
@@ -163,14 +243,14 @@ public class PlaybackLayout extends javax.swing.JPanel {
 
     private void eButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButton1ActionPerformed
         if (Parent.Settings.GetVideoPlayer() == streamVideoPlayer.VLC) {
-            Parent.VLCPlayer.PlayVideoFile("/hdd/" + FilesList.getSelectedValue());
+            Parent.VLCPlayer.PlayVideoFile("/hdd/" + ((VideoFile) videoFileListModel.getVideoFileAt(FilesList.getSelectedIndex())).getPath());
         }
     }//GEN-LAST:event_eButton1ActionPerformed
 
     private void UpdateFilesList() {
-        VideoFileListModel.clear();
+        videoFileListModel.clear();
         for (int i = 0; i < Parent.Camera.GetVideoFilesList().size(); i++) {
-            VideoFileListModel.addElement(((VideoFile) (Parent.Camera.GetVideoFilesList().get(i))).name);
+            videoFileListModel.addElement(((VideoFile) (Parent.Camera.GetVideoFilesList().get(i))));
         }
     }
 
