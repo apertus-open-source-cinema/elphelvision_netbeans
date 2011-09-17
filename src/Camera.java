@@ -23,6 +23,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -116,6 +117,7 @@ enum PhotoResolution {
 public class Camera {
 
     private String IP[] = null;
+    private String CameraName[] = null; // can be used to define "Left" and "Right" camera in stereo 3D mode
     private URL[] CameraUrl = null;
     private URL[] CameraPingUrl = null;
     private float FPS;
@@ -315,6 +317,7 @@ public class Camera {
         this.FPS = 0;
         this.JPEGQuality = 0;
         this.IP = new String[]{"192.168.0.9"};
+        this.CameraName = new String[]{"Left"};
         this.ExposureIndex = 20;
         this.GainIndex = 4;
         this.JPEGQual = 80;
@@ -2237,14 +2240,26 @@ public class Camera {
     }
 
     public void StartRecording() {
+        Calendar currentDate = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd_HH-mm-ss");
+        String foldername = formatter.format(currentDate.getTime());
+
         Thread[] t = new Thread[Parent.Camera.GetIP().length];
         for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
             final int index = j;
+
+            // Append Camera Name if it was set
+            if ((CameraName[j] != null) && (!"".equals(CameraName[j]))) {
+                foldername = foldername + "_" + this.getCameraName()[j];
+            }
+
+            final String Foldername = foldername;
             t[j] = new Thread() {
 
                 @Override
                 public void run() {
-                    Parent.Camera.SendCommandToCamera(index, "camogmstartrecording");
+                    Parent.Camera.SendCommandToCamera(index, "camogmstartrecording&foldername=" + Foldername);
+                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[index] + ": Setting Record Directory to: " + Foldername);
                     Parent.WriteLogtoConsole(Parent.Camera.GetIP()[index] + ": Recording started");
                 }
             };
@@ -2858,11 +2873,15 @@ public class Camera {
                         Element lstNmElmnt2 = (Element) lstNmElmntLst2.item(0);
                         NodeList lstNm2 = lstNmElmnt2.getChildNodes();
                         readentry.setName(((Node) lstNm2.item(0)).getNodeValue());
-                        
+
                         NodeList lstNmElmntFolder = fstElmnt.getElementsByTagName("folder");
                         Element ElmntFolder = (Element) lstNmElmntFolder.item(0);
                         NodeList lstNmFolder = ElmntFolder.getChildNodes();
-                        readentry.setFolder(((Node) lstNmFolder.item(0)).getNodeValue());
+                        if (((Node) lstNmFolder.item(0)) != null) {
+                            readentry.setFolder(((Node) lstNmFolder.item(0)).getNodeValue());
+                        } else {
+                            readentry.setFolder("/");
+                        }
 
                         NodeList lstNmElmntLst3 = fstElmnt.getElementsByTagName("path");
                         Element lstNmElmnt3 = (Element) lstNmElmntLst3.item(0);
@@ -2983,5 +3002,19 @@ public class Camera {
             Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting MovieClipMaxChunkFrames to " + MovieClipMaxChunkFrames);
             this.ExecuteCommand(i, "set_max_frames&max_frames=" + MovieClipMaxChunkFrames);
         }
+    }
+
+    /**
+     * @return the CameraName
+     */
+    public String[] getCameraName() {
+        return CameraName;
+    }
+
+    /**
+     * @param CameraName the CameraName to set
+     */
+    public void setCameraName(String[] CameraName) {
+        this.CameraName = CameraName;
     }
 }
