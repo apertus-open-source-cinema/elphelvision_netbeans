@@ -117,7 +117,7 @@ enum PhotoResolution {
 public class Camera {
 
     private String IP[] = null;
-    private String CameraName[] = null; // can be used to define "Left" and "Right" camera in stereo 3D mode
+    private String StereoCameraName[] = null; // can be used to define "Left" and "Right" camera in stereo 3D mode
     private URL[] CameraUrl = null;
     private URL[] CameraPingUrl = null;
     private float FPS;
@@ -309,6 +309,7 @@ public class Camera {
     private boolean ConnectionEstablished = false;
     private String RecordPath;
     private String RecordClipName;
+    private String SingleCameraName;
 
     Camera(ElphelVision parent) {
         this.Parent = parent;
@@ -317,7 +318,8 @@ public class Camera {
         this.FPS = 0;
         this.JPEGQuality = 0;
         this.IP = new String[]{"192.168.0.9"};
-        this.CameraName = new String[]{"Left"};
+        this.StereoCameraName = new String[]{"A-Left", "B-Right"};
+        this.SingleCameraName = "";
         this.ExposureIndex = 20;
         this.GainIndex = 4;
         this.JPEGQual = 80;
@@ -1626,6 +1628,9 @@ public class Camera {
             line += "MovieMaxChunkSize=" + Integer.toString(this.GetMovieClipMaxChunkSize()) + "\n";
             line += "MovieMaxChunkDuration=" + Integer.toString(Parent.Camera.getMovieClipMaxChunkDuration()) + "\n";
             line += "MovieMaxChunkFrames=" + Integer.toString(Parent.Camera.getMovieClipMaxChunkFrames()) + "\n";
+            line += "SingleCameraName=" + Parent.Camera.getSingleCameraName() + "\n";
+            line += "MasterCameraName=" + Parent.Camera.getStereoCameraNames()[0] + "\n";
+            line += "SlaveCameraName=" + Parent.Camera.getStereoCameraNames()[1] + "\n";
 
             output.write(line);
         } finally {
@@ -1896,6 +1901,16 @@ public class Camera {
                     if (name.trim().equals("DisableLiveVideo")) {
                         Parent.Settings.setVideoStreamEnabled(Boolean.parseBoolean(value.trim()));
                     }
+                    if (name.trim().equals("SingleCameraName")) {
+                        Parent.Camera.setSingleCameraName(value.trim());
+                    }
+                    if (name.trim().equals("MasterCameraName")) {
+                        Parent.Camera.setStereoCameraName(value.trim(), 0);
+                    }
+                    if (name.trim().equals("SlaveCameraName")) {
+                        Parent.Camera.setStereoCameraName(value.trim(), 1);
+                    }
+
                 } else {
                     //Empty or invalid line. Unable to process
                 }
@@ -2249,8 +2264,14 @@ public class Camera {
             final int index = j;
 
             // Append Camera Name if it was set
-            if ((CameraName[j] != null) && (!"".equals(CameraName[j]))) {
-                foldername = foldername + "_" + this.getCameraName()[j];
+            if (Parent.Camera.GetIP().length > 1) { //  Stereo 3D mode
+                if ((StereoCameraName[j] != null) && (!"".equals(StereoCameraName[j]))) {
+                    foldername = foldername + "_" + this.getStereoCameraNames()[j];
+                }
+            } else { // single camera mode
+                if ((this.getSingleCameraName() != null) && (!"".equals(this.getSingleCameraName()))) {
+                    foldername = foldername + "_" + this.getSingleCameraName();
+                }
             }
 
             final String Foldername = foldername;
@@ -3004,17 +3025,23 @@ public class Camera {
         }
     }
 
-    /**
-     * @return the CameraName
-     */
-    public String[] getCameraName() {
-        return CameraName;
+    public String[] getStereoCameraNames() {
+        return StereoCameraName;
     }
 
-    /**
-     * @param CameraName the CameraName to set
-     */
-    public void setCameraName(String[] CameraName) {
-        this.CameraName = CameraName;
+    public void setStereoCameraNames(String[] CameraName) {
+        this.StereoCameraName = CameraName;
+    }
+
+    public void setStereoCameraName(String CameraName, int Index) {
+        this.StereoCameraName[Index] = CameraName;
+    }
+
+    public void setSingleCameraName(String CameraName) {
+        this.SingleCameraName = CameraName;
+    }
+
+    public String getSingleCameraName() {
+        return this.SingleCameraName;
     }
 }

@@ -64,6 +64,17 @@ public class Settings3Layout extends javax.swing.JPanel {
                 AudioDevices.addItem(new KeyValue(i, audio_devices[i]));
             }
         }
+
+        if (Parent.Camera.GetIP().length > 1) {
+            SingleCameraPanel.setEnabled(false);
+            MasterCameraNameField.setText(Parent.Camera.getStereoCameraNames()[0]);
+            SlaveCameraNameField.setText(Parent.Camera.getStereoCameraNames()[1]);
+        } else {
+            MasterCameraPanel.setEnabled(false);
+            SlaveCameraPanel.setEnabled(false);
+            SingleCameraNameField.setText(Parent.Camera.getSingleCameraName());
+        }
+
     }
 
     public class KeyValue {
@@ -108,6 +119,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         GuidesMenuButton1 = new EButton(Parent);
         SettingsMenu3Button = new EButton(Parent);
         PhotoSettingsMenu = new EButton(Parent);
+        jScrollPane1 = new javax.swing.JScrollPane();
         ePanel1 = new EPanel();
         ePanel2 = new EPanel();
         MulitCameraRecordingDelay = new javax.swing.JLabel();
@@ -134,6 +146,20 @@ public class Settings3Layout extends javax.swing.JPanel {
         MovieSplitSizeLabel2 = new javax.swing.JLabel();
         MovieSplitFramesField = new javax.swing.JTextField();
         MovieSplitFramesType = new EButton(Parent);
+        SlaveCameraPanel = new EPanel();
+        LiveVideoLabel1 = new javax.swing.JLabel();
+        SlaveCameraNameField = new javax.swing.JTextField();
+        MasterCameraPanel = new EPanel();
+        LiveVideoLabel2 = new javax.swing.JLabel();
+        MasterCameraNameField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        SingleCameraPanel = new EPanel();
+        LiveVideoLabel3 = new javax.swing.JLabel();
+        SingleCameraNameField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         bg.setBackground(new java.awt.Color(0, 0, 0));
         bg.setPreferredSize(new java.awt.Dimension(1024, 600));
@@ -234,7 +260,14 @@ public class Settings3Layout extends javax.swing.JPanel {
                 .addComponent(PhotoSettingsMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setViewportBorder(null);
+        jScrollPane1.setAlignmentX(0.0F);
+        jScrollPane1.setAlignmentY(0.0F);
+
         ePanel1.setBackground(new java.awt.Color(13, 20, 27));
+        ePanel1.setAutoscrolls(true);
         ePanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ePanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -270,7 +303,7 @@ public class Settings3Layout extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(MulitCameraRecordingDelay)
                 .addGap(18, 18, 18)
-                .addComponent(AudioDevices, 0, 351, Short.MAX_VALUE)
+                .addComponent(AudioDevices, 0, 341, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ePanel2Layout.setVerticalGroup(
@@ -285,7 +318,7 @@ public class Settings3Layout extends javax.swing.JPanel {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        ePanel1.add(ePanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 480, 60));
+        ePanel1.add(ePanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 470, 60));
 
         ePanel3.setBackground(new java.awt.Color(39, 39, 41));
         ePanel3.setBorder(null);
@@ -329,7 +362,7 @@ public class Settings3Layout extends javax.swing.JPanel {
             .addGroup(ePanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MovieSplitSizeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                 .addComponent(MovieSplitSizeField, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MovieSplitSizeType, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -347,14 +380,13 @@ public class Settings3Layout extends javax.swing.JPanel {
                 .addGap(83, 83, 83))
         );
 
-        ePanel1.add(ePanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 480, 60));
+        ePanel1.add(ePanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 470, 60));
 
         ePanel4.setBackground(new java.awt.Color(39, 39, 41));
         ePanel4.setBorder(null);
         ePanel4.setForeground(new java.awt.Color(80, 80, 80));
 
         MulitCameraRecordingDelay1.setBackground(new java.awt.Color(1, 1, 1));
-        MulitCameraRecordingDelay1.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         MulitCameraRecordingDelay1.setForeground(new java.awt.Color(255, 255, 255));
         MulitCameraRecordingDelay1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MulitCameraRecordingDelay1.setText("Multi Camera Recording Delay [seconds]");
@@ -378,7 +410,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         });
 
         MulitCameraRecordingDelayType.setText("type");
-        MulitCameraRecordingDelayType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        MulitCameraRecordingDelayType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         MulitCameraRecordingDelayType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MulitCameraRecordingDelayTypeActionPerformed(evt);
@@ -389,27 +421,31 @@ public class Settings3Layout extends javax.swing.JPanel {
         ePanel4.setLayout(ePanel4Layout);
         ePanel4Layout.setHorizontalGroup(
             ePanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ePanel4Layout.createSequentialGroup()
+            .addGroup(ePanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(MulitCameraRecordingDelay1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(MultiCameraRecordingDelayField, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(MulitCameraRecordingDelay1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(MultiCameraRecordingDelayField, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(MulitCameraRecordingDelayType, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         ePanel4Layout.setVerticalGroup(
             ePanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ePanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ePanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(MulitCameraRecordingDelay1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MulitCameraRecordingDelayType, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(MultiCameraRecordingDelayField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGroup(ePanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ePanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(MulitCameraRecordingDelay1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ePanel4Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(ePanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(MulitCameraRecordingDelayType, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                            .addComponent(MultiCameraRecordingDelayField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        ePanel1.add(ePanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 480, 60));
+        ePanel1.add(ePanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 470, 60));
 
         ePanel5.setBackground(new java.awt.Color(39, 39, 41));
         ePanel5.setBorder(null);
@@ -438,26 +474,26 @@ public class Settings3Layout extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(MulitCameraRecordingDelay2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AudioFormats, 0, 287, Short.MAX_VALUE)
+                .addComponent(AudioFormats, 0, 277, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ePanel5Layout.setVerticalGroup(
             ePanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ePanel5Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addGroup(ePanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(MulitCameraRecordingDelay2)
                     .addComponent(AudioFormats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17))
         );
 
-        ePanel1.add(ePanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 480, -1));
+        ePanel1.add(ePanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, 470, 60));
 
         ePanel6.setBackground(new java.awt.Color(39, 39, 41));
         ePanel6.setBorder(null);
         ePanel6.setForeground(new java.awt.Color(80, 80, 80));
 
-        LiveVideoLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
+        LiveVideoLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
         LiveVideoLabel.setForeground(new java.awt.Color(255, 255, 255));
         LiveVideoLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         LiveVideoLabel.setText("Live Video");
@@ -485,27 +521,30 @@ public class Settings3Layout extends javax.swing.JPanel {
             .addGroup(ePanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(LiveVideoLabel)
-                .addGap(314, 314, 314)
+                .addGap(304, 304, 304)
                 .addComponent(LiveVideoEnabledButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         ePanel6Layout.setVerticalGroup(
             ePanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ePanel6Layout.createSequentialGroup()
+            .addGroup(ePanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(ePanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(LiveVideoEnabledButton, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(LiveVideoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
-                .addGap(13, 13, 13))
+                .addGroup(ePanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ePanel6Layout.createSequentialGroup()
+                        .addComponent(LiveVideoEnabledButton, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(ePanel6Layout.createSequentialGroup()
+                        .addComponent(LiveVideoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                        .addGap(13, 13, 13))))
         );
 
-        ePanel1.add(ePanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, 480, 60));
+        ePanel1.add(ePanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 470, 60));
 
         ePanel7.setBackground(new java.awt.Color(39, 39, 41));
         ePanel7.setBorder(null);
         ePanel7.setForeground(new java.awt.Color(80, 80, 80));
 
-        MovieSplitSizeLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        MovieSplitSizeLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         MovieSplitSizeLabel1.setForeground(new java.awt.Color(255, 255, 255));
         MovieSplitSizeLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MovieSplitSizeLabel1.setText("Movie Split Duration [seconds]");
@@ -543,7 +582,7 @@ public class Settings3Layout extends javax.swing.JPanel {
             .addGroup(ePanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MovieSplitSizeLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(MovieSplitDurationField, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MovieSplitDurationType, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -561,13 +600,13 @@ public class Settings3Layout extends javax.swing.JPanel {
                 .addGap(83, 83, 83))
         );
 
-        ePanel1.add(ePanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 480, 60));
+        ePanel1.add(ePanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 470, 60));
 
         ePanel8.setBackground(new java.awt.Color(39, 39, 41));
         ePanel8.setBorder(null);
         ePanel8.setForeground(new java.awt.Color(80, 80, 80));
 
-        MovieSplitSizeLabel2.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        MovieSplitSizeLabel2.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         MovieSplitSizeLabel2.setForeground(new java.awt.Color(255, 255, 255));
         MovieSplitSizeLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MovieSplitSizeLabel2.setText("Movie Split Frames");
@@ -591,7 +630,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         });
 
         MovieSplitFramesType.setText("type");
-        MovieSplitFramesType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        MovieSplitFramesType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         MovieSplitFramesType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MovieSplitFramesTypeActionPerformed(evt);
@@ -605,7 +644,7 @@ public class Settings3Layout extends javax.swing.JPanel {
             .addGroup(ePanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MovieSplitSizeLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
                 .addComponent(MovieSplitFramesField, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MovieSplitFramesType, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -616,14 +655,194 @@ public class Settings3Layout extends javax.swing.JPanel {
             .addGroup(ePanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ePanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(MovieSplitSizeLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(MovieSplitSizeLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ePanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(MovieSplitFramesType, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                        .addComponent(MovieSplitFramesType, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                         .addComponent(MovieSplitFramesField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(83, 83, 83))
         );
 
-        ePanel1.add(ePanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, 480, 60));
+        ePanel1.add(ePanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 470, 60));
+
+        SlaveCameraPanel.setBackground(new java.awt.Color(39, 39, 41));
+        SlaveCameraPanel.setBorder(null);
+        SlaveCameraPanel.setForeground(new java.awt.Color(80, 80, 80));
+
+        LiveVideoLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        LiveVideoLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        LiveVideoLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LiveVideoLabel1.setText("Slave Camera Name");
+        LiveVideoLabel1.setAlignmentY(0.0F);
+        LiveVideoLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        LiveVideoLabel1.setIconTextGap(0);
+        LiveVideoLabel1.setInheritsPopupMenu(false);
+        LiveVideoLabel1.setRequestFocusEnabled(false);
+        LiveVideoLabel1.setVerifyInputWhenFocusTarget(false);
+        LiveVideoLabel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        SlaveCameraNameField.setBackground(new java.awt.Color(0, 0, 0));
+        SlaveCameraNameField.setForeground(new java.awt.Color(255, 255, 255));
+        SlaveCameraNameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        SlaveCameraNameField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        SlaveCameraNameField.setCaretColor(new java.awt.Color(254, 254, 254));
+        SlaveCameraNameField.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                SlaveCameraNameFieldCaretUpdate(evt);
+            }
+        });
+
+        javax.swing.GroupLayout SlaveCameraPanelLayout = new javax.swing.GroupLayout(SlaveCameraPanel);
+        SlaveCameraPanel.setLayout(SlaveCameraPanelLayout);
+        SlaveCameraPanelLayout.setHorizontalGroup(
+            SlaveCameraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SlaveCameraPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LiveVideoLabel1)
+                .addGap(131, 131, 131)
+                .addComponent(SlaveCameraNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        SlaveCameraPanelLayout.setVerticalGroup(
+            SlaveCameraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SlaveCameraPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SlaveCameraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SlaveCameraPanelLayout.createSequentialGroup()
+                        .addComponent(SlaveCameraNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(SlaveCameraPanelLayout.createSequentialGroup()
+                        .addComponent(LiveVideoLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                        .addGap(13, 13, 13))))
+        );
+
+        ePanel1.add(SlaveCameraPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, 470, 60));
+
+        MasterCameraPanel.setBackground(new java.awt.Color(39, 39, 41));
+        MasterCameraPanel.setBorder(null);
+        MasterCameraPanel.setForeground(new java.awt.Color(80, 80, 80));
+
+        LiveVideoLabel2.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        LiveVideoLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        LiveVideoLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LiveVideoLabel2.setText("Master Camera Name");
+        LiveVideoLabel2.setAlignmentY(0.0F);
+        LiveVideoLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        LiveVideoLabel2.setIconTextGap(0);
+        LiveVideoLabel2.setInheritsPopupMenu(false);
+        LiveVideoLabel2.setRequestFocusEnabled(false);
+        LiveVideoLabel2.setVerifyInputWhenFocusTarget(false);
+        LiveVideoLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        MasterCameraNameField.setBackground(new java.awt.Color(0, 0, 0));
+        MasterCameraNameField.setForeground(new java.awt.Color(255, 255, 255));
+        MasterCameraNameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        MasterCameraNameField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        MasterCameraNameField.setCaretColor(new java.awt.Color(254, 254, 254));
+        MasterCameraNameField.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                MasterCameraNameFieldCaretUpdate(evt);
+            }
+        });
+
+        javax.swing.GroupLayout MasterCameraPanelLayout = new javax.swing.GroupLayout(MasterCameraPanel);
+        MasterCameraPanel.setLayout(MasterCameraPanelLayout);
+        MasterCameraPanelLayout.setHorizontalGroup(
+            MasterCameraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MasterCameraPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LiveVideoLabel2)
+                .addGap(121, 121, 121)
+                .addComponent(MasterCameraNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        MasterCameraPanelLayout.setVerticalGroup(
+            MasterCameraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MasterCameraPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(MasterCameraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(MasterCameraNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LiveVideoLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                .addGap(13, 13, 13))
+        );
+
+        ePanel1.add(MasterCameraPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 470, 60));
+
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel1.setText("Movie File Size Settings");
+        ePanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 200, -1));
+
+        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel2.setText("Stereo 3D Settings");
+        ePanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel3.setText("Audio Settings");
+        ePanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+
+        SingleCameraPanel.setBackground(new java.awt.Color(39, 39, 41));
+        SingleCameraPanel.setBorder(null);
+        SingleCameraPanel.setForeground(new java.awt.Color(80, 80, 80));
+
+        LiveVideoLabel3.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        LiveVideoLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        LiveVideoLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LiveVideoLabel3.setText("Single Camera Name");
+        LiveVideoLabel3.setAlignmentY(0.0F);
+        LiveVideoLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        LiveVideoLabel3.setIconTextGap(0);
+        LiveVideoLabel3.setInheritsPopupMenu(false);
+        LiveVideoLabel3.setRequestFocusEnabled(false);
+        LiveVideoLabel3.setVerifyInputWhenFocusTarget(false);
+        LiveVideoLabel3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        SingleCameraNameField.setBackground(new java.awt.Color(0, 0, 0));
+        SingleCameraNameField.setForeground(new java.awt.Color(255, 255, 255));
+        SingleCameraNameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        SingleCameraNameField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        SingleCameraNameField.setCaretColor(new java.awt.Color(254, 254, 254));
+        SingleCameraNameField.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                SingleCameraNameFieldCaretUpdate(evt);
+            }
+        });
+
+        javax.swing.GroupLayout SingleCameraPanelLayout = new javax.swing.GroupLayout(SingleCameraPanel);
+        SingleCameraPanel.setLayout(SingleCameraPanelLayout);
+        SingleCameraPanelLayout.setHorizontalGroup(
+            SingleCameraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SingleCameraPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LiveVideoLabel3)
+                .addGap(126, 126, 126)
+                .addComponent(SingleCameraNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        SingleCameraPanelLayout.setVerticalGroup(
+            SingleCameraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SingleCameraPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SingleCameraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(SingleCameraNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LiveVideoLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                .addGap(13, 13, 13))
+        );
+
+        ePanel1.add(SingleCameraPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 470, 60));
+
+        jLabel4.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel4.setText("Camera Names Settings");
+        ePanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel5.setText("Video Stream Settings");
+        ePanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
+
+        jScrollPane1.setViewportView(ePanel1);
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -631,24 +850,24 @@ public class Settings3Layout extends javax.swing.JPanel {
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
-                    .addGroup(bgLayout.createSequentialGroup()
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addComponent(NavigationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
-                        .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ConfirmationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NavigationPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ConfirmationPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(ConfirmationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(NavigationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -659,7 +878,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -674,6 +893,13 @@ public class Settings3Layout extends javax.swing.JPanel {
         int AudioDeviceObjectKey = ((KeyValue) (AudioDevices.getSelectedObjects()[0])).getKey();
         int AudioFormatObjectKey = ((KeyValue) (AudioFormats.getSelectedObjects()[0])).getKey();
         Parent.Utils.SoundRecorder.SetAudioOptions(AudioDeviceObjectKey, AudioFormatObjectKey);
+
+        if (Parent.Camera.GetIP().length > 1) {
+            Parent.Camera.setStereoCameraName(MasterCameraNameField.getText(), 0);
+            Parent.Camera.setStereoCameraName(SlaveCameraNameField.getText(), 1);
+        } else {
+            Parent.Camera.setSingleCameraName(SingleCameraNameField.getText());
+        }
 
         try { // Save to config file
             Parent.Camera.WriteConfigFile("autosave.config");
@@ -794,6 +1020,18 @@ private void MovieSplitFramesTypeActionPerformed(java.awt.event.ActionEvent evt)
     CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
     cl.show(Parent.GetCardManager(), "NumberpanelInteger");
 }//GEN-LAST:event_MovieSplitFramesTypeActionPerformed
+
+    private void MasterCameraNameFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_MasterCameraNameFieldCaretUpdate
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MasterCameraNameFieldCaretUpdate
+
+    private void SlaveCameraNameFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_SlaveCameraNameFieldCaretUpdate
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SlaveCameraNameFieldCaretUpdate
+
+    private void SingleCameraNameFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_SingleCameraNameFieldCaretUpdate
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SingleCameraNameFieldCaretUpdate
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox AudioDevices;
     private javax.swing.JComboBox AudioFormats;
@@ -801,6 +1039,11 @@ private void MovieSplitFramesTypeActionPerformed(java.awt.event.ActionEvent evt)
     private EButton GuidesMenuButton1;
     private EButton LiveVideoEnabledButton;
     private javax.swing.JLabel LiveVideoLabel;
+    private javax.swing.JLabel LiveVideoLabel1;
+    private javax.swing.JLabel LiveVideoLabel2;
+    private javax.swing.JLabel LiveVideoLabel3;
+    private javax.swing.JTextField MasterCameraNameField;
+    private EPanel MasterCameraPanel;
     private javax.swing.JTextField MovieSplitDurationField;
     private EButton MovieSplitDurationType;
     private javax.swing.JTextField MovieSplitFramesField;
@@ -822,6 +1065,10 @@ private void MovieSplitFramesTypeActionPerformed(java.awt.event.ActionEvent evt)
     private EButton SettingsMenu2Button1;
     private EButton SettingsMenu3Button;
     private EButton SettingsOKButton;
+    private javax.swing.JTextField SingleCameraNameField;
+    private EPanel SingleCameraPanel;
+    private javax.swing.JTextField SlaveCameraNameField;
+    private EPanel SlaveCameraPanel;
     private javax.swing.JPanel bg;
     private EPanel ePanel1;
     private EPanel ePanel2;
@@ -831,5 +1078,11 @@ private void MovieSplitFramesTypeActionPerformed(java.awt.event.ActionEvent evt)
     private EPanel ePanel6;
     private EPanel ePanel7;
     private EPanel ePanel8;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

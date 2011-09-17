@@ -60,18 +60,35 @@ public class EPanel extends JPanel {
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         // Background Color Fill
-        int darkenvalue = 20;
-        Color DarkerShade = new Color(Utils.MinMaxRange(this.getBackground().getRed() - darkenvalue, 0, 255), Utils.MinMaxRange(this.getBackground().getGreen() - darkenvalue, 0, 255), Utils.MinMaxRange(this.getBackground().getBlue() - darkenvalue, 0, 255));
-        GradientPaint DarkGradient = new GradientPaint(0, 0, this.getBackground(), 0, this.getHeight(), DarkerShade, false);
-        g2.setPaint(DarkGradient);
-        g2.fillRoundRect(0, 0, this.getWidth(), this.getHeight(), BorderCornerRadius, BorderCornerRadius);
+        if (this.isEnabled()) {
+            int darkenvalue = 20;
+            Color DarkerShade = new Color(Utils.MinMaxRange(this.getBackground().getRed() - darkenvalue, 0, 255), Utils.MinMaxRange(this.getBackground().getGreen() - darkenvalue, 0, 255), Utils.MinMaxRange(this.getBackground().getBlue() - darkenvalue, 0, 255));
+            GradientPaint DarkGradient = new GradientPaint(0, 0, this.getBackground(), 0, this.getHeight(), DarkerShade, false);
+            g2.setPaint(DarkGradient);
+            g2.fillRoundRect(0, 0, this.getWidth(), this.getHeight(), BorderCornerRadius, BorderCornerRadius);
+        } else {
+            int darkenvalue = 20;
+            Color DarkerShade = new Color(Utils.MinMaxRange(this.getBackground().getRed() - darkenvalue, 0, 255), Utils.MinMaxRange(this.getBackground().getGreen() - darkenvalue, 0, 255), Utils.MinMaxRange(this.getBackground().getBlue() - darkenvalue, 0, 255));
+            GradientPaint DarkGradient = new GradientPaint(0, 0, new Color(Utils.MinMaxRange(this.getBackground().getRed() - 40, 0, 255), Utils.MinMaxRange(this.getBackground().getGreen() - 40, 0, 255), Utils.MinMaxRange(this.getBackground().getBlue() - 40, 0, 255)), 0, this.getHeight(), DarkerShade, false);
+            g2.setPaint(DarkGradient);
+            g2.fillRoundRect(0, 0, this.getWidth(), this.getHeight(), BorderCornerRadius, BorderCornerRadius);
+        }
 
         // Border
-        g2.setPaint(this.getForeground());
+        if (this.isEnabled()) {
+            g2.setPaint(this.getForeground());
+        } else {
+            g2.setPaint(new Color(Utils.MinMaxRange(this.getForeground().getRed() - 40, 0, 255), Utils.MinMaxRange(this.getForeground().getGreen() - 40, 0, 255), Utils.MinMaxRange(this.getForeground().getBlue() - 40, 0, 255)));
+        }
         g2.setStroke(new BasicStroke(BorderWidth));
         g2.drawRoundRect(0, 0, this.getWidth(), this.getHeight(), BorderCornerRadius, BorderCornerRadius);
+    }
 
-
-
+    @Override
+    public void setEnabled(boolean enable) {
+        super.setEnabled(enable);
+        for (int i = 0; i < this.getComponentCount(); i++) {
+            this.getComponent(i).setEnabled(enable);
+        }
     }
 }
