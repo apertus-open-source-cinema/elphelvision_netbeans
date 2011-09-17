@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioFormat;
+import javax.swing.JScrollBar;
 
 public class Settings3Layout extends javax.swing.JPanel {
 
@@ -269,6 +270,16 @@ public class Settings3Layout extends javax.swing.JPanel {
         ePanel1.setBackground(new java.awt.Color(13, 20, 27));
         ePanel1.setAutoscrolls(true);
         ePanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        ePanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ePanel1MousePressed(evt);
+            }
+        });
+        ePanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                ePanel1MouseDragged(evt);
+            }
+        });
         ePanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ePanel2.setBackground(new java.awt.Color(39, 39, 41));
@@ -410,7 +421,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         });
 
         MulitCameraRecordingDelayType.setText("type");
-        MulitCameraRecordingDelayType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        MulitCameraRecordingDelayType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         MulitCameraRecordingDelayType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MulitCameraRecordingDelayTypeActionPerformed(evt);
@@ -493,7 +504,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         ePanel6.setBorder(null);
         ePanel6.setForeground(new java.awt.Color(80, 80, 80));
 
-        LiveVideoLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        LiveVideoLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         LiveVideoLabel.setForeground(new java.awt.Color(255, 255, 255));
         LiveVideoLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         LiveVideoLabel.setText("Live Video");
@@ -630,7 +641,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         });
 
         MovieSplitFramesType.setText("type");
-        MovieSplitFramesType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        MovieSplitFramesType.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
         MovieSplitFramesType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MovieSplitFramesTypeActionPerformed(evt);
@@ -668,7 +679,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         SlaveCameraPanel.setBorder(null);
         SlaveCameraPanel.setForeground(new java.awt.Color(80, 80, 80));
 
-        LiveVideoLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        LiveVideoLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         LiveVideoLabel1.setForeground(new java.awt.Color(255, 255, 255));
         LiveVideoLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         LiveVideoLabel1.setText("Slave Camera Name");
@@ -721,7 +732,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         MasterCameraPanel.setBorder(null);
         MasterCameraPanel.setForeground(new java.awt.Color(80, 80, 80));
 
-        LiveVideoLabel2.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        LiveVideoLabel2.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         LiveVideoLabel2.setForeground(new java.awt.Color(255, 255, 255));
         LiveVideoLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         LiveVideoLabel2.setText("Master Camera Name");
@@ -767,17 +778,17 @@ public class Settings3Layout extends javax.swing.JPanel {
 
         ePanel1.add(MasterCameraPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 470, 60));
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
         jLabel1.setForeground(new java.awt.Color(254, 254, 254));
         jLabel1.setText("Movie File Size Settings");
         ePanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 200, -1));
 
-        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
         jLabel2.setForeground(new java.awt.Color(254, 254, 254));
         jLabel2.setText("Stereo 3D Settings");
         ePanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
         jLabel3.setForeground(new java.awt.Color(254, 254, 254));
         jLabel3.setText("Audio Settings");
         ePanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
@@ -786,7 +797,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         SingleCameraPanel.setBorder(null);
         SingleCameraPanel.setForeground(new java.awt.Color(80, 80, 80));
 
-        LiveVideoLabel3.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        LiveVideoLabel3.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         LiveVideoLabel3.setForeground(new java.awt.Color(255, 255, 255));
         LiveVideoLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         LiveVideoLabel3.setText("Single Camera Name");
@@ -832,12 +843,12 @@ public class Settings3Layout extends javax.swing.JPanel {
 
         ePanel1.add(SingleCameraPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 470, 60));
 
-        jLabel4.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
         jLabel4.setForeground(new java.awt.Color(254, 254, 254));
         jLabel4.setText("Camera Names Settings");
         ePanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
         jLabel5.setForeground(new java.awt.Color(254, 254, 254));
         jLabel5.setText("Video Stream Settings");
         ePanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
@@ -878,7 +889,7 @@ public class Settings3Layout extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1032,6 +1043,27 @@ private void MovieSplitFramesTypeActionPerformed(java.awt.event.ActionEvent evt)
     private void SingleCameraNameFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_SingleCameraNameFieldCaretUpdate
         // TODO add your handling code here:
     }//GEN-LAST:event_SingleCameraNameFieldCaretUpdate
+
+    private void ePanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ePanel1MouseDragged
+        int delta_dragY = mousedragstartpointY - evt.getY(); // in pixels
+        float speed_factor = 6;
+        int scrollvalueY = panelstartpointY + (int) (speed_factor * (float) delta_dragY / (float) ePanel1.getHeight() * 100.0f);
+
+/*        Parent.WriteLogtoConsole("mousedragstartpointY: " + mousedragstartpointY);
+        Parent.WriteLogtoConsole("scrollvalueY: " + scrollvalueY);
+        Parent.WriteLogtoConsole("delta_dragY: " + delta_dragY);
+        Parent.WriteLogtoConsole("delta_dragY / ePanel1.getHeight() * 100: " + (int) ((float) delta_dragY / (float) ePanel1.getHeight() * 100.0f));
+*/
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setValue(Utils.MinMaxRange(scrollvalueY, verticalScrollBar.getMinimum(), verticalScrollBar.getMaximum()));
+    }//GEN-LAST:event_ePanel1MouseDragged
+    int mousedragstartpointY = 0;
+    int panelstartpointY = 0;
+    private void ePanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ePanel1MousePressed
+        mousedragstartpointY = evt.getY();
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        panelstartpointY = verticalScrollBar.getValue();
+    }//GEN-LAST:event_ePanel1MousePressed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox AudioDevices;
     private javax.swing.JComboBox AudioFormats;
