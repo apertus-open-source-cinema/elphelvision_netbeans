@@ -3035,10 +3035,12 @@ public class Camera {
 
     public void setStereoCameraName(String CameraName, int Index) {
         this.StereoCameraName[Index] = CameraName;
+        Parent.WriteLogtoConsole("Setting StereoCameraName[" + Index + "] to " + CameraName);
     }
 
     public void setSingleCameraName(String CameraName) {
         this.SingleCameraName = CameraName;
+        Parent.WriteLogtoConsole("Setting SingleCameraName to " + CameraName);
     }
 
     public String getSingleCameraName() {

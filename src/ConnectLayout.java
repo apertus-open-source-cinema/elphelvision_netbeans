@@ -372,16 +372,18 @@ public class ConnectLayout extends javax.swing.JPanel {
         CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
         cl.show(Parent.GetCardManager(), "NumberpanelIP");
     }//GEN-LAST:event_IP_typeMouseClicked
-
+    boolean Fake3D = false; // for debugging 3D settings with a single camera
     private void ConnectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConnectButtonMouseClicked
         ConnectButton.setText("Connecting");
         new Thread() {
 
             public void run() {
                 if (!Parent.GetNoCameraParameter()) {
-                    if (CameraIP.getText().equals(CameraIP2.getText())) {
-                        Parent.WriteWarningtoConsole("Trying to connect to Dual Camera Stereo 3D setup with single IP, assuming single camera setup: " + CameraIP.getText());
-                        Stereo3DButton.setChecked(false);
+                    if (!Fake3D) {
+                        if (CameraIP.getText().equals(CameraIP2.getText())) {
+                            Parent.WriteWarningtoConsole("Trying to connect to Dual Camera Stereo 3D setup with single IP, assuming single camera setup: " + CameraIP.getText());
+                            Stereo3DButton.setChecked(false);
+                        }
                     }
 
                     if (Stereo3DButton.isChecked()) {
@@ -416,7 +418,7 @@ public class ConnectLayout extends javax.swing.JPanel {
                                 Parent.WriteErrortoConsole("ConnectButtonActionPerformed() Connecting to: " + CameraIP.getText() + " failed");
                             }
                         }
-                        if (Stereo3DButton.isChecked()) {
+                        if (Stereo3DButton.isChecked() && !Fake3D) {
                             Parent.Camera.InitStereo3DSettings();
                         }
                         if (VLCButton.isChecked()) {

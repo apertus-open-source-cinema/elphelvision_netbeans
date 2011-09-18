@@ -66,16 +66,15 @@ public class Settings3Layout extends javax.swing.JPanel {
             }
         }
 
+        MasterCameraNameField.setText(Parent.Camera.getStereoCameraNames()[0]);
+        SlaveCameraNameField.setText(Parent.Camera.getStereoCameraNames()[1]);
+        SingleCameraNameField.setText(Parent.Camera.getSingleCameraName());
         if (Parent.Camera.GetIP().length > 1) {
             SingleCameraPanel.setEnabled(false);
-            MasterCameraNameField.setText(Parent.Camera.getStereoCameraNames()[0]);
-            SlaveCameraNameField.setText(Parent.Camera.getStereoCameraNames()[1]);
         } else {
             MasterCameraPanel.setEnabled(false);
             SlaveCameraPanel.setEnabled(false);
-            SingleCameraNameField.setText(Parent.Camera.getSingleCameraName());
         }
-
     }
 
     public class KeyValue {
@@ -1049,11 +1048,11 @@ private void MovieSplitFramesTypeActionPerformed(java.awt.event.ActionEvent evt)
         float speed_factor = 6;
         int scrollvalueY = panelstartpointY + (int) (speed_factor * (float) delta_dragY / (float) ePanel1.getHeight() * 100.0f);
 
-/*        Parent.WriteLogtoConsole("mousedragstartpointY: " + mousedragstartpointY);
+        /*        Parent.WriteLogtoConsole("mousedragstartpointY: " + mousedragstartpointY);
         Parent.WriteLogtoConsole("scrollvalueY: " + scrollvalueY);
         Parent.WriteLogtoConsole("delta_dragY: " + delta_dragY);
         Parent.WriteLogtoConsole("delta_dragY / ePanel1.getHeight() * 100: " + (int) ((float) delta_dragY / (float) ePanel1.getHeight() * 100.0f));
-*/
+         */
         JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
         verticalScrollBar.setValue(Utils.MinMaxRange(scrollvalueY, verticalScrollBar.getMinimum(), verticalScrollBar.getMaximum()));
     }//GEN-LAST:event_ePanel1MouseDragged
