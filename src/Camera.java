@@ -2332,11 +2332,11 @@ public class Camera {
     public void ArmRecording() {
         Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd_HH-mm-ss");
-        String foldername = formatter.format(currentDate.getTime());
+        String foldername = "";
 
         Thread[] t = new Thread[Parent.Camera.GetIP().length];
         for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
-
+            foldername = formatter.format(currentDate.getTime());
             // Append Camera Name if it was set
             if (Parent.Camera.GetIP().length > 1) { //  Stereo 3D mode
                 if ((StereoCameraName[j] != null) && (!"".equals(StereoCameraName[j]))) {
