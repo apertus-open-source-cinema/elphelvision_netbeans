@@ -2330,14 +2330,33 @@ public class Camera {
     }
 
     public void ArmRecording() {
+        Calendar currentDate = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd_HH-mm-ss");
+        String foldername = formatter.format(currentDate.getTime());
+
         Thread[] t = new Thread[Parent.Camera.GetIP().length];
         for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
+
+            // Append Camera Name if it was set
+            if (Parent.Camera.GetIP().length > 1) { //  Stereo 3D mode
+                if ((StereoCameraName[j] != null) && (!"".equals(StereoCameraName[j]))) {
+                    foldername = foldername + "_" + this.getStereoCameraNames()[j];
+                }
+            } else { // single camera mode
+                if ((this.getSingleCameraName() != null) && (!"".equals(this.getSingleCameraName()))) {
+                    foldername = foldername + "_" + this.getSingleCameraName();
+                }
+            }
+
+            final String Foldername = foldername;
             final int index = j;
             t[j] = new Thread() {
 
                 @Override
                 public void run() {
-                    Parent.Camera.SendCommandToCamera(index, "camogmstartrecording");
+                    //Parent.Camera.SendCommandToCamera(index, "camogmstartrecording");
+                    Parent.Camera.SendCommandToCamera(index, "camogmstartrecording&foldername=" + Foldername);
+                    Parent.WriteLogtoConsole(Parent.Camera.GetIP()[index] + ": Setting Record Directory to: " + Foldername);
                     Parent.WriteLogtoConsole(Parent.Camera.GetIP()[index] + ": Recording Armed");
                 }
             };
@@ -2353,6 +2372,7 @@ public class Camera {
     public void StartRecording(String Starttime) {
         Thread[] t = new Thread[Parent.Camera.GetIP().length];
         for (int j = 0; j < Parent.Camera.GetIP().length; j++) {
+
             final int index = j;
             final String Parameter = Starttime;
             t[j] = new Thread() {
