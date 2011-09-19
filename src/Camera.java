@@ -1625,9 +1625,21 @@ public class Camera {
             line += "MovieMaxChunkSize=" + Integer.toString(this.GetMovieClipMaxChunkSize()) + "\n";
             line += "MovieMaxChunkDuration=" + Integer.toString(Parent.Camera.getMovieClipMaxChunkDuration()) + "\n";
             line += "MovieMaxChunkFrames=" + Integer.toString(Parent.Camera.getMovieClipMaxChunkFrames()) + "\n";
-            line += "SingleCameraName=" + Parent.Camera.getSingleCameraName() + "\n";
-            line += "MasterCameraName=" + Parent.Camera.getStereoCameraNames()[0] + "\n";
-            line += "SlaveCameraName=" + Parent.Camera.getStereoCameraNames()[1] + "\n";
+            if (Parent.Camera.getSingleCameraName().equals("")) {
+                line += "SingleCameraName=%null\n"; // we need to do this as an empty string after the "=" will break the file reader
+            } else {
+                line += "SingleCameraName=" + Parent.Camera.getSingleCameraName() + "\n";
+            }
+            if (Parent.Camera.getStereoCameraNames()[0].equals("")) {
+                line += "MasterCameraName=%null\n"; // we need to do this as an empty string after the "=" will break the file reader
+            } else {
+                line += "MasterCameraName=" + Parent.Camera.getStereoCameraNames()[0] + "\n";
+            }
+            if (Parent.Camera.getStereoCameraNames()[1].equals("")) {
+                line += "SlaveCameraName=%null\n"; // we need to do this as an empty string after the "=" will break the file reader
+            } else {
+                line += "SlaveCameraName=" + Parent.Camera.getStereoCameraNames()[1] + "\n";
+            }
 
             output.write(line);
         } finally {
@@ -1692,6 +1704,7 @@ public class Camera {
                         break;
                     }
                     String value = scanner2.next();
+
                     if (name.trim().equals("ImageWidth")) {
                         this.ImageWidth = Integer.parseInt(value.trim());
                     }
@@ -1899,15 +1912,26 @@ public class Camera {
                         Parent.Settings.setVideoStreamEnabled(Boolean.parseBoolean(value.trim()));
                     }
                     if (name.trim().equals("SingleCameraName")) {
-                        Parent.Camera.setSingleCameraName(value.trim());
+                        if ("%null".equals(value.trim())) {
+                            Parent.Camera.setSingleCameraName("");
+                        } else {
+                            Parent.Camera.setSingleCameraName(value.trim());
+                        }
                     }
                     if (name.trim().equals("MasterCameraName")) {
-                        Parent.Camera.setStereoCameraName(value.trim(), 0);
+                        if ("%null".equals(value.trim())) {
+                            Parent.Camera.setStereoCameraName("", 0);
+                        } else {
+                            Parent.Camera.setStereoCameraName(value.trim(), 0);
+                        }
                     }
                     if (name.trim().equals("SlaveCameraName")) {
-                        Parent.Camera.setStereoCameraName(value.trim(), 1);
+                        if ("%null".equals(value.trim())) {
+                            Parent.Camera.setStereoCameraName("", 1);
+                        } else {
+                            Parent.Camera.setStereoCameraName(value.trim(), 1);
+                        }
                     }
-
                 } else {
                     //Empty or invalid line. Unable to process
                 }
