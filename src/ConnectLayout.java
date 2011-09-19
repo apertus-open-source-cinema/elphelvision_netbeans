@@ -281,6 +281,11 @@ public class ConnectLayout extends javax.swing.JPanel {
                 ConnectButtonMouseClicked(evt);
             }
         });
+        ConnectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConnectButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ConnectPanelLayout = new javax.swing.GroupLayout(ConnectPanel);
         ConnectPanel.setLayout(ConnectPanelLayout);
@@ -404,10 +409,10 @@ public class ConnectLayout extends javax.swing.JPanel {
                         for (int i = 0; i < Parent.Camera.GetIP().length; i++) {
                             if (Parent.Camera.PingCamera(i)) {
                                 Parent.WriteLogtoConsole("Connection to: " + Parent.Camera.GetIP()[i] + " established");
-                                while (!Parent.Camera.InitCameraServices()) {
-                                    Thread.sleep(50); // since we are in our own thread its safe to do this
+                                while (!Parent.Camera.InitCameraServices(i)) {
+                                    Thread.sleep(500); // since we are in our own thread its safe to do this
                                 }
-                                Parent.PostConnect();
+                                
                                 Parent.WriteLogtoConsole("Checking Camera(" + Parent.Camera.GetIP()[i] + ") connected HDD");
                                 if (Parent.Camera.CheckHDD()) {
                                     Parent.WriteLogtoConsole("HDD detected");
@@ -418,6 +423,7 @@ public class ConnectLayout extends javax.swing.JPanel {
                                 Parent.WriteErrortoConsole("ConnectButtonActionPerformed() Connecting to: " + CameraIP.getText() + " failed");
                             }
                         }
+                        Parent.PostConnect();
                         if (Stereo3DButton.isChecked() && !Fake3D) {
                             Parent.Camera.InitStereo3DSettings();
                         }
@@ -468,6 +474,11 @@ public class ConnectLayout extends javax.swing.JPanel {
     private void ExitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitButtonMouseClicked
         System.exit(0);
     }//GEN-LAST:event_ExitButtonMouseClicked
+
+    private void ConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ConnectButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Camera1IPLabel;
     private javax.swing.JTextField CameraIP;

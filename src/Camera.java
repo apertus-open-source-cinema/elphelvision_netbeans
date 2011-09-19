@@ -1156,7 +1156,7 @@ public class Camera {
         return ReturnValue;
     }
 
-    public boolean InitCameraServices() {
+    public boolean InitCameraServices(int CameraIndex) {
         URLConnection conn = null;
         BufferedReader data = null;
         String line;
@@ -1164,87 +1164,80 @@ public class Camera {
         StringBuffer buf = new StringBuffer();
         boolean ReturnValue = false;
 
-        // try to connect
-        for (int i = 0; i < this.IP.length; i++) {
+        try {
+            conn = this.CameraUrl[CameraIndex].openConnection();
+            conn.connect();
 
+            data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            buf.delete(0, buf.length());
+            while ((line = data.readLine()) != null) {
+                buf.append(line + "\n");
+            }
+
+            result = buf.toString();
+            data.close();
+
+            // try to extract data from XML structure
             try {
-                conn = this.CameraUrl[i].openConnection();
-                conn.connect();
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
 
-                data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
+                doc.getDocumentElement().normalize();
+                NodeList nodeLst = doc.getElementsByTagName("elphel_vision_data");
+                for (int s = 0; s < nodeLst.getLength(); s++) {
+                    Node fstNode = nodeLst.item(s);
+                    if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element fstElmnt = (Element) fstNode;
+                        NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("camogm");
 
-                buf.delete(0, buf.length());
-                while ((line = data.readLine()) != null) {
-                    buf.append(line + "\n");
-                }
-
-                result = buf.toString();
-                data.close();
-
-                // try to extract data from XML structure
-                try {
-                    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder db = dbf.newDocumentBuilder();
-
-                    Document doc = db.parse(new ByteArrayInputStream(result.getBytes()));
-                    doc.getDocumentElement().normalize();
-                    NodeList nodeLst = doc.getElementsByTagName("elphel_vision_data");
-                    for (int s = 0; s < nodeLst.getLength(); s++) {
-                        Node fstNode = nodeLst.item(s);
-                        if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
-                            Element fstElmnt = (Element) fstNode;
-                            NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("camogm");
-
-                            Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
-                            NodeList fstNm = fstNmElmnt.getChildNodes();
-                            if ((((Node) fstNm.item(0)).getNodeValue().compareTo("not running")) == 0) {
-                                this.CAMOGMState = CamogmState.NOTRUNNING;
-                            } else {
-                                NodeList NmElmntLst5 = fstElmnt.getElementsByTagName("camogm_state");
-                                Element NmElmnt5 = (Element) NmElmntLst5.item(0);
-                                NodeList Elmnt5 = NmElmnt5.getChildNodes();
-                                if (((Node) Elmnt5.item(0)) != null) {
-                                    if (((Node) Elmnt5.item(0)).getNodeValue().compareTo("stopped") != 0) {
-                                        this.CAMOGMState = CamogmState.STOPPED;
-                                    }
-                                    if (((Node) Elmnt5.item(0)).getNodeValue().compareTo("running") != 0) {
-                                        this.CAMOGMState = CamogmState.RECORDING;
-                                    }
-                                    NodeList NmElmntLst6 = fstElmnt.getElementsByTagName("hdd_freespaceratio");
-                                    Element NmElmnt6 = (Element) NmElmntLst6.item(0);
-                                    NodeList Elmnt6 = NmElmnt6.getChildNodes();
-                                    if (((Node) Elmnt6.item(0)).getNodeValue().compareTo("unmounted") == 0) {
-                                        this.HDDState = HDDState.UNMOUNTED;
-                                    } else {
-                                        this.HDDState = HDDState.MOUNTED;
-                                    }
+                        Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+                        NodeList fstNm = fstNmElmnt.getChildNodes();
+                        if ((((Node) fstNm.item(0)).getNodeValue().compareTo("not running")) == 0) {
+                            this.CAMOGMState = CamogmState.NOTRUNNING;
+                        } else {
+                            NodeList NmElmntLst5 = fstElmnt.getElementsByTagName("camogm_state");
+                            Element NmElmnt5 = (Element) NmElmntLst5.item(0);
+                            NodeList Elmnt5 = NmElmnt5.getChildNodes();
+                            if (((Node) Elmnt5.item(0)) != null) {
+                                if (((Node) Elmnt5.item(0)).getNodeValue().compareTo("stopped") != 0) {
+                                    this.CAMOGMState = CamogmState.STOPPED;
+                                }
+                                if (((Node) Elmnt5.item(0)).getNodeValue().compareTo("running") != 0) {
+                                    this.CAMOGMState = CamogmState.RECORDING;
+                                }
+                                NodeList NmElmntLst6 = fstElmnt.getElementsByTagName("hdd_freespaceratio");
+                                Element NmElmnt6 = (Element) NmElmntLst6.item(0);
+                                NodeList Elmnt6 = NmElmnt6.getChildNodes();
+                                if (((Node) Elmnt6.item(0)).getNodeValue().compareTo("unmounted") == 0) {
+                                    this.HDDState = HDDState.UNMOUNTED;
+                                } else {
+                                    this.HDDState = HDDState.MOUNTED;
                                 }
                             }
                         }
                     }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                Parent.WriteErrortoConsole("InitCameraServices: " + e.getMessage());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            if (this.CAMOGMState == CamogmState.NOTRUNNING) {
-                this.ExecuteCommand(i, "CAMOGMSTART");
-                ReturnValue = false;
-            }
-            if (this.HDDState == HDDState.UNMOUNTED) {
-                this.ExecuteCommand(i, "MOUNTHDD");
-                this.ExecuteCommand(i, "SETRECDIR");
-                this.ExecuteCommand(i, "SETCONTAINERFORMATQUICKTIME");
-                ReturnValue = true; // ElphelVision should also work with cameras without HDD
-            } else {
-                ReturnValue = true;
-            }
-
+        } catch (IOException e) {
+            Parent.WriteErrortoConsole("InitCameraServices: " + e.getMessage());
         }
 
+        if (this.CAMOGMState == CamogmState.NOTRUNNING) {
+            this.ExecuteCommand(CameraIndex, "CAMOGMSTART");
+            ReturnValue = false;
+        }
+        if (this.HDDState == HDDState.UNMOUNTED) {
+            this.ExecuteCommand(CameraIndex, "MOUNTHDD");
+            this.ExecuteCommand(CameraIndex, "SETRECDIR");
+            this.ExecuteCommand(CameraIndex, "SETCONTAINERFORMATQUICKTIME");
+            ReturnValue = true; // ElphelVision should also work with cameras without HDD
+        } else {
+            ReturnValue = true;
+        }
         return ReturnValue;
     }
 
@@ -1479,6 +1472,10 @@ public class Camera {
     public boolean CheckHDD() {
         try {
             UpdateCameraData();
+
+
+
+
         } catch (Exception ex) {
             Logger.getLogger(Camera.class.getName()).log(Level.SEVERE, null, ex);
         }
