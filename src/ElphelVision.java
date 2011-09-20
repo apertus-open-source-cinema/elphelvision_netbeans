@@ -81,7 +81,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     public static void main(String[] args) {
         ProcessArgs(args);
 
-        Frame f = new Frame();
+        JFrame f = new JFrame();
         f.addWindowListener(new java.awt.event.WindowAdapter() {
 
             @Override
@@ -105,7 +105,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         } else {
             f.setSize(1024, 600 + 20); // add 20, seems enough for the Frame title,
         }
-        f.show();
+        f.setVisible(true);
     }
 
     public ElphelVision() {
@@ -207,7 +207,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     public void StartVideoPlayer() {
         if (NoCameraParameter) {
             // TODO we have no test.avi yet
-            VLCPlayer.PlayLocalVideoFile("test.avi");
+            VLCPlayer.PlayFakeStream();
+            //VLCPlayer.PlayLocalVideoFile("test.avi");
             WriteLogtoConsole("Starting Dummy Video Stream");
         } else {
             if (Settings.GetVideoPlayer() == streamVideoPlayer.GSTREAMER) {
