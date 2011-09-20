@@ -1,5 +1,3 @@
-
-
 /*! Copyright (C) 2009 Apertus, All Rights Reserved
  *! Author : Apertus Team
 -----------------------------------------------------------------------------**
@@ -18,6 +16,7 @@
  *!  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *!
 -----------------------------------------------------------------------------**/
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,14 +25,19 @@ import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
-import javax.swing.Timer;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
+import javax.swing.ToolTipManager;
+import net.java.balloontip.BalloonTip;
+import net.java.balloontip.styles.EdgedBalloonStyle;
 
 public class EButton extends JButton implements java.io.Serializable {
     //private static final long serialVersionUID = 21L;
@@ -63,6 +67,7 @@ public class EButton extends JButton implements java.io.Serializable {
     private boolean Highlighted = false;
     private String ParameterName = "";
     private String AdditionalValue;
+    private BalloonTip BalloonToolTip = null;
     //private boolean ClickFeedback = false;
     //private Timer ClickFeedbacktimer;
     //private static final int BLINKING_RATE = 100; // in ms
@@ -70,6 +75,7 @@ public class EButton extends JButton implements java.io.Serializable {
     public EButton() {
         this.setPreferredSize(new Dimension(80, 35));
 
+        // This constructor is just to maintain compatibility, use EButton(ElphelVision parent) instead.
         // To get rid of these implementations
         System.out.println("Warning: called EButton Constructor without parent parameter - use new EButton(Parent); instead - " + this.getClass());
     }
@@ -110,11 +116,13 @@ public class EButton extends JButton implements java.io.Serializable {
             @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 setHighlighted(true);
+                //SetToolTipVisible(true); // Debug
             }
 
             @Override
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 setHighlighted(false);
+                //SetToolTipVisible(false); // Debug
             }
 
             @Override
@@ -124,7 +132,16 @@ public class EButton extends JButton implements java.io.Serializable {
                 super.mouseClicked(evt);
             }
         });
+
+        BalloonToolTip = new BalloonTip(this, "test");
+        BalloonToolTip.setVisible(false);
     }
+
+    public void SetToolTipVisible(boolean showtooltip) {
+        BalloonToolTip.setVisible(showtooltip);
+    }
+
+
     /*
     public void setClickFeedback(boolean setting) {
     this.ClickFeedback = setting;
@@ -360,6 +377,10 @@ public class EButton extends JButton implements java.io.Serializable {
 
         // We do this all ourselves now so no need to call:
         //super.paint(g);
+/*
+        if (ToolTipBalloonActive) {
+        PaintToolTipBalloon(g);
+        }*/
     }
 
     public boolean isHighlighted() {
