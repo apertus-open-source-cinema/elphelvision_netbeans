@@ -107,7 +107,7 @@ public class MainLayoutVLC extends JPanel {
             Guidesoverlay.setVisible(true);
             Guidesoverlay.SetOptions(Parent.Camera.GetGuides());
         }
-        Guidesoverlay.SetVisibility(true); // DEBUG
+        Guidesoverlay.SetVisibility(true); 
 
         Parent.VLCPlayer.SetCanvas(vlcoverlay);
         if (Parent.Settings.isVideoStreamEnabled()) {

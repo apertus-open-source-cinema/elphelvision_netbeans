@@ -67,8 +67,12 @@ public class ConnectLayout extends javax.swing.JPanel {
 //                    AnimationPanel.addGLEventListener(new JoglIntroAnimation());
                     //                  IntroAnimator = new Animator(AnimationPanel);
                     //                IntroAnimator.start(); // JOGL is still troublesome so disabled for now
+
+                    //BalloonTip test = new BalloonTip(jButton1, "test");
                 }
             });
+
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -248,6 +252,7 @@ public class ConnectLayout extends javax.swing.JPanel {
 
         Stereo3DButton.setBackground(new java.awt.Color(254, 254, 254));
         Stereo3DButton.setText("Stereo 3D");
+        Stereo3DButton.setToolTipText("<html>\nEnable/Disable Stereo 3D Mode.<br/>\nThe Master camera is always the first IP, the slave camera the second IP.<br/>\n</html>");
         Stereo3DButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Stereo3DButtonMouseClicked(evt);
@@ -276,6 +281,7 @@ public class ConnectLayout extends javax.swing.JPanel {
         });
 
         ConnectButton.setText("Connect");
+        ConnectButton.setToolTipText("");
         ConnectButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ConnectButtonMouseClicked(evt);
@@ -412,7 +418,7 @@ public class ConnectLayout extends javax.swing.JPanel {
                                 while (!Parent.Camera.InitCameraServices(i)) {
                                     Thread.sleep(500); // since we are in our own thread its safe to do this
                                 }
-                                
+
                                 Parent.WriteLogtoConsole("Checking Camera(" + Parent.Camera.GetIP()[i] + ") connected HDD");
                                 if (Parent.Camera.CheckHDD()) {
                                     Parent.WriteLogtoConsole("HDD detected");

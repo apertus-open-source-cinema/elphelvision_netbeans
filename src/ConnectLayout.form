@@ -254,6 +254,7 @@
                   <Color blue="fe" green="fe" red="fe" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Stereo 3D"/>
+                <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;Enable/Disable Stereo 3D Mode.&lt;br/&gt;&#xa;The Master camera is always the first IP, the slave camera the second IP.&lt;br/&gt;&#xa;&lt;/html&gt;"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Stereo3DButtonMouseClicked"/>
@@ -303,6 +304,7 @@
             <Component class="EButton" name="ConnectButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Connect"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ConnectButtonMouseClicked"/>

@@ -25,19 +25,19 @@ import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.RenderingHints;
-import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JRootPane;
-import javax.swing.SwingUtilities;
-import javax.swing.ToolTipManager;
 import net.java.balloontip.BalloonTip;
-import net.java.balloontip.styles.EdgedBalloonStyle;
+import net.java.balloontip.BalloonTip.AttachLocation;
+import net.java.balloontip.BalloonTip.Orientation;
+import net.java.balloontip.styles.BalloonTipStyle;
+import net.java.balloontip.styles.MinimalBalloonStyle;
 
 public class EButton extends JButton implements java.io.Serializable {
     //private static final long serialVersionUID = 21L;
@@ -68,9 +68,9 @@ public class EButton extends JButton implements java.io.Serializable {
     private String ParameterName = "";
     private String AdditionalValue;
     private BalloonTip BalloonToolTip = null;
-    //private boolean ClickFeedback = false;
-    //private Timer ClickFeedbacktimer;
-    //private static final int BLINKING_RATE = 100; // in ms
+    private Timer ToolTipDelayTimer;
+    private float ToolTipDelayLength = 1; //seconds
+    private String ToolTipText = null;
 
     public EButton() {
         this.setPreferredSize(new Dimension(80, 35));
@@ -81,6 +81,7 @@ public class EButton extends JButton implements java.io.Serializable {
     }
 
     public EButton(ElphelVision parent) {
+        final EButton me = this;
         Parent = parent;
         this.setRolloverEnabled(false);
         this.setPreferredSize(new Dimension(80, 35));
@@ -116,80 +117,79 @@ public class EButton extends JButton implements java.io.Serializable {
             @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 setHighlighted(true);
-                //SetToolTipVisible(true); // Debug
+                ToolTipDelayTimer = new Timer();
+                ToolTipDelayTimer.schedule(new ToolTipTask(me), (int) (ToolTipDelayLength * 1000.0f));
+                SetToolTipVisible(false);
             }
 
             @Override
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 setHighlighted(false);
-                //SetToolTipVisible(false); // Debug
+                SetToolTipVisible(false);
+                ToolTipDelayTimer.cancel();
             }
 
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 setHighlighted(false);
+                SetToolTipVisible(false);
+                ToolTipDelayTimer.cancel();
                 repaint();
                 super.mouseClicked(evt);
             }
         });
+    }
 
-        BalloonToolTip = new BalloonTip(this, "test");
-        BalloonToolTip.setVisible(false);
+    public float getToolTipDelayLength() {
+        return ToolTipDelayLength;
+    }
+
+    public void setToolTipDelayLength(float ToolTipDelayLength) {
+        this.ToolTipDelayLength = ToolTipDelayLength;
+    }
+
+    class ToolTipTask extends TimerTask {
+
+        EButton Parent = null;
+
+        public ToolTipTask(EButton parent) {
+            Parent = parent;
+        }
+
+        public void run() {
+            if ((!"".equals(Parent.getToolTipText())) && (Parent.getToolTipText() != null)) {
+                Parent.SetToolTipVisible(true);
+            }
+            ToolTipDelayTimer.cancel();
+        }
     }
 
     public void SetToolTipVisible(boolean showtooltip) {
-        BalloonToolTip.setVisible(showtooltip);
+        if (BalloonToolTip != null) {
+            BalloonToolTip.setVisible(showtooltip);
+        }
     }
 
+    @Override
+    public void setToolTipText(String text) {
+        this.ToolTipText = text;
+        
+        JLabel Tooltiptext = new JLabel(text);
+        Tooltiptext.setFont(new Font(Parent.Settings.GetButtonFontName(), this.FontWeight, 10));
+        BalloonTipStyle style = new MinimalBalloonStyle(new Color(210, 210, 210), 4);
+        BalloonToolTip = new BalloonTip(this, Tooltiptext, style, Orientation.LEFT_ABOVE, AttachLocation.NORTH, 20, 8, false);
+        BalloonToolTip.setOpaque(true);
+        BalloonToolTip.setPadding(5);
+        BalloonToolTip.setDoubleBuffered(true);
+        BalloonToolTip.setVisible(false);
+        BalloonToolTip.setBackground(Color.black);
+    }
 
-    /*
-    public void setClickFeedback(boolean setting) {
-    this.ClickFeedback = setting;
-    if (setting) {
-    addActionListener(new java.awt.event.ActionListener() {
-    
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-    ClickactionPerformed(evt);
+    @Override
+    public String getToolTipText() {
+        return this.ToolTipText;
     }
-    });
-    }
-    }*/
 
-    /*
-    public boolean getClickFeedback() {
-    return this.ClickFeedback;
-    }*/
-    /*
-    public void setBorderColor(Color newcolor) {
-    this.BorderColor = newcolor;
-    }
-    
-    public Color getBorderColor() {
-    return this.BorderColor;
-    }
-     */
-    /*
-    private void ClickactionPerformed(ActionEvent e) {
-    if (ClickFeedback) {
-    ClickFeedbacktimer = new Timer(BLINKING_RATE, new TimerListener(this));
-    ClickFeedbacktimer.setInitialDelay(100);
-    
-    setChecked(true);
-    this.repaint();
-    ClickFeedbacktimer.start();
-    }
-    }*/
-    /*
-    private void MouseReleasedactionPerformed(ActionEvent e) {
-    if (ClickFeedback) {
-    ClickFeedbacktimer = new Timer(BLINKING_RATE, new TimerListener(this));
-    ClickFeedbacktimer.setInitialDelay(100);
-    
-    setChecked(true);
-    this.repaint();
-    ClickFeedbacktimer.start();
-    }
-    }*/
     public void ToggleChecked() {
         if (this.Checked) {
             setChecked(false);
@@ -198,22 +198,6 @@ public class EButton extends JButton implements java.io.Serializable {
         }
         this.repaint();
     }
-    /*
-    private class TimerListener implements ActionListener {
-    
-    private EButton targetbutton;
-    
-    public TimerListener(EButton button) {
-    targetbutton = button;
-    }
-    
-    public void actionPerformed(ActionEvent e) {
-    if (targetbutton.getClickFeedback()) {
-    targetbutton.setChecked(false);
-    ClickFeedbacktimer.stop();
-    }
-    }
-    }*/
 
     public void setParameterName(String name) {
         this.ParameterName = name;
@@ -314,7 +298,6 @@ public class EButton extends JButton implements java.io.Serializable {
             g2.setPaint(DefaultBorderColor);
             g2.setStroke(new BasicStroke(1));
             g2.drawRoundRect(BorderWidth - 1, BorderWidth - 1, x - 2 * (BorderWidth - 1), y - 2 * (BorderWidth - 1), this.CornerRadius, this.CornerRadius);
-
         }
 
         // Button Text
@@ -377,10 +360,6 @@ public class EButton extends JButton implements java.io.Serializable {
 
         // We do this all ourselves now so no need to call:
         //super.paint(g);
-/*
-        if (ToolTipBalloonActive) {
-        PaintToolTipBalloon(g);
-        }*/
     }
 
     public boolean isHighlighted() {
