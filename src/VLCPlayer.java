@@ -70,6 +70,7 @@ public class VLCPlayer {
     }
     
     public void ToggleFullscreen() {
+        // TODO not working yet
         //mediaPlayer.toggleFullScreen();
         //something is wrong here
         mediaPlayer.setFullScreen(true);
@@ -95,6 +96,10 @@ public class VLCPlayer {
     public void PlayVideoStream(int CameraIndex) {
         String mediaoptions = "effect-list=none";
         mediaPlayer.playMedia("rtsp://" + Parent.Camera.GetIP()[CameraIndex] + ":554", mediaoptions);
+    }
+    
+    public void PlayFakeStream() {
+        mediaPlayer.playMedia("fake:// --fake-file novideo.png");
     }
 
     /*public void Overlay(Window overlay) {
