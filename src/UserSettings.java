@@ -43,6 +43,8 @@ public class UserSettings {
     private OStype OS = null;
     private streamVideoPlayer StreamVideoPlayer = streamVideoPlayer.VLC;
     private boolean VideoStreamEnabled = true;
+    private boolean VideoFullscreenMode = false;
+    private boolean EVFullscreenMode = false;
     private Color ButtonBorderColor = new Color(70, 70, 70);
     private Color ButtonBorderColorChecked = new Color(255, 255, 255);
     private Color ButtonBorderColorDisabled = new Color(30, 30, 30);
@@ -278,10 +280,23 @@ public class UserSettings {
         return ButtonBackgroundColorHighlightedGradientStart;
     }
 
-    /**
-     * @return the ButtonBorderColorHighlighted
-     */
     public Color getButtonBorderColorHighlighted() {
         return ButtonBorderColorHighlighted;
+    }
+
+    public boolean isVideoFullscreenMode() {
+        return VideoFullscreenMode;
+    }
+
+    public void setVideoFullscreenMode(boolean VideoFullscreenMode) {
+        this.VideoFullscreenMode = VideoFullscreenMode;
+    }
+
+    public boolean isEVFullscreenMode() {
+        return EVFullscreenMode;
+    }
+
+    public void setEVFullscreenMode(boolean EVFullscreenMode) {
+        this.EVFullscreenMode = EVFullscreenMode;
     }
 }

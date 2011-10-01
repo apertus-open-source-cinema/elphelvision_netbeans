@@ -21,11 +21,14 @@
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.DisplayMode;
 import java.awt.Frame;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Panel;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -79,8 +82,6 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     static int Debuglevel;
 
     public static void main(String[] args) {
-        ProcessArgs(args);
-
         JFrame f = new JFrame();
         f.addWindowListener(new java.awt.event.WindowAdapter() {
 
@@ -92,8 +93,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         });
 
         ElphelVision EV = new ElphelVision();
+        EV.ProcessArgs(args); // deal with start parameters
         EV.start();
-        EV.setSize(1024, 600);
 
         f.add(EV);
         if (!WindowDecorations) {
@@ -101,7 +102,37 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         }
         f.pack();
         if (!WindowDecorations) {
-            f.setSize(1024, 600);
+            if (EV.Settings.isEVFullscreenMode()) {
+                EV.WriteLogtoConsole("Starting in fullscreen mode");
+
+                // for multi screen environments
+                GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+                GraphicsDevice[] gs = ge.getScreenDevices();
+
+                // get size of each screen
+                int[] ScreenWidth = new int[gs.length];
+                int[] ScreenHeight = new int[gs.length];
+                for (int i = 0; i < gs.length; i++) {
+                    DisplayMode dm = gs[i].getDisplayMode();
+                    ScreenWidth[i] = dm.getWidth();
+                    ScreenHeight[i] = dm.getHeight();
+                }
+
+                GraphicsDevice gd = ge.getScreenDevices()[0];
+                try {
+                    if (gd.isFullScreenSupported()) {
+                        gd.setFullScreenWindow(f);
+                    } else {
+                        EV.WriteLogtoConsole("Fullscreen mode not supported by graphics environment - setting size to screen dimensions as workaround");
+                        // always use 1st screen for now
+                        f.setSize(ScreenWidth[0], ScreenHeight[0]);
+                    }
+                } finally {
+                    gd.setFullScreenWindow(null);
+                }
+            } else {
+                f.setSize(1024, 600);
+            }
         } else {
             f.setSize(1024, 600 + 20); // add 20, seems enough for the Frame title,
         }
@@ -207,7 +238,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     public void StartVideoPlayer() {
         if (NoCameraParameter) {
             // TODO we have no test.avi yet
-            VLCPlayer.PlayFakeStream();
+            //VLCPlayer.PlayFakeStream();
             //VLCPlayer.PlayLocalVideoFile("test.avi");
             WriteLogtoConsole("Starting Dummy Video Stream");
         } else {
@@ -231,19 +262,24 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         }
     }
 
-    static void ProcessArgs(String[] args) {
+    private void ProcessArgs(String[] args) {
         Debuglevel = 2; // DEFAULT value
 
         for (int i = 0; i < args.length; i++) {
             WindowDecorations = false;
+
             if (args[i].equals("--help") || args[i].equals("-h")) {
                 PrintHelp();
                 System.exit(0);
             }
+
             if (args[i].equals("--no-camera")) {
-                NoCameraParameter = true; // TODO: not fully implemented yet
+                NoCameraParameter = true;
             }
-            // Default
+
+            if (args[i].equals("--fullscreen")) {
+                Settings.setEVFullscreenMode(true);
+            }
 
             if (args[i].equals("--debuglevel")) {
                 if (args[i + 1].equals("0")) {
@@ -272,6 +308,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         System.out.println("\t-h, --help\tshow this help message.");
         System.out.println("\t--no-camera\tstart without a connected camera for testing purpose");
         System.out.println("\t--debuglevel N\t0 - none, 1 - only errors, 2 - errors and warnings (default), 3 - everything");
+        System.out.println("\t--fullscreen \tstart ElphelVision in fullscreen mode");
     }
 
     public void SetConsoleColor(Color newcolor) {
@@ -353,6 +390,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         //Init everything
         Camera = new Camera(this);
 
+        // Check host OS
         String osname = System.getProperty("os.name");
         if (osname.startsWith("Windows")) {
             Settings.SetOS(OStype.Windows);
@@ -360,11 +398,8 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             Settings.SetOS(OStype.Linux);
         }
 
-        //TODO check if video players are installed and at proper version
+        //TODO: check if video players are installed and at proper version
 
-        // global applet settings
-        setSize(1024, 600);
-        setBackground(Color.black);
         setLayout(new BorderLayout());
 
         GstreamerPlayer = new GstreamerPlayer(this);
@@ -418,7 +453,6 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             MaincardLayoutVLC.Load();
             cl.show(GetCardManager(), "MainCardVLC");
         }
-        //StartVideoPlayer();
     }
 
     public void UpdateOverlayPosition() {
