@@ -148,6 +148,8 @@ public class Camera {
     private int TriggerCondition = 0;
     private int FrameSizeBytes;
     private int BufferOverruns;
+    private int Bufferfree;
+    private int Bufferused;
     private boolean AutoExposure = false;
     private boolean GuideDrawCenterX = false;
     private boolean GuideDrawOuterX = false;
@@ -383,6 +385,10 @@ public class Camera {
     }
 
     public int GetFrameSizeBytes() {
+        return this.FrameSizeBytes;
+    }
+
+    public void ReadFrameSizeBytes() {
         URLConnection conn = null;
         BufferedReader data = null;
         String line;
@@ -400,6 +406,8 @@ public class Camera {
         try {
             conn = FramesizeURL.openConnection();
             conn.connect();
+
+            Parent.WriteLogtoConsole(this.IP[0] + ": GetDatarate(): Reading FRAME_SIZE data");
 
             data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -421,7 +429,6 @@ public class Camera {
         } catch (Exception e) {
             Parent.WriteErrortoConsole("Reading FRAME_SIZE data IO Error:" + e.getMessage());
         }
-        return this.FrameSizeBytes;
     }
 
     public void SetAutoExposure(boolean OnOff) {
@@ -947,6 +954,8 @@ public class Camera {
             conn = HistURL.openConnection();
             conn.connect();
 
+            Parent.WriteLogtoConsole(this.IP[0] + ": ReadHistogram(): Reading histogram data");
+
             data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             buf.delete(0, buf.length());
@@ -1025,6 +1034,8 @@ public class Camera {
         try {
             conn = GammaURL.openConnection();
             conn.connect();
+
+            Parent.WriteLogtoConsole(this.IP[0] + ": ReadGammaCurve(): Reading gamma curve data");
 
             data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -1472,10 +1483,6 @@ public class Camera {
     public boolean CheckHDD() {
         try {
             UpdateCameraData();
-
-
-
-
         } catch (Exception ex) {
             Logger.getLogger(Camera.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -2555,6 +2562,8 @@ public class Camera {
             conn = CameraUrl[i].openConnection();
             conn.connect();
 
+            Parent.WriteLogtoConsole(this.IP[0] + ": UpdateCameraData(): Reading various camera data");
+
             data = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             buf.delete(0, buf.length());
@@ -2825,37 +2834,65 @@ public class Camera {
                             this.BufferOverruns = tempvalue;
                         }
 
+                        NodeList NmElmntLstBufferFree = fstElmnt.getElementsByTagName("bufferfree");
+                        if (NmElmntLstBufferFree.getLength() > 0) {
+                            Element NmElmntBufferFree = (Element) NmElmntLstBufferFree.item(0);
+                            NodeList ElmntBufferFree = NmElmntBufferFree.getChildNodes();
+                            if (((Node) ElmntBufferFree.item(0)) != null) {
+                                int tempvalue = Integer.parseInt(((Node) ElmntBufferFree.item(0)).getNodeValue());
+                                this.Bufferfree = tempvalue;
+                            }
+                        }
+
+                        NodeList NmElmntLstBufferUsed = fstElmnt.getElementsByTagName("bufferused");
+                        if (NmElmntLstBufferUsed.getLength() > 0) {
+                            Element NmElmntBufferUsed = (Element) NmElmntLstBufferUsed.item(0);
+                            NodeList ElmntBufferUsed = NmElmntBufferUsed.getChildNodes();
+                            if (((Node) ElmntBufferUsed.item(0)) != null) {
+                                int tempvalue = Integer.parseInt(((Node) ElmntBufferUsed.item(0)).getNodeValue());
+                                this.Bufferused = tempvalue;
+                            }
+                        }
+
                         NodeList NmElmntLstTrigger = fstElmnt.getElementsByTagName("trigger");
-                        Element NmElmntTrigger = (Element) NmElmntLstTrigger.item(0);
-                        NodeList ElmntTrigger = NmElmntTrigger.getChildNodes();
-                        if (((Node) ElmntTrigger.item(0)) != null) {
-                            int trigger = Integer.parseInt(((Node) ElmntTrigger.item(0)).getNodeValue());
-                            if (trigger == 0) {
-                                this.FrameTrigger = Trigger.FREERUNNING;
-                            } else if (trigger == 4) {
-                                this.FrameTrigger = Trigger.TRIGGERED;
+                        if (NmElmntLstTrigger.getLength() > 0) {
+                            Element NmElmntTrigger = (Element) NmElmntLstTrigger.item(0);
+                            NodeList ElmntTrigger = NmElmntTrigger.getChildNodes();
+                            if (((Node) ElmntTrigger.item(0)) != null) {
+                                int trigger = Integer.parseInt(((Node) ElmntTrigger.item(0)).getNodeValue());
+                                if (trigger == 0) {
+                                    this.FrameTrigger = Trigger.FREERUNNING;
+                                } else if (trigger == 4) {
+                                    this.FrameTrigger = Trigger.TRIGGERED;
+                                }
                             }
                         }
 
                         NodeList NmElmntLstTriggerPeriod = fstElmnt.getElementsByTagName("trigger_period");
-                        Element NmElmntTriggerPeriod = (Element) NmElmntLstTriggerPeriod.item(0);
-                        NodeList ElmntTriggerPeriod = NmElmntTriggerPeriod.getChildNodes();
-                        if (((Node) ElmntTriggerPeriod.item(0)) != null) {
-                            this.TriggerPeriod = Integer.parseInt(((Node) ElmntTriggerPeriod.item(0)).getNodeValue());
+                        if (NmElmntLstTriggerPeriod.getLength() > 0) {
+                            Element NmElmntTriggerPeriod = (Element) NmElmntLstTriggerPeriod.item(0);
+                            NodeList ElmntTriggerPeriod = NmElmntTriggerPeriod.getChildNodes();
+                            if (((Node) ElmntTriggerPeriod.item(0)) != null) {
+                                this.TriggerPeriod = Integer.parseInt(((Node) ElmntTriggerPeriod.item(0)).getNodeValue());
+                            }
                         }
 
                         NodeList NmElmntLstTriggerCondition = fstElmnt.getElementsByTagName("trigger_condition");
-                        Element NmElmntTriggerCondition = (Element) NmElmntLstTriggerCondition.item(0);
-                        NodeList ElmntTriggerCondition = NmElmntTriggerCondition.getChildNodes();
-                        if (((Node) ElmntTriggerCondition.item(0)) != null) {
-                            this.TriggerCondition = Integer.parseInt(((Node) ElmntTriggerCondition.item(0)).getNodeValue());
+                        if (NmElmntLstTriggerCondition.getLength() > 0) {
+                            Element NmElmntTriggerCondition = (Element) NmElmntLstTriggerCondition.item(0);
+                            NodeList ElmntTriggerCondition = NmElmntTriggerCondition.getChildNodes();
+                            if (((Node) ElmntTriggerCondition.item(0)) != null) {
+                                this.TriggerCondition = Integer.parseInt(((Node) ElmntTriggerCondition.item(0)).getNodeValue());
+                            }
                         }
 
                         NodeList NmElmntLstTriggerOut = fstElmnt.getElementsByTagName("trigger_out");
-                        Element NmElmntTriggerOut = (Element) NmElmntLstTriggerOut.item(0);
-                        NodeList ElmntTriggerOut = NmElmntTriggerOut.getChildNodes();
-                        if (((Node) ElmntTriggerOut.item(0)) != null) {
-                            this.TriggerOut = Integer.parseInt(((Node) ElmntTriggerOut.item(0)).getNodeValue());
+                        if (NmElmntLstTriggerOut.getLength() > 0) {
+                            Element NmElmntTriggerOut = (Element) NmElmntLstTriggerOut.item(0);
+                            NodeList ElmntTriggerOut = NmElmntTriggerOut.getChildNodes();
+                            if (((Node) ElmntTriggerOut.item(0)) != null) {
+                                this.TriggerOut = Integer.parseInt(((Node) ElmntTriggerOut.item(0)).getNodeValue());
+                            }
                         }
 
                         NodeList NmElmntLstRecordDirectory = fstElmnt.getElementsByTagName("record_directory");
@@ -3086,5 +3123,21 @@ public class Camera {
 
     public String getSingleCameraName() {
         return this.SingleCameraName;
+    }
+
+    public int getBufferfree() {
+        return this.Bufferfree;
+    }
+
+    public void setBufferfree(int Bufferfree) {
+        this.Bufferfree = Bufferfree;
+    }
+
+    public int getBufferused() {
+        return this.Bufferused;
+    }
+
+    public void setBufferused(int Bufferused) {
+        this.Bufferused = Bufferused;
     }
 }

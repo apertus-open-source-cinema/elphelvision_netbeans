@@ -28,7 +28,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
 
     ElphelVision Parent;
     Thread SettingsOVerviewUpdater;
-    int UpdaterFPS = 4;
+    float UpdaterFPS = 0.5f;
 
     public Settings1Layout(ElphelVision parent) {
         Parent = parent;

@@ -21,21 +21,22 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
-public class DatarateMonitor extends JPanel implements Runnable, java.io.Serializable {
+public class BufferMonitor extends JPanel implements Runnable, java.io.Serializable {
 
     int width, height;
-    int max_datarate = 120; // MBit/s CPU LIMIT
-    int framesize = 0;
+    int bufferfree;
+    int bufferused;
+    int buffersize = 19791872;
     Thread animator;
     float fps = 0.5f;
     ElphelVision Parent = null;
 
-    public DatarateMonitor() {
+    public BufferMonitor() {
         width = 80 + 2;
         height = 40;
     }
 
-    public DatarateMonitor(ElphelVision parent) {
+    public BufferMonitor(ElphelVision parent) {
         this.Parent = parent;
         width = 80 + 2;
         height = 40;
@@ -53,11 +54,12 @@ public class DatarateMonitor extends JPanel implements Runnable, java.io.Seriali
     public void run() {
         if (!Parent.GetNoCameraParameter()) {
             while (Thread.currentThread() == animator) {
-                framesize = Parent.Camera.GetFrameSizeBytes();
+                bufferused = Parent.Camera.getBufferused();
+                bufferfree = Parent.Camera.getBufferfree();
                 repaint();
 
                 try {
-                    Thread.sleep((int)(1.0f / fps * 1000.0f));
+                    Thread.sleep((int) (1.0f / fps * 1000.0f));
                 } catch (InterruptedException e) {
                     break;
                 }
@@ -70,8 +72,6 @@ public class DatarateMonitor extends JPanel implements Runnable, java.io.Seriali
         super.paint(g);
 
         if (this.Parent != null) {
-
-            float datarate = (float) (framesize) / 1024.0f / 1024.0f * (float) (Parent.Camera.GetFPS()) * 8.0f;
 
             Graphics2D g2 = (Graphics2D) g;
             g.setPaintMode();
@@ -88,13 +88,13 @@ public class DatarateMonitor extends JPanel implements Runnable, java.io.Seriali
             g2.draw(new Rectangle2D.Double(3, 3, width - 6, 6));
 
             // fill
-            float bar_length = (datarate / (float) (max_datarate));
+            float bar_length = ((float)bufferfree/(float)buffersize);
             if (bar_length > 1) {
                 bar_length = 1;
             }
-            if (bar_length > 0.95) {
+            if (bar_length < 0.20) {
                 g2.setColor(Color.red);
-            } else if (bar_length > 0.75) {
+            } else if (bar_length < 0.40) {
                 g2.setColor(Color.yellow);
             } else {
                 g2.setColor(Color.green);
@@ -103,7 +103,7 @@ public class DatarateMonitor extends JPanel implements Runnable, java.io.Seriali
 
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setColor(this.getForeground());
-            g2.drawString(Math.round(datarate) + " Mbit/s", 3, 25);
+            g2.drawString(Math.round((float)bufferfree/(float)buffersize*100.0f) + "% free", 3, 25);
         }
     }
 

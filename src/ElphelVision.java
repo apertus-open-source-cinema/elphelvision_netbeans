@@ -56,10 +56,12 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
     Thread ReadCameraDataAnimator;
     Thread InfoAreaAnimator;
     Thread HistogramAnimator;
+    Thread DatarateAnimator;
     long winid = 0;
-    int ReadCameradataFPS = 5;
-    int InfoAreaFPS = 5;
-    int HistogramFPS = 10;
+    float ReadCameradataFPS = 0.25f;
+    float InfoAreaFPS = 0.25f;
+    float HistogramFPS = 0.25f;
+    float DatarateFPS = 0.25f;
     JPanel CardManager;
     ConnectLayout ConnectCardLayout;
     MainLayoutGST MaincardLayoutGST;
@@ -227,6 +229,19 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
         }
     }
 
+    public void SetDatarateReadFrequency(float newfrequency) {
+        this.DatarateFPS = newfrequency;
+    }
+
+    public void SetHistogramReadFrequency(float newfrequency) {
+        this.HistogramFPS = newfrequency;
+    }
+
+    public void SetCameraDataReadFrequency(float newfrequency) {
+        this.ReadCameradataFPS = newfrequency;
+        this.InfoAreaFPS = newfrequency;
+    }
+
     public void destroy() {
         VLCPlayer.close();
     }
@@ -385,6 +400,7 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             ReadCameraDataAnimator = new Thread(this);
             HistogramAnimator = new Thread(this);
             InfoAreaAnimator = new Thread(this);
+            DatarateAnimator = new Thread(this);
         }
 
         //Init everything
@@ -489,6 +505,9 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
             if (!HistogramAnimator.isAlive()) {
                 HistogramAnimator.start();
             }
+            if (!DatarateAnimator.isAlive()) {
+                DatarateAnimator.start();
+            }
 
             InitInfoArea();
             if (!InfoAreaAnimator.isAlive()) {
@@ -551,6 +570,17 @@ public class ElphelVision extends Panel implements ActionListener, Runnable {
                     }
                     try {
                         Thread.sleep((int) (1.0f / InfoAreaFPS * 1000.0f));
+                    } catch (InterruptedException e) {
+                        break;
+                    }
+                }
+
+                while (Thread.currentThread() == DatarateAnimator) {
+                    if (Camera != null) {
+                        Camera.ReadFrameSizeBytes();
+                    }
+                    try {
+                        Thread.sleep((int) (1.0f / DatarateFPS * 1000.0f));
                     } catch (InterruptedException e) {
                         break;
                     }

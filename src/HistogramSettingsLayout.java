@@ -94,6 +94,8 @@ public class HistogramSettingsLayout extends javax.swing.JPanel implements Runna
         histogram.startAnimator();
 
         startAnimator();
+        
+        Parent.SetHistogramReadFrequency(4);
     }
 
     public void Unload() {
