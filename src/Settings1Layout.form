@@ -1001,7 +1001,9 @@
             </Component>
             <Component class="EButton" name="WBTungsten">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Tungsten"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/media/wb_tungsten.png"/>
+                </Property>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="iconTextGap" type="int" value="20"/>
@@ -1018,7 +1020,9 @@
             </Component>
             <Component class="EButton" name="WBDaylight">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Daylight"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/media/wb_daylight.png"/>
+                </Property>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="iconTextGap" type="int" value="20"/>
@@ -1038,7 +1042,9 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Fluorescent"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/media/wb_flourescent.png"/>
+                </Property>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="iconTextGap" type="int" value="20"/>
@@ -1072,7 +1078,9 @@
             </Component>
             <Component class="EButton" name="WBCloudy">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cloudy"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/media/wb_cloudy.png"/>
+                </Property>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="iconTextGap" type="int" value="20"/>

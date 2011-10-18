@@ -858,7 +858,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
         WBLabel.setText("White Balance");
         WBLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        WBTungsten.setText("Tungsten");
+        WBTungsten.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/wb_tungsten.png"))); // NOI18N
         WBTungsten.setAlignmentY(0.0F);
         WBTungsten.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         WBTungsten.setIconTextGap(20);
@@ -869,7 +869,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
             }
         });
 
-        WBDaylight.setText("Daylight");
+        WBDaylight.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/wb_daylight.png"))); // NOI18N
         WBDaylight.setAlignmentY(0.0F);
         WBDaylight.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         WBDaylight.setIconTextGap(20);
@@ -881,7 +881,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
         });
 
         WBFlourescent.setBorder(null);
-        WBFlourescent.setText("Fluorescent");
+        WBFlourescent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/wb_flourescent.png"))); // NOI18N
         WBFlourescent.setAlignmentY(0.0F);
         WBFlourescent.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         WBFlourescent.setIconTextGap(20);
@@ -903,7 +903,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
             }
         });
 
-        WBCloudy.setText("Cloudy");
+        WBCloudy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/wb_cloudy.png"))); // NOI18N
         WBCloudy.setAlignmentY(0.0F);
         WBCloudy.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         WBCloudy.setIconTextGap(20);
@@ -1063,7 +1063,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
         Experimental.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(44, 44, 44), 1, true));
         Experimental.setForeground(new java.awt.Color(255, 255, 255));
 
-        CoringLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        CoringLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         CoringLabel.setForeground(new java.awt.Color(255, 255, 255));
         CoringLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         CoringLabel.setText("Coring");
@@ -1084,7 +1084,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
             }
         });
 
-        ExperimentalLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        ExperimentalLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 12));
         ExperimentalLabel.setForeground(new java.awt.Color(255, 255, 255));
         ExperimentalLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ExperimentalLabel.setText("Experimental");
