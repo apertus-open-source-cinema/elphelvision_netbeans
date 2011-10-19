@@ -236,6 +236,7 @@ public class MainLayoutVLC extends JPanel {
         DatarateMonitor = new DatarateMonitor();
         LiveVideoButton = new EButton(Parent);
         BufferMonitor = new BufferMonitor();
+        ColorModeLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -661,6 +662,12 @@ public class MainLayoutVLC extends JPanel {
             .addGap(0, 40, Short.MAX_VALUE)
         );
 
+        ColorModeLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 12)); // NOI18N
+        ColorModeLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        ColorModeLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ColorModeLabel1.setText("Rec-Buffer");
+        ColorModeLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout QuickPanelLayout = new javax.swing.GroupLayout(QuickPanel);
         QuickPanel.setLayout(QuickPanelLayout);
         QuickPanelLayout.setHorizontalGroup(
@@ -676,6 +683,9 @@ public class MainLayoutVLC extends JPanel {
             .addComponent(eButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
             .addComponent(ColorModeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
             .addComponent(BufferMonitor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(QuickPanelLayout.createSequentialGroup()
+                .addComponent(ColorModeLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                .addContainerGap())
         );
         QuickPanelLayout.setVerticalGroup(
             QuickPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -690,8 +700,10 @@ public class MainLayoutVLC extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(DatarateMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ColorModeLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BufferMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addComponent(ColorModeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(eButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1080,6 +1092,7 @@ private void AudioRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private BufferMonitor BufferMonitor;
     private EButton CaptureStill;
     private javax.swing.JLabel ColorModeLabel;
+    private javax.swing.JLabel ColorModeLabel1;
     private DatarateMonitor DatarateMonitor;
     private EButton ExposureButton;
     private EButton GainButton;

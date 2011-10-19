@@ -54,8 +54,15 @@ public class BufferMonitor extends JPanel implements Runnable, java.io.Serializa
     public void run() {
         if (!Parent.GetNoCameraParameter()) {
             while (Thread.currentThread() == animator) {
-                bufferused = Parent.Camera.getBufferused();
-                bufferfree = Parent.Camera.getBufferfree();
+                // Show full buffer while not recording otherwise it will just go from full to empty all the time and confuse people
+                if (Parent.Camera.GetCamogmState() == CamogmState.RECORDING) {
+                    bufferused = Parent.Camera.getBufferused();
+                    bufferfree = Parent.Camera.getBufferfree();
+                } else {
+                    bufferused = 0;
+                    bufferfree = buffersize;
+                }
+                
                 repaint();
 
                 try {
@@ -88,7 +95,7 @@ public class BufferMonitor extends JPanel implements Runnable, java.io.Serializa
             g2.draw(new Rectangle2D.Double(3, 3, width - 6, 6));
 
             // fill
-            float bar_length = ((float)bufferfree/(float)buffersize);
+            float bar_length = ((float) bufferfree / (float) buffersize);
             if (bar_length > 1) {
                 bar_length = 1;
             }
@@ -103,7 +110,7 @@ public class BufferMonitor extends JPanel implements Runnable, java.io.Serializa
 
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setColor(this.getForeground());
-            g2.drawString(Math.round((float)bufferfree/(float)buffersize*100.0f) + "% free", 3, 25);
+            g2.drawString(Math.round((float) bufferfree / (float) buffersize * 100.0f) + "% free", 3, 25);
         }
     }
 
