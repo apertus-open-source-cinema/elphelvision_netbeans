@@ -351,6 +351,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
         CoringSet = new EButton(Parent);
         CoringType = new EButton(Parent);
         ExperimentalLabel = new javax.swing.JLabel();
+        HITSettings = new EButton(Parent);
         SettingsCancelButton = new EButton(Parent);
         TerminateButton = new EButton(Parent);
 
@@ -1090,6 +1091,13 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
         ExperimentalLabel.setText("Experimental");
         ExperimentalLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        HITSettings.setText("HIT Settings");
+        HITSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HITSettingsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ExperimentalLayout = new javax.swing.GroupLayout(Experimental);
         Experimental.setLayout(ExperimentalLayout);
         ExperimentalLayout.setHorizontalGroup(
@@ -1106,7 +1114,10 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
                         .addComponent(CoringSet, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ExperimentalLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(ExperimentalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)))
+                        .addComponent(ExperimentalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
+                    .addGroup(ExperimentalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(HITSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         ExperimentalLayout.setVerticalGroup(
@@ -1119,6 +1130,8 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
                     .addComponent(CoringValueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CoringType, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CoringSet, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(HITSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1175,8 +1188,8 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(WBPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(bgLayout.createSequentialGroup()
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -1185,15 +1198,13 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
                                         .addComponent(ColorModePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                                         .addComponent(JPEGQualityPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
                                     .addComponent(RecordFormatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                                .addComponent(Experimental, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(114, 114, 114))
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(SettingsOverview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(bgLayout.createSequentialGroup()
-                            .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(482, 482, 482))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Experimental, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(SettingsOverview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(TerminateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(482, 482, 482)))
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1514,6 +1525,13 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
 
         Parent.Camera.SetColorMode(ColorMode.JP4);
     }//GEN-LAST:event_color_jp4ActionPerformed
+
+    private void HITSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HITSettingsActionPerformed
+        Parent.HITSettingsCardLayout.Load();
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "HITSettingsCard");
+    }//GEN-LAST:event_HITSettingsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton Amax;
     private EButton Cimax;
@@ -1535,6 +1553,7 @@ public class Settings1Layout extends javax.swing.JPanel implements Runnable {
     private EButton Full;
     private EButton FullHD;
     private EButton GuidesMenuButton10;
+    private EButton HITSettings;
     private javax.swing.JLabel JPEGLabel;
     private EButton JPEGQualityButton;
     private javax.swing.JPanel JPEGQualityPanel;

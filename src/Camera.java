@@ -131,6 +131,9 @@ public class Camera {
     private int JPEGQuality;
     private int ImageWidth;
     private int ImageHeight;
+    private int[] ImageWOILeft = null;
+    private int[] ImageWOITop = null;
+    private int Stereo3DHit;
     private ImageOrientation ImageOrientation;
     private CameraPreset Preset = CameraPreset.FULLHD;
     private int[][] Histogram;
@@ -317,6 +320,12 @@ public class Camera {
         this.Parent = parent;
         this.ImageHeight = 0;
         this.ImageWidth = 0;
+        this.ImageWOILeft = new int[2];
+        this.ImageWOITop = new int[2];
+        this.ImageWOILeft[0] = 0;
+        this.ImageWOILeft[1] = 0;
+        this.ImageWOITop[0] = 0;
+        this.ImageWOITop[1] = 0;
         this.FPS = 0;
         this.JPEGQuality = 0;
         this.IP = new String[]{"192.168.0.9"};
@@ -2596,6 +2605,22 @@ public class Camera {
                         NodeList lstNm = lstNmElmnt.getChildNodes();
                         this.ImageHeight = Integer.parseInt(((Node) lstNm.item(0)).getNodeValue());
 
+                        NodeList ElmntLstWOITop = fstElmnt.getElementsByTagName("WOI_top");
+                        if (ElmntLstWOITop.getLength() > 0) {
+                            Element lstElmntWOITop = (Element) ElmntLstWOITop.item(0);
+                            NodeList lstNWOITop = lstElmntWOITop.getChildNodes();
+                            this.ImageWOITop[0] = Integer.parseInt(((Node) lstNWOITop.item(0)).getNodeValue());
+                            // TODO currently we only get the WOI offset from camera 0 but not from any other camera
+                        }
+
+                        NodeList ElmntLstWOILeft = fstElmnt.getElementsByTagName("WOI_left");
+                        if (ElmntLstWOILeft.getLength() > 0) {
+                            Element lstElmntWOILeft = (Element) ElmntLstWOILeft.item(0);
+                            NodeList lstNWOILeft = lstElmntWOILeft.getChildNodes();
+                            this.ImageWOILeft[0] = Integer.parseInt(((Node) lstNWOILeft.item(0)).getNodeValue());
+                            // TODO currently we only get the WOI offset from camera 0 but not from any other camera
+                        }
+
                         NodeList nxtNmElmntLst = fstElmnt.getElementsByTagName("fps");
                         Element nxtNmElmnt = (Element) nxtNmElmntLst.item(0);
                         NodeList nxtNm = nxtNmElmnt.getChildNodes();
@@ -3139,5 +3164,49 @@ public class Camera {
 
     public void setBufferused(int Bufferused) {
         this.Bufferused = Bufferused;
+    }
+
+    public int getImageWOILeft(int cameraindex) {
+        return ImageWOILeft[cameraindex];
+    }
+
+    public void setImageWOILeft(int cameraindex, int ImageWOILeft) {
+        this.ImageWOILeft[cameraindex] = ImageWOILeft;
+
+        Parent.WriteLogtoConsole(Parent.Camera.GetIP()[cameraindex] + ": Setting Image WOI Shift Distance Left to " + ImageWOILeft);
+        this.SendParametertoCamera(cameraindex, "WOI_LEFT=" + ImageWOILeft);
+    }
+
+    public int getImageWOITop(int cameraindex) {
+        return ImageWOITop[cameraindex];
+    }
+
+    public void setImageWOITop(int cameraindex, int ImageWOITop) {
+        this.ImageWOITop[cameraindex] = ImageWOITop;
+
+        Parent.WriteLogtoConsole(Parent.Camera.GetIP()[cameraindex] + ": Setting Image WOI Shift Distance Top to " + ImageWOITop);
+        this.SendParametertoCamera(cameraindex, "WOI_TOP=" + ImageWOITop);
+    }
+
+    public void SetStereo3DHIT(int shift) {
+        // in pixels from center position 
+        // positive values mean the images are shifted "towards" each other
+
+        this.Stereo3DHit = shift;
+
+        // Left camera shifts right
+        this.setImageWOILeft(0, 1296 + shift - (this.GetImageWidth() / 2));
+
+        // right camera shifts left
+        if (Parent.Camera.GetIP().length > 1) {
+            this.setImageWOILeft(1, 1296 - shift - (this.GetImageWidth() / 2));
+        }
+    }
+
+    public int GetStereo3DHIT() {
+        // in pixels from center position 
+        // positive values mean the images are shifted "towards" each other
+
+        return this.Stereo3DHit;
     }
 }
