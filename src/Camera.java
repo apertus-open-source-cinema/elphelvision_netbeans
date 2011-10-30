@@ -3194,13 +3194,14 @@ public class Camera {
 
         this.Stereo3DHit = shift;
 
-        // Left camera shifts right
-        this.setImageWOILeft(0, 1296 + shift - (this.GetImageWidth() / 2));
+        // Left camera shifts right 50% of the value
+        this.setImageWOILeft(0, 1296 + shift / 2 - (this.GetImageWidth() / 2));
 
-        // right camera shifts left
+        // right camera shifts left 50% of the value
         if (Parent.Camera.GetIP().length > 1) {
-            this.setImageWOILeft(1, 1296 - shift - (this.GetImageWidth() / 2));
+            this.setImageWOILeft(1, 1296 - shift / 2 - (this.GetImageWidth() / 2));
         }
+        Parent.WriteLogtoConsole("Setting Stereo3D HIT to " + shift);
     }
 
     public int GetStereo3DHIT() {

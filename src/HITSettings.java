@@ -17,6 +17,7 @@
  *!
 -----------------------------------------------------------------------------**/
 
+import java.awt.CardLayout;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,9 +52,11 @@ public class HITSettings extends javax.swing.JPanel {
 
     private void UpdateLabel() {
         int WOILeft = Parent.Camera.getImageWOILeft(0);
-        int HITOffset = (WOILeft + Parent.Camera.GetImageWidth() / 2) - 1296;
-        float HITOffsetPercent = (float) HITOffset / (float) Parent.Camera.GetImageWidth() * 100.0f * 2.0f;
+        int HITOffset = ((WOILeft + Parent.Camera.GetImageWidth() / 2) - 1296) * 2;
+        float HITOffsetPercent = (float) HITOffset / (float) Parent.Camera.GetImageWidth() * 100.0f;
         HITTopLabel.setText("Horizontal Shift: " + Utils.Round(HITOffsetPercent, 2) + " % | " + HITOffset + " Pixels");
+        HITValueTextField.setText(HITOffset + "");
+
         // HIT as % offset relates to the resolution of the image itself
         // 10% total HIT means both cameras move 5% "towards" each other; 5% of their current image width (at FullHD: 96 Pixels)
         // Negative values mean the images are shifted "away" from each other
@@ -76,7 +79,10 @@ public class HITSettings extends javax.swing.JPanel {
         HITMinusOneButton = new EButton(Parent);
         HITMinusTenButton = new EButton(Parent);
         HITPlusTenButton = new EButton(Parent);
-        HITPlusOneButton = new EButton(Parent);
+        HITPlusOneButton1 = new EButton(Parent);
+        HITTypeButton = new EButton(Parent);
+        HITValueTextField = new javax.swing.JTextField();
+        HITSet = new EButton(Parent);
         jPanel2 = new javax.swing.JPanel();
         HITTopLabel = new javax.swing.JLabel();
 
@@ -100,37 +106,54 @@ public class HITSettings extends javax.swing.JPanel {
         HITShiftPanel.setBackground(java.awt.Color.black);
         HITShiftPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        HITMinusOneButton.setText("-1");
+        HITMinusOneButton.setText("-4px");
         HITMinusOneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 HITMinusOneButtonActionPerformed(evt);
             }
         });
-        HITShiftPanel.add(HITMinusOneButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, -1));
+        HITShiftPanel.add(HITMinusOneButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 50, -1));
 
-        HITMinusTenButton.setText("-10");
+        HITMinusTenButton.setText("-50px");
         HITMinusTenButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 HITMinusTenButtonActionPerformed(evt);
             }
         });
-        HITShiftPanel.add(HITMinusTenButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 50, -1));
+        HITShiftPanel.add(HITMinusTenButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 50, -1));
 
-        HITPlusTenButton.setText("+10");
+        HITPlusTenButton.setText("+50px");
         HITPlusTenButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 HITPlusTenButtonActionPerformed(evt);
             }
         });
-        HITShiftPanel.add(HITPlusTenButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 50, -1));
+        HITShiftPanel.add(HITPlusTenButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 50, -1));
 
-        HITPlusOneButton.setText("+1");
-        HITPlusOneButton.addActionListener(new java.awt.event.ActionListener() {
+        HITPlusOneButton1.setText("+4px");
+        HITPlusOneButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HITPlusOneButtonActionPerformed(evt);
+                HITPlusOneButton1ActionPerformed(evt);
             }
         });
-        HITShiftPanel.add(HITPlusOneButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 50, -1));
+        HITShiftPanel.add(HITPlusOneButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 50, -1));
+
+        HITTypeButton.setText("type");
+        HITTypeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HITTypeButtonActionPerformed(evt);
+            }
+        });
+        HITShiftPanel.add(HITTypeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 50, -1));
+        HITShiftPanel.add(HITValueTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, 50, -1));
+
+        HITSet.setText("Set");
+        HITSet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HITSetActionPerformed(evt);
+            }
+        });
+        HITShiftPanel.add(HITSet, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 50, -1));
 
         jPanel2.setBackground(java.awt.Color.black);
 
@@ -142,16 +165,15 @@ public class HITSettings extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(HITTopLabel)
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addContainerGap(210, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(HITTopLabel)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
@@ -162,27 +184,25 @@ public class HITSettings extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(HITShiftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 293, Short.MAX_VALUE)
-                        .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(HITShiftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE)
+                        .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(SettingsCancelButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap())
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(HITShiftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(VideoFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(HITShiftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
                 .addComponent(SettingsCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -191,7 +211,7 @@ public class HITSettings extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,31 +232,45 @@ public class HITSettings extends javax.swing.JPanel {
     }//GEN-LAST:event_SettingsCancelButtonActionPerformed
 
     private void HITMinusOneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HITMinusOneButtonActionPerformed
-        Parent.Camera.SetStereo3DHIT(Parent.Camera.GetStereo3DHIT() - 2);
+        Parent.Camera.SetStereo3DHIT(Parent.Camera.GetStereo3DHIT() - 4);
         this.UpdateLabel();
     }//GEN-LAST:event_HITMinusOneButtonActionPerformed
 
     private void HITMinusTenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HITMinusTenButtonActionPerformed
-        Parent.Camera.SetStereo3DHIT(Parent.Camera.GetStereo3DHIT() - 20);
+        Parent.Camera.SetStereo3DHIT(Parent.Camera.GetStereo3DHIT() - 50);
         this.UpdateLabel();
     }//GEN-LAST:event_HITMinusTenButtonActionPerformed
 
     private void HITPlusTenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HITPlusTenButtonActionPerformed
-        Parent.Camera.SetStereo3DHIT(Parent.Camera.GetStereo3DHIT() + 20);
+        Parent.Camera.SetStereo3DHIT(Parent.Camera.GetStereo3DHIT() + 50);
         this.UpdateLabel();
     }//GEN-LAST:event_HITPlusTenButtonActionPerformed
 
-    private void HITPlusOneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HITPlusOneButtonActionPerformed
-        Parent.Camera.SetStereo3DHIT(Parent.Camera.GetStereo3DHIT() + 2);
+    private void HITTypeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HITTypeButtonActionPerformed
+        Parent.NumberPanelInteger.Load("HIT Offset", Integer.parseInt(HITValueTextField.getText()), HITValueTextField, "HITSettingsCard");
+        CardLayout cl = (CardLayout) (Parent.GetCardManager().getLayout());
+        cl.show(Parent.GetCardManager(), "NumberpanelInteger");
+    }//GEN-LAST:event_HITTypeButtonActionPerformed
+
+    private void HITPlusOneButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HITPlusOneButton1ActionPerformed
+        Parent.Camera.SetStereo3DHIT(Parent.Camera.GetStereo3DHIT() + 4);
         this.UpdateLabel();
-    }//GEN-LAST:event_HITPlusOneButtonActionPerformed
+    }//GEN-LAST:event_HITPlusOneButton1ActionPerformed
+
+    private void HITSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HITSetActionPerformed
+        Parent.Camera.SetStereo3DHIT(Integer.parseInt(HITValueTextField.getText()));
+        this.UpdateLabel();
+    }//GEN-LAST:event_HITSetActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private EButton HITMinusOneButton;
     private EButton HITMinusTenButton;
-    private EButton HITPlusOneButton;
+    private EButton HITPlusOneButton1;
     private EButton HITPlusTenButton;
+    private EButton HITSet;
     private javax.swing.JPanel HITShiftPanel;
     private javax.swing.JLabel HITTopLabel;
+    private EButton HITTypeButton;
+    private javax.swing.JTextField HITValueTextField;
     private EButton SettingsCancelButton;
     private javax.swing.JPanel VideoFrame;
     private javax.swing.JPanel bg;
