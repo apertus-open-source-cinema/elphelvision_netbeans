@@ -142,7 +142,8 @@ public class Camera {
     private int Blacklevel;
     private HistogramScaleMode HistogramScaleMode;
     private HistogramColorMode HistogramColorMode;
-    private int CoringIndex;
+    private int CoringIndexY;
+    private int CoringIndexC;
     private int FPSSkipSeconds;
     private int FPSSkipFrames;
     private Trigger FrameTrigger = Trigger.FREERUNNING;
@@ -673,16 +674,24 @@ public class Camera {
         }
     }
 
-    public void SetCoringIndex(int newcore) {
-        CoringIndex = newcore;
+    public void SetCoringIndex(int newcoreY, int newcoreC) {
+        this.CoringIndexC = newcoreC;
+        this.CoringIndexY = newcoreY;
+
+        int temp = 0x10000 * newcoreC + newcoreY;
+        //Coring = 0x10000*Coring_C + Coring_Y, where Coring_C/Y = 0...100 decimal
         for (int i = 0; i < this.IP.length; i++) {
-            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting CORING_INDEX to " + newcore);
-            SendParametertoCamera(i, "framedelay=1&CORING_INDEX=" + (int) newcore);
+            Parent.WriteLogtoConsole(Parent.Camera.GetIP()[i] + ": Setting CORING_INDEX to " + temp);
+            SendParametertoCamera(i, "framedelay=1&CORING_INDEX=" + (int) temp);
         }
     }
 
-    public int GetCoringIndex() {
-        return CoringIndex;
+    public int GetCoringIndexC() {
+        return CoringIndexC;
+    }
+
+    public int GetCoringIndexY() {
+        return CoringIndexY;
     }
 
     public void SetGainIndex(int newindex) {
@@ -1632,7 +1641,8 @@ public class Camera {
             line += "GuidesOuterX=" + Boolean.toString(this.GetGuides()[1]) + "\n";
             line += "GuidesThirds=" + Boolean.toString(this.GetGuides()[2]) + "\n";
             line += "GuidesSafeArea=" + Boolean.toString(this.GetGuides()[3]) + "\n";
-            line += "CoringIndex=" + this.GetCoringIndex() + "\n";
+            line += "CoringIndexY=" + this.GetCoringIndexY() + "\n";
+            line += "CoringIndexC=" + this.GetCoringIndexC() + "\n";
             line += "FrameSkip=" + this.GetFPSSkipFrames() + "\n";
             line += "SecondsSkip=" + this.GetFPSSkipSeconds() + "\n";
             line += "AllowSlowShutter=" + this.GetAllowSlowShutter() + "\n";
@@ -1905,7 +1915,8 @@ public class Camera {
                         }
                     }
                     if (name.trim().equals("CoringIndex")) {
-                        this.SetCoringIndex(Integer.parseInt(value.trim()));
+                        //this.SetCoringIndex(Integer.parseInt(value.trim()));
+                        //TODO
                     }
                     if (name.trim().equals("FrameSkip")) {
                         this.SetFPSSkipFrames(Integer.parseInt(value.trim()));
@@ -2802,12 +2813,20 @@ public class Camera {
                             }
                         }
 
-                        NodeList NmElmntLstCoring = fstElmnt.getElementsByTagName("coringindex");
-                        Element NmElmntCoring = (Element) NmElmntLstCoring.item(0);
-                        NodeList ElmntCoring = NmElmntCoring.getChildNodes();
-                        if (((Node) ElmntCoring.item(0)) != null) {
-                            this.CoringIndex = Integer.parseInt(((Node) ElmntCoring.item(0)).getNodeValue());
+                        NodeList NmElmntLstCoringC = fstElmnt.getElementsByTagName("coringindex");
+                        Element NmElmntCoringC = (Element) NmElmntLstCoringC.item(0);
+                        NodeList ElmntCoringC = NmElmntCoringC.getChildNodes();
+                        if (((Node) ElmntCoringC.item(0)) != null) {
+                            int temp = Integer.parseInt(((Node) ElmntCoringC.item(0)).getNodeValue());
+
+                            //Coring = 0x10000*Coring_C + Coring_Y, where Coring_C/Y = 0...100 decimal.
+
+                            String temp2 = Integer.toHexString(temp);
+                            this.CoringIndexC = Integer.parseInt(temp2.substring(0, temp2.length() - 2), 16) / 0x100;
+                            this.CoringIndexY = Integer.parseInt(temp2.substring(temp2.length() - 2, temp2.length()), 16);
                         }
+
+
 
                         NodeList NmElmntLstFrameSkip = fstElmnt.getElementsByTagName("camogm_frameskip");
                         Element NmElmntFrameSkip = (Element) NmElmntLstFrameSkip.item(0);

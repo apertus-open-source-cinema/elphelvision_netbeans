@@ -76,34 +76,26 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="WBPanel" min="-2" pref="291" max="-2" attributes="1"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="1">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="ResolutionPanel" alignment="0" pref="291" max="32767" attributes="1"/>
-                                          <Component id="FPSPanel" alignment="0" pref="291" max="32767" attributes="1"/>
-                                          <Component id="ColorModePanel" alignment="0" pref="291" max="32767" attributes="1"/>
-                                          <Component id="JPEGQualityPanel" alignment="0" pref="291" max="32767" attributes="1"/>
-                                      </Group>
-                                      <Component id="RecordFormatPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="WBPanel" min="-2" pref="291" max="-2" attributes="1"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="ResolutionPanel" alignment="0" pref="291" max="32767" attributes="1"/>
+                                      <Component id="FPSPanel" alignment="0" pref="291" max="32767" attributes="1"/>
+                                      <Component id="ColorModePanel" alignment="0" pref="291" max="32767" attributes="1"/>
+                                      <Component id="JPEGQualityPanel" alignment="0" pref="291" max="32767" attributes="1"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="Experimental" min="-2" max="-2" attributes="0"/>
+                                  <Component id="RecordFormatPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="SettingsOverview" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="Experimental" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="SettingsOverview" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="TerminateButton" min="-2" pref="59" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="482" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="TerminateButton" alignment="0" min="-2" pref="59" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="SettingsCancelButton" min="-2" max="-2" attributes="0"/>
@@ -182,7 +174,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="152" pref="152" max="152" attributes="0"/>
-                              <Component id="Overview_CoringIndex" pref="96" max="32767" attributes="3"/>
+                              <Component id="Overview_CoringIndexY" pref="96" max="32767" attributes="3"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel18" min="-2" pref="114" max="-2" attributes="3"/>
@@ -195,6 +187,20 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="DatarateMonitor" min="-2" max="-2" attributes="1"/>
                       <EmptySpace pref="139" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="152" pref="152" max="152" attributes="0"/>
+                              <Component id="Overview_CoringIndexC" pref="96" max="32767" attributes="3"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel19" min="-2" pref="114" max="-2" attributes="3"/>
+                              <EmptySpace pref="134" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -240,9 +246,14 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel18" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
-                          <Component id="Overview_CoringIndex" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="Overview_CoringIndexY" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="160" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel19" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="Overview_CoringIndexC" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="140" max="32767" attributes="0"/>
                       <Component id="jLabel13" min="-2" pref="20" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="DatarateMonitor" min="-2" max="-2" attributes="0"/>
@@ -469,11 +480,11 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="text" type="java.lang.String" value="Coring Index"/>
+                <Property name="text" type="java.lang.String" value="Coring Index Y"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="Overview_CoringIndex">
+            <Component class="javax.swing.JLabel" name="Overview_CoringIndexY">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="DejaVu Sans" size="12" style="0"/>
@@ -506,6 +517,32 @@
                 </DimensionLayout>
               </Layout>
             </Container>
+            <Component class="javax.swing.JLabel" name="jLabel19">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="DejaVu Sans" size="12" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="2"/>
+                <Property name="text" type="java.lang.String" value="Coring Index C"/>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Overview_CoringIndexC">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="DejaVu Sans" size="12" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="2"/>
+                <Property name="text" type="java.lang.String" value="loading"/>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="ResolutionPanel">
@@ -687,7 +724,6 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/media/rgb.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="RGB 24bit color mode"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="color_rbgActionPerformed"/>
@@ -701,7 +737,6 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/media/jp4.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="higher fps but no live preview atm"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="color_jp4ActionPerformed"/>
@@ -715,7 +750,6 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/media/jp46.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="same fps as RGB but with bw live preview"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="color_jp46ActionPerformed"/>
@@ -1293,17 +1327,29 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="CoringLabel" min="-2" pref="51" max="-2" attributes="3"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="CoringLabel" max="32767" attributes="3"/>
+                                  <Component id="CoringLabel1" alignment="0" pref="60" max="32767" attributes="3"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="CoringValueTextField" min="-2" pref="71" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="CoringType" min="-2" pref="45" max="-2" attributes="1"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="CoringSet" min="-2" pref="48" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="CoringValueYTextField" min="-2" pref="71" max="-2" attributes="0"/>
+                                  <Component id="CoringValueCTextField" min="-2" pref="71" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="CoringType" min="-2" pref="45" max="-2" attributes="1"/>
+                                  <Component id="CoringType1" alignment="0" min="-2" pref="45" max="-2" attributes="1"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="CoringSet" min="-2" pref="48" max="-2" attributes="0"/>
+                                  <Component id="CoringSet1" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="ExperimentalLabel" pref="227" max="32767" attributes="3"/>
+                              <Component id="ExperimentalLabel" pref="242" max="32767" attributes="3"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
@@ -1321,13 +1367,20 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="CoringLabel" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="CoringValueTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="CoringValueYTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="CoringType" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="CoringSet" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="HITSettings" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="CoringLabel1" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="CoringValueCTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="CoringType1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="CoringSet1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="HITSettings" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1342,11 +1395,11 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Coring"/>
+                <Property name="text" type="java.lang.String" value="Coring Y"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="CoringValueTextField">
+            <Component class="javax.swing.JTextField" name="CoringValueYTextField">
             </Component>
             <Component class="EButton" name="CoringSet">
               <Properties>
@@ -1392,6 +1445,46 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HITSettingsActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EButton(Parent);"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="CoringLabel1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="DejaVu Sans" size="12" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="Coring C"/>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="CoringValueCTextField">
+            </Component>
+            <Component class="EButton" name="CoringType1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="type"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="DejaVu Sans" size="10" style="0"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CoringType1ActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EButton(Parent);"/>
+              </AuxValues>
+            </Component>
+            <Component class="EButton" name="CoringSet1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Set"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CoringSet1ActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EButton(Parent);"/>
