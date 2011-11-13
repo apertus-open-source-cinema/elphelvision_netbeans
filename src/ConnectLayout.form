@@ -219,8 +219,8 @@
             </Component>
             <Component class="EButton" name="VLCButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="VLC"/>
                 <Property name="checked" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="VLC"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="VLCButtonMouseClicked"/>
@@ -254,7 +254,6 @@
                   <Color blue="fe" green="fe" red="fe" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Stereo 3D"/>
-                <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;Enable/Disable Stereo 3D Mode.&lt;br/&gt;&#xa;The Master camera is always the first IP, the slave camera the second IP.&lt;br/&gt;&#xa;&lt;/html&gt;"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Stereo3DButtonMouseClicked"/>
@@ -274,10 +273,10 @@
             </Component>
             <Component class="EButton" name="IP_type">
               <Properties>
-                <Property name="text" type="java.lang.String" value="type"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="DejaVu Sans" size="10" style="0"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="type"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="IP_typeMouseClicked"/>
@@ -288,11 +287,11 @@
             </Component>
             <Component class="EButton" name="IP2_type">
               <Properties>
-                <Property name="text" type="java.lang.String" value="type"/>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="DejaVu Sans" size="10" style="0"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="type"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="IP2_typeMouseClicked"/>
@@ -304,7 +303,6 @@
             <Component class="EButton" name="ConnectButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Connect"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ConnectButtonMouseClicked"/>

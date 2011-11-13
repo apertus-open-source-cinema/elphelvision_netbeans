@@ -48,7 +48,7 @@ import javax.swing.text.StyledDocument;
 public class ElphelVision extends Panel implements ActionListener, Runnable {
 
     //private static final long serialVersionUID = 21L;
-    String AppVersion = "0.57";
+    String AppVersion = "0.58";
     Camera Camera; // class containing all camera specific information
     UserSettings Settings; // class containing user settings
     VLCPlayer VLCPlayer = null; // VLC Video player class dealing with video streaming

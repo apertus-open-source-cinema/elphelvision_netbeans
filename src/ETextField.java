@@ -18,13 +18,10 @@
 -----------------------------------------------------------------------------**/
 
 import java.awt.BasicStroke;
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
@@ -32,11 +29,8 @@ import java.awt.Paint;
 import java.awt.RenderingHints;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.geom.Rectangle2D;
 import javax.swing.Icon;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
-import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 public class ETextField extends JTextField implements java.io.Serializable, FocusListener {
 

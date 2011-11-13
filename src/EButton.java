@@ -29,8 +29,17 @@ import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import net.java.balloontip.BalloonTip;
@@ -173,7 +182,7 @@ public class EButton extends JButton implements java.io.Serializable {
     @Override
     public void setToolTipText(String text) {
         this.ToolTipText = text;
-        
+
         JLabel Tooltiptext = new JLabel(text);
         Tooltiptext.setFont(new Font(Parent.Settings.GetButtonFontName(), this.FontWeight, 10));
         BalloonTipStyle style = new MinimalBalloonStyle(new Color(210, 210, 210), 4);
@@ -348,9 +357,42 @@ public class EButton extends JButton implements java.io.Serializable {
             }
             g2.drawString(this.getText(), textx, texty);
         }
+
         // Draw the Icon Image
-        if (this.getIcon() != null) {
-            this.getIcon().paintIcon(this, g2, (int) (getWidth() / 2 - this.getIcon().getIconWidth() / 2), (int) (getHeight() / 2 - this.getIcon().getIconHeight() / 2));
+        if (this.getIconImage() != null) {
+            //this.getIcon().paintIcon(this, g2, (int) (getWidth() / 2 - this.getIcon().getIconWidth() / 2), (int) (getHeight() / 2 - this.getIcon().getIconHeight() / 2));
+            //setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/rgb.png")));
+
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(this.getIconImage());
+                int w = img.getWidth(null);
+                int h = img.getHeight(null);
+                BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+                Graphics gbi = bi.getGraphics();
+                gbi.drawImage(img, 0, 0, null);
+
+                float[] scales = {1f, 1f, 1f, 1f};
+                float[] scales_highlighted = {1f, 1f, 1f, 1f};
+                DefaultBorderColorHighlighted.getComponents(scales_highlighted);
+                float[] scales_checked = {0f, 0f, 0f, 1f};
+                float[] offsets = {0f, 0f, 0f, 0f};
+
+                RescaleOp rop = null;
+
+                // tint image depending on state
+                if (this.isHighlighted()) {
+                    rop = new RescaleOp(scales_highlighted, offsets, null);
+                } else if (this.isChecked()) {
+                    rop = new RescaleOp(scales_checked, offsets, null);
+                }
+
+                // draw at center (hardcoded for now)
+                g2.drawImage(bi, rop, this.getWidth() / 2 - w / 2, this.getHeight() / 2 - h / 2);
+            } catch (IOException ex) {
+                Parent.WriteErrortoConsole(this.getIconImage().getPath() + " not found!");
+                Logger.getLogger(EButton.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         //Draw Additional Value
         if (this.AdditionalValue != null) {
@@ -360,6 +402,15 @@ public class EButton extends JButton implements java.io.Serializable {
 
         // We do this all ourselves now so no need to call:
         //super.paint(g);
+    }
+    URL IconPath = null;
+
+    public void setIconImage(URL icon) {
+        this.IconPath = icon;
+    }
+
+    public URL getIconImage() {
+        return this.IconPath;
     }
 
     public boolean isHighlighted() {

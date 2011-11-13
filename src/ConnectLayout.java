@@ -62,6 +62,8 @@ public class ConnectLayout extends javax.swing.JPanel {
                         VLCButton.setChecked(false);
                         GstreamerButton.setChecked(true);
                     }
+                    
+                    //WBDaylight.setIconImage(getClass().getClassLoader().getResource("/media/wb_daylight.png"));
 
                     //Title.setText("Elphel Vision Alpha V" + Parent.GetAppVersion());
 //                    AnimationPanel.addGLEventListener(new JoglIntroAnimation());
@@ -232,8 +234,8 @@ public class ConnectLayout extends javax.swing.JPanel {
         Camera1IPLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Camera1IPLabel.setText("Camera IP: ");
 
-        VLCButton.setText("VLC");
         VLCButton.setChecked(true);
+        VLCButton.setText("VLC");
         VLCButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 VLCButtonMouseClicked(evt);
@@ -252,7 +254,6 @@ public class ConnectLayout extends javax.swing.JPanel {
 
         Stereo3DButton.setBackground(new java.awt.Color(254, 254, 254));
         Stereo3DButton.setText("Stereo 3D");
-        Stereo3DButton.setToolTipText("<html>\nEnable/Disable Stereo 3D Mode.<br/>\nThe Master camera is always the first IP, the slave camera the second IP.<br/>\n</html>");
         Stereo3DButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Stereo3DButtonMouseClicked(evt);
@@ -263,17 +264,17 @@ public class ConnectLayout extends javax.swing.JPanel {
         CameraIP2.setEnabled(false);
         CameraIP2.setMargin(new java.awt.Insets(0, 4, 0, 0));
 
-        IP_type.setText("type");
         IP_type.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        IP_type.setText("type");
         IP_type.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 IP_typeMouseClicked(evt);
             }
         });
 
-        IP2_type.setText("type");
         IP2_type.setEnabled(false);
         IP2_type.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        IP2_type.setText("type");
         IP2_type.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 IP2_typeMouseClicked(evt);
@@ -281,7 +282,6 @@ public class ConnectLayout extends javax.swing.JPanel {
         });
 
         ConnectButton.setText("Connect");
-        ConnectButton.setToolTipText("");
         ConnectButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ConnectButtonMouseClicked(evt);
